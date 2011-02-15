@@ -5,7 +5,8 @@
 //-----------------------------------------------------------------------------
 // Based on the WinFormsContentLoading sample by Microsoft
 //-----------------------------------------------------------------------------
-// Extract takes from 3D model files and save them in to separate files
+// Extract takes from 3D model files and save them in to separate files.
+// Prepare the model file for use in my game including editing the bounding shapes
 //-----------------------------------------------------------------------------
 // Originally designed because the Autodesk FBX importer included with XNA 4.0 
 // only supports one animation (take) per file.
@@ -137,6 +138,17 @@ using System.Windows.Forms;
 // - Use a config file to convert multiple animations in to animationClip format
 // - Show a floor
 //-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// TODO:
+//-----------------------------------------------------------------------------
+// - Rename the project to 3D Model Prep
+// - Load game model files
+// - Save game model files
+// - View animated model bounds
+// - View rigid model bounds
+// - Edit animated model bounds
+// - Edit rigid model bounds
 
 
 //-----------------------------------------------------------------------------
