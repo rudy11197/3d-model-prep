@@ -12,7 +12,7 @@ using System;
 using System.Collections.Generic;
 #endregion
 
-namespace Extractor
+namespace Engine
 {
     /// <summary>
     /// Container class implements the IServiceProvider interface. This is used

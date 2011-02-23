@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Take Extractor")]
-[assembly: AssemblyDescription("Extract the animations from 3D model files in to separate files")]
+[assembly: AssemblyTitle("3D Model Prep")]
+[assembly: AssemblyDescription("Prepare 3D models for use in games created with XNA")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Open Source")]
-[assembly: AssemblyProduct("TakeExtractor")]
+[assembly: AssemblyProduct("3DModelPrep")]
 [assembly: AssemblyCopyright("MIT License")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

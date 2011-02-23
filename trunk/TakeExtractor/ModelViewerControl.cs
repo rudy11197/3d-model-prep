@@ -19,7 +19,7 @@ using AssetData;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
 #endregion
 
-namespace Extractor
+namespace Engine
 {
     /// <summary>
     /// Example control inherits from GraphicsDeviceControl, and displays

@@ -18,7 +18,7 @@ using Microsoft.Build.Execution;
 using Microsoft.Build.Framework;
 #endregion
 
-namespace Extractor
+namespace Engine
 {
     /// <summary>
     /// This class wraps the MSBuild functionality needed to build XNA Framework

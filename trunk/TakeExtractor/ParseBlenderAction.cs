@@ -14,7 +14,7 @@ using Microsoft.Xna.Framework.Graphics;
 using AssetData;
 #endregion
 
-namespace Extractor
+namespace Engine
 {
     public class ParseBlenderAction
     {

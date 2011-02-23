@@ -8,8 +8,8 @@
     <ProjectGuid>{0679C323-EC65-40FA-854A-780F1FE4A00B}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Extractor</RootNamespace>
-    <AssemblyName>TakeExtractor</AssemblyName>
+    <RootNamespace>Engine</RootNamespace>
+    <AssemblyName>3DModelPrep</AssemblyName>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
@@ -76,6 +76,7 @@
   <ItemGroup>
     <Compile Include="AnimationPlayer.cs" />
     <Compile Include="ContentBuilder.cs" />
+    <Compile Include="DiabolicalModel.cs" />
     <Compile Include="ErrorLogger.cs" />
     <Compile Include="GlobalSettings.cs" />
     <Compile Include="MainForm.cs">
