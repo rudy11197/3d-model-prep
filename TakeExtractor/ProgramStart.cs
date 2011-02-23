@@ -142,7 +142,7 @@ using System.Windows.Forms;
 //-----------------------------------------------------------------------------
 // TODO:
 //-----------------------------------------------------------------------------
-// - Rename the project to 3D Model Prep
+// - Add a Model menu
 // - Load game model files
 // - Save game model files
 // - View animated model bounds
@@ -239,7 +239,7 @@ using System.Windows.Forms;
 #endregion
 
 
-namespace Extractor
+namespace Engine
 {
     /// <summary>
     /// The main entry point for the application.

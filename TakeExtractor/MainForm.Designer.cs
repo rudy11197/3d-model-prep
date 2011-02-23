@@ -1,4 +1,4 @@
-namespace Extractor
+namespace Engine
 {
     partial class MainForm
     {
@@ -54,6 +54,11 @@ namespace Extractor
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.ArrowHeading = new System.Windows.Forms.ToolStripTextBox();
             this.resetViewingPointMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.diabolicalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadmodelFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.savemodelFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.modelPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitFBXMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openTakesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,7 +68,7 @@ namespace Extractor
             this.PoseHeading = new System.Windows.Forms.ToolStripMenuItem();
             this.ClipNamesComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.messageBox = new System.Windows.Forms.TextBox();
-            this.modelViewerControl = new Extractor.ModelViewerControl();
+            this.modelViewerControl = new Engine.ModelViewerControl();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -73,6 +78,7 @@ namespace Extractor
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.viewToolStripMenuItem,
+            this.diabolicalToolStripMenuItem,
             this.ToolsMenuItem,
             this.PoseHeading,
             this.ClipNamesComboBox});
@@ -309,6 +315,43 @@ namespace Extractor
             this.resetViewingPointMenu.Text = "Reset Viewing Point";
             this.resetViewingPointMenu.Click += new System.EventHandler(this.resetViewingPoint_Click);
             // 
+            // diabolicalToolStripMenuItem
+            // 
+            this.diabolicalToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.loadmodelFileToolStripMenuItem,
+            this.savemodelFileToolStripMenuItem,
+            this.toolStripSeparator7,
+            this.modelPropertiesToolStripMenuItem});
+            this.diabolicalToolStripMenuItem.Name = "diabolicalToolStripMenuItem";
+            this.diabolicalToolStripMenuItem.Size = new System.Drawing.Size(71, 23);
+            this.diabolicalToolStripMenuItem.Text = "Diabolical";
+            // 
+            // loadmodelFileToolStripMenuItem
+            // 
+            this.loadmodelFileToolStripMenuItem.Name = "loadmodelFileToolStripMenuItem";
+            this.loadmodelFileToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.loadmodelFileToolStripMenuItem.Text = "Load .model File...";
+            this.loadmodelFileToolStripMenuItem.Click += new System.EventHandler(this.loadmodelFileToolStripMenuItem_Click);
+            // 
+            // savemodelFileToolStripMenuItem
+            // 
+            this.savemodelFileToolStripMenuItem.Name = "savemodelFileToolStripMenuItem";
+            this.savemodelFileToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.savemodelFileToolStripMenuItem.Text = "Save .model File...";
+            this.savemodelFileToolStripMenuItem.Click += new System.EventHandler(this.savemodelFileToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(167, 6);
+            // 
+            // modelPropertiesToolStripMenuItem
+            // 
+            this.modelPropertiesToolStripMenuItem.Name = "modelPropertiesToolStripMenuItem";
+            this.modelPropertiesToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.modelPropertiesToolStripMenuItem.Text = "Model Properties";
+            this.modelPropertiesToolStripMenuItem.Click += new System.EventHandler(this.modelPropertiesToolStripMenuItem_Click);
+            // 
             // ToolsMenuItem
             // 
             this.ToolsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -415,7 +458,7 @@ namespace Extractor
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
-            this.Text = "Take Extractor __ [John C Brown http://www.MistyManor.co.uk]";
+            this.Text = "3D Model Prep  __  [John C Brown http://www.MistyManor.co.uk]";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -461,6 +504,11 @@ namespace Extractor
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripMenuItem resetViewingPointMenu;
         private System.Windows.Forms.ToolStripTextBox ArrowHeading;
+        private System.Windows.Forms.ToolStripMenuItem diabolicalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadmodelFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem savemodelFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private System.Windows.Forms.ToolStripMenuItem modelPropertiesToolStripMenuItem;
 
     }
 }

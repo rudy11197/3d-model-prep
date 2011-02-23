@@ -14,7 +14,7 @@ using Microsoft.Xna.Framework;
 using AssetData;
 #endregion
 
-namespace Extractor
+namespace Engine
 {
     /// <summary>
     /// The animation player is in charge of decoding bone position

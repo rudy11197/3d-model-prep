@@ -19,7 +19,7 @@ using Microsoft.Xna.Framework.Graphics;
 using AssetData;
 #endregion
 
-namespace Extractor
+namespace Engine
 {
     /// <summary>
     /// Custom form provides the main user interface for the program.
@@ -34,7 +34,13 @@ namespace Extractor
         private ContentManager contentPersistent;
 
         private string contentFolder = "";
+        
         private string defaultFileFolder = "";
+        public string DefaultFileFolder
+        {
+            get { return defaultFileFolder; }
+        }
+
         private string lastLoadedFile = "";
 
         private string rotateX = "0";
@@ -44,6 +50,8 @@ namespace Extractor
         private Dictionary<string, AnimationClip> loadedClips = new Dictionary<string,AnimationClip>();
         private List<string> clipNames = new List<string>();
         private string currentClipName = "";
+
+        private DiabolicalModel diabolical;
 
         /// <summary>
         /// Constructs the main form.
@@ -64,12 +72,15 @@ namespace Extractor
             defaultFileFolder = GetSavePath();
             contentFolder = GetContentFolder();
 
+            // Used for loading, saving and setting the properties of models for using in Diabolical:The Shooter
+            diabolical = new DiabolicalModel(this);
+
             /// Automatically bring up the "Load Model" dialog when we are first shown.
             //this.Shown += OpenModelMenuClicked;
             
         }
 
-        private string GetSavePath()
+        public string GetSavePath()
         {
             string result = Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
                 GlobalSettings.pathSaveGameFolder, GlobalSettings.pathSaveDataFolder);
@@ -1071,6 +1082,26 @@ namespace Extractor
 
             Cursor = Cursors.Arrow;
         }
+
+        //////////////////////////////////////////////////////////////////////
+        // == Diabolical Menu Actions ==
+        //
+        private void loadmodelFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            diabolical.LoadDialogue();
+        }
+
+        private void savemodelFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            diabolical.SaveDialogue();
+        }
+
+        private void modelPropertiesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // TODO:
+        }
+        //
+        //////////////////////////////////////////////////////////////////////
 
     }
 }

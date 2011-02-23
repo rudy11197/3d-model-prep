@@ -9,7 +9,7 @@
 using System;
 #endregion
 
-namespace Extractor
+namespace Engine
 {
     public static class GlobalSettings
     {
