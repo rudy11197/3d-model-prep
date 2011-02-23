@@ -51,7 +51,7 @@ namespace Engine
         private List<string> clipNames = new List<string>();
         private string currentClipName = "";
 
-        private DiabolicalModel diabolical;
+        private DiabolicalData diabolical;
 
         /// <summary>
         /// Constructs the main form.
@@ -73,7 +73,7 @@ namespace Engine
             contentFolder = GetContentFolder();
 
             // Used for loading, saving and setting the properties of models for using in Diabolical:The Shooter
-            diabolical = new DiabolicalModel(this);
+            diabolical = new DiabolicalData(this);
 
             /// Automatically bring up the "Load Model" dialog when we are first shown.
             //this.Shown += OpenModelMenuClicked;
