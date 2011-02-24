@@ -20,7 +20,7 @@ namespace Engine
     /// <summary>
     /// For editing the properties and bounds of models used in Diabolical:The Shooter
     /// </summary>
-    class DiabolicalData
+    class DiabolicalManager
     {
         MainForm main;
         string lastLoadedFile = "";
@@ -28,7 +28,7 @@ namespace Engine
         DiabolicalModel model;
 
 
-        public DiabolicalData(MainForm parent)
+        public DiabolicalManager(MainForm parent)
         {
             main = parent;
             model = new DiabolicalModel();

@@ -77,7 +77,7 @@
   <ItemGroup>
     <Compile Include="AnimationPlayer.cs" />
     <Compile Include="ContentBuilder.cs" />
-    <Compile Include="DiabolicalData.cs" />
+    <Compile Include="DiabolicalManager.cs" />
     <Compile Include="DiabolicalModel.cs" />
     <Compile Include="ErrorLogger.cs" />
     <Compile Include="GlobalSettings.cs" />
