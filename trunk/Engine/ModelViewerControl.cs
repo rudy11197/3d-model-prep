@@ -99,6 +99,9 @@ namespace Engine
         TimeSpan currentTime;
         TimeSpan elapsedGameTime;
 
+        //////////////////////////////////////////////////////////////////////
+        // == Change ==
+        //
         /// <summary>
         /// Set the model and return any error messages
         /// </summary>
@@ -222,21 +225,12 @@ namespace Engine
             distanceFraction = 1.0f;
             rotationAngle = 0;
         }
+        //
+        //////////////////////////////////////////////////////////////////////
 
-        /// <summary>
-        /// Initializes the control.
-        /// </summary>
-        protected override void Initialize()
-        {
-            // Start the animation timer.
-            timer = Stopwatch.StartNew();
-            currentTime = timer.Elapsed;
-            previousTime = currentTime;
-
-            // Hook the idle event to constantly redraw our animation.
-            Application.Idle += delegate { Invalidate(); };
-        }
-
+        //////////////////////////////////////////////////////////////////////
+        // == Game ==
+        //
         /// <summary>
         /// Simulated update called prior to the draw method
         /// </summary>
@@ -254,27 +248,45 @@ namespace Engine
             }
         }
 
+        // Try to work on English, German and French keyboards
         private void HandleInput()
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            // Rotate round the model
+            if (Keyboard.GetState().IsKeyDown(Keys.Right) || Keyboard.GetState().IsKeyDown(Keys.D))
             {
                 rotationAngle -= ((float)elapsedGameTime.TotalSeconds * rotateRadiansPerSec);
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.Left))
+            else if (Keyboard.GetState().IsKeyDown(Keys.Left) || Keyboard.GetState().IsKeyDown(Keys.A) || Keyboard.GetState().IsKeyDown(Keys.Q))
             {
                 rotationAngle += ((float)elapsedGameTime.TotalSeconds * rotateRadiansPerSec);
             }
 
+            // Rotate up down round the model
             if (Keyboard.GetState().IsKeyDown(Keys.Up))
+            {
+                //rotationDown -= ((float)elapsedGameTime.TotalSeconds * rotateRadiansPerSec);
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.Down))
+            {
+                //rotationDown += ((float)elapsedGameTime.TotalSeconds * rotateRadiansPerSec);
+            }
+            
+            // Zoom
+            if (Keyboard.GetState().IsKeyDown(Keys.W) || Keyboard.GetState().IsKeyDown(Keys.Z))
             {
                 distanceFraction -= ((float)elapsedGameTime.TotalSeconds * movePerSec);
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.Down))
+            else if (Keyboard.GetState().IsKeyDown(Keys.S))
             {
                 distanceFraction += ((float)elapsedGameTime.TotalSeconds * movePerSec);
             }
         }
+        //
+        //////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////
+        // == Display ==
+        //
         /// <summary>
         /// Draws the control.
         /// </summary>
@@ -424,7 +436,25 @@ namespace Engine
                 mesh.Draw();
             }
         }
+        //
+        //////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////
+        // == Setup ==
+        //
+        /// <summary>
+        /// Initializes the control.
+        /// </summary>
+        protected override void Initialize()
+        {
+            // Start the animation timer.
+            timer = Stopwatch.StartNew();
+            currentTime = timer.Elapsed;
+            previousTime = currentTime;
+
+            // Hook the idle event to constantly redraw our animation.
+            Application.Idle += delegate { Invalidate(); };
+        }
 
         /// <summary>
         /// Whenever a new model is selected, we examine it to see how big
@@ -471,5 +501,8 @@ namespace Engine
                 modelRadius = Math.Max(modelRadius,  meshRadius);
             }
         }
+        //
+        //////////////////////////////////////////////////////////////////////
+
     }
 }
