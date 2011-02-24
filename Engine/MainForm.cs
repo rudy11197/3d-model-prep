@@ -1100,6 +1100,12 @@ namespace Engine
         {
             // TODO:
         }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            HelpForm help = new HelpForm();
+            help.ShowDialog();
+        }
         //
         //////////////////////////////////////////////////////////////////////
 

@@ -142,7 +142,8 @@ using System.Windows.Forms;
 //-----------------------------------------------------------------------------
 // TODO:
 //-----------------------------------------------------------------------------
-// - Add a Model menu
+// - Add up and down arrow keys to rotate up and down round the model
+// - View Model properties
 // - Load game model files
 // - Save game model files
 // - View animated model bounds
