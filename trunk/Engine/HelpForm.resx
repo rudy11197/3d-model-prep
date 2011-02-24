@@ -119,7 +119,7 @@
   </resheader>
   <data name="labelNavigation.Text" xml:space="preserve">
     <value>Use typical first person controls.  Should be comfortable with English, French and German keyboards.
-Use the arrow keys or A, Q or D to move the camera round the model and the arrow keys to rotate up and down.
+Use the arrow keys to move the camera round the model.
 Use W, Z and S to zoom closer and further away.
 </value>
   </data>

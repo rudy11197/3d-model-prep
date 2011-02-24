@@ -85,14 +85,16 @@ namespace Engine
         Vector3 modelCentre;
         float modelRadius;
         // Camera movement
+        Vector3 lookAt = Vector3.Zero;
         Vector3 eyePosition = Vector3.Zero;
         Vector3 xAxisSide = Vector3.Zero;
         Vector3 yAxisUp = Vector3.Zero;
         Vector3 zAxisForward = Vector3.Zero;
         // Movement each update X = sideways, Y = up down, Z = forward back
         Vector3 moveDelta = Vector3.Zero;
+        float moveAt = 0;
         // Movement is based on the size of the model
-        private const float defaultMoveFraction = 0.6f;
+        private const float defaultMoveFraction = 1.5f;
         private float currentMoveFraction = defaultMoveFraction;
         public float CurrentMoveFraction
         {
@@ -246,8 +248,10 @@ namespace Engine
             CalculateMoveSpeed();
             //distanceFraction = 1.0f;
             moveDelta = Vector3.Zero;
+            moveAt = 0;
             // Initial viewing location
-            eyePosition = modelCentre;
+            lookAt = modelCentre;
+            eyePosition = lookAt;
             float away = modelRadius * 2;
             float up = modelRadius;
             // Change which way up the model is viewed
@@ -297,12 +301,13 @@ namespace Engine
         private void HandleInput()
         {
             moveDelta = Vector3.Zero;
-            // Sideways
-            if (Keyboard.GetState().IsKeyDown(Keys.Right) || Keyboard.GetState().IsKeyDown(Keys.D))
+            moveAt = 0;
+            // Rotate sideways
+            if (Keyboard.GetState().IsKeyDown(Keys.Right))
             {
                 moveDelta.X = ((float)elapsedGameTime.TotalSeconds * movePerSec) * -1;
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.Left) || Keyboard.GetState().IsKeyDown(Keys.A) || Keyboard.GetState().IsKeyDown(Keys.Q))
+            else if (Keyboard.GetState().IsKeyDown(Keys.Left))
             {
                 moveDelta.X = ((float)elapsedGameTime.TotalSeconds * movePerSec);
             }
@@ -310,24 +315,37 @@ namespace Engine
             // Up Down
             if (Keyboard.GetState().IsKeyDown(Keys.Up))
             {
-                moveDelta.Y = ((float)elapsedGameTime.TotalSeconds * movePerSec) * -1;
+                moveDelta.Y = ((float)elapsedGameTime.TotalSeconds * movePerSec);
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.Down))
             {
-                moveDelta.Y = ((float)elapsedGameTime.TotalSeconds * movePerSec);
+                moveDelta.Y = ((float)elapsedGameTime.TotalSeconds * movePerSec) * -1;
             }
             
             // Forward Back
             if (Keyboard.GetState().IsKeyDown(Keys.W) || Keyboard.GetState().IsKeyDown(Keys.Z))
             {
-                moveDelta.Z = ((float)elapsedGameTime.TotalSeconds * movePerSec) * -1;
+                moveDelta.Z = ((float)elapsedGameTime.TotalSeconds * movePerSec);
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.S))
             {
-                moveDelta.Z = ((float)elapsedGameTime.TotalSeconds * movePerSec);
+                moveDelta.Z = ((float)elapsedGameTime.TotalSeconds * movePerSec) * -1;
             }
+
+            // Move lookAt Sideways
+            /*
+            if (Keyboard.GetState().IsKeyDown(Keys.D))
+            {
+                moveAt = ((float)elapsedGameTime.TotalSeconds * movePerSec) * -1;
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.A) || Keyboard.GetState().IsKeyDown(Keys.Q))
+            {
+                moveAt = ((float)elapsedGameTime.TotalSeconds * movePerSec);
+            }
+             * */
             CalculateAxes();
             CalculateCameraPosition();
+            //CalculateLookAt();
         }
 
         private void CalculateCameraPosition()
@@ -337,10 +355,16 @@ namespace Engine
             eyePosition += zAxisForward * moveDelta.Z;
         }
 
+        // Does not work, does and odd rotation!
+        private void CalculateLookAt()
+        {
+            lookAt += xAxisSide * moveAt;
+        }
+
         private void CalculateAxes()
         {
             // Relative to the current look direction
-            zAxisForward = Vector3.Normalize(modelCentre - eyePosition);
+            zAxisForward = Vector3.Normalize(lookAt - eyePosition);
             // Change which way up the model is viewed
             if (viewUp == 3)
             {
@@ -402,7 +426,7 @@ namespace Engine
 
                 // Compute camera matrices.
                 world = Matrix.Identity;
-                view = Matrix.CreateLookAt(eyePosition, modelCentre, yAxisUp);
+                view = Matrix.CreateLookAt(eyePosition, lookAt, yAxisUp);
                 projection = Matrix.CreatePerspectiveFieldOfView(1, aspectRatio, nearClip, farClip);
 
                 // Set states ready for 3D
