@@ -35,37 +35,37 @@ namespace Engine
         {
             get { return model; }
         }
-        Model model;
-        AnimationPlayer animationPlayer;
+        private Model model;
+        private AnimationPlayer animationPlayer;
 
         // Animations
         public List<string> ClipNames
         {
             get { return clipNames; }
         }
-        List<string> clipNames = new List<string>();
+        private List<string> clipNames = new List<string>();
 
         public bool IsAnimated
         {
             get { return isAnimated; }
             set { isAnimated = value; }
         }
-
-        bool isAnimated = false;
+        private bool isAnimated = false;
 
         public Model Floor
         {
             get { return floor; }
         }
-        Model floor;
+        private Model floor;
 
         private bool showFloor = false;
-        Vector3 floorCentre = Vector3.Zero;
-        float floorRadius = 30;
+        private Vector3 floorCentre = Vector3.Zero;
+        private float floorRadius = 30;
 
         /// <summary>
-        /// 1 = Y Up
-        /// 2 = Z Up
+        /// Which way up the camera is
+        /// 1 = Y Up (XNA)
+        /// 2 = Z Up (Blender)
         /// 3 = Z Down
         /// </summary>
         public int ViewUp
@@ -73,8 +73,7 @@ namespace Engine
             get { return viewUp; }
             set { viewUp = value; }
         }
-
-        int viewUp = 1;
+        private int viewUp = 1;
 
         // Used every frame
         Matrix world = Matrix.Identity;
@@ -85,14 +84,29 @@ namespace Engine
         Matrix[] boneTransforms;
         Vector3 modelCentre;
         float modelRadius;
+        // Camera movement
+        Vector3 eyePosition = Vector3.Zero;
+        Vector3 xAxisSide = Vector3.Zero;
+        Vector3 yAxisUp = Vector3.Zero;
+        Vector3 zAxisForward = Vector3.Zero;
+        // Movement each update X = sideways, Y = up down, Z = forward back
+        Vector3 moveDelta = Vector3.Zero;
+        // Movement is based on the size of the model
+        private const float defaultMoveFraction = 0.6f;
+        private float currentMoveFraction = defaultMoveFraction;
+        public float CurrentMoveFraction
+        {
+            get { return currentMoveFraction; }
+            set 
+            { 
+                currentMoveFraction = value;
+                CalculateMoveSpeed();
+            }
+        }
+        // The default movemet is multiplied by the radius of the model bounds
+        private float movePerSec = defaultMoveFraction;
 
-        // Move the model view
-        float rotationAngle = 0;
-        const float rotateRadiansPerSec = 1.0f;
-        float distanceFraction = 1.0f;
-        const float movePerSec = 0.2f;
-
-        // Timer controls the rotation speed.
+        // Timer controls the movement speed.
         Stopwatch timer;
         // Keep track of elapsed time
         TimeSpan previousTime;
@@ -150,6 +164,7 @@ namespace Engine
                 }
 
             }
+            ResetViewingPoint();
             return result;
         }
 
@@ -220,10 +235,40 @@ namespace Engine
             return showFloor;
         }
 
+        private void CalculateMoveSpeed()
+        {
+            // The movement speed is based on the size of the model
+            movePerSec = modelRadius * defaultMoveFraction;
+        }
+
         public void ResetViewingPoint()
         {
-            distanceFraction = 1.0f;
-            rotationAngle = 0;
+            CalculateMoveSpeed();
+            //distanceFraction = 1.0f;
+            moveDelta = Vector3.Zero;
+            // Initial viewing location
+            eyePosition = modelCentre;
+            float away = modelRadius * 2;
+            float up = modelRadius;
+            // Change which way up the model is viewed
+            if (viewUp == 3)
+            {
+                // Z Down
+                eyePosition.Y += away;
+                eyePosition.Z += up;
+            }
+            else if (viewUp == 2)
+            {
+                // Z Up (Blender default)
+                eyePosition.Y += away;
+                eyePosition.Z += up;
+            }
+            else
+            {
+                // XNA Default
+                eyePosition.Z += away;
+                eyePosition.Y += up;
+            }
         }
         //
         //////////////////////////////////////////////////////////////////////
@@ -251,35 +296,86 @@ namespace Engine
         // Try to work on English, German and French keyboards
         private void HandleInput()
         {
-            // Rotate round the model
+            moveDelta = Vector3.Zero;
+            // Sideways
             if (Keyboard.GetState().IsKeyDown(Keys.Right) || Keyboard.GetState().IsKeyDown(Keys.D))
             {
-                rotationAngle -= ((float)elapsedGameTime.TotalSeconds * rotateRadiansPerSec);
+                moveDelta.X = ((float)elapsedGameTime.TotalSeconds * movePerSec) * -1;
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.Left) || Keyboard.GetState().IsKeyDown(Keys.A) || Keyboard.GetState().IsKeyDown(Keys.Q))
             {
-                rotationAngle += ((float)elapsedGameTime.TotalSeconds * rotateRadiansPerSec);
+                moveDelta.X = ((float)elapsedGameTime.TotalSeconds * movePerSec);
             }
 
-            // Rotate up down round the model
+            // Up Down
             if (Keyboard.GetState().IsKeyDown(Keys.Up))
             {
-                //rotationDown -= ((float)elapsedGameTime.TotalSeconds * rotateRadiansPerSec);
+                moveDelta.Y = ((float)elapsedGameTime.TotalSeconds * movePerSec) * -1;
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.Down))
             {
-                //rotationDown += ((float)elapsedGameTime.TotalSeconds * rotateRadiansPerSec);
+                moveDelta.Y = ((float)elapsedGameTime.TotalSeconds * movePerSec);
             }
             
-            // Zoom
+            // Forward Back
             if (Keyboard.GetState().IsKeyDown(Keys.W) || Keyboard.GetState().IsKeyDown(Keys.Z))
             {
-                distanceFraction -= ((float)elapsedGameTime.TotalSeconds * movePerSec);
+                moveDelta.Z = ((float)elapsedGameTime.TotalSeconds * movePerSec) * -1;
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.S))
             {
-                distanceFraction += ((float)elapsedGameTime.TotalSeconds * movePerSec);
+                moveDelta.Z = ((float)elapsedGameTime.TotalSeconds * movePerSec);
             }
+            CalculateAxes();
+            CalculateCameraPosition();
+        }
+
+        private void CalculateCameraPosition()
+        {
+            eyePosition += xAxisSide * moveDelta.X;
+            eyePosition += yAxisUp * moveDelta.Y;
+            eyePosition += zAxisForward * moveDelta.Z;
+        }
+
+        private void CalculateAxes()
+        {
+            // Relative to the current look direction
+            zAxisForward = Vector3.Normalize(modelCentre - eyePosition);
+            // Change which way up the model is viewed
+            if (viewUp == 3)
+            {
+                // Z Down
+                yAxisUp = Vector3.Forward;
+            }
+            else if (viewUp == 2)
+            {
+                // Z Up (Blender default)
+                yAxisUp = Vector3.Backward;
+            }
+            else
+            {
+                // XNA Default
+                yAxisUp = Vector3.Up;
+            }
+            xAxisSide = Vector3.Normalize(Vector3.Cross(yAxisUp, zAxisForward));
+        }
+
+        /// <summary>
+        /// Returns the angle expressed in radians between -Pi and Pi.
+        /// <param name="radians">the angle to wrap, in radians.</param>
+        /// <returns>the input value expressed in radians from -Pi to Pi.</returns>
+        /// </summary>
+        public static float WrapAngle(float radians)
+        {
+            while (radians < -MathHelper.Pi)
+            {
+                radians += MathHelper.TwoPi;
+            }
+            while (radians > MathHelper.Pi)
+            {
+                radians -= MathHelper.TwoPi;
+            }
+            return radians;
         }
         //
         //////////////////////////////////////////////////////////////////////
@@ -297,7 +393,6 @@ namespace Engine
 
             GraphicsDevice.Clear(backColor);
             float aspectRatio = GraphicsDevice.Viewport.AspectRatio;
-            float rotation = rotationAngle;
 
             if (model != null)
             {
@@ -306,37 +401,8 @@ namespace Engine
                 float farClip = modelRadius * 100;
 
                 // Compute camera matrices.
-
-                Vector3 eyePosition = modelCentre;
-
-                float away = modelRadius * 2 * distanceFraction;
-                float up = modelRadius;
-
-                // Change which way up the model is viewed
-                if (viewUp == 3)
-                {
-                    // Z Down
-                    eyePosition.Y += away;
-                    eyePosition.Z += up;
-                    world = Matrix.CreateRotationZ(rotation);
-                    view = Matrix.CreateLookAt(eyePosition, modelCentre, Vector3.Forward);
-                }
-                else if (viewUp == 2)
-                {
-                    // Z Up (Blender default)
-                    eyePosition.Y += away;
-                    eyePosition.Z += up;
-                    world = Matrix.CreateRotationZ(rotation);
-                    view = Matrix.CreateLookAt(eyePosition, modelCentre, Vector3.Backward);
-                }
-                else
-                {
-                    // XNA Default
-                    eyePosition.Z += away;
-                    eyePosition.Y += up;
-                    world = Matrix.CreateRotationY(rotation);
-                    view = Matrix.CreateLookAt(eyePosition, modelCentre, Vector3.Up);
-                }
+                world = Matrix.Identity;
+                view = Matrix.CreateLookAt(eyePosition, modelCentre, yAxisUp);
                 projection = Matrix.CreatePerspectiveFieldOfView(1, aspectRatio, nearClip, farClip);
 
                 // Set states ready for 3D
@@ -356,7 +422,7 @@ namespace Engine
                 {
                     // Change the size of the floor based on the model size
                     float scale = modelRadius / floorRadius;
-                    world = Matrix.CreateRotationY(rotation) * Matrix.CreateScale(scale);
+                    world = Matrix.CreateScale(scale);
                     DrawRigid(world, view, projection, floor);
                 }
             }

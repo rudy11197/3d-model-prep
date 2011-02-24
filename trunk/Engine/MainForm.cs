@@ -1106,6 +1106,17 @@ namespace Engine
             HelpForm help = new HelpForm();
             help.ShowDialog();
         }
+
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OptionsForm options = new OptionsForm();
+            options.MovementSpeed = modelViewerControl.CurrentMoveFraction;
+            DialogResult diagResult = options.ShowDialog();
+            if (diagResult == DialogResult.OK)
+            {
+                modelViewerControl.CurrentMoveFraction = options.MovementSpeed;
+            }
+        }
         //
         //////////////////////////////////////////////////////////////////////
 

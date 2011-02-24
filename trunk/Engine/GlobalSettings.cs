@@ -26,7 +26,7 @@ namespace Engine
         public const string fileFloor = "grid.fbx"; // The local path to the content
         public const string timeFormat = "yyyymmddhhmmss";  // Names that need to be unique
         public const string pathSaveGameFolder = "SavedGames";   // Same as the XNA default
-        public const string pathSaveDataFolder = "ExtractTakes";  // used to load and save the results
+        public const string pathSaveDataFolder = "PrepModels";  // used to load and save the results
         public const string fileBoneMap = "BoneMap.txt";    // appended to the model name to save a bonemap
         public const string fileBindPose = "BindPose.txt";    // appended to the model name to save a bind pose
 
