@@ -143,8 +143,6 @@ using System.Windows.Forms;
 // TODO:
 //-----------------------------------------------------------------------------
 // done - Add up and down arrow keys to rotate up and down round the model
-// - Use the left right arrows to move the point we are looking at
-//      Move the point left or right based on the way we are looking (-xAxisSide)
 // - View Model properties
 // - Load game model files
 // - Save game model files
