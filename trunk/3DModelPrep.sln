@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual C# Express 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TakeExtractor", "TakeExtractor\TakeExtractor.csproj", "{0679C323-EC65-40FA-854A-780F1FE4A00B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelPrep", "TakeExtractor\ModelPrep.csproj", "{0679C323-EC65-40FA-854A-780F1FE4A00B}"
 	ProjectSection(ProjectDependencies) = postProject
 		{9BE01AC7-6736-4FC8-AFD6-B37DC59F869F} = {9BE01AC7-6736-4FC8-AFD6-B37DC59F869F}
 	EndProjectSection
