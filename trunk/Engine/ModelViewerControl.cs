@@ -60,7 +60,10 @@ namespace Engine
 
         private bool showFloor = false;
         private Vector3 floorCentre = Vector3.Zero;
+        private float originalFloorRadius = 30;
+        // Calculated from the scale
         private float floorRadius = 30;
+        private float floorScale = 1.0f;
 
         /// <summary>
         /// Which way up the camera is
@@ -71,7 +74,11 @@ namespace Engine
         public int ViewUp
         {
             get { return viewUp; }
-            set { viewUp = value; }
+            set 
+            { 
+                viewUp = value;
+                InitialiseCameraPosition();
+            }
         }
         private int viewUp = 1;
 
@@ -85,28 +92,26 @@ namespace Engine
         Vector3 modelCentre;
         float modelRadius;
         // Camera movement
-        Vector3 lookAt = Vector3.Zero;
-        Vector3 eyePosition = Vector3.Zero;
-        Vector3 xAxisSide = Vector3.Zero;
-        Vector3 yAxisUp = Vector3.Zero;
-        Vector3 zAxisForward = Vector3.Zero;
-        // Movement each update X = sideways, Y = up down, Z = forward back
-        Vector3 moveDelta = Vector3.Zero;
-        float moveAt = 0;
-        // Movement is based on the size of the model
-        private const float defaultMoveFraction = 1.5f;
-        private float currentMoveFraction = defaultMoveFraction;
-        public float CurrentMoveFraction
+        KeyboardState currentKeyboardState;
+        Vector3 cameraPosition = Vector3.Zero;
+        // Camera Axes calculated before use
+        Vector3 cameraUp = Vector3.Zero;
+        Vector3 cameraForward = Vector3.Zero;
+        // Movement
+        private const float defaultMoveSpeed = 1.0f;
+        private const float defaultTurnSpeed = 1.0f;
+        public float CurrentMoveSpeed
         {
-            get { return currentMoveFraction; }
-            set 
-            { 
-                currentMoveFraction = value;
-                CalculateMoveSpeed();
-            }
+            get { return movePerSec; }
+            set { movePerSec = value; }
         }
-        // The default movemet is multiplied by the radius of the model bounds
-        private float movePerSec = defaultMoveFraction;
+        private float movePerSec = defaultMoveSpeed;
+        public float CurrentTurnSpeed
+        {
+            get { return turnPerSec; }
+            set { turnPerSec = value; }
+        }
+        private float turnPerSec = defaultTurnSpeed;
 
         // Timer controls the movement speed.
         Stopwatch timer;
@@ -114,6 +119,10 @@ namespace Engine
         TimeSpan previousTime;
         TimeSpan currentTime;
         TimeSpan elapsedGameTime;
+
+        // For clearing the screen in the game
+        // This is changed to match the control colour
+        Color gameBackColor = Color.CornflowerBlue;
 
         //////////////////////////////////////////////////////////////////////
         // == Change ==
@@ -129,6 +138,7 @@ namespace Engine
             {
                 model = aModel;
                 MeasureModel();
+                InitialiseCameraPosition();
             }
 
             if (isAnimated)
@@ -166,7 +176,6 @@ namespace Engine
                 }
 
             }
-            ResetViewingPoint();
             return result;
         }
 
@@ -221,6 +230,7 @@ namespace Engine
             if (aModel != null)
             {
                 floor = aModel;
+                InitialiseCameraPosition();
             }
         }
 
@@ -237,42 +247,102 @@ namespace Engine
             return showFloor;
         }
 
-        private void CalculateMoveSpeed()
+        private void CalculateAxes()
         {
-            // The movement speed is based on the size of the model
-            movePerSec = modelRadius * defaultMoveFraction;
-        }
-
-        public void ResetViewingPoint()
-        {
-            CalculateMoveSpeed();
-            //distanceFraction = 1.0f;
-            moveDelta = Vector3.Zero;
-            moveAt = 0;
-            // Initial viewing location
-            lookAt = modelCentre;
-            eyePosition = lookAt;
-            float away = modelRadius * 2;
-            float up = modelRadius;
             // Change which way up the model is viewed
             if (viewUp == 3)
             {
                 // Z Down
-                eyePosition.Y += away;
-                eyePosition.Z += up;
+                cameraUp = Vector3.Forward;
+                cameraForward = Vector3.Down;
             }
             else if (viewUp == 2)
             {
                 // Z Up (Blender default)
-                eyePosition.Y += away;
-                eyePosition.Z += up;
+                cameraUp = Vector3.Backward;
+                cameraForward = Vector3.Up;
             }
             else
             {
                 // XNA Default
-                eyePosition.Z += away;
-                eyePosition.Y += up;
+                cameraUp = Vector3.Up;
+                cameraForward = Vector3.Forward;
             }
+        }
+
+        public void InitialiseCameraPosition()
+        {
+            CalculateAxes();
+            // Initial viewing location
+            cameraPosition = Vector3.Zero;
+            float away = 200;
+            float up = 100;
+            if (model != null)
+            {
+                cameraPosition = modelCentre;
+                away = modelRadius * 2;
+                up = modelRadius;
+            }
+            else if (floor != null)
+            {
+                // Still show the floor even if no model has been loaded
+                cameraPosition = floorCentre;
+                away = floorRadius * 2;
+                up = floorRadius;
+            }
+            // Change which way up the model is viewed
+            if (viewUp == 3)
+            {
+                // Z Down
+                cameraPosition.Y += away;
+                cameraPosition.Z += up;
+            }
+            else if (viewUp == 2)
+            {
+                // Z Up (Blender default)
+                cameraPosition.Y += away;
+                cameraPosition.Z += up;
+            }
+            else
+            {
+                // XNA Default
+                cameraPosition.Z += away;
+                cameraPosition.Y += up;
+            }
+            CalculateProjection();
+            InitialiseLookAt();
+        }
+
+        // Start looking at the model if present
+        private void InitialiseLookAt()
+        {
+            if (model != null)
+            {
+                cameraForward = modelCentre - cameraPosition;
+            }
+            else if (floor != null)
+            {
+                cameraForward = floorCentre - cameraPosition;
+            }
+        }
+
+        private void CalculateProjection()
+        {
+            float aspectRatio = GraphicsDevice.Viewport.AspectRatio;
+            float nearClip = 1;
+            float farClip = 100;
+
+            if (model != null)
+            {
+                nearClip = modelRadius / 100;
+                farClip = modelRadius * 100;
+            }
+            else if (showFloor && floor != null)
+            {
+                nearClip = floorRadius / 100;
+                farClip = floorRadius * 100;
+            }
+            projection = Matrix.CreatePerspectiveFieldOfView(1, aspectRatio, nearClip, farClip);
         }
         //
         //////////////////////////////////////////////////////////////////////
@@ -297,109 +367,87 @@ namespace Engine
             }
         }
 
-        // Try to work on English, German and French keyboards
+        // Support English, German and French keyboards
         private void HandleInput()
         {
-            moveDelta = Vector3.Zero;
-            moveAt = 0;
-            // Rotate sideways
-            if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            currentKeyboardState = Keyboard.GetState();
+
+            float time = (float)elapsedGameTime.TotalMilliseconds;
+
+            // == Rotate ==
+
+            float pitch = 0;
+            float turn = 0;
+            float speed = 0.001f * turnPerSec;
+
+            if (currentKeyboardState.IsKeyDown(Keys.Up))
             {
-                moveDelta.X = ((float)elapsedGameTime.TotalSeconds * movePerSec) * -1;
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.Left))
-            {
-                moveDelta.X = ((float)elapsedGameTime.TotalSeconds * movePerSec);
+                pitch += time * speed;
             }
 
-            // Up Down
-            if (Keyboard.GetState().IsKeyDown(Keys.Up))
+            if (currentKeyboardState.IsKeyDown(Keys.Down))
             {
-                moveDelta.Y = ((float)elapsedGameTime.TotalSeconds * movePerSec);
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.Down))
-            {
-                moveDelta.Y = ((float)elapsedGameTime.TotalSeconds * movePerSec) * -1;
-            }
-            
-            // Forward Back
-            if (Keyboard.GetState().IsKeyDown(Keys.W) || Keyboard.GetState().IsKeyDown(Keys.Z))
-            {
-                moveDelta.Z = ((float)elapsedGameTime.TotalSeconds * movePerSec);
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.S))
-            {
-                moveDelta.Z = ((float)elapsedGameTime.TotalSeconds * movePerSec) * -1;
+                pitch -= time * speed;
             }
 
-            // Move lookAt Sideways
-            /*
-            if (Keyboard.GetState().IsKeyDown(Keys.D))
+            if (currentKeyboardState.IsKeyDown(Keys.Left))
             {
-                moveAt = ((float)elapsedGameTime.TotalSeconds * movePerSec) * -1;
+                turn += time * speed;
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.A) || Keyboard.GetState().IsKeyDown(Keys.Q))
-            {
-                moveAt = ((float)elapsedGameTime.TotalSeconds * movePerSec);
-            }
-             * */
-            CalculateAxes();
-            CalculateCameraPosition();
-            //CalculateLookAt();
-        }
 
-        private void CalculateCameraPosition()
-        {
-            eyePosition += xAxisSide * moveDelta.X;
-            eyePosition += yAxisUp * moveDelta.Y;
-            eyePosition += zAxisForward * moveDelta.Z;
-        }
+            if (currentKeyboardState.IsKeyDown(Keys.Right))
+            {
+                turn -= time * speed;
+            }
 
-        // Does not work, does and odd rotation!
-        private void CalculateLookAt()
-        {
-            lookAt += xAxisSide * moveAt;
-        }
+            Vector3 cameraRight = Vector3.Cross(cameraUp, cameraForward);
+            Vector3 flatFront = Vector3.Cross(cameraRight, cameraUp);
 
-        private void CalculateAxes()
-        {
-            // Relative to the current look direction
-            zAxisForward = Vector3.Normalize(lookAt - eyePosition);
-            // Change which way up the model is viewed
-            if (viewUp == 3)
-            {
-                // Z Down
-                yAxisUp = Vector3.Forward;
-            }
-            else if (viewUp == 2)
-            {
-                // Z Up (Blender default)
-                yAxisUp = Vector3.Backward;
-            }
-            else
-            {
-                // XNA Default
-                yAxisUp = Vector3.Up;
-            }
-            xAxisSide = Vector3.Normalize(Vector3.Cross(yAxisUp, zAxisForward));
-        }
+            Matrix pitchMatrix = Matrix.CreateFromAxisAngle(cameraRight, pitch);
+            Matrix turnMatrix = Matrix.CreateFromAxisAngle(cameraUp, turn);
 
-        /// <summary>
-        /// Returns the angle expressed in radians between -Pi and Pi.
-        /// <param name="radians">the angle to wrap, in radians.</param>
-        /// <returns>the input value expressed in radians from -Pi to Pi.</returns>
-        /// </summary>
-        public static float WrapAngle(float radians)
-        {
-            while (radians < -MathHelper.Pi)
+            Vector3 tiltedFront = Vector3.TransformNormal(cameraForward, pitchMatrix * turnMatrix);
+
+            // Check angle so we cant flip over
+            if (Vector3.Dot(tiltedFront, flatFront) > 0.001f)
             {
-                radians += MathHelper.TwoPi;
+                cameraForward = Vector3.Normalize(tiltedFront);
             }
-            while (radians > MathHelper.Pi)
+
+            // == Move ==
+
+            speed = 0.1f * movePerSec;
+
+            if (currentKeyboardState.IsKeyDown(Keys.W) || Keyboard.GetState().IsKeyDown(Keys.Z))
             {
-                radians -= MathHelper.TwoPi;
+                cameraPosition += cameraForward * time * speed;
             }
-            return radians;
+
+            if (currentKeyboardState.IsKeyDown(Keys.S))
+            {
+                cameraPosition -= cameraForward * time * speed;
+            }
+
+            if (currentKeyboardState.IsKeyDown(Keys.A) || Keyboard.GetState().IsKeyDown(Keys.Q))
+            {
+                cameraPosition += cameraRight * time * speed;
+            }
+
+            if (currentKeyboardState.IsKeyDown(Keys.D))
+            {
+                cameraPosition -= cameraRight * time * speed;
+            }
+
+            if (currentKeyboardState.IsKeyDown(Keys.R))
+            {
+                // Reset view
+                InitialiseCameraPosition();
+            }
+
+            cameraForward.Normalize();
+
+            // Create the new view matrix
+            view = Matrix.CreateLookAt(cameraPosition, cameraPosition + cameraForward, cameraUp);
         }
         //
         //////////////////////////////////////////////////////////////////////
@@ -412,26 +460,15 @@ namespace Engine
         /// </summary>
         protected override void Draw()
         {
-            // Clear to the default control background color.
-            Color backColor = new Color(BackColor.R, BackColor.G, BackColor.B);
+            GraphicsDevice.Clear(gameBackColor);
 
-            GraphicsDevice.Clear(backColor);
-            float aspectRatio = GraphicsDevice.Viewport.AspectRatio;
+            // Set states ready for 3D
+            GraphicsDevice.BlendState = BlendState.Opaque;
+            GraphicsDevice.DepthStencilState = DepthStencilState.Default;
 
             if (model != null)
             {
-
-                float nearClip = modelRadius / 100;
-                float farClip = modelRadius * 100;
-
-                // Compute camera matrices.
                 world = Matrix.Identity;
-                view = Matrix.CreateLookAt(eyePosition, lookAt, yAxisUp);
-                projection = Matrix.CreatePerspectiveFieldOfView(1, aspectRatio, nearClip, farClip);
-
-                // Set states ready for 3D
-                GraphicsDevice.BlendState = BlendState.Opaque;
-                GraphicsDevice.DepthStencilState = DepthStencilState.Default;
 
                 if (isAnimated)
                 {
@@ -444,32 +481,19 @@ namespace Engine
 
                 if (showFloor && floor != null)
                 {
-                    // Change the size of the floor based on the model size
-                    float scale = modelRadius / floorRadius;
-                    world = Matrix.CreateScale(scale);
+                    world = Matrix.CreateScale(floorScale);
                     DrawRigid(world, view, projection, floor);
                 }
             }
             else if (showFloor && floor != null)
             {
-                // Still show the floor even if no model has been loaded
-                float nearClip = floorRadius / 100;
-                float farClip = floorRadius * 100;
-
-                projection = Matrix.CreatePerspectiveFieldOfView(1, aspectRatio, nearClip, farClip);
-
-                Vector3 eyePosition = floorCentre;
-                eyePosition.Z += floorRadius * 2;
-                eyePosition.Y += floorRadius;
                 world = Matrix.CreateTranslation(floorCentre);
-                view = Matrix.CreateLookAt(eyePosition, floorCentre, Vector3.Up);
-
                 DrawRigid(world, view, projection, floor);
             }
 
         }
 
-        private void DrawAnimated(Matrix world, Matrix view, Matrix projection)
+        private void DrawAnimated(Matrix aWorld, Matrix aView, Matrix aProjection)
         {
             Matrix[] bones = animationPlayer.GetSkinTransforms();
 
@@ -481,10 +505,10 @@ namespace Engine
                     effect.SetBoneTransforms(bones);
 
                     // Added to move model
-                    effect.World = boneTransforms[mesh.ParentBone.Index] * world;
+                    effect.World = boneTransforms[mesh.ParentBone.Index] * aWorld;
 
-                    effect.View = view;
-                    effect.Projection = projection;
+                    effect.View = aView;
+                    effect.Projection = aProjection;
 
                     effect.EnableDefaultLighting();
 
@@ -496,7 +520,7 @@ namespace Engine
             }
         }
 
-        private void DrawRigid(Matrix world, Matrix view, Matrix projection, Model aModel)
+        private void DrawRigid(Matrix aWorld, Matrix aView, Matrix aProjection, Model aModel)
         {
             // Draw the model.
             foreach (ModelMesh mesh in aModel.Meshes)
@@ -505,14 +529,14 @@ namespace Engine
                 {
                     if (boneTransforms != null)
                     {
-                        effect.World = boneTransforms[mesh.ParentBone.Index] * world;
+                        effect.World = boneTransforms[mesh.ParentBone.Index] * aWorld;
                     }
                     else
                     {
-                        effect.World = world;
+                        effect.World = aWorld;
                     }
-                    effect.View = view;
-                    effect.Projection = projection;
+                    effect.View = aView;
+                    effect.Projection = aProjection;
 
                     // Add a bit more light to our animated models
                     //effect.EmissiveColor = new Vector3(0.8f, 0.8f, 0.8f);
@@ -544,6 +568,9 @@ namespace Engine
 
             // Hook the idle event to constantly redraw our animation.
             Application.Idle += delegate { Invalidate(); };
+
+            // Get the same background used by the control in a format usable by the game
+            gameBackColor = new Color(BackColor.R, BackColor.G, BackColor.B);
         }
 
         /// <summary>
@@ -551,7 +578,7 @@ namespace Engine
         /// it is and where it is centered. This lets us automatically zoom
         /// the display, so we can correctly handle models of any scale.
         /// </summary>
-        void MeasureModel()
+        private void MeasureModel()
         {
             // Look up the absolute bone transforms for this model.
             boneTransforms = new Matrix[model.Bones.Count];
@@ -590,6 +617,15 @@ namespace Engine
 
                 modelRadius = Math.Max(modelRadius,  meshRadius);
             }
+            AdjustFloorSizes();
+        }
+
+        // Adjust the floor to match the model
+        private void AdjustFloorSizes()
+        {
+            // Change the size of the floor based on the model size
+            floorScale = modelRadius / originalFloorRadius;
+            floorRadius = originalFloorRadius * floorScale;
         }
         //
         //////////////////////////////////////////////////////////////////////

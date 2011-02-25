@@ -142,7 +142,8 @@ using System.Windows.Forms;
 //-----------------------------------------------------------------------------
 // TODO:
 //-----------------------------------------------------------------------------
-// done - Add up and down arrow keys to rotate up and down round the model
+// - Fix camera movement
+//      Use the camera motion from the shadowmapping sample
 // - View Model properties
 // - Load game model files
 // - Save game model files
