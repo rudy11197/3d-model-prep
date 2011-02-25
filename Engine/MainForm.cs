@@ -91,8 +91,9 @@ namespace Engine
             return result;
         }
 
-        // == File
-
+        //////////////////////////////////////////////////////////////////////
+        // == File ==
+        //
         private void OpenRigidModelMenu_Click(object sender, EventArgs e)
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
@@ -296,7 +297,6 @@ namespace Engine
             AddMessageLine("== Finished ==");
         }
 
-
         /// <summary>
         /// Event handler for the Exit menu option.
         /// </summary>
@@ -304,9 +304,12 @@ namespace Engine
         {
             Close();
         }
+        //
+        //////////////////////////////////////////////////////////////////////
 
-        // == View
-
+        //////////////////////////////////////////////////////////////////////
+        // == View and Help ==
+        //
         private void yUp_Click(object sender, EventArgs e)
         {
             yUpMenuItem.Checked = true;
@@ -340,6 +343,15 @@ namespace Engine
             showFloorMenuItem.Checked = !showFloorMenuItem.Checked;
             showFloorMenuItem.Checked = modelViewerControl.ShowFloor(showFloorMenuItem.Checked);
         }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            HelpForm aForm = new HelpForm();
+            aForm.ShowDialog();
+        }
+        //
+        //////////////////////////////////////////////////////////////////////
+
 
         /// <summary>
         /// Call this to enable the various menu items that require an already loaded animated model
@@ -972,7 +984,7 @@ namespace Engine
 
         private void resetViewingPoint_Click(object sender, EventArgs e)
         {
-            modelViewerControl.ResetViewingPoint();
+            modelViewerControl.InitialiseCameraPosition();
         }
 
         private void ClipNamesComboBox_Changed(object sender, EventArgs e)
@@ -1081,6 +1093,7 @@ namespace Engine
             }
 
             Cursor = Cursors.Arrow;
+            AddMessageLine("== Finished ==");
         }
 
         //////////////////////////////////////////////////////////////////////
@@ -1098,23 +1111,24 @@ namespace Engine
 
         private void modelPropertiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // TODO:
-        }
-
-        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            HelpForm help = new HelpForm();
-            help.ShowDialog();
+            ModelProperties aForm = new ModelProperties();
+            DialogResult diagResult = aForm.ShowDialog();
+            if (diagResult == DialogResult.OK)
+            {
+                // Results
+            }
         }
 
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OptionsForm options = new OptionsForm();
-            options.MovementSpeed = modelViewerControl.CurrentMoveFraction;
-            DialogResult diagResult = options.ShowDialog();
+            OptionsForm aForm = new OptionsForm();
+            aForm.MovementSpeed = modelViewerControl.CurrentMoveSpeed;
+            aForm.TurnSpeed = modelViewerControl.CurrentTurnSpeed;
+            DialogResult diagResult = aForm.ShowDialog();
             if (diagResult == DialogResult.OK)
             {
-                modelViewerControl.CurrentMoveFraction = options.MovementSpeed;
+                modelViewerControl.CurrentMoveSpeed = aForm.MovementSpeed;
+                modelViewerControl.CurrentTurnSpeed = aForm.TurnSpeed;
             }
         }
         //

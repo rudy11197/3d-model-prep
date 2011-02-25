@@ -479,7 +479,7 @@ namespace Engine
             // 
             // modelViewerControl
             // 
-            this.modelViewerControl.CurrentMoveFraction = 0.6F;
+            this.modelViewerControl.CurrentMoveSpeed = 0.6F;
             this.modelViewerControl.Dock = System.Windows.Forms.DockStyle.Top;
             this.modelViewerControl.IsAnimated = false;
             this.modelViewerControl.Location = new System.Drawing.Point(0, 24);

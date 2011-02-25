@@ -21,8 +21,14 @@ namespace Engine
         //
         public float MovementSpeed
         {
-            get { return (float)numericSpeed.Value; }
-            set { numericSpeed.Value = (decimal)value; }
+            get { return (float)numericMove.Value; }
+            set { numericMove.Value = (decimal)value; }
+        }
+
+        public float TurnSpeed
+        {
+            get { return (float)numericTurn.Value; }
+            set { numericTurn.Value = (decimal)value; }
         }
         //
         //////////////////////////////////////////////////////////////////////
