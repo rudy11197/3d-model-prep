@@ -328,7 +328,8 @@ namespace Engine
 
         private void CalculateProjection()
         {
-            float aspectRatio = GraphicsDevice.Viewport.AspectRatio;
+            float aspectRatio = 1;
+            aspectRatio = GraphicsDevice.Viewport.AspectRatio;
             float nearClip = 1;
             float farClip = 100;
 
