@@ -142,8 +142,7 @@ using System.Windows.Forms;
 //-----------------------------------------------------------------------------
 // TODO:
 //-----------------------------------------------------------------------------
-// - Fix camera movement
-//      Use the camera motion from the shadowmapping sample
+// - Calculate the aspect ratio when the graphics device is ready then re-calculate the camera as required
 // - View Model properties
 // - Load game model files
 // - Save game model files
