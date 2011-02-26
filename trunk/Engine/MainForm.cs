@@ -7,7 +7,6 @@
 //-----------------------------------------------------------------------------
 #endregion
 
-#region Using Statements
 using System;
 using System.IO;
 using System.Reflection;
@@ -17,7 +16,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using AssetData;
-#endregion
+using AssetContent;
 
 namespace Engine
 {
@@ -31,10 +30,7 @@ namespace Engine
     {
         private ContentBuilder contentBuilder;
         private ContentManager contentManager;
-        private ContentManager contentPersistent;
 
-        private string contentFolder = "";
-        
         private string defaultFileFolder = "";
         public string DefaultFileFolder
         {
@@ -64,20 +60,12 @@ namespace Engine
 
             contentManager = new ContentManager(modelViewerControl.Services,
                                                 contentBuilder.OutputDirectory);
-
-            contentPersistent = new ContentManager(modelViewerControl.Services,
-                                                contentBuilder.OutputDirectory);
-
             // A folder in the users MyDocuments
             defaultFileFolder = GetSavePath();
-            contentFolder = GetContentFolder();
 
             // Used for loading, saving and setting the properties of models for using in Diabolical:The Shooter
             diabolical = new DiabolicalManager(this);
 
-            /// Automatically bring up the "Load Model" dialog when we are first shown.
-            //this.Shown += OpenModelMenuClicked;
-            
         }
 
         public string GetSavePath()
@@ -338,7 +326,8 @@ namespace Engine
         {
             if (modelViewerControl.Floor == null)
             {
-                LoadTheFloor();
+                Loader contentLoad = new Loader(modelViewerControl.Services);
+                modelViewerControl.SetFloor(contentLoad.GetModel("grid"));
             }
             showFloorMenuItem.Checked = !showFloorMenuItem.Checked;
             showFloorMenuItem.Checked = modelViewerControl.ShowFloor(showFloorMenuItem.Checked);
@@ -1056,44 +1045,6 @@ namespace Engine
             return Path.Combine(
                     Environment.CurrentDirectory,
                     GlobalSettings.pathContentFolder);
-        }
-
-        public void LoadTheFloor()
-        {
-            Cursor = Cursors.WaitCursor;
-
-            // Tell the ContentBuilder what to build.
-            contentBuilder.Clear();
-            string fileName = Path.Combine(
-                    contentFolder,
-                    GlobalSettings.fileFloor);
-
-            AddMessageLine("Loading the floor: " + fileName);
-            contentBuilder.AddModel(fileName, "Floor", "0", "0", "0");
-
-            // Build this new model data.
-            string buildError = contentBuilder.Build();
-            string buildWarnings = contentBuilder.Warnings();
-            if (!string.IsNullOrEmpty(buildWarnings))
-            {
-                AddMessageLine(buildWarnings);
-            }
-
-            if (string.IsNullOrEmpty(buildError))
-            {
-                // If the build succeeded, use a different ContentManager to
-                // load the temporary .xnb file that we just created.
-                modelViewerControl.SetFloor(contentPersistent.Load<Model>("Floor"));
-            }
-            else
-            {
-                // If the build failed, display an error message and log it
-                AddMessageLine(buildError);
-                MessageBox.Show(buildError, "Error");
-            }
-
-            Cursor = Cursors.Arrow;
-            AddMessageLine("== Finished ==");
         }
 
         //////////////////////////////////////////////////////////////////////

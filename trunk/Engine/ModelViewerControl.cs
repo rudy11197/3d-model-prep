@@ -86,6 +86,8 @@ namespace Engine
         Matrix world = Matrix.Identity;
         Matrix view = Matrix.Identity;
         Matrix projection = Matrix.Identity;
+        // Calculated
+        float aspectRatio = 1;
 
         // Cache information about the model size and position.
         Matrix[] boneTransforms;
@@ -98,20 +100,18 @@ namespace Engine
         Vector3 cameraUp = Vector3.Zero;
         Vector3 cameraForward = Vector3.Zero;
         // Movement
-        private const float defaultMoveSpeed = 1.0f;
-        private const float defaultTurnSpeed = 1.0f;
         public float CurrentMoveSpeed
         {
             get { return movePerSec; }
             set { movePerSec = value; }
         }
-        private float movePerSec = defaultMoveSpeed;
+        private float movePerSec = GlobalSettings.defaultMoveSpeed;
         public float CurrentTurnSpeed
         {
             get { return turnPerSec; }
             set { turnPerSec = value; }
         }
-        private float turnPerSec = defaultTurnSpeed;
+        private float turnPerSec = GlobalSettings.defaultTurnSpeed;
 
         // Timer controls the movement speed.
         Stopwatch timer;
@@ -328,8 +328,6 @@ namespace Engine
 
         private void CalculateProjection()
         {
-            float aspectRatio = 1;
-            aspectRatio = GraphicsDevice.Viewport.AspectRatio;
             float nearClip = 1;
             float farClip = 100;
 
@@ -379,16 +377,16 @@ namespace Engine
 
             float pitch = 0;
             float turn = 0;
-            float speed = 0.001f * turnPerSec;
+            float speed = 0.0005f * turnPerSec;
 
             if (currentKeyboardState.IsKeyDown(Keys.Up))
             {
-                pitch += time * speed;
+                pitch -= time * speed;
             }
 
             if (currentKeyboardState.IsKeyDown(Keys.Down))
             {
-                pitch -= time * speed;
+                pitch += time * speed;
             }
 
             if (currentKeyboardState.IsKeyDown(Keys.Left))
@@ -415,9 +413,12 @@ namespace Engine
                 cameraForward = Vector3.Normalize(tiltedFront);
             }
 
+            cameraForward.Normalize();
+
+
             // == Move ==
 
-            speed = 0.1f * movePerSec;
+            speed = 0.05f * movePerSec;
 
             if (currentKeyboardState.IsKeyDown(Keys.W) || Keyboard.GetState().IsKeyDown(Keys.Z))
             {
@@ -439,13 +440,31 @@ namespace Engine
                 cameraPosition -= cameraRight * time * speed;
             }
 
+            // == Move up and down
+
+            if (currentKeyboardState.IsKeyDown(Keys.PageUp))
+            {
+                cameraPosition += cameraUp * time * speed;
+            }
+
+            if (currentKeyboardState.IsKeyDown(Keys.PageDown))
+            {
+                cameraPosition -= cameraUp * time * speed;
+            }
+
+            // == Other
+
             if (currentKeyboardState.IsKeyDown(Keys.R))
             {
                 // Reset view
                 InitialiseCameraPosition();
             }
 
-            cameraForward.Normalize();
+            if (currentKeyboardState.IsKeyDown(Keys.F) && model != null)
+            {
+                // Face the model
+                cameraForward = modelCentre - cameraPosition;
+            }
 
             // Create the new view matrix
             view = Matrix.CreateLookAt(cameraPosition, cameraPosition + cameraForward, cameraUp);
@@ -572,6 +591,8 @@ namespace Engine
 
             // Get the same background used by the control in a format usable by the game
             gameBackColor = new Color(BackColor.R, BackColor.G, BackColor.B);
+            aspectRatio = GraphicsDevice.Viewport.AspectRatio;
+
         }
 
         /// <summary>

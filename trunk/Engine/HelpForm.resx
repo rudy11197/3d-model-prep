@@ -119,9 +119,9 @@
   </resheader>
   <data name="labelNavigation.Text" xml:space="preserve">
     <value>Use typical first person controls.  Should be comfortable with English, French and German keyboards.
-Use the arrow keys to move the camera round the model.
-Use W, Z and S to zoom closer and further away.
-</value>
+Use the arrow keys to look round. Use A, S, D, W or Q, S, D, Z  to move.
+Use Page-Up and Page-Down to move up and down.  Press F to face the model.
+Press R to reset the view to the original starting location.</value>
   </data>
   <data name="labelLoading.Text" xml:space="preserve">
     <value>Set values for the preset rotation prior to loading a model.  This is so that the model is loaded with the rotation built in to the model.  During loading the vertex positions and animations are recalculated so that the game does not need to perform any additional mathematics to orient the model to the world.</value>
