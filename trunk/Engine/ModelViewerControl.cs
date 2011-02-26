@@ -60,9 +60,9 @@ namespace Engine
 
         private bool showFloor = false;
         private Vector3 floorCentre = Vector3.Zero;
-        private float originalFloorRadius = 30;
+        private float originalFloorRadius = 40;
         // Calculated from the scale
-        private float floorRadius = 30;
+        private float floorRadius = 40;
         private float floorScale = 1.0f;
 
         /// <summary>
@@ -100,18 +100,24 @@ namespace Engine
         Vector3 cameraUp = Vector3.Zero;
         Vector3 cameraForward = Vector3.Zero;
         // Movement
+        private bool pauseInput = true;
+        public bool PauseInput
+        {
+            get { return pauseInput; }
+            set { pauseInput = value; }
+        }
+        private float movePerSec = GlobalSettings.defaultMoveSpeed;
         public float CurrentMoveSpeed
         {
             get { return movePerSec; }
             set { movePerSec = value; }
         }
-        private float movePerSec = GlobalSettings.defaultMoveSpeed;
+        private float turnPerSec = GlobalSettings.defaultTurnSpeed;
         public float CurrentTurnSpeed
         {
             get { return turnPerSec; }
             set { turnPerSec = value; }
         }
-        private float turnPerSec = GlobalSettings.defaultTurnSpeed;
 
         // Timer controls the movement speed.
         Stopwatch timer;
@@ -339,7 +345,7 @@ namespace Engine
             else if (showFloor && floor != null)
             {
                 nearClip = floorRadius / 100;
-                farClip = floorRadius * 100;
+                farClip = floorRadius * 100 * floorScale;
             }
             projection = Matrix.CreatePerspectiveFieldOfView(1, aspectRatio, nearClip, farClip);
         }
@@ -369,6 +375,11 @@ namespace Engine
         // Support English, German and French keyboards
         private void HandleInput()
         {
+            if (pauseInput)
+            {
+                return;
+            }
+
             currentKeyboardState = Keyboard.GetState();
 
             float time = (float)elapsedGameTime.TotalMilliseconds;
@@ -646,7 +657,7 @@ namespace Engine
         private void AdjustFloorSizes()
         {
             // Change the size of the floor based on the model size
-            floorScale = modelRadius / originalFloorRadius;
+            floorScale = modelRadius / originalFloorRadius * 2f;
             floorRadius = originalFloorRadius * floorScale;
         }
         //

@@ -22,8 +22,8 @@ namespace Engine
         public const string fbxEndSection = "}";
 
         // Paths and files
-        public const string pathContentFolder = "../../../../Content/"; // The relative path to the content folder
-        public const string fileFloor = "grid.fbx"; // The local path to the content
+        //public const string pathContentFolder = "../../../Content/"; // The relative path to the content folder
+        //public const string fileFloor = "grid.fbx"; // The local path to the content
         public const string timeFormat = "yyyymmddhhmmss";  // Names that need to be unique
         public const string pathSaveGameFolder = "SavedGames";   // Same as the XNA default
         public const string pathSaveDataFolder = "PrepModels";  // used to load and save the results
