@@ -80,6 +80,35 @@ namespace Engine
         }
 
         //////////////////////////////////////////////////////////////////////
+        // == Setup ==
+        //
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            ShowFloor(true);
+            modelViewerControl.PauseInput = false;
+            menuStrip1.MenuActivate += new EventHandler(menuStrip1_MenuActivate);
+            menuStrip1.MenuDeactivate += new EventHandler(menuStrip1_MenuDeactivate);
+        }
+
+        private void menuStrip1_MenuDeactivate(object sender, EventArgs e)
+        {
+            PauseGameInput(false);
+        }
+
+        private void menuStrip1_MenuActivate(object sender, EventArgs e)
+        {
+            PauseGameInput(true);
+        }
+
+        private void PauseGameInput(bool change)
+        {
+            modelViewerControl.PauseInput = change;
+        }
+        //
+        //////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
         // == File ==
         //
         private void OpenRigidModelMenu_Click(object sender, EventArgs e)
@@ -304,6 +333,7 @@ namespace Engine
             zUpMenuItem.Checked = false;
             zDownMenuItem.Checked = false;
             modelViewerControl.ViewUp = 1;
+            ShowFloor(previousShowFloor);
         }
 
         private void zUp_Click(object sender, EventArgs e)
@@ -312,6 +342,7 @@ namespace Engine
             zUpMenuItem.Checked = true;
             zDownMenuItem.Checked = false;
             modelViewerControl.ViewUp = 2;
+            ShowFloor(false);
         }
 
         private void zDown_Click(object sender, EventArgs e)
@@ -320,23 +351,36 @@ namespace Engine
             zUpMenuItem.Checked = false;
             zDownMenuItem.Checked = true;
             modelViewerControl.ViewUp = 3;
+            ShowFloor(false);
         }
+
+        // Remember what was set between changing views
+        private bool previousShowFloor = true;
 
         private void showFloor_Click(object sender, EventArgs e)
         {
-            if (modelViewerControl.Floor == null)
+            ShowFloor(!showFloorMenuItem.Checked);
+            // Remember the current setting so we can change back after changing views
+            previousShowFloor = showFloorMenuItem.Checked;
+        }
+
+        private void ShowFloor(bool show)
+        {
+            if (show && modelViewerControl.Floor == null)
             {
                 Loader contentLoad = new Loader(modelViewerControl.Services);
                 modelViewerControl.SetFloor(contentLoad.GetModel("grid"));
             }
-            showFloorMenuItem.Checked = !showFloorMenuItem.Checked;
-            showFloorMenuItem.Checked = modelViewerControl.ShowFloor(showFloorMenuItem.Checked);
+            showFloorMenuItem.Checked = show;
+            showFloorMenuItem.Checked = modelViewerControl.ShowFloor(show);
         }
 
-        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        private void helpToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            PauseGameInput(true);
             HelpForm aForm = new HelpForm();
             aForm.ShowDialog();
+            PauseGameInput(false);
         }
         //
         //////////////////////////////////////////////////////////////////////
@@ -1040,12 +1084,14 @@ namespace Engine
 
         }
 
+        /*
         private string GetContentFolder()
         {
             return Path.Combine(
                     Environment.CurrentDirectory,
                     GlobalSettings.pathContentFolder);
         }
+         * */
 
         //////////////////////////////////////////////////////////////////////
         // == Diabolical Menu Actions ==
@@ -1062,16 +1108,19 @@ namespace Engine
 
         private void modelPropertiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            PauseGameInput(true);
             ModelProperties aForm = new ModelProperties();
             DialogResult diagResult = aForm.ShowDialog();
             if (diagResult == DialogResult.OK)
             {
                 // Results
             }
+            PauseGameInput(false);
         }
 
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            PauseGameInput(true);
             OptionsForm aForm = new OptionsForm();
             aForm.MovementSpeed = modelViewerControl.CurrentMoveSpeed;
             aForm.TurnSpeed = modelViewerControl.CurrentTurnSpeed;
@@ -1081,6 +1130,7 @@ namespace Engine
                 modelViewerControl.CurrentMoveSpeed = aForm.MovementSpeed;
                 modelViewerControl.CurrentTurnSpeed = aForm.TurnSpeed;
             }
+            PauseGameInput(false);
         }
         //
         //////////////////////////////////////////////////////////////////////
