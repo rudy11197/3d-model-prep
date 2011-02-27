@@ -44,6 +44,7 @@
             this.numericDiffuse = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.buttonDefault = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericMove)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericTurn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericEmissive)).BeginInit();
@@ -268,11 +269,22 @@
             this.label8.TabIndex = 59;
             this.label8.Text = "Diffuse";
             // 
+            // buttonDefault
+            // 
+            this.buttonDefault.Location = new System.Drawing.Point(531, 143);
+            this.buttonDefault.Name = "buttonDefault";
+            this.buttonDefault.Size = new System.Drawing.Size(75, 23);
+            this.buttonDefault.TabIndex = 6;
+            this.buttonDefault.Text = "Default";
+            this.buttonDefault.UseVisualStyleBackColor = true;
+            this.buttonDefault.Click += new System.EventHandler(this.buttonDefault_Click);
+            // 
             // OptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(659, 262);
+            this.Controls.Add(this.buttonDefault);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.numericDiffuse);
@@ -319,5 +331,6 @@
         private System.Windows.Forms.NumericUpDown numericDiffuse;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button buttonDefault;
     }
 }

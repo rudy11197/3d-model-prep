@@ -142,9 +142,6 @@ using System.Windows.Forms;
 //-----------------------------------------------------------------------------
 // TODO:
 //-----------------------------------------------------------------------------
-// - Enlarge the view
-// - Add Emissive lighting to the options
-//      or sort out the ambient and diffuse colours
 // - View Model properties
 // - Load game model files
 // - Save game model files

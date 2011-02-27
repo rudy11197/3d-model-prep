@@ -70,10 +70,10 @@ namespace Engine
             this.SaveBindPoseMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.PoseHeading = new System.Windows.Forms.ToolStripMenuItem();
-            this.ClipNamesComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.PoseHeading = new System.Windows.Forms.ToolStripMenuItem();
+            this.ClipNamesComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.messageBox = new System.Windows.Forms.TextBox();
             this.modelViewerControl = new Engine.ModelViewerControl();
             this.menuStrip1.SuspendLayout();
@@ -92,7 +92,7 @@ namespace Engine
             this.ClipNamesComboBox});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(792, 27);
+            this.menuStrip1.Size = new System.Drawing.Size(1008, 27);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -121,7 +121,7 @@ namespace Engine
             // LoadRigidModelMenu
             // 
             this.LoadRigidModelMenu.Name = "LoadRigidModelMenu";
-            this.LoadRigidModelMenu.Size = new System.Drawing.Size(201, 22);
+            this.LoadRigidModelMenu.Size = new System.Drawing.Size(227, 22);
             this.LoadRigidModelMenu.Text = "Load &Rigid Model...";
             this.LoadRigidModelMenu.Click += new System.EventHandler(this.OpenRigidModelMenu_Click);
             // 
@@ -130,7 +130,7 @@ namespace Engine
             this.LoadAnimatedModelMenu.BackColor = System.Drawing.SystemColors.Control;
             this.LoadAnimatedModelMenu.ForeColor = System.Drawing.SystemColors.ControlText;
             this.LoadAnimatedModelMenu.Name = "LoadAnimatedModelMenu";
-            this.LoadAnimatedModelMenu.Size = new System.Drawing.Size(201, 22);
+            this.LoadAnimatedModelMenu.Size = new System.Drawing.Size(227, 22);
             this.LoadAnimatedModelMenu.Text = "Load &Animated Model...";
             this.LoadAnimatedModelMenu.ToolTipText = "Load a 3D model in to the viewer";
             this.LoadAnimatedModelMenu.Click += new System.EventHandler(this.OpenAnimatedModelMenu_Click);
@@ -139,22 +139,22 @@ namespace Engine
             // 
             this.LoadFBXAnimationMenu.Enabled = false;
             this.LoadFBXAnimationMenu.Name = "LoadFBXAnimationMenu";
-            this.LoadFBXAnimationMenu.Size = new System.Drawing.Size(201, 22);
+            this.LoadFBXAnimationMenu.Size = new System.Drawing.Size(227, 22);
             this.LoadFBXAnimationMenu.Text = "&Load Animation...";
             this.LoadFBXAnimationMenu.Click += new System.EventHandler(this.LoadFBXAnimationMenu_Click);
             // 
             // PresetNoRotationMenu
             // 
             this.PresetNoRotationMenu.Name = "PresetNoRotationMenu";
-            this.PresetNoRotationMenu.Size = new System.Drawing.Size(201, 22);
-            this.PresetNoRotationMenu.Text = "> Preset: &No Rotation <";
+            this.PresetNoRotationMenu.Size = new System.Drawing.Size(227, 22);
+            this.PresetNoRotationMenu.Text = "Rotation Preset: &No Rotation";
             this.PresetNoRotationMenu.Click += new System.EventHandler(this.PresetNoRotation_Click);
             // 
             // PresetZUpToYUpMenu
             // 
             this.PresetZUpToYUpMenu.Name = "PresetZUpToYUpMenu";
-            this.PresetZUpToYUpMenu.Size = new System.Drawing.Size(201, 22);
-            this.PresetZUpToYUpMenu.Text = "> Preset: &Z Up to Y Up <";
+            this.PresetZUpToYUpMenu.Size = new System.Drawing.Size(227, 22);
+            this.PresetZUpToYUpMenu.Text = "Rotation Preset: &Z Up to Y Up";
             this.PresetZUpToYUpMenu.Click += new System.EventHandler(this.PresetZUpToYUp_Click);
             // 
             // XComboBox
@@ -202,13 +202,13 @@ namespace Engine
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(198, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(224, 6);
             // 
             // LoadIndividualClipMenu
             // 
             this.LoadIndividualClipMenu.Enabled = false;
             this.LoadIndividualClipMenu.Name = "LoadIndividualClipMenu";
-            this.LoadIndividualClipMenu.Size = new System.Drawing.Size(201, 22);
+            this.LoadIndividualClipMenu.Size = new System.Drawing.Size(227, 22);
             this.LoadIndividualClipMenu.Text = "Load Individual &Clip...";
             this.LoadIndividualClipMenu.Click += new System.EventHandler(this.loadIndividualClip_Click);
             // 
@@ -216,7 +216,7 @@ namespace Engine
             // 
             this.SaveClipMenu.Enabled = false;
             this.SaveClipMenu.Name = "SaveClipMenu";
-            this.SaveClipMenu.Size = new System.Drawing.Size(201, 22);
+            this.SaveClipMenu.Size = new System.Drawing.Size(227, 22);
             this.SaveClipMenu.Text = "&Save Animation Clip...";
             this.SaveClipMenu.ToolTipText = "Save the currently playing animation in AnimationClip format";
             this.SaveClipMenu.Click += new System.EventHandler(this.SaveClip_Click);
@@ -224,14 +224,14 @@ namespace Engine
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(198, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(224, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.exitToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitMenu_Click);
             // 
@@ -439,8 +439,23 @@ namespace Engine
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
-            this.optionsToolStripMenuItem.Text = "Options";
+            this.optionsToolStripMenuItem.Text = "&Options";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
+            // 
+            // windowToolStripMenuItem
+            // 
+            this.windowToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.helpToolStripMenuItem1});
+            this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
+            this.windowToolStripMenuItem.Size = new System.Drawing.Size(63, 23);
+            this.windowToolStripMenuItem.Text = "&Window";
+            // 
+            // helpToolStripMenuItem1
+            // 
+            this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
+            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.helpToolStripMenuItem1.Text = "&Help";
+            this.helpToolStripMenuItem1.Click += new System.EventHandler(this.helpToolStripMenuItem1_Click);
             // 
             // PoseHeading
             // 
@@ -458,43 +473,32 @@ namespace Engine
             this.ClipNamesComboBox.Visible = false;
             this.ClipNamesComboBox.TextChanged += new System.EventHandler(this.ClipNamesComboBox_Changed);
             // 
-            // windowToolStripMenuItem
-            // 
-            this.windowToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.helpToolStripMenuItem1});
-            this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
-            this.windowToolStripMenuItem.Size = new System.Drawing.Size(63, 23);
-            this.windowToolStripMenuItem.Text = "&Window";
-            // 
-            // helpToolStripMenuItem1
-            // 
-            this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
-            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.helpToolStripMenuItem1.Text = "&Help";
-            this.helpToolStripMenuItem1.Click += new System.EventHandler(this.helpToolStripMenuItem1_Click);
-            // 
             // messageBox
             // 
             this.messageBox.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.messageBox.Location = new System.Drawing.Point(0, 537);
+            this.messageBox.Location = new System.Drawing.Point(0, 669);
             this.messageBox.Margin = new System.Windows.Forms.Padding(12);
             this.messageBox.Multiline = true;
             this.messageBox.Name = "messageBox";
             this.messageBox.ReadOnly = true;
             this.messageBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.messageBox.Size = new System.Drawing.Size(792, 93);
+            this.messageBox.Size = new System.Drawing.Size(1008, 93);
             this.messageBox.TabIndex = 2;
             this.messageBox.TabStop = false;
             // 
             // modelViewerControl
             // 
+            this.modelViewerControl.AmbientLightLevel = 0.75F;
             this.modelViewerControl.CurrentMoveSpeed = 0.6F;
             this.modelViewerControl.CurrentTurnSpeed = 1F;
+            this.modelViewerControl.DiffuseLightLevel = 0.45F;
             this.modelViewerControl.Dock = System.Windows.Forms.DockStyle.Top;
+            this.modelViewerControl.EmissiveLightLevel = 0.35F;
             this.modelViewerControl.IsAnimated = false;
             this.modelViewerControl.Location = new System.Drawing.Point(0, 27);
             this.modelViewerControl.Name = "modelViewerControl";
-            this.modelViewerControl.Size = new System.Drawing.Size(792, 507);
+            this.modelViewerControl.PauseInput = true;
+            this.modelViewerControl.Size = new System.Drawing.Size(1008, 648);
             this.modelViewerControl.TabIndex = 1;
             this.modelViewerControl.Text = "modelViewerControl";
             this.modelViewerControl.ViewUp = 1;
@@ -504,7 +508,7 @@ namespace Engine
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(792, 630);
+            this.ClientSize = new System.Drawing.Size(1008, 762);
             this.Controls.Add(this.messageBox);
             this.Controls.Add(this.modelViewerControl);
             this.Controls.Add(this.menuStrip1);

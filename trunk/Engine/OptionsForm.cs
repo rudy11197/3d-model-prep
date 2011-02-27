@@ -72,5 +72,16 @@ namespace Engine
         //
         //////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////
+        // == Changes ==
+        //
+        private void buttonDefault_Click(object sender, EventArgs e)
+        {
+            EmissiveLevel = GlobalSettings.defaultEmissive;
+            AmbientLevel = GlobalSettings.defaultAmbient;
+            DiffuseLevel = GlobalSettings.defaultDiffuse;
+        }
+        //
+        //////////////////////////////////////////////////////////////////////
     }
 }
