@@ -22,16 +22,16 @@ namespace Engine
     /// </summary>
     class DiabolicalManager
     {
-        MainForm main;
+        MainForm form;
         string lastLoadedFile = "";
 
-        DiabolicalModel model;
+        DiabolicalModel modelAsset;
 
 
         public DiabolicalManager(MainForm parent)
         {
-            main = parent;
-            model = new DiabolicalModel();
+            form = parent;
+            modelAsset = new DiabolicalModel();
         }
 
         //////////////////////////////////////////////////////////////////////
@@ -40,24 +40,24 @@ namespace Engine
         public void LoadDialogue()
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
-            fileDialog.InitialDirectory = main.DefaultFileFolder;
+            fileDialog.InitialDirectory = form.DefaultFileFolder;
             fileDialog.Title = "Load Diabolical Model";
             fileDialog.Filter = "Model Files (*.model)|*.model|" +
                                 "All Files (*.*)|*.*";
 
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
-                main.ClearMessages();
+                form.ClearMessages();
                 lastLoadedFile = fileDialog.FileName;
-                //LoadModelFile(fileDialog.FileName);
+                LoadModelFile(fileDialog.FileName);
             }
-            main.AddMessageLine("== Finished ==");
+            form.AddMessageLine("== Finished ==");
         }
 
         public void SaveDialogue()
         {
             // Path to default location
-            string pathToSaveFolder = main.DefaultFileFolder;
+            string pathToSaveFolder = form.DefaultFileFolder;
             string fileName = "Model.model";
             // If we have loaded a file use that for the path and the name
             if (lastLoadedFile != "")
@@ -88,30 +88,30 @@ namespace Engine
             // The type and name
             data.Add("Structure");
             // == Filename and effect parameters
-            string effect = model.ModelFilename;
-            if (!string.IsNullOrEmpty(model.EffectType))
+            string effect = modelAsset.modelFilename;
+            if (!string.IsNullOrEmpty(modelAsset.effectType))
             {
-                effect += ParseData.div + model.EffectType;
-                effect += ParseData.div + ParseData.FloatToString(model.SpecularIntensity);
-                effect += ParseData.div + ParseData.FloatToString(model.SpecularPower);
-                if (!string.IsNullOrEmpty(model.DepthMapFile))
+                effect += ParseData.div + modelAsset.effectType;
+                effect += ParseData.div + ParseData.FloatToString(modelAsset.specularIntensity);
+                effect += ParseData.div + ParseData.FloatToString(modelAsset.specularPower);
+                if (!string.IsNullOrEmpty(modelAsset.depthMapFile))
                 {
-                    effect += ParseData.div + model.DepthMapFile;
-                    if (!string.IsNullOrEmpty(model.SpecularMapFile))
+                    effect += ParseData.div + modelAsset.depthMapFile;
+                    if (!string.IsNullOrEmpty(modelAsset.specularMapFile))
                     {
-                        effect += ParseData.div + model.SpecularMapFile;
+                        effect += ParseData.div + modelAsset.specularMapFile;
                     }
                 }
             }
             data.Add(effect);
             // == Parameters
-            string parameters = ParseData.FloatToString(model.Rotation.X) +
-                ParseData.div + ParseData.FloatToString(model.Rotation.Y) +
-                ParseData.div + ParseData.FloatToString(model.Rotation.Z);
+            string parameters = ParseData.FloatToString(modelAsset.rotation.X) +
+                ParseData.div + ParseData.FloatToString(modelAsset.rotation.Y) +
+                ParseData.div + ParseData.FloatToString(modelAsset.rotation.Z);
             data.Add(parameters);
             // == Options
             // Bounds
-            foreach (StructureSphere ssBound in model.LargerBounds)
+            foreach (StructureSphere ssBound in modelAsset.largerBounds)
             {
                 string output = String.Format("{0}{1}{2}{1}{3}",
                     GlobalSettings.typeLargerBounds,
@@ -124,7 +124,7 @@ namespace Engine
                 }
                 data.Add(output);
             }
-            foreach (StructureSphere ssBound in model.SmallerBounds)
+            foreach (StructureSphere ssBound in modelAsset.smallerBounds)
             {
                 string output = String.Format("{0}{1}{2}{1}{3}",
                     GlobalSettings.typeSmallerBounds,
@@ -138,6 +138,75 @@ namespace Engine
                 data.Add(output);
             }
             return data;
+        }
+
+        private void LoadModelFile(string fileName)
+        {
+            string[] result = new string[0];
+
+            if (File.Exists(fileName))
+            {
+                result = File.ReadAllLines(fileName);
+            }
+            else
+            {
+                form.AddMessageLine("File not found: " + fileName);
+                return;
+            }
+
+            if (result == null || result.Length < 1)
+            {
+                form.AddMessageLine("Empty file: " + fileName);
+                return;
+            }
+
+            ProcessData(result, fileName);
+        }
+
+        private void ProcessData(string[] source, string fileName)
+        {
+            DiabolicalSourceData input = new DiabolicalSourceData(fileName, source);
+
+            string directory = Path.GetDirectoryName(input.Identity);
+            // == The model
+            string filepath = Path.Combine(directory, input.ModelFilename);
+
+            if (input.ModelType == GlobalSettings.modelTypeCharacter)
+            {
+                form.LoadAnimatedModel(true, filepath, input.RotateX, input.RotateY, input.RotateZ);
+            }
+            else
+            {
+                form.LoadAnimatedModel(false, filepath, input.RotateX, input.RotateY, input.RotateZ);
+            }
+
+            // Create the class
+            modelAsset = new DiabolicalModel();
+            modelAsset.BuildModelAsset(
+                input.ModelType,
+                input.ModelFilename,
+                input.EffectType,
+                input.SpecularIntensity,
+                input.SpecularPower,
+                input.DepthMapFilename,
+                input.SpecularMapFilename,
+                form.CurrentModel,
+                CalculateBoundsFromModel(form.CurrentModel),
+                input.RotateX,
+                input.RotateY,
+                input.RotateZ,
+                input.Options);
+        }
+
+        // Calculate the overall bounding sphere
+        public BoundingSphere CalculateBoundsFromModel(Model modelThis)
+        {
+            BoundingSphere oversizeBounds = new BoundingSphere();
+            foreach (ModelMesh mesh in modelThis.Meshes)
+            {
+                oversizeBounds = BoundingSphere.CreateMerged(oversizeBounds, mesh.BoundingSphere);
+            }
+            return oversizeBounds;
         }
         //
         //////////////////////////////////////////////////////////////////////

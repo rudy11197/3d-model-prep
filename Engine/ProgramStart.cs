@@ -149,8 +149,9 @@ using System.Windows.Forms;
 // - View rigid model bounds
 // - Edit animated model bounds
 // - Edit rigid model bounds
-
-
+// - Remove any smaller bounds that are surrounded on all sides
+//      Remember to calculate all the ones to remove before removing any otherwise
+//      the results will miss some.
 
 //-----------------------------------------------------------------------------
 // TODO (Extras):

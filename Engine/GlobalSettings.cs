@@ -93,6 +93,8 @@ namespace Engine
         public const string typeWeaponRecoil = "Recoil";
         // Zoom multipliers
         public const string typeWeaponZoom = "Zoom";
+        // CrossHairs
+        public const string typeWeaponSights = "CrossHairs";
 
         // Movement
         public const float defaultMoveSpeed = 0.6f;
