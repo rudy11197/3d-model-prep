@@ -82,6 +82,7 @@
     <Compile Include="ContentBuilder.cs" />
     <Compile Include="DiabolicalManager.cs" />
     <Compile Include="DiabolicalModel.cs" />
+    <Compile Include="DiabolicalSourceData.cs" />
     <Compile Include="ErrorLogger.cs" />
     <Compile Include="GlobalSettings.cs" />
     <Compile Include="HelpForm.cs">

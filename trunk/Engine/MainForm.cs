@@ -424,7 +424,10 @@ namespace Engine
             ClipNamesComboBox.Text = currentClipName;
         }
 
-
+        public Model CurrentModel
+        {
+            get { return modelViewerControl.Model; }
+        }
 
         /// <summary>
         /// Loads a new 3D model file into the ModelViewerControl.
@@ -432,6 +435,14 @@ namespace Engine
         public void LoadModel(string fileName)
         {
             LoadAnimatedModel(false, fileName, rotateX, rotateY, rotateZ);
+        }
+
+        public void LoadAnimatedModel(bool isAnimated, string fileName, float rotateXdeg, float rotateYdeg, float rotateZdeg)
+        {
+            rotateX = rotateXdeg.ToString();
+            rotateY = rotateYdeg.ToString();
+            rotateZ = rotateZdeg.ToString();
+            LoadAnimatedModel(isAnimated, fileName, rotateX, rotateY, rotateZ);
         }
 
         /// <summary>
