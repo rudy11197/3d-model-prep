@@ -488,12 +488,7 @@ namespace Engine
             // 
             // modelViewerControl
             // 
-            this.modelViewerControl.AmbientLightLevel = 0.75F;
-            this.modelViewerControl.CurrentMoveSpeed = 0.6F;
-            this.modelViewerControl.CurrentTurnSpeed = 1F;
-            this.modelViewerControl.DiffuseLightLevel = 0.45F;
             this.modelViewerControl.Dock = System.Windows.Forms.DockStyle.Top;
-            this.modelViewerControl.EmissiveLightLevel = 0.35F;
             this.modelViewerControl.IsAnimated = false;
             this.modelViewerControl.Location = new System.Drawing.Point(0, 27);
             this.modelViewerControl.Name = "modelViewerControl";

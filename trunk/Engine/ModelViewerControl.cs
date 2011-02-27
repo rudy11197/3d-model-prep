@@ -103,7 +103,10 @@ namespace Engine
         float modelRadius;
         // Camera movement
         KeyboardState currentKeyboardState;
+        KeyboardState previousKeyboardState;
         Vector3 cameraPosition = Vector3.Zero;
+        // Point to look at when in orbit mode
+        Vector3 orbitCentre = Vector3.Zero;
         // Camera Axes calculated before use
         Vector3 cameraUp = Vector3.Zero;
         Vector3 cameraForward = Vector3.Zero;
@@ -484,7 +487,29 @@ namespace Engine
 
             // == Move ==
 
-            speed = 0.005f * movePerSec * floorScale;
+            if (currentKeyboardState.IsKeyDown(Keys.F) && model != null)
+            {
+                // Face the model
+                cameraForward = modelCentre - cameraPosition;
+                // Keep the turn speed unchanged
+            }
+            if (currentKeyboardState.IsKeyDown(Keys.O) && model != null)
+            {
+                // Orbit mode
+                if (previousKeyboardState.IsKeyUp(Keys.O))
+                {
+                    // Calculate the point we are looking at
+                    float distance = Vector3.Distance(modelCentre, cameraPosition);
+                    orbitCentre = cameraPosition + (cameraForward * distance);
+                }
+                cameraForward = orbitCentre - cameraPosition;
+                // Keep the turn speed unchanged
+            }
+            else
+            {
+                // Move speed
+                speed = 0.005f * movePerSec * floorScale;
+            }
 
             if (currentKeyboardState.IsKeyDown(Keys.W) || Keyboard.GetState().IsKeyDown(Keys.Z))
             {
@@ -526,14 +551,10 @@ namespace Engine
                 InitialiseCameraPosition();
             }
 
-            if (currentKeyboardState.IsKeyDown(Keys.F) && model != null)
-            {
-                // Face the model
-                cameraForward = modelCentre - cameraPosition;
-            }
-
             // Create the new view matrix
             view = Matrix.CreateLookAt(cameraPosition, cameraPosition + cameraForward, cameraUp);
+
+            previousKeyboardState = currentKeyboardState;
         }
         //
         //////////////////////////////////////////////////////////////////////
@@ -665,6 +686,8 @@ namespace Engine
             gameBackColor = new Color(BackColor.R, BackColor.G, BackColor.B);
             aspectRatio = GraphicsDevice.Viewport.AspectRatio;
 
+            currentKeyboardState = Keyboard.GetState();
+            previousKeyboardState = currentKeyboardState;
         }
 
         /// <summary>
