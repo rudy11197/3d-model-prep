@@ -114,6 +114,7 @@ namespace Engine
             get { return pauseInput; }
             set { pauseInput = value; }
         }
+        // This is also adjusted by the size of the model based on the floor scale calculation
         private float movePerSec = GlobalSettings.defaultMoveSpeed;
         public float CurrentMoveSpeed
         {
@@ -136,7 +137,51 @@ namespace Engine
 
         // For clearing the screen in the game
         // This is changed to match the control colour
-        Color gameBackColor = Color.CornflowerBlue;
+        private Color gameBackColor = Color.CornflowerBlue;
+
+        // For displaying the models
+        private Vector3 emissiveLighting = new Vector3(0.25f, 0.25f, 0.25f);
+        private Vector3 ambientLighting = new Vector3(0.75f, 0.75f, 0.75f);
+        private Vector3 diffuseLighting = new Vector3(0.45f, 0.45f, 0.45f);
+        public float EmissiveLightLevel
+        {
+            get
+            {
+                return emissiveLighting.X;
+            }
+            set
+            {
+                emissiveLighting.X = value;
+                emissiveLighting.Y = value;
+                emissiveLighting.Z = value;
+            }
+        }
+        public float AmbientLightLevel
+        {
+            get
+            {
+                return ambientLighting.X;
+            }
+            set
+            {
+                ambientLighting.X = value;
+                ambientLighting.Y = value;
+                ambientLighting.Z = value;
+            }
+        }
+        public float DiffuseLightLevel
+        {
+            get
+            {
+                return diffuseLighting.X;
+            }
+            set
+            {
+                diffuseLighting.X = value;
+                diffuseLighting.Y = value;
+                diffuseLighting.Z = value;
+            }
+        }
 
         //////////////////////////////////////////////////////////////////////
         // == Change ==
@@ -439,7 +484,7 @@ namespace Engine
 
             // == Move ==
 
-            speed = 0.05f * movePerSec;
+            speed = 0.005f * movePerSec * floorScale;
 
             if (currentKeyboardState.IsKeyDown(Keys.W) || Keyboard.GetState().IsKeyDown(Keys.Z))
             {
@@ -553,9 +598,13 @@ namespace Engine
                     effect.Projection = aProjection;
 
                     effect.EnableDefaultLighting();
+                    effect.AmbientLightColor = ambientLighting;
+                    effect.DiffuseColor = diffuseLighting;
+                    effect.EmissiveColor = emissiveLighting;
 
-                    effect.SpecularColor = new Vector3(0.25f);
-                    effect.SpecularPower = 16;
+                    effect.PreferPerPixelLighting = true;
+                    //effect.SpecularColor = new Vector3(0.25f);
+                    //effect.SpecularPower = 16;
                 }
 
                 mesh.Draw();
@@ -580,13 +629,14 @@ namespace Engine
                     effect.View = aView;
                     effect.Projection = aProjection;
 
-                    // Add a bit more light to our animated models
-                    //effect.EmissiveColor = new Vector3(0.8f, 0.8f, 0.8f);
-                    //effect.LightingEnabled = true;
-
                     effect.EnableDefaultLighting();
+                    effect.AmbientLightColor = ambientLighting;
+                    effect.DiffuseColor = diffuseLighting;
+                    effect.EmissiveColor = emissiveLighting;
+
                     effect.PreferPerPixelLighting = true;
-                    effect.SpecularPower = 16;
+                    //effect.SpecularColor = new Vector3(0.25f);
+                    //effect.SpecularPower = 16;
                 }
 
                 mesh.Draw();
