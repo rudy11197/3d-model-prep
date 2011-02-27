@@ -369,7 +369,7 @@ namespace Engine
             if (show && modelViewerControl.Floor == null)
             {
                 Loader contentLoad = new Loader(modelViewerControl.Services);
-                modelViewerControl.SetFloor(contentLoad.GetModel("grid"));
+                modelViewerControl.SetFloor(contentLoad.GetModel("grid100x100"));
             }
             showFloorMenuItem.Checked = show;
             showFloorMenuItem.Checked = modelViewerControl.ShowFloor(show);
@@ -1124,6 +1124,7 @@ namespace Engine
             OptionsForm aForm = new OptionsForm();
             aForm.MovementSpeed = modelViewerControl.CurrentMoveSpeed;
             aForm.TurnSpeed = modelViewerControl.CurrentTurnSpeed;
+            aForm.GridSquareWidth = modelViewerControl.GridSquareWidth.ToString();
             DialogResult diagResult = aForm.ShowDialog();
             if (diagResult == DialogResult.OK)
             {

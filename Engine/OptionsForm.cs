@@ -30,6 +30,11 @@ namespace Engine
             get { return (float)numericTurn.Value; }
             set { numericTurn.Value = (decimal)value; }
         }
+
+        public string GridSquareWidth
+        {
+            set { textGridScale.Text = value; }
+        }
         //
         //////////////////////////////////////////////////////////////////////
 
