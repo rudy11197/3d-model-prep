@@ -97,6 +97,10 @@ namespace Engine
         // Movement
         public const float defaultMoveSpeed = 0.6f;
         public const float defaultTurnSpeed = 1.0f;
+        // Lighting
+        public const float defaultEmissive = 0.25f;
+        public const float defaultAmbient = 0.75f;
+        public const float defaultDiffuse = 0.45f;
 
 
     }

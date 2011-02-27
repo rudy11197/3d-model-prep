@@ -140,9 +140,9 @@ namespace Engine
         private Color gameBackColor = Color.CornflowerBlue;
 
         // For displaying the models
-        private Vector3 emissiveLighting = new Vector3(0.25f, 0.25f, 0.25f);
-        private Vector3 ambientLighting = new Vector3(0.75f, 0.75f, 0.75f);
-        private Vector3 diffuseLighting = new Vector3(0.45f, 0.45f, 0.45f);
+        private Vector3 emissiveLighting = new Vector3(GlobalSettings.defaultEmissive, GlobalSettings.defaultEmissive, GlobalSettings.defaultEmissive);
+        private Vector3 ambientLighting = new Vector3(GlobalSettings.defaultAmbient, GlobalSettings.defaultAmbient, GlobalSettings.defaultAmbient);
+        private Vector3 diffuseLighting = new Vector3(GlobalSettings.defaultDiffuse, GlobalSettings.defaultDiffuse, GlobalSettings.defaultDiffuse);
         public float EmissiveLightLevel
         {
             get
