@@ -1458,7 +1458,7 @@ Objects:  {
             Property: "LastFrame", "int", "",0
             Property: "Width", "int", "",0
             Property: "Height", "int", "",0
-            Property: "Path", "charptr", "", "Grid.png"
+            Property: "Path", "charptr", "", "grid20x20.png"
             Property: "StartFrame", "int", "",0
             Property: "StopFrame", "int", "",0
             Property: "PlaySpeed", "double", "",1
@@ -1469,8 +1469,8 @@ Objects:  {
             Property: "AccessMode", "enum", "",0
         }
         UseMipMap: 0
-        Filename: "Grid.png"
-        RelativeFilename: "Grid.png"
+        Filename: "grid20x20.png"
+        RelativeFilename: "grid20x20.png"
     }
     Texture: "Texture::file2", "TextureVideoClip" {
         Type: "TextureVideoClip"
@@ -1479,7 +1479,7 @@ Objects:  {
         Properties60:  {
             Property: "Translation", "Vector", "A+",0,0,0
             Property: "Rotation", "Vector", "A+",0,0,0
-            Property: "Scaling", "Vector", "A+",10,10,1
+            Property: "Scaling", "Vector", "A+",1,1,1
             Property: "Texture alpha", "Number", "A+",1
             Property: "TextureTypeUse", "enum", "",0
             Property: "CurrentTextureBlendMode", "enum", "",0
@@ -1494,8 +1494,8 @@ Objects:  {
             Property: "VideoProperty", "object", ""
         }
         Media: "Video::file2"
-        FileName: "Grid.png"
-        RelativeFilename: "Grid.png"
+        FileName: "grid20x20.png"
+        RelativeFilename: "grid20x20.png"
         ModelUVTranslation: 0,0
         ModelUVScaling: 1,1
         Texture_Alpha_Source: "None"
