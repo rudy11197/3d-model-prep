@@ -42,8 +42,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="grid.fbx">
-      <Name>grid</Name>
+    <Compile Include="grid100x100.fbx">
+      <Name>grid100x100</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>

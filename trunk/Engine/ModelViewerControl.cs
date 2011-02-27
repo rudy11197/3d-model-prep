@@ -58,12 +58,20 @@ namespace Engine
         }
         private Model floor;
 
-        private bool showFloor = false;
+        private bool showFloor = true;
         private Vector3 floorCentre = Vector3.Zero;
-        private float originalFloorRadius = 40;
+        private float originalFloorRadius = 10;
         // Calculated from the scale
-        private float floorRadius = 40;
+        private float floorRadius = 10;
         private float floorScale = 1.0f;
+        // Size in units of the grid squares (rounded to the nearest whole number)
+        public float GridSquareWidth
+        {
+            get { return floorScale; }
+        }
+        // Scale to make one grid square = 1 unit
+        // 100x100 unit grid with 20x20 squares on it
+        private float floorModelScale = 0.2f;
 
         /// <summary>
         /// Which way up the camera is
@@ -348,6 +356,8 @@ namespace Engine
                 farClip = floorRadius * 100 * floorScale;
             }
             projection = Matrix.CreatePerspectiveFieldOfView(1, aspectRatio, nearClip, farClip);
+            int x = 0;
+            x++;
         }
         //
         //////////////////////////////////////////////////////////////////////
@@ -512,7 +522,8 @@ namespace Engine
 
                 if (showFloor && floor != null)
                 {
-                    world = Matrix.CreateScale(floorScale);
+                    // Scale to 1unit per grid square then enlarge to fit the model size
+                    world = Matrix.CreateScale(floorModelScale * floorScale);
                     DrawRigid(world, view, projection, floor);
                 }
             }
@@ -656,8 +667,8 @@ namespace Engine
         // Adjust the floor to match the model
         private void AdjustFloorSizes()
         {
-            // Change the size of the floor based on the model size
-            floorScale = modelRadius / originalFloorRadius * 2f;
+            // Change the size of the floor based on the model size (add one to round up)
+            floorScale = (int)((modelRadius / originalFloorRadius * 2f) + 1f);
             floorRadius = originalFloorRadius * floorScale;
         }
         //

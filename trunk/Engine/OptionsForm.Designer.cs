@@ -34,6 +34,9 @@
             this.numericMove = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.numericTurn = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textGridScale = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericMove)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericTurn)).BeginInit();
             this.SuspendLayout();
@@ -41,7 +44,7 @@
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(345, 227);
+            this.buttonCancel.Location = new System.Drawing.Point(457, 227);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 51;
@@ -51,7 +54,7 @@
             // buttonOK
             // 
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(264, 227);
+            this.buttonOK.Location = new System.Drawing.Point(376, 227);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 50;
@@ -122,11 +125,42 @@
             0,
             65536});
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 94);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(92, 13);
+            this.label3.TabIndex = 54;
+            this.label3.Text = "Grid square width:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(278, 94);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(219, 13);
+            this.label4.TabIndex = 55;
+            this.label4.Text = "Unit(s).  Calculated when the model is loaded";
+            // 
+            // textGridScale
+            // 
+            this.textGridScale.Location = new System.Drawing.Point(144, 91);
+            this.textGridScale.Name = "textGridScale";
+            this.textGridScale.ReadOnly = true;
+            this.textGridScale.Size = new System.Drawing.Size(100, 20);
+            this.textGridScale.TabIndex = 2;
+            this.textGridScale.TabStop = false;
+            this.textGridScale.Text = "1";
+            // 
             // OptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(432, 262);
+            this.ClientSize = new System.Drawing.Size(544, 262);
+            this.Controls.Add(this.textGridScale);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.numericTurn);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.numericMove);
@@ -150,5 +184,8 @@
         private System.Windows.Forms.NumericUpDown numericMove;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown numericTurn;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textGridScale;
     }
 }

@@ -142,7 +142,7 @@ using System.Windows.Forms;
 //-----------------------------------------------------------------------------
 // TODO:
 //-----------------------------------------------------------------------------
-// - Calculate the aspect ratio when the graphics device is ready then re-calculate the camera as required
+// - Enlarge the view
 // - View Model properties
 // - Load game model files
 // - Save game model files
