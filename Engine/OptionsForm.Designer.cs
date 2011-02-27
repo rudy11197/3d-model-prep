@@ -37,14 +37,24 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.textGridScale = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.numericEmissive = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
+            this.numericAmbient = new System.Windows.Forms.NumericUpDown();
+            this.numericDiffuse = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericMove)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericTurn)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericEmissive)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericAmbient)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericDiffuse)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(457, 227);
+            this.buttonCancel.Location = new System.Drawing.Point(572, 227);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 51;
@@ -54,7 +64,7 @@
             // buttonOK
             // 
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(376, 227);
+            this.buttonOK.Location = new System.Drawing.Point(491, 227);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 50;
@@ -153,11 +163,123 @@
             this.textGridScale.TabStop = false;
             this.textGridScale.Text = "1";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 147);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(67, 13);
+            this.label5.TabIndex = 56;
+            this.label5.Text = "Light Levels:";
+            // 
+            // numericEmissive
+            // 
+            this.numericEmissive.DecimalPlaces = 2;
+            this.numericEmissive.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericEmissive.Location = new System.Drawing.Point(144, 145);
+            this.numericEmissive.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            65536});
+            this.numericEmissive.Name = "numericEmissive";
+            this.numericEmissive.Size = new System.Drawing.Size(120, 20);
+            this.numericEmissive.TabIndex = 3;
+            this.numericEmissive.Value = new decimal(new int[] {
+            25,
+            0,
+            0,
+            131072});
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(141, 129);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(48, 13);
+            this.label6.TabIndex = 57;
+            this.label6.Text = "Emissive";
+            // 
+            // numericAmbient
+            // 
+            this.numericAmbient.DecimalPlaces = 2;
+            this.numericAmbient.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericAmbient.Location = new System.Drawing.Point(270, 145);
+            this.numericAmbient.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            65536});
+            this.numericAmbient.Name = "numericAmbient";
+            this.numericAmbient.Size = new System.Drawing.Size(120, 20);
+            this.numericAmbient.TabIndex = 4;
+            this.numericAmbient.Value = new decimal(new int[] {
+            25,
+            0,
+            0,
+            131072});
+            // 
+            // numericDiffuse
+            // 
+            this.numericDiffuse.DecimalPlaces = 2;
+            this.numericDiffuse.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericDiffuse.Location = new System.Drawing.Point(396, 145);
+            this.numericDiffuse.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            65536});
+            this.numericDiffuse.Name = "numericDiffuse";
+            this.numericDiffuse.Size = new System.Drawing.Size(120, 20);
+            this.numericDiffuse.TabIndex = 5;
+            this.numericDiffuse.Value = new decimal(new int[] {
+            25,
+            0,
+            0,
+            131072});
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(267, 129);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(45, 13);
+            this.label7.TabIndex = 58;
+            this.label7.Text = "Ambient";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(393, 129);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(40, 13);
+            this.label8.TabIndex = 59;
+            this.label8.Text = "Diffuse";
+            // 
             // OptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(544, 262);
+            this.ClientSize = new System.Drawing.Size(659, 262);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.numericDiffuse);
+            this.Controls.Add(this.numericAmbient);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.numericEmissive);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.textGridScale);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -171,6 +293,9 @@
             this.Text = "Options";
             ((System.ComponentModel.ISupportInitialize)(this.numericMove)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericTurn)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericEmissive)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericAmbient)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericDiffuse)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -187,5 +312,12 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textGridScale;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.NumericUpDown numericEmissive;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.NumericUpDown numericAmbient;
+        private System.Windows.Forms.NumericUpDown numericDiffuse;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
     }
 }

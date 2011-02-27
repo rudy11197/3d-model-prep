@@ -1121,17 +1121,58 @@ namespace Engine
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PauseGameInput(true);
+            float previousEmissive = modelViewerControl.EmissiveLightLevel;
+            float previousAmbient = modelViewerControl.AmbientLightLevel;
+            float previousDiffuse = modelViewerControl.DiffuseLightLevel;
             OptionsForm aForm = new OptionsForm();
             aForm.MovementSpeed = modelViewerControl.CurrentMoveSpeed;
             aForm.TurnSpeed = modelViewerControl.CurrentTurnSpeed;
             aForm.GridSquareWidth = modelViewerControl.GridSquareWidth.ToString();
+            aForm.EmissiveLevel = previousEmissive;
+            aForm.AmbientLevel = previousAmbient;
+            aForm.DiffuseLevel = previousDiffuse;
+            aForm.Emissive.ValueChanged += new EventHandler(Emissive_ValueChanged);
+            aForm.Ambient.ValueChanged += new EventHandler(Ambient_ValueChanged);
+            aForm.Diffuse.ValueChanged += new EventHandler(Diffuse_ValueChanged);
             DialogResult diagResult = aForm.ShowDialog();
             if (diagResult == DialogResult.OK)
             {
                 modelViewerControl.CurrentMoveSpeed = aForm.MovementSpeed;
                 modelViewerControl.CurrentTurnSpeed = aForm.TurnSpeed;
+                modelViewerControl.EmissiveLightLevel = aForm.EmissiveLevel;
+                modelViewerControl.AmbientLightLevel = aForm.AmbientLevel;
+                modelViewerControl.DiffuseLightLevel = aForm.DiffuseLevel;
+            }
+            else
+            {
+                // Revert back to the previous levels
+                modelViewerControl.EmissiveLightLevel = previousEmissive;
+                modelViewerControl.AmbientLightLevel = previousAmbient;
+                modelViewerControl.DiffuseLightLevel = previousDiffuse;
             }
             PauseGameInput(false);
+        }
+
+        private void Diffuse_ValueChanged(object sender, EventArgs e)
+        {
+            NumericUpDown sent = (NumericUpDown)sender;
+            OptionsForm aForm = (OptionsForm)sent.Parent;
+            modelViewerControl.DiffuseLightLevel = aForm.DiffuseLevel;
+        }
+
+        private void Ambient_ValueChanged(object sender, EventArgs e)
+        {
+            NumericUpDown sent = (NumericUpDown)sender;
+            OptionsForm aForm = (OptionsForm)sent.Parent;
+            modelViewerControl.AmbientLightLevel = aForm.AmbientLevel;
+        }
+
+        // Update the lighting level on the fly
+        private void Emissive_ValueChanged(object sender, EventArgs e)
+        {
+            NumericUpDown sent = (NumericUpDown)sender;
+            OptionsForm aForm = (OptionsForm)sent.Parent;
+            modelViewerControl.EmissiveLightLevel = aForm.EmissiveLevel;
         }
         //
         //////////////////////////////////////////////////////////////////////
