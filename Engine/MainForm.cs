@@ -66,6 +66,7 @@ namespace Engine
             // Used for loading, saving and setting the properties of models for using in Diabolical:The Shooter
             diabolical = new DiabolicalManager(this);
 
+            UpdateMenuItemVisibility();
         }
 
         public string GetSavePath()
@@ -131,7 +132,7 @@ namespace Engine
                 LoadModel(fileDialog.FileName);
             }
             AddMessageLine("== Finished ==");
-            HasModelLoaded();
+            UpdateMenuItemVisibility();
         }
 
         /// <summary>
@@ -158,7 +159,7 @@ namespace Engine
                 //LoadAnimatedModel(contentManager, true, fileDialog.FileName, "90", "0", "180");
             }
             AddMessageLine("== Finished ==");
-            HasModelLoaded();
+            UpdateMenuItemVisibility();
         }
 
         private void loadIndividualClip_Click(object sender, EventArgs e)
@@ -242,7 +243,7 @@ namespace Engine
                 SplitFBX(fileDialog.FileName);
             }
             AddMessageLine("== Finished ==");
-            HasModelLoaded();
+            UpdateMenuItemVisibility();
         }
 
         private void OpenTakesMenu_Click(object sender, EventArgs e)
@@ -263,7 +264,7 @@ namespace Engine
                 LoadTakes(fileDialog.FileName);
             }
             AddMessageLine("== Finished ==");
-            HasModelLoaded();
+            UpdateMenuItemVisibility();
         }
 
         private void SaveBoneMapMenu_Click(object sender, EventArgs e)
@@ -385,7 +386,14 @@ namespace Engine
         //
         //////////////////////////////////////////////////////////////////////
 
-
+        //////////////////////////////////////////////////////////////////////
+        // == Menu Visibility ==
+        //
+        public void UpdateMenuItemVisibility()
+        {
+            HasModelLoaded();
+            WhatModelType();
+        }
         /// <summary>
         /// Call this to enable the various menu items that require an already loaded animated model
         /// </summary>
@@ -423,6 +431,75 @@ namespace Engine
             ClipNamesComboBox.Items.AddRange(clipNames.ToArray());
             ClipNamesComboBox.Text = currentClipName;
         }
+
+        private void WhatModelType()
+        {
+            // Diabolical model properties
+            savemodelItem.Enabled = false;
+            modelPropertiesItem.Enabled = false;
+            changeModelTypeItem.Enabled = false;
+            // Bounds
+            noBoundsItem.Enabled = false;
+            selectedLargeBoundItem.Enabled = false;
+            allLargeBoundsItem.Enabled = false;
+            allSmallBoundsItem.Enabled = false;
+            smallBoundsInTheSelectedBoundItem.Enabled = false;
+            boundsWhileStandingItem.Enabled = false;
+            boundsWhileCrouchedItem.Enabled = false;
+            boundsAttachedToBonesItem.Enabled = false;
+
+            selectedLargeBoundItem.Visible = false;
+            allLargeBoundsItem.Visible = false;
+            allSmallBoundsItem.Visible = false;
+            smallBoundsInTheSelectedBoundItem.Visible = false;
+            boundsWhileStandingItem.Visible = false;
+            boundsWhileCrouchedItem.Visible = false;
+            boundsAttachedToBonesItem.Visible = false;
+
+            if (diabolical != null && modelViewerControl.Model != null)
+            {
+                changeModelTypeItem.Enabled = true;
+                if (diabolical.CanSave())
+                {
+                    savemodelItem.Enabled = true;
+                }
+                if (diabolical.CanEdit())
+                {
+                    modelPropertiesItem.Enabled = true;
+                }
+
+                if (diabolical.HasStructureBounds())
+                {
+                    noBoundsItem.Enabled = true;
+
+                    selectedLargeBoundItem.Visible = true;
+                    allLargeBoundsItem.Visible = true;
+                    allSmallBoundsItem.Visible = true;
+                    smallBoundsInTheSelectedBoundItem.Visible = true;
+
+                    selectedLargeBoundItem.Enabled = true;
+                    allLargeBoundsItem.Enabled = true;
+                    allSmallBoundsItem.Enabled = true;
+                    smallBoundsInTheSelectedBoundItem.Enabled = true;
+                }
+                else if (diabolical.HasCharacterBounds())
+                {
+                    noBoundsItem.Enabled = true;
+
+                    boundsWhileStandingItem.Visible = true;
+                    boundsWhileCrouchedItem.Visible = true;
+                    boundsAttachedToBonesItem.Visible = true;
+
+                    boundsWhileStandingItem.Enabled = true;
+                    boundsWhileCrouchedItem.Enabled = true;
+                    boundsAttachedToBonesItem.Enabled = true;
+                }
+
+
+            }
+        }
+        //
+        //////////////////////////////////////////////////////////////////////
 
         public Model CurrentModel
         {
@@ -1120,13 +1197,26 @@ namespace Engine
         private void modelPropertiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PauseGameInput(true);
-            ModelProperties aForm = new ModelProperties();
+            if (diabolical != null)
+            {
+                switch (diabolical.ModelType)
+                {
+                    case GlobalSettings.modelTypeStructure:
+                        DisplayStructureForm();
+                        break;
+                }
+            }
+            PauseGameInput(false);
+        }
+
+        private void DisplayStructureForm()
+        {
+            ModelStructureForm aForm = new ModelStructureForm();
             DialogResult diagResult = aForm.ShowDialog();
             if (diagResult == DialogResult.OK)
             {
                 // Results
             }
-            PauseGameInput(false);
         }
 
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1184,6 +1274,24 @@ namespace Engine
             NumericUpDown sent = (NumericUpDown)sender;
             OptionsForm aForm = (OptionsForm)sent.Parent;
             modelViewerControl.EmissiveLightLevel = aForm.EmissiveLevel;
+        }
+
+        private void changeModelTypeItem_Click(object sender, EventArgs e)
+        {
+            if (diabolical == null)
+            {
+                return;
+            }
+            PauseGameInput(true);
+            ModelTypeForm aForm = new ModelTypeForm();
+            aForm.ModelType = diabolical.ModelType;
+            DialogResult diagResult = aForm.ShowDialog();
+            if (diagResult == DialogResult.OK)
+            {
+                diabolical.ModelType = aForm.ModelType;
+            }
+            PauseGameInput(false);
+            UpdateMenuItemVisibility();
         }
         //
         //////////////////////////////////////////////////////////////////////

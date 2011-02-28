@@ -301,6 +301,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "OptionsForm";
             this.Text = "Options";
             ((System.ComponentModel.ISupportInitialize)(this.numericMove)).EndInit();

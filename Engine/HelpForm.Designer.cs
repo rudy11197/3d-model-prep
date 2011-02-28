@@ -139,6 +139,8 @@
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "HelpForm";
             this.Text = "Help";
             this.groupBox1.ResumeLayout(false);

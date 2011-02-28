@@ -44,6 +44,14 @@ namespace Engine
 
         // Models
         public const string modelTypeCharacter = "Character";
+        public const string modelTypeStructure = "Structure";
+        public const string modelTypeEquipLight = "WeaponLight";
+        public const string modelTypeEquipSupport = "WeaponSupport";
+        public const string modelTypeEquipSmallArms = "WeaponSmall";
+        public const string modelTypeEquipGrenade = "WeaponGrenade";
+        public const string modelTypeGearHead = "HeadGear";
+        public const string modelTypeGearAccessory = "Accessory";
+        public const string modelTypeGearOther = "OtherGear";
         // Normal map is a texture containing the normal directions
         public const string effectTypeNormalMap = "normalmap";
         // Bump map is a grey scale containing depth levels as grey scales

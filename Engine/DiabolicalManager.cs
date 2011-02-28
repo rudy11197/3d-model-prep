@@ -35,6 +35,78 @@ namespace Engine
         }
 
         //////////////////////////////////////////////////////////////////////
+        // == Results ==
+        //
+        // Which types we have save methods for
+        public bool CanSave()
+        {
+            if (modelAsset != null &&
+                modelAsset.modelType == GlobalSettings.modelTypeStructure)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        // Which types we have property forms for
+        public bool CanEdit()
+        {
+            if (modelAsset != null &&
+                modelAsset.modelType == GlobalSettings.modelTypeStructure)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        // If the model has any bounds that can be viewed
+        public bool HasStructureBounds()
+        {
+            if (modelAsset != null &&
+                modelAsset.modelType == GlobalSettings.modelTypeStructure  &&
+                (modelAsset.largerBounds.Count > 0  || modelAsset.smallerBounds.Count > 0))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool HasCharacterBounds()
+        {
+            if (modelAsset != null &&
+                modelAsset.modelType == GlobalSettings.modelTypeCharacter &&
+                (modelAsset.standingSpheres.Count > 0 || 
+                modelAsset.crouchedSpheres.Count > 0 ||
+                modelAsset.attachedSpheres.Count > 0))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public string ModelType
+        {
+            get
+            {
+                if (modelAsset != null)
+                {
+                    return modelAsset.modelType;
+                }
+                return "";
+            }
+            set
+            {
+                if (modelAsset != null)
+                {
+                    modelAsset.modelType = value;
+                }
+            }
+        }
+        //
+        //////////////////////////////////////////////////////////////////////
+
+
+        //////////////////////////////////////////////////////////////////////
         // == Load and Save ==
         //
         public void LoadDialogue()
@@ -86,7 +158,7 @@ namespace Engine
             List<string> data = new List<string>();
             // == Model data
             // The type and name
-            data.Add("Structure");
+            data.Add(GlobalSettings.modelTypeStructure);
             // == Filename and effect parameters
             string effect = modelAsset.modelFilename;
             if (!string.IsNullOrEmpty(modelAsset.effectType))
@@ -196,6 +268,9 @@ namespace Engine
                 input.RotateY,
                 input.RotateZ,
                 input.Options);
+
+            // Change which menu items are enabled based on the loaded model type
+            form.UpdateMenuItemVisibility();
         }
 
         // Calculate the overall bounding sphere
