@@ -63,9 +63,6 @@ namespace Engine
             // A folder in the users MyDocuments
             defaultFileFolder = GetSavePath();
 
-            // Used for loading, saving and setting the properties of models for using in Diabolical:The Shooter
-            diabolical = new DiabolicalManager(this);
-
             UpdateMenuItemVisibility();
         }
 
@@ -89,6 +86,9 @@ namespace Engine
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+            // Used for loading, saving and setting the properties of models for using in Diabolical:The Shooter
+            diabolical = new DiabolicalManager(this, modelViewerControl.DebugShapes);
+
             ShowFloor(true);
             modelViewerControl.PauseInput = false;
             menuStrip1.MenuActivate += new EventHandler(menuStrip1_MenuActivate);
@@ -1324,5 +1324,32 @@ namespace Engine
         //
         //////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////
+        // == Bounds ==
+        //
+        private void noBoundsItem_Click(object sender, EventArgs e)
+        {
+            diabolical.ClearOutlines();
+        }
+
+        private void allLargeBoundsItem_Click(object sender, EventArgs e)
+        {
+            diabolical.OutlineLargerBounds();
+        }
+
+        private void allSmallBoundsItem_Click(object sender, EventArgs e)
+        {
+            diabolical.OutlineAllSmallerBounds();
+        }
+
+        private void smallBoundsInTheSelectedBoundItem_Click(object sender, EventArgs e)
+        {
+            diabolical.OutlineSmallerBounds();
+        }
+        //
+        //////////////////////////////////////////////////////////////////////
+
+
+    
     }
 }

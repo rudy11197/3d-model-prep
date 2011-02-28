@@ -136,6 +136,7 @@
     <Compile Include="TakeExtractor\WantedBones.cs" />
     <Compile Include="Utilities\ContentBuilder.cs" />
     <Compile Include="Utilities\ErrorLogger.cs" />
+    <Compile Include="Utilities\Shapes.cs" />
     <EmbeddedResource Include="Diabolical\ModelStructureForm.resx">
       <DependentUpon>ModelStructureForm.cs</DependentUpon>
     </EmbeddedResource>

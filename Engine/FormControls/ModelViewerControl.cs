@@ -186,6 +186,15 @@ namespace Engine
             }
         }
 
+        /// <summary>
+        /// For displaying shapes in 3D
+        /// </summary>
+        private Shapes debugShapes;
+        public Shapes DebugShapes
+        {
+            get { return debugShapes; }
+        }
+
         //////////////////////////////////////////////////////////////////////
         // == Change ==
         //
@@ -598,7 +607,13 @@ namespace Engine
                 world = Matrix.CreateTranslation(floorCentre);
                 DrawRigid(world, view, projection, floor);
             }
+            DrawStoredShapes();
+        }
 
+        // Draw shapes regardless of what created them
+        private void DrawStoredShapes()
+        {
+            debugShapes.DrawStoredShapes(view, projection);
         }
 
         private void DrawAnimated(Matrix aWorld, Matrix aView, Matrix aProjection)
@@ -685,6 +700,9 @@ namespace Engine
             // Get the same background used by the control in a format usable by the game
             gameBackColor = new Color(BackColor.R, BackColor.G, BackColor.B);
             aspectRatio = GraphicsDevice.Viewport.AspectRatio;
+
+            // Setup the shapes
+            debugShapes = new Shapes(GraphicsDevice);
 
             currentKeyboardState = Keyboard.GetState();
             previousKeyboardState = currentKeyboardState;

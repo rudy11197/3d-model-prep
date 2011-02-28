@@ -23,16 +23,18 @@ namespace Engine
     class DiabolicalManager
     {
         MainForm form;
+        Shapes debugShapes;
         string lastLoadedPropertiesFile = "";
         string lastLoaded3DModelFile = "";
 
         DiabolicalModel modelAsset;
 
 
-        public DiabolicalManager(MainForm parent)
+        public DiabolicalManager(MainForm parent, Shapes sharedShapes)
         {
             form = parent;
-            modelAsset = new DiabolicalModel();
+            debugShapes = sharedShapes;
+            modelAsset = new DiabolicalModel(debugShapes);
         }
 
         //////////////////////////////////////////////////////////////////////
@@ -169,6 +171,40 @@ namespace Engine
         {
             get { return modelAsset.specularPower; }
             set { modelAsset.specularPower = value; }
+        }
+        //
+        //////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        // == Bounding Shapes ==
+        //
+        public void ClearOutlines()
+        {
+            debugShapes.ClearStoredShapes();
+        }
+
+        public void OutlineLargerBounds()
+        {
+            if (modelAsset != null && modelAsset.modelType == GlobalSettings.modelTypeStructure)
+            {
+                modelAsset.OutlineLargerBounds(0);
+            }
+        }
+
+        public void OutlineSmallerBounds()
+        {
+            if (modelAsset != null && modelAsset.modelType == GlobalSettings.modelTypeStructure)
+            {
+                modelAsset.OutlineSmallerBounds(0, 0);
+            }
+        }
+
+        public void OutlineAllSmallerBounds()
+        {
+            if (modelAsset != null && modelAsset.modelType == GlobalSettings.modelTypeStructure)
+            {
+                modelAsset.OutlineAllSmallerBounds(0);
+            }
         }
         //
         //////////////////////////////////////////////////////////////////////
@@ -335,7 +371,7 @@ namespace Engine
             }
 
             // Create the class
-            modelAsset = new DiabolicalModel();
+            modelAsset = new DiabolicalModel(debugShapes);
             modelAsset.BuildModelAsset(
                 input.ModelType,
                 input.ModelFilename,
