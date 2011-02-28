@@ -52,16 +52,16 @@ namespace Engine
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.resetViewingPointMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.noBoundsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.allLargeBoundsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.allSmallBoundsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.selectedLargeBoundToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.smallBoundsInTheSelectedBoundToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.noBoundsItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.allLargeBoundsItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.allSmallBoundsItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectedLargeBoundItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.smallBoundsInTheSelectedBoundItem = new System.Windows.Forms.ToolStripMenuItem();
             this.diabolicalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loadmodelFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.savemodelFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadmodelItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.savemodelItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            this.modelPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.modelPropertiesItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitFBXMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openTakesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -75,7 +75,11 @@ namespace Engine
             this.PoseHeading = new System.Windows.Forms.ToolStripMenuItem();
             this.ClipNamesComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.messageBox = new System.Windows.Forms.TextBox();
+            this.changeModelTypeItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modelViewerControl = new Engine.ModelViewerControl();
+            this.boundsWhileStandingItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.boundsWhileCrouchedItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.boundsAttachedToBonesItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -246,11 +250,14 @@ namespace Engine
             this.toolStripSeparator6,
             this.resetViewingPointMenu,
             this.toolStripSeparator3,
-            this.noBoundsToolStripMenuItem,
-            this.allLargeBoundsToolStripMenuItem,
-            this.allSmallBoundsToolStripMenuItem,
-            this.selectedLargeBoundToolStripMenuItem,
-            this.smallBoundsInTheSelectedBoundToolStripMenuItem});
+            this.noBoundsItem,
+            this.allLargeBoundsItem,
+            this.allSmallBoundsItem,
+            this.selectedLargeBoundItem,
+            this.smallBoundsInTheSelectedBoundItem,
+            this.boundsWhileStandingItem,
+            this.boundsWhileCrouchedItem,
+            this.boundsAttachedToBonesItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 23);
             this.viewToolStripMenuItem.Text = "&View";
@@ -307,72 +314,73 @@ namespace Engine
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(264, 6);
             // 
-            // noBoundsToolStripMenuItem
+            // noBoundsItem
             // 
-            this.noBoundsToolStripMenuItem.Name = "noBoundsToolStripMenuItem";
-            this.noBoundsToolStripMenuItem.Size = new System.Drawing.Size(267, 22);
-            this.noBoundsToolStripMenuItem.Text = "&No Bounds";
+            this.noBoundsItem.Name = "noBoundsItem";
+            this.noBoundsItem.Size = new System.Drawing.Size(267, 22);
+            this.noBoundsItem.Text = "&No Bounds";
             // 
-            // allLargeBoundsToolStripMenuItem
+            // allLargeBoundsItem
             // 
-            this.allLargeBoundsToolStripMenuItem.Name = "allLargeBoundsToolStripMenuItem";
-            this.allLargeBoundsToolStripMenuItem.Size = new System.Drawing.Size(267, 22);
-            this.allLargeBoundsToolStripMenuItem.Text = "All &Large Bounds";
+            this.allLargeBoundsItem.Name = "allLargeBoundsItem";
+            this.allLargeBoundsItem.Size = new System.Drawing.Size(267, 22);
+            this.allLargeBoundsItem.Text = "All &Large Bounds";
             // 
-            // allSmallBoundsToolStripMenuItem
+            // allSmallBoundsItem
             // 
-            this.allSmallBoundsToolStripMenuItem.Name = "allSmallBoundsToolStripMenuItem";
-            this.allSmallBoundsToolStripMenuItem.Size = new System.Drawing.Size(267, 22);
-            this.allSmallBoundsToolStripMenuItem.Text = "&All Small Bounds";
+            this.allSmallBoundsItem.Name = "allSmallBoundsItem";
+            this.allSmallBoundsItem.Size = new System.Drawing.Size(267, 22);
+            this.allSmallBoundsItem.Text = "&All Small Bounds";
             // 
-            // selectedLargeBoundToolStripMenuItem
+            // selectedLargeBoundItem
             // 
-            this.selectedLargeBoundToolStripMenuItem.Name = "selectedLargeBoundToolStripMenuItem";
-            this.selectedLargeBoundToolStripMenuItem.Size = new System.Drawing.Size(267, 22);
-            this.selectedLargeBoundToolStripMenuItem.Text = "&Selected Large Bound";
+            this.selectedLargeBoundItem.Name = "selectedLargeBoundItem";
+            this.selectedLargeBoundItem.Size = new System.Drawing.Size(267, 22);
+            this.selectedLargeBoundItem.Text = "&Selected Large Bound";
             // 
-            // smallBoundsInTheSelectedBoundToolStripMenuItem
+            // smallBoundsInTheSelectedBoundItem
             // 
-            this.smallBoundsInTheSelectedBoundToolStripMenuItem.Name = "smallBoundsInTheSelectedBoundToolStripMenuItem";
-            this.smallBoundsInTheSelectedBoundToolStripMenuItem.Size = new System.Drawing.Size(267, 22);
-            this.smallBoundsInTheSelectedBoundToolStripMenuItem.Text = "Small Bounds &In The Selected Bound";
+            this.smallBoundsInTheSelectedBoundItem.Name = "smallBoundsInTheSelectedBoundItem";
+            this.smallBoundsInTheSelectedBoundItem.Size = new System.Drawing.Size(267, 22);
+            this.smallBoundsInTheSelectedBoundItem.Text = "Small Bounds &In The Selected Bound";
             // 
             // diabolicalToolStripMenuItem
             // 
             this.diabolicalToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.loadmodelFileToolStripMenuItem,
-            this.savemodelFileToolStripMenuItem,
+            this.loadmodelItem,
+            this.savemodelItem,
             this.toolStripSeparator7,
-            this.modelPropertiesToolStripMenuItem});
+            this.modelPropertiesItem,
+            this.changeModelTypeItem});
             this.diabolicalToolStripMenuItem.Name = "diabolicalToolStripMenuItem";
             this.diabolicalToolStripMenuItem.Size = new System.Drawing.Size(71, 23);
             this.diabolicalToolStripMenuItem.Text = "&Diabolical";
             // 
-            // loadmodelFileToolStripMenuItem
+            // loadmodelItem
             // 
-            this.loadmodelFileToolStripMenuItem.Name = "loadmodelFileToolStripMenuItem";
-            this.loadmodelFileToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.loadmodelFileToolStripMenuItem.Text = "&Load .model File...";
-            this.loadmodelFileToolStripMenuItem.Click += new System.EventHandler(this.loadmodelFileToolStripMenuItem_Click);
+            this.loadmodelItem.Name = "loadmodelItem";
+            this.loadmodelItem.Size = new System.Drawing.Size(181, 22);
+            this.loadmodelItem.Text = "&Load .model File...";
+            this.loadmodelItem.Click += new System.EventHandler(this.loadmodelFileToolStripMenuItem_Click);
             // 
-            // savemodelFileToolStripMenuItem
+            // savemodelItem
             // 
-            this.savemodelFileToolStripMenuItem.Name = "savemodelFileToolStripMenuItem";
-            this.savemodelFileToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.savemodelFileToolStripMenuItem.Text = "&Save .model File...";
-            this.savemodelFileToolStripMenuItem.Click += new System.EventHandler(this.savemodelFileToolStripMenuItem_Click);
+            this.savemodelItem.Name = "savemodelItem";
+            this.savemodelItem.Size = new System.Drawing.Size(181, 22);
+            this.savemodelItem.Text = "&Save .model File...";
+            this.savemodelItem.Click += new System.EventHandler(this.savemodelFileToolStripMenuItem_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(167, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(178, 6);
             // 
-            // modelPropertiesToolStripMenuItem
+            // modelPropertiesItem
             // 
-            this.modelPropertiesToolStripMenuItem.Name = "modelPropertiesToolStripMenuItem";
-            this.modelPropertiesToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.modelPropertiesToolStripMenuItem.Text = "Model &Properties";
-            this.modelPropertiesToolStripMenuItem.Click += new System.EventHandler(this.modelPropertiesToolStripMenuItem_Click);
+            this.modelPropertiesItem.Name = "modelPropertiesItem";
+            this.modelPropertiesItem.Size = new System.Drawing.Size(181, 22);
+            this.modelPropertiesItem.Text = "Model &Properties";
+            this.modelPropertiesItem.Click += new System.EventHandler(this.modelPropertiesToolStripMenuItem_Click);
             // 
             // ToolsMenuItem
             // 
@@ -453,7 +461,7 @@ namespace Engine
             // helpToolStripMenuItem1
             // 
             this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
-            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(99, 22);
             this.helpToolStripMenuItem1.Text = "&Help";
             this.helpToolStripMenuItem1.Click += new System.EventHandler(this.helpToolStripMenuItem1_Click);
             // 
@@ -486,9 +494,21 @@ namespace Engine
             this.messageBox.TabIndex = 2;
             this.messageBox.TabStop = false;
             // 
+            // changeModelTypeItem
+            // 
+            this.changeModelTypeItem.Name = "changeModelTypeItem";
+            this.changeModelTypeItem.Size = new System.Drawing.Size(181, 22);
+            this.changeModelTypeItem.Text = "Change Model &Type";
+            this.changeModelTypeItem.Click += new System.EventHandler(this.changeModelTypeItem_Click);
+            // 
             // modelViewerControl
             // 
+            this.modelViewerControl.AmbientLightLevel = 0.75F;
+            this.modelViewerControl.CurrentMoveSpeed = 0.6F;
+            this.modelViewerControl.CurrentTurnSpeed = 1F;
+            this.modelViewerControl.DiffuseLightLevel = 0.45F;
             this.modelViewerControl.Dock = System.Windows.Forms.DockStyle.Top;
+            this.modelViewerControl.EmissiveLightLevel = 0.25F;
             this.modelViewerControl.IsAnimated = false;
             this.modelViewerControl.Location = new System.Drawing.Point(0, 27);
             this.modelViewerControl.Name = "modelViewerControl";
@@ -497,6 +517,24 @@ namespace Engine
             this.modelViewerControl.TabIndex = 1;
             this.modelViewerControl.Text = "modelViewerControl";
             this.modelViewerControl.ViewUp = 1;
+            // 
+            // boundsWhileStandingItem
+            // 
+            this.boundsWhileStandingItem.Name = "boundsWhileStandingItem";
+            this.boundsWhileStandingItem.Size = new System.Drawing.Size(267, 22);
+            this.boundsWhileStandingItem.Text = "Bounds While &Standing";
+            // 
+            // boundsWhileCrouchedItem
+            // 
+            this.boundsWhileCrouchedItem.Name = "boundsWhileCrouchedItem";
+            this.boundsWhileCrouchedItem.Size = new System.Drawing.Size(267, 22);
+            this.boundsWhileCrouchedItem.Text = "Bounds While &Crouched";
+            // 
+            // boundsAttachedToBonesItem
+            // 
+            this.boundsAttachedToBonesItem.Name = "boundsAttachedToBonesItem";
+            this.boundsAttachedToBonesItem.Size = new System.Drawing.Size(267, 22);
+            this.boundsAttachedToBonesItem.Text = "Bounds Attached To &Bones";
             // 
             // MainForm
             // 
@@ -555,19 +593,23 @@ namespace Engine
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripMenuItem resetViewingPointMenu;
         private System.Windows.Forms.ToolStripMenuItem diabolicalToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem loadmodelFileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem savemodelFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadmodelItem;
+        private System.Windows.Forms.ToolStripMenuItem savemodelItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
-        private System.Windows.Forms.ToolStripMenuItem modelPropertiesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem noBoundsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem allLargeBoundsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem allSmallBoundsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem selectedLargeBoundToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem smallBoundsInTheSelectedBoundToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem modelPropertiesItem;
+        private System.Windows.Forms.ToolStripMenuItem noBoundsItem;
+        private System.Windows.Forms.ToolStripMenuItem allLargeBoundsItem;
+        private System.Windows.Forms.ToolStripMenuItem allSmallBoundsItem;
+        private System.Windows.Forms.ToolStripMenuItem selectedLargeBoundItem;
+        private System.Windows.Forms.ToolStripMenuItem smallBoundsInTheSelectedBoundItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem windowToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem changeModelTypeItem;
+        private System.Windows.Forms.ToolStripMenuItem boundsWhileStandingItem;
+        private System.Windows.Forms.ToolStripMenuItem boundsWhileCrouchedItem;
+        private System.Windows.Forms.ToolStripMenuItem boundsAttachedToBonesItem;
 
     }
 }

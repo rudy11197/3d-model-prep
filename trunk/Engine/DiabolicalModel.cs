@@ -27,7 +27,7 @@ namespace Engine
 
         // == All models
         // Type, e.g. Character, Structure, Weapon, HeadGear etc.
-        public string modelType = "";
+        public string modelType = GlobalSettings.modelTypeStructure;
         // Model and components
         public Model model;    //that's what we are working on
         // Used to store the bounding sphere in object space
@@ -103,6 +103,7 @@ namespace Engine
 
         public DiabolicalModel()
         {
+            PreProcessSetup();
         }
 
         //////////////////////////////////////////////////////////////////////
@@ -126,7 +127,6 @@ namespace Engine
 
         private void PreProcessSetup()
         {
-            //worldAlignment = Matrix.Identity;
             boneAlignment = Matrix.Identity;
             standingSpheres = new List<BoundingSphere>();
             crouchedSpheres = new List<BoundingSphere>();
