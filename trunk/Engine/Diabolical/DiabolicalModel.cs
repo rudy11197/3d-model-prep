@@ -45,6 +45,14 @@ namespace Engine
         // and containing the indices of the triangles for use by projectile impacts.
         public List<StructureSphere> largerBounds;
         public List<StructureSphere> smallerBounds;
+        public List<StructureSphere> LargerBounds
+        {
+            get { return largerBounds; }
+        }
+        public List<StructureSphere> SmallerBounds
+        {
+            get { return smallerBounds; }
+        }
 
         // == Character
         // Armature Rig type (Skeleton) used to calculate which animations to use  e.g. 'human'
@@ -101,8 +109,18 @@ namespace Engine
         //
         //////////////////////////////////////////////////////////////////////
 
-        public DiabolicalModel()
+        //////////////////////////////////////////////////////////////////////
+        // == Editor ==
+        //
+        // Shape class used to draw guide lines for testing collision
+        // This is a shared class in the ModelViewerControl which draws these shapes
+        public Shapes debugShapes;
+        //
+        //////////////////////////////////////////////////////////////////////
+
+        public DiabolicalModel(Shapes sharedShapes)
         {
+            debugShapes = sharedShapes;
             PreProcessSetup();
         }
 
@@ -522,6 +540,111 @@ namespace Engine
             boneAlignment *= Matrix.CreateRotationX(radX) *
                 Matrix.CreateRotationY(radY) *
                 Matrix.CreateRotationZ(radZ);
+        }
+        //
+        //////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        // == Bounding Shapes ==
+        //
+        // Used to view the result of creating bounding spheres
+        public void OutlineLargerBounds(int lastSelectedBound)
+        {
+            debugShapes.ClearStoredShapes();
+            MoveBounds();
+            for (int i = 0; i < LargerBounds.Count; i++)
+            {
+                // highlight the last selected bound
+                if (i == lastSelectedBound)
+                {
+                    debugShapes.StoreNewSphere(
+                        LargerBounds[i].Sphere.Center,
+                        LargerBounds[i].Sphere.Radius,
+                        Color.Yellow);
+                }
+                else
+                {
+                    debugShapes.StoreNewSphere(
+                        LargerBounds[i].Sphere.Center,
+                        LargerBounds[i].Sphere.Radius,
+                        Color.Red);
+                }
+            }
+        }
+
+        // Used to view and edit the result of creating bounding spheres
+        public void OutlineSmallerBounds(int lastSelectedBound, int lastSmallerBound)
+        {
+            debugShapes.ClearStoredShapes();
+            MoveBounds();
+            if (lastSelectedBound < 0 || lastSelectedBound >= LargerBounds.Count)
+            {
+                return;
+            }
+            // Loop through all the indices contained in the larger bound
+            for (int i = 0; i < LargerBounds[lastSelectedBound].IDs.Count; i++)
+            {
+                if (lastSmallerBound == i)
+                {
+                    debugShapes.StoreNewSphere(
+                        SmallerBounds[LargerBounds[lastSelectedBound].IDs[i]].Sphere.Center,
+                        SmallerBounds[LargerBounds[lastSelectedBound].IDs[i]].Sphere.Radius,
+                        Color.Yellow);
+                }
+                else
+                {
+                    debugShapes.StoreNewSphere(
+                        SmallerBounds[LargerBounds[lastSelectedBound].IDs[i]].Sphere.Center,
+                        SmallerBounds[LargerBounds[lastSelectedBound].IDs[i]].Sphere.Radius,
+                        Color.Red);
+                }
+            }
+        }
+
+        // Used to view the smaller bounds
+        public void OutlineAllSmallerBounds(int lastSelectedBound)
+        {
+            debugShapes.ClearStoredShapes();
+            MoveBounds();
+            // Loop through all the smaller bounds
+            for (int i = 0; i < SmallerBounds.Count; i++)
+            {
+                if (i == lastSelectedBound)
+                {
+                    debugShapes.StoreNewSphere(
+                        SmallerBounds[i].Sphere.Center,
+                        SmallerBounds[i].Sphere.Radius,
+                        Color.Yellow);
+                }
+                else
+                {
+                    debugShapes.StoreNewSphere(
+                        SmallerBounds[i].Sphere.Center,
+                        SmallerBounds[i].Sphere.Radius,
+                        Color.Red);
+                }
+            }
+        }
+
+        public void MoveBounds()
+        {
+            // All models drawn at zero
+            Matrix WorldPosition = Matrix.Identity;
+            // Move the Static bounds making up the model
+            if (LargerBounds != null)
+            {
+                for (int i = 0; i < LargerBounds.Count; i++)
+                {
+                    LargerBounds[i].MoveBounds(WorldPosition);
+                }
+            }
+            if (SmallerBounds != null)
+            {
+                for (int i = 0; i < SmallerBounds.Count; i++)
+                {
+                    SmallerBounds[i].MoveBounds(WorldPosition);
+                }
+            }
         }
         //
         //////////////////////////////////////////////////////////////////////

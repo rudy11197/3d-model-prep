@@ -57,11 +57,15 @@ namespace Engine
             this.allSmallBoundsItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectedLargeBoundItem = new System.Windows.Forms.ToolStripMenuItem();
             this.smallBoundsInTheSelectedBoundItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.boundsWhileStandingItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.boundsWhileCrouchedItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.boundsAttachedToBonesItem = new System.Windows.Forms.ToolStripMenuItem();
             this.diabolicalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadmodelItem = new System.Windows.Forms.ToolStripMenuItem();
             this.savemodelItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.modelPropertiesItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changeModelTypeItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitFBXMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openTakesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -75,11 +79,7 @@ namespace Engine
             this.PoseHeading = new System.Windows.Forms.ToolStripMenuItem();
             this.ClipNamesComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.messageBox = new System.Windows.Forms.TextBox();
-            this.changeModelTypeItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modelViewerControl = new Engine.ModelViewerControl();
-            this.boundsWhileStandingItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.boundsWhileCrouchedItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.boundsAttachedToBonesItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -319,18 +319,21 @@ namespace Engine
             this.noBoundsItem.Name = "noBoundsItem";
             this.noBoundsItem.Size = new System.Drawing.Size(267, 22);
             this.noBoundsItem.Text = "&No Bounds";
+            this.noBoundsItem.Click += new System.EventHandler(this.noBoundsItem_Click);
             // 
             // allLargeBoundsItem
             // 
             this.allLargeBoundsItem.Name = "allLargeBoundsItem";
             this.allLargeBoundsItem.Size = new System.Drawing.Size(267, 22);
             this.allLargeBoundsItem.Text = "All &Large Bounds";
+            this.allLargeBoundsItem.Click += new System.EventHandler(this.allLargeBoundsItem_Click);
             // 
             // allSmallBoundsItem
             // 
             this.allSmallBoundsItem.Name = "allSmallBoundsItem";
             this.allSmallBoundsItem.Size = new System.Drawing.Size(267, 22);
             this.allSmallBoundsItem.Text = "&All Small Bounds";
+            this.allSmallBoundsItem.Click += new System.EventHandler(this.allSmallBoundsItem_Click);
             // 
             // selectedLargeBoundItem
             // 
@@ -343,6 +346,25 @@ namespace Engine
             this.smallBoundsInTheSelectedBoundItem.Name = "smallBoundsInTheSelectedBoundItem";
             this.smallBoundsInTheSelectedBoundItem.Size = new System.Drawing.Size(267, 22);
             this.smallBoundsInTheSelectedBoundItem.Text = "Small Bounds &In The Selected Bound";
+            this.smallBoundsInTheSelectedBoundItem.Click += new System.EventHandler(this.smallBoundsInTheSelectedBoundItem_Click);
+            // 
+            // boundsWhileStandingItem
+            // 
+            this.boundsWhileStandingItem.Name = "boundsWhileStandingItem";
+            this.boundsWhileStandingItem.Size = new System.Drawing.Size(267, 22);
+            this.boundsWhileStandingItem.Text = "Bounds While &Standing";
+            // 
+            // boundsWhileCrouchedItem
+            // 
+            this.boundsWhileCrouchedItem.Name = "boundsWhileCrouchedItem";
+            this.boundsWhileCrouchedItem.Size = new System.Drawing.Size(267, 22);
+            this.boundsWhileCrouchedItem.Text = "Bounds While &Crouched";
+            // 
+            // boundsAttachedToBonesItem
+            // 
+            this.boundsAttachedToBonesItem.Name = "boundsAttachedToBonesItem";
+            this.boundsAttachedToBonesItem.Size = new System.Drawing.Size(267, 22);
+            this.boundsAttachedToBonesItem.Text = "Bounds Attached To &Bones";
             // 
             // diabolicalToolStripMenuItem
             // 
@@ -381,6 +403,13 @@ namespace Engine
             this.modelPropertiesItem.Size = new System.Drawing.Size(181, 22);
             this.modelPropertiesItem.Text = "Model &Properties";
             this.modelPropertiesItem.Click += new System.EventHandler(this.modelPropertiesToolStripMenuItem_Click);
+            // 
+            // changeModelTypeItem
+            // 
+            this.changeModelTypeItem.Name = "changeModelTypeItem";
+            this.changeModelTypeItem.Size = new System.Drawing.Size(181, 22);
+            this.changeModelTypeItem.Text = "Change Model &Type";
+            this.changeModelTypeItem.Click += new System.EventHandler(this.changeModelTypeItem_Click);
             // 
             // ToolsMenuItem
             // 
@@ -494,13 +523,6 @@ namespace Engine
             this.messageBox.TabIndex = 2;
             this.messageBox.TabStop = false;
             // 
-            // changeModelTypeItem
-            // 
-            this.changeModelTypeItem.Name = "changeModelTypeItem";
-            this.changeModelTypeItem.Size = new System.Drawing.Size(181, 22);
-            this.changeModelTypeItem.Text = "Change Model &Type";
-            this.changeModelTypeItem.Click += new System.EventHandler(this.changeModelTypeItem_Click);
-            // 
             // modelViewerControl
             // 
             this.modelViewerControl.AmbientLightLevel = 0.75F;
@@ -517,24 +539,6 @@ namespace Engine
             this.modelViewerControl.TabIndex = 1;
             this.modelViewerControl.Text = "modelViewerControl";
             this.modelViewerControl.ViewUp = 1;
-            // 
-            // boundsWhileStandingItem
-            // 
-            this.boundsWhileStandingItem.Name = "boundsWhileStandingItem";
-            this.boundsWhileStandingItem.Size = new System.Drawing.Size(267, 22);
-            this.boundsWhileStandingItem.Text = "Bounds While &Standing";
-            // 
-            // boundsWhileCrouchedItem
-            // 
-            this.boundsWhileCrouchedItem.Name = "boundsWhileCrouchedItem";
-            this.boundsWhileCrouchedItem.Size = new System.Drawing.Size(267, 22);
-            this.boundsWhileCrouchedItem.Text = "Bounds While &Crouched";
-            // 
-            // boundsAttachedToBonesItem
-            // 
-            this.boundsAttachedToBonesItem.Name = "boundsAttachedToBonesItem";
-            this.boundsAttachedToBonesItem.Size = new System.Drawing.Size(267, 22);
-            this.boundsAttachedToBonesItem.Text = "Bounds Attached To &Bones";
             // 
             // MainForm
             // 

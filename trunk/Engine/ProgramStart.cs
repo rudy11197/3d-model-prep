@@ -143,12 +143,8 @@ using System.Windows.Forms;
 //-----------------------------------------------------------------------------
 // TODO:
 //-----------------------------------------------------------------------------
-// - Load game model files
-// - Save game model files
-// - View animated model bounds
-// - View rigid model bounds
-// - Edit animated model bounds
-// - Edit rigid model bounds
+// - View structure model bounds
+// - Edit structure model bounds
 // - Remove any smaller bounds that are surrounded on all sides
 //      Remember to calculate all the ones to remove before removing any otherwise
 //      the results will miss some.
