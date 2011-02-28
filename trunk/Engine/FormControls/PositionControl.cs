@@ -108,7 +108,7 @@ namespace Engine
             {
                 numericX.DecimalPlaces = value;
                 numericY.DecimalPlaces = value;
-                numericY.DecimalPlaces = value;
+                numericZ.DecimalPlaces = value;
             }
         }
         /// <summary>

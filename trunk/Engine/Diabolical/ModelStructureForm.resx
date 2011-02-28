@@ -117,4 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="labelCommonNote.Text" xml:space="preserve">
+    <value>The rotation is applied as the model is loaded.  This rotates all the vertices and animations.
+This does not rotate any existing bounds.  If the rotation is changed the bounds will have to be recreated.</value>
+  </data>
 </root>

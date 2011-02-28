@@ -69,7 +69,10 @@ namespace Engine
             UpdateMenuItemVisibility();
         }
 
-        public string GetSavePath()
+        /// <summary>
+        /// See also DefaultFileFolder
+        /// </summary>
+        public static string GetSavePath()
         {
             string result = Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
                 GlobalSettings.pathSaveGameFolder, GlobalSettings.pathSaveDataFolder);
@@ -574,6 +577,11 @@ namespace Engine
                 }
                 if (modelViewerControl.Model != null)
                 {
+                    // Store the loaded model filename for use elsewhere
+                    if (diabolical != null)
+                    {
+                        diabolical.LastLoaded3DModelFile = fileName;
+                    }
                     // Add any animation
                     SkinningData skinData = (SkinningData)modelViewerControl.Model.Tag;
                     if (skinData != null)
@@ -947,7 +955,10 @@ namespace Engine
 
         }
 
-        private void SaveTextFile(string fileName, List<string> data)
+        /// <summary>
+        /// Used from various classes to save files
+        /// </summary>
+        public void SaveTextFile(string fileName, List<string> data)
         {
             if (data.Count < 1 || string.IsNullOrEmpty(fileName))
             {
@@ -1212,10 +1223,27 @@ namespace Engine
         private void DisplayStructureForm()
         {
             ModelStructureForm aForm = new ModelStructureForm();
+
+            aForm.ModelPath = diabolical.LastLoaded3DModelFile;
+            aForm.ModelRotation = diabolical.ModelRotation;
+            aForm.EffectType = diabolical.EffectType;
+            aForm.DepthMapFileName = diabolical.DepthMapFileName;
+            aForm.SpecularMapFileName = diabolical.SpecularMapFileName;
+            aForm.SpecularIntensity = diabolical.SpecularIntensity;
+            aForm.SpecularPower = diabolical.SpecularPower;
+            aForm.LargeBoundCount = diabolical.LargeBoundCount;
+            aForm.SmallBoundCount = diabolical.SmallBoundCount;
+
             DialogResult diagResult = aForm.ShowDialog();
             if (diagResult == DialogResult.OK)
             {
                 // Results
+                diabolical.ModelRotation = aForm.ModelRotation;
+                diabolical.EffectType = aForm.EffectType;
+                diabolical.DepthMapFileName = aForm.DepthMapFileName;
+                diabolical.SpecularMapFileName = aForm.SpecularMapFileName;
+                diabolical.SpecularIntensity = aForm.SpecularIntensity;
+                diabolical.SpecularPower = aForm.SpecularPower;
             }
         }
 

@@ -90,7 +90,7 @@ namespace Engine
         public List<int> crossHairs;
 
         // == Only used by the editor
-        // The fbx or x file of the model including the path
+        // The fbx or x file of the model including the relative path
         public string modelFilename;
         public string effectType;
         public float specularIntensity = 0.3f;

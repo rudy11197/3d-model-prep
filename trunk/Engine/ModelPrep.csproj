@@ -81,11 +81,15 @@
     <Compile Include="Diabolical\DiabolicalManager.cs" />
     <Compile Include="Diabolical\DiabolicalModel.cs" />
     <Compile Include="Diabolical\DiabolicalSourceData.cs" />
-    <Compile Include="Diabolical\ModelStructureForm.cs" />
+    <Compile Include="Diabolical\ModelStructureForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Diabolical\ModelStructureForm.designer.cs">
       <DependentUpon>ModelStructureForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Diabolical\ModelTypeForm.cs" />
+    <Compile Include="Diabolical\ModelTypeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Diabolical\ModelTypeForm.designer.cs">
       <DependentUpon>ModelTypeForm.cs</DependentUpon>
     </Compile>
