@@ -143,7 +143,8 @@ using System.Windows.Forms;
 //-----------------------------------------------------------------------------
 // TODO:
 //-----------------------------------------------------------------------------
-// - View structure model bounds
+// - Hide the model so the bounds can be seen better
+// - Draw the third loop to make spheres easier to see
 // - Edit structure model bounds
 // - Remove any smaller bounds that are surrounded on all sides
 //      Remember to calculate all the ones to remove before removing any otherwise
