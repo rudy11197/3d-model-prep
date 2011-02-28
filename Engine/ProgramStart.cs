@@ -137,12 +137,12 @@ using System.Windows.Forms;
 // - Save animationClips in the format used by the Microsoft Skinning Sample
 // - Use a config file to convert multiple animations in to animationClip format
 // - Show a floor
+// - Load and save models with the Diabolical custom structure format
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 // TODO:
 //-----------------------------------------------------------------------------
-// - View Model properties
 // - Load game model files
 // - Save game model files
 // - View animated model bounds

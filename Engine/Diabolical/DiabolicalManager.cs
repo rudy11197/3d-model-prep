@@ -23,7 +23,8 @@ namespace Engine
     class DiabolicalManager
     {
         MainForm form;
-        string lastLoadedFile = "";
+        string lastLoadedPropertiesFile = "";
+        string lastLoaded3DModelFile = "";
 
         DiabolicalModel modelAsset;
 
@@ -35,8 +36,15 @@ namespace Engine
         }
 
         //////////////////////////////////////////////////////////////////////
-        // == Results ==
+        // == Results and Properties ==
         //
+        // For use when browsing for other related files
+        public string LastLoaded3DModelFile
+        {
+            get { return lastLoaded3DModelFile; }
+            set { lastLoaded3DModelFile = value; }
+        }
+
         // Which types we have save methods for
         public bool CanSave()
         {
@@ -71,6 +79,30 @@ namespace Engine
             return false;
         }
 
+        public int LargeBoundCount
+        {
+            get
+            {
+                if (modelAsset != null && modelAsset.modelType == GlobalSettings.modelTypeStructure)
+                {
+                    return modelAsset.largerBounds.Count;
+                }
+                return 0;
+            }
+        }
+
+        public int SmallBoundCount
+        {
+            get
+            {
+                if (modelAsset != null && modelAsset.modelType == GlobalSettings.modelTypeStructure)
+                {
+                    return modelAsset.smallerBounds.Count;
+                }
+                return 0;
+            }
+        }
+
         public bool HasCharacterBounds()
         {
             if (modelAsset != null &&
@@ -102,6 +134,42 @@ namespace Engine
                 }
             }
         }
+
+        public Vector3 ModelRotation
+        {
+            get { return modelAsset.rotation; }
+            set { modelAsset.rotation = value; }
+        }
+
+        public string EffectType
+        {
+            get { return modelAsset.effectType; }
+            set { modelAsset.effectType = value; }
+        }
+
+        public string DepthMapFileName
+        {
+            get { return modelAsset.depthMapFile; }
+            set { modelAsset.depthMapFile = value; }
+        }
+
+        public string SpecularMapFileName
+        {
+            get { return modelAsset.specularMapFile; }
+            set { modelAsset.specularMapFile = value; }
+        }
+
+        public float SpecularIntensity
+        {
+            get { return modelAsset.specularIntensity; }
+            set { modelAsset.specularIntensity = value; }
+        }
+
+        public float SpecularPower
+        {
+            get { return modelAsset.specularPower; }
+            set { modelAsset.specularPower = value; }
+        }
         //
         //////////////////////////////////////////////////////////////////////
 
@@ -120,7 +188,7 @@ namespace Engine
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
                 form.ClearMessages();
-                lastLoadedFile = fileDialog.FileName;
+                lastLoadedPropertiesFile = fileDialog.FileName;
                 LoadModelFile(fileDialog.FileName);
             }
             form.AddMessageLine("== Finished ==");
@@ -132,10 +200,10 @@ namespace Engine
             string pathToSaveFolder = form.DefaultFileFolder;
             string fileName = "Model.model";
             // If we have loaded a file use that for the path and the name
-            if (lastLoadedFile != "")
+            if (lastLoadedPropertiesFile != "")
             {
-                fileName = Path.GetFileName(lastLoadedFile);
-                pathToSaveFolder = Path.GetDirectoryName(lastLoadedFile);
+                fileName = Path.GetFileName(lastLoadedPropertiesFile);
+                pathToSaveFolder = Path.GetDirectoryName(lastLoadedPropertiesFile);
             }
 
             SaveFileDialog fileDialog = new SaveFileDialog();
@@ -147,13 +215,26 @@ namespace Engine
 
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
-                //SaveModelFile(fileDialog.FileName, GetStructureSaveData());
+                SaveModelFile(fileDialog.FileName);
             }
-
+            form.AddMessageLine("== Finished ==");
         }
 
-        // Save changes to any model to the user storage area
-        public List<string> GetStructureSaveData()
+        private void SaveModelFile(string fileName)
+        {
+            switch (modelAsset.modelType)
+            {
+                case GlobalSettings.modelTypeStructure:
+                    form.SaveTextFile(fileName, GetStructureSaveData());
+                    break;
+                default:
+                    form.AddMessageLine("The " + modelAsset.modelType + " model type is not yet supported!");
+                    break;
+            }
+        }
+
+        // Save file format (.model)
+        private List<string> GetStructureSaveData()
         {
             List<string> data = new List<string>();
             // == Model data
@@ -242,6 +323,7 @@ namespace Engine
             string directory = Path.GetDirectoryName(input.Identity);
             // == The model
             string filepath = Path.Combine(directory, input.ModelFilename);
+            lastLoaded3DModelFile = filepath;
 
             if (input.ModelType == GlobalSettings.modelTypeCharacter)
             {

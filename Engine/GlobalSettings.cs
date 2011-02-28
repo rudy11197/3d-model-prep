@@ -52,10 +52,12 @@ namespace Engine
         public const string modelTypeGearHead = "HeadGear";
         public const string modelTypeGearAccessory = "Accessory";
         public const string modelTypeGearOther = "OtherGear";
+        // Default effect type
+        public const string effectTypeNone = "None";
         // Normal map is a texture containing the normal directions
-        public const string effectTypeNormalMap = "normalmap";
+        public const string effectTypeNormalMap = "NormalMap";
         // Bump map is a grey scale containing depth levels as grey scales
-        public const string effectTypeBumpMap = "bumpmap";
+        public const string effectTypeBumpMap = "BumpMap";
         // == Types of object that can be loaded from the model file
         // These are used to parse the data from the file because not all models have 
         // all the types of data.
