@@ -217,15 +217,15 @@ namespace Engine
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
             fileDialog.InitialDirectory = form.DefaultFileFolder;
-            fileDialog.Title = "Load Diabolical Model";
-            fileDialog.Filter = "Model Files (*.model)|*.model|" +
+            fileDialog.Title = "Load Diabolical Model Settings";
+            fileDialog.Filter = "Model Settings (*.model)|*.model|" +
                                 "All Files (*.*)|*.*";
 
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
                 form.ClearMessages();
                 lastLoadedPropertiesFile = fileDialog.FileName;
-                LoadModelFile(fileDialog.FileName);
+                LoadModelSettingsFile(fileDialog.FileName);
             }
             form.AddMessageLine("== Finished ==");
         }
@@ -244,19 +244,19 @@ namespace Engine
 
             SaveFileDialog fileDialog = new SaveFileDialog();
             fileDialog.InitialDirectory = pathToSaveFolder;
-            fileDialog.Title = "Save Diabolical Model";
+            fileDialog.Title = "Save Diabolical Model Settings";
             fileDialog.FileName = fileName;
-            fileDialog.Filter = "Model Files (*.model)|*.model|" +
+            fileDialog.Filter = "Model Settings (*.model)|*.model|" +
                                 "All Files (*.*)|*.*";
 
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
-                SaveModelFile(fileDialog.FileName);
+                SaveModelSettingsFile(fileDialog.FileName);
             }
             form.AddMessageLine("== Finished ==");
         }
 
-        private void SaveModelFile(string fileName)
+        private void SaveModelSettingsFile(string fileName)
         {
             switch (modelAsset.modelType)
             {
@@ -329,7 +329,7 @@ namespace Engine
             return data;
         }
 
-        private void LoadModelFile(string fileName)
+        private void LoadModelSettingsFile(string fileName)
         {
             string[] result = new string[0];
 
@@ -363,11 +363,11 @@ namespace Engine
 
             if (input.ModelType == GlobalSettings.modelTypeCharacter)
             {
-                form.LoadAnimatedModel(true, filepath, input.RotateX, input.RotateY, input.RotateZ);
+                form.LoadModel(true, filepath, input.RotateX, input.RotateY, input.RotateZ);
             }
             else
             {
-                form.LoadAnimatedModel(false, filepath, input.RotateX, input.RotateY, input.RotateZ);
+                form.LoadModel(false, filepath, input.RotateX, input.RotateY, input.RotateZ);
             }
 
             // Create the class
@@ -404,5 +404,51 @@ namespace Engine
         //
         //////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////
+        // == Property Forms ==
+        //
+        public void DisplayPropertyForms()
+        {
+            switch (ModelType)
+            {
+                case GlobalSettings.modelTypeStructure:
+                    DisplayStructureForm();
+                    break;
+            }
+        }
+
+        private void DisplayStructureForm()
+        {
+            ModelStructureForm aForm = new ModelStructureForm();
+
+            aForm.ModelPath = LastLoaded3DModelFile;
+            aForm.ModelRotation = ModelRotation;
+            aForm.EffectType = EffectType;
+            aForm.DepthMapFileName = DepthMapFileName;
+            aForm.SpecularMapFileName = SpecularMapFileName;
+            aForm.SpecularIntensity = SpecularIntensity;
+            aForm.SpecularPower = SpecularPower;
+            aForm.LargeBoundCount = LargeBoundCount;
+            aForm.SmallBoundCount = SmallBoundCount;
+
+            DialogResult diagResult = aForm.ShowDialog();
+            if (diagResult == DialogResult.OK || diagResult == DialogResult.Yes)
+            {
+                // Results
+                ModelRotation = aForm.ModelRotation;
+                EffectType = aForm.EffectType;
+                DepthMapFileName = aForm.DepthMapFileName;
+                SpecularMapFileName = aForm.SpecularMapFileName;
+                SpecularIntensity = aForm.SpecularIntensity;
+                SpecularPower = aForm.SpecularPower;
+            }
+            if (diagResult == DialogResult.Yes && !string.IsNullOrEmpty(lastLoaded3DModelFile))
+            {
+                // Reload the model
+                form.LoadModel(false, lastLoaded3DModelFile, ModelRotation.X, ModelRotation.Y, ModelRotation.Z);
+            }
+        }
+        //
+        //////////////////////////////////////////////////////////////////////
     }
 }
