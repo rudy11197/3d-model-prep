@@ -24,7 +24,7 @@ namespace Engine
     {
         MainForm form;
         Shapes debugShapes;
-        string lastLoadedPropertiesFile = "";
+        string lastLoadedSettingsFile = "";
         string lastLoaded3DModelFile = "";
 
         DiabolicalModel modelAsset;
@@ -224,7 +224,6 @@ namespace Engine
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
                 form.ClearMessages();
-                lastLoadedPropertiesFile = fileDialog.FileName;
                 LoadModelSettingsFile(fileDialog.FileName);
             }
             form.AddMessageLine("== Finished ==");
@@ -234,12 +233,17 @@ namespace Engine
         {
             // Path to default location
             string pathToSaveFolder = form.DefaultFileFolder;
-            string fileName = "Model.model";
+            string fileName = GlobalSettings.settingsFileExcludingExtension + GlobalSettings.settingsFileExtension;
             // If we have loaded a file use that for the path and the name
-            if (lastLoadedPropertiesFile != "")
+            if (lastLoadedSettingsFile != "")
             {
-                fileName = Path.GetFileName(lastLoadedPropertiesFile);
-                pathToSaveFolder = Path.GetDirectoryName(lastLoadedPropertiesFile);
+                fileName = Path.GetFileName(lastLoadedSettingsFile);
+                pathToSaveFolder = Path.GetDirectoryName(lastLoadedSettingsFile);
+            }
+            else if (lastLoaded3DModelFile != "")
+            {
+                fileName = Path.GetFileNameWithoutExtension(lastLoaded3DModelFile) + GlobalSettings.settingsFileExtension;
+                pathToSaveFolder = Path.GetDirectoryName(lastLoaded3DModelFile);
             }
 
             SaveFileDialog fileDialog = new SaveFileDialog();
@@ -251,9 +255,47 @@ namespace Engine
 
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
-                SaveModelSettingsFile(fileDialog.FileName);
+                CalculateRelativePaths(fileDialog.FileName);
+                if (AcceptInvalidPath(modelAsset.modelFilename))
+                {
+                    SaveModelSettingsFile(fileDialog.FileName);
+                }
             }
             form.AddMessageLine("== Finished ==");
+        }
+
+        private void CalculateRelativePaths(string from)
+        {
+            if (string.IsNullOrEmpty(lastLoaded3DModelFile))
+            {
+                // This will leave the model filename unchanged
+                form.AddMessageLine("The model settings file was saved without a valid model having been loaded!");
+                return;
+            }
+            string fromFolder = Path.GetDirectoryName(from);
+            modelAsset.modelFilename = MainForm.RelativePathTo(fromFolder, lastLoaded3DModelFile);
+        }
+
+        private bool AcceptInvalidPath(string relativePath)
+        {
+            bool result = true;
+            if (relativePath.Length < 2)
+            {
+                if (MessageBox.Show("The 3D model file name is too short!\nThe model is unlikely to load from the settings file!\nDo you want to save anyway?",
+                    "Invalid 3D Filename", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+                {
+                    result = false;
+                }
+            }
+            else if (relativePath.Substring(0, 2) == ".." || Path.IsPathRooted(relativePath))
+            {
+                if (MessageBox.Show("The 3D model file is not in a suitable folder!\nThe 3D model should be in the same folder or a sub folder of where the settings file is saved.\nDo you want to save anyway?",
+                    "Invalid 3D File Location", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+                {
+                    result = false;
+                }
+            }
+            return result;
         }
 
         private void SaveModelSettingsFile(string fileName)
@@ -276,7 +318,7 @@ namespace Engine
             // == Model data
             // The type and name
             data.Add(GlobalSettings.modelTypeStructure);
-            // == Filename and effect parameters
+            // == Filename and effect parameters on one line
             string effect = modelAsset.modelFilename;
             if (!string.IsNullOrEmpty(modelAsset.effectType))
             {
@@ -335,6 +377,7 @@ namespace Engine
 
             if (File.Exists(fileName))
             {
+                lastLoadedSettingsFile = fileName;
                 result = File.ReadAllLines(fileName);
             }
             else
