@@ -143,12 +143,24 @@ using System.Windows.Forms;
 //-----------------------------------------------------------------------------
 // TODO:
 //-----------------------------------------------------------------------------
+// test - Add a button to reload a model when the rotation has been changed
+// - Calculate the relative path to the model file when the .model file is being saved
+//      Warn if the relative path is not a sub folder
+//      Prompt to save the model settings in to the same folder as the model
+//      If there was not a previous model settings file loacation, 
+//      make the initial save .model location the same folder as the model (FBX)
+//          file was loaded from.
 // - Hide the model so the bounds can be seen better
+// - Draw the model in wireframe so the bounds can be seen better
 // - Draw the third loop to make spheres easier to see
+// - Calculate bounds
+// - Round the floor scale up to the nearest 10 or 100 units
 // - Edit structure model bounds
 // - Remove any smaller bounds that are surrounded on all sides
 //      Remember to calculate all the ones to remove before removing any otherwise
 //      the results will miss some.
+// - Move using the mouse
+//      Hold middle button or the space to look using the mouse
 
 //-----------------------------------------------------------------------------
 // TODO (Extras):

@@ -112,7 +112,7 @@ namespace Engine
             // Load the model text for splitting to separate files
             fbx.LoadAsText(fileFullPathToModel);
             // Load the model as a model
-            form.LoadAnimatedModel(true, fileFullPathToModel, rotateXdeg, rotateYdeg, rotateZdeg);
+            form.LoadModel(true, fileFullPathToModel, rotateXdeg, rotateYdeg, rotateZdeg);
             // Must save the takes to individual files and
             // the file names must be consistent
             fbx.SaveIndividualFBXtakes();
@@ -126,7 +126,7 @@ namespace Engine
             // Just get the file names and paths
             fbx.ExtractFileNames(fileFullPathToModel);
             // Load the model as a model
-            form.LoadAnimatedModel(true, fileFullPathToModel, rotateXdeg, rotateYdeg, rotateZdeg);
+            form.LoadModel(true, fileFullPathToModel, rotateXdeg, rotateYdeg, rotateZdeg);
             // Animation files (FBX) must already exist
             // Now we can load each in turn to get the keyframe data
             ExportTakesToKeyframes(2, fbx, rotateXdeg, rotateYdeg, rotateZdeg);

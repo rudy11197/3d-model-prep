@@ -78,7 +78,7 @@ namespace Engine
             this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.PoseHeading = new System.Windows.Forms.ToolStripMenuItem();
             this.ClipNamesComboBox = new System.Windows.Forms.ToolStripComboBox();
-            this.messageBox = new System.Windows.Forms.TextBox();
+            this.statusPanel = new System.Windows.Forms.TextBox();
             this.modelViewerControl = new Engine.ModelViewerControl();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -497,7 +497,7 @@ namespace Engine
             // PoseHeading
             // 
             this.PoseHeading.Name = "PoseHeading";
-            this.PoseHeading.Size = new System.Drawing.Size(141, 23);
+            this.PoseHeading.Size = new System.Drawing.Size(141, 20);
             this.PoseHeading.Text = "|      &Animation or Pose:";
             this.PoseHeading.Visible = false;
             // 
@@ -510,18 +510,18 @@ namespace Engine
             this.ClipNamesComboBox.Visible = false;
             this.ClipNamesComboBox.TextChanged += new System.EventHandler(this.ClipNamesComboBox_Changed);
             // 
-            // messageBox
+            // statusPanel
             // 
-            this.messageBox.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.messageBox.Location = new System.Drawing.Point(0, 669);
-            this.messageBox.Margin = new System.Windows.Forms.Padding(12);
-            this.messageBox.Multiline = true;
-            this.messageBox.Name = "messageBox";
-            this.messageBox.ReadOnly = true;
-            this.messageBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.messageBox.Size = new System.Drawing.Size(1008, 93);
-            this.messageBox.TabIndex = 2;
-            this.messageBox.TabStop = false;
+            this.statusPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.statusPanel.Location = new System.Drawing.Point(0, 669);
+            this.statusPanel.Margin = new System.Windows.Forms.Padding(12);
+            this.statusPanel.Multiline = true;
+            this.statusPanel.Name = "statusPanel";
+            this.statusPanel.ReadOnly = true;
+            this.statusPanel.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.statusPanel.Size = new System.Drawing.Size(1008, 93);
+            this.statusPanel.TabIndex = 2;
+            this.statusPanel.TabStop = false;
             // 
             // modelViewerControl
             // 
@@ -546,7 +546,7 @@ namespace Engine
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(1008, 762);
-            this.Controls.Add(this.messageBox);
+            this.Controls.Add(this.statusPanel);
             this.Controls.Add(this.modelViewerControl);
             this.Controls.Add(this.menuStrip1);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -568,7 +568,7 @@ namespace Engine
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private ModelViewerControl modelViewerControl;
         private System.Windows.Forms.ToolStripMenuItem openTakesToolStripMenuItem;
-        private System.Windows.Forms.TextBox messageBox;
+        private System.Windows.Forms.TextBox statusPanel;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem SaveBoneMapMenu;
         private System.Windows.Forms.ToolStripMenuItem splitFBXMenuItem;

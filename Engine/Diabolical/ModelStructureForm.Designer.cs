@@ -32,6 +32,7 @@
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonZero = new System.Windows.Forms.Button();
             this.labelCommonNote = new System.Windows.Forms.Label();
             this.buttonBlender = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -57,7 +58,8 @@
             this.textLargeCount = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.buttonZero = new System.Windows.Forms.Button();
+            this.buttonReload = new System.Windows.Forms.Button();
+            this.label12 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericSpecularPower)).BeginInit();
@@ -87,6 +89,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label12);
+            this.groupBox1.Controls.Add(this.buttonReload);
             this.groupBox1.Controls.Add(this.buttonZero);
             this.groupBox1.Controls.Add(this.labelCommonNote);
             this.groupBox1.Controls.Add(this.buttonBlender);
@@ -98,6 +102,16 @@
             this.groupBox1.TabIndex = 52;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Common";
+            // 
+            // buttonZero
+            // 
+            this.buttonZero.Location = new System.Drawing.Point(564, 29);
+            this.buttonZero.Name = "buttonZero";
+            this.buttonZero.Size = new System.Drawing.Size(75, 23);
+            this.buttonZero.TabIndex = 5;
+            this.buttonZero.Text = "Zero";
+            this.buttonZero.UseVisualStyleBackColor = true;
+            this.buttonZero.Click += new System.EventHandler(this.buttonZero_Click);
             // 
             // labelCommonNote
             // 
@@ -189,7 +203,7 @@
             this.buttonSpecular.Location = new System.Drawing.Point(480, 128);
             this.buttonSpecular.Name = "buttonSpecular";
             this.buttonSpecular.Size = new System.Drawing.Size(75, 23);
-            this.buttonSpecular.TabIndex = 12;
+            this.buttonSpecular.TabIndex = 13;
             this.buttonSpecular.Text = "Browse";
             this.buttonSpecular.UseVisualStyleBackColor = true;
             this.buttonSpecular.Click += new System.EventHandler(this.buttonSpecular_Click);
@@ -199,7 +213,7 @@
             this.buttonBump.Location = new System.Drawing.Point(480, 58);
             this.buttonBump.Name = "buttonBump";
             this.buttonBump.Size = new System.Drawing.Size(75, 23);
-            this.buttonBump.TabIndex = 8;
+            this.buttonBump.TabIndex = 9;
             this.buttonBump.Text = "Browse";
             this.buttonBump.UseVisualStyleBackColor = true;
             this.buttonBump.Click += new System.EventHandler(this.buttonBump_Click);
@@ -209,14 +223,14 @@
             this.textSpecularFile.Location = new System.Drawing.Point(189, 130);
             this.textSpecularFile.Name = "textSpecularFile";
             this.textSpecularFile.Size = new System.Drawing.Size(285, 20);
-            this.textSpecularFile.TabIndex = 11;
+            this.textSpecularFile.TabIndex = 12;
             // 
             // textBumpFile
             // 
             this.textBumpFile.Location = new System.Drawing.Point(189, 60);
             this.textBumpFile.Name = "textBumpFile";
             this.textBumpFile.Size = new System.Drawing.Size(285, 20);
-            this.textBumpFile.TabIndex = 7;
+            this.textBumpFile.TabIndex = 8;
             // 
             // label7
             // 
@@ -241,7 +255,7 @@
             this.numericSpecularPower.Location = new System.Drawing.Point(405, 95);
             this.numericSpecularPower.Name = "numericSpecularPower";
             this.numericSpecularPower.Size = new System.Drawing.Size(120, 20);
-            this.numericSpecularPower.TabIndex = 10;
+            this.numericSpecularPower.TabIndex = 11;
             // 
             // numericSpecularIntensity
             // 
@@ -259,7 +273,7 @@
             65536});
             this.numericSpecularIntensity.Name = "numericSpecularIntensity";
             this.numericSpecularIntensity.Size = new System.Drawing.Size(120, 20);
-            this.numericSpecularIntensity.TabIndex = 9;
+            this.numericSpecularIntensity.TabIndex = 10;
             // 
             // label5
             // 
@@ -295,7 +309,7 @@
             this.comboEffect.Location = new System.Drawing.Point(130, 25);
             this.comboEffect.Name = "comboEffect";
             this.comboEffect.Size = new System.Drawing.Size(158, 21);
-            this.comboEffect.TabIndex = 6;
+            this.comboEffect.TabIndex = 7;
             // 
             // label2
             // 
@@ -355,15 +369,24 @@
             this.label8.TabIndex = 0;
             this.label8.Text = "Large Bounding Sphere Count:";
             // 
-            // buttonZero
+            // buttonReload
             // 
-            this.buttonZero.Location = new System.Drawing.Point(564, 29);
-            this.buttonZero.Name = "buttonZero";
-            this.buttonZero.Size = new System.Drawing.Size(75, 23);
-            this.buttonZero.TabIndex = 5;
-            this.buttonZero.Text = "Zero";
-            this.buttonZero.UseVisualStyleBackColor = true;
-            this.buttonZero.Click += new System.EventHandler(this.buttonZero_Click);
+            this.buttonReload.DialogResult = System.Windows.Forms.DialogResult.Yes;
+            this.buttonReload.Location = new System.Drawing.Point(667, 29);
+            this.buttonReload.Name = "buttonReload";
+            this.buttonReload.Size = new System.Drawing.Size(75, 23);
+            this.buttonReload.TabIndex = 6;
+            this.buttonReload.Text = "Reload";
+            this.buttonReload.UseVisualStyleBackColor = true;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(749, 34);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(102, 13);
+            this.label12.TabIndex = 7;
+            this.label12.Text = "Using these settings";
             // 
             // ModelStructureForm
             // 
@@ -422,5 +445,7 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button buttonZero;
+        private System.Windows.Forms.Button buttonReload;
+        private System.Windows.Forms.Label label12;
     }
 }

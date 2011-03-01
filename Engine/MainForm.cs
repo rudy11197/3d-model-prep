@@ -158,7 +158,7 @@ namespace Engine
             {
                 ClearMessages();
                 lastLoadedFile = fileDialog.FileName;
-                LoadAnimatedModel(true, fileDialog.FileName, rotateX, rotateY, rotateZ);
+                LoadModel(true, fileDialog.FileName, rotateX, rotateY, rotateZ);
                 //LoadAnimatedModel(contentManager, true, fileDialog.FileName, "90", "0", "180");
             }
             AddMessageLine("== Finished ==");
@@ -498,12 +498,29 @@ namespace Engine
                     boundsAttachedToBonesItem.Enabled = true;
                 }
 
-
             }
         }
         //
         //////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////
+        // == Status Messages ==
+        //
+        public void ClearMessages()
+        {
+            statusPanel.Clear();
+        }
+
+        public void AddMessageLine(string text)
+        {
+            statusPanel.AppendText(text + "\n");
+        }
+        //
+        //////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        // == Load and Save ==
+        //
         public Model CurrentModel
         {
             get { return modelViewerControl.Model; }
@@ -514,21 +531,21 @@ namespace Engine
         /// </summary>
         public void LoadModel(string fileName)
         {
-            LoadAnimatedModel(false, fileName, rotateX, rotateY, rotateZ);
+            LoadModel(false, fileName, rotateX, rotateY, rotateZ);
         }
 
-        public void LoadAnimatedModel(bool isAnimated, string fileName, float rotateXdeg, float rotateYdeg, float rotateZdeg)
+        public void LoadModel(bool isAnimated, string fileName, float rotateXdeg, float rotateYdeg, float rotateZdeg)
         {
-            rotateX = rotateXdeg.ToString();
-            rotateY = rotateYdeg.ToString();
-            rotateZ = rotateZdeg.ToString();
-            LoadAnimatedModel(isAnimated, fileName, rotateX, rotateY, rotateZ);
+            rotateX = ParseData.FloatToString(rotateXdeg);
+            rotateY = ParseData.FloatToString(rotateYdeg);
+            rotateZ = ParseData.FloatToString(rotateZdeg);
+            LoadModel(isAnimated, fileName, rotateX, rotateY, rotateZ);
         }
 
         /// <summary>
         /// Loads a new 3D model file into the ModelViewerControl.
         /// </summary>
-        public void LoadAnimatedModel(bool isAnimated, string fileName, string rotateXdeg, string rotateYdeg, string rotateZdeg)
+        public void LoadModel(bool isAnimated, string fileName, string rotateXdeg, string rotateYdeg, string rotateZdeg)
         {
             Cursor = Cursors.WaitCursor;
 
@@ -582,6 +599,8 @@ namespace Engine
                     {
                         diabolical.LastLoaded3DModelFile = fileName;
                     }
+                    // Scale
+                    AddMessageLine("The width of each grid square is: " + modelViewerControl.GridSquareWidth + " unit(s)");
                     // Add any animation
                     SkinningData skinData = (SkinningData)modelViewerControl.Model.Tag;
                     if (skinData != null)
@@ -708,7 +727,7 @@ namespace Engine
             ParseFBX fbx = new ParseFBX(this);
             fbx.LoadAsText(fileName);
 
-            LoadAnimatedModel(true, fileName, rotateX, rotateY, rotateZ);
+            LoadModel(true, fileName, rotateX, rotateY, rotateZ);
 
             fbx.SaveIndividualFBXtakes();
 
@@ -821,11 +840,6 @@ namespace Engine
         }
          * */
 
-        public void ClearMessages()
-        {
-            messageBox.Clear();
-        }
-
         // Ready for a new model to load
         private void ClearClips()
         {
@@ -833,11 +847,6 @@ namespace Engine
             currentClipName = "";
             loadedClips.Clear();
             HaveClipsLoaded();
-        }
-
-        public void AddMessageLine(string text)
-        {
-            messageBox.AppendText(text + "\n");
         }
 
         private void BoneMapSaveDialogue(List<string> data)
@@ -1063,10 +1072,12 @@ namespace Engine
             }
             return results;
         }
+        //
+        //////////////////////////////////////////////////////////////////////
 
-
-        // Rotations
-
+        //////////////////////////////////////////////////////////////////////
+        // == Rotations ==
+        //
         private void PresetNoRotation_Click(object sender, EventArgs e)
         {
             XComboBox.Text = "X 0";
@@ -1118,6 +1129,9 @@ namespace Engine
         {
             modelViewerControl.InitialiseCameraPosition();
         }
+        //
+        //////////////////////////////////////////////////////////////////////
+
 
         private void ClipNamesComboBox_Changed(object sender, EventArgs e)
         {
@@ -1210,41 +1224,9 @@ namespace Engine
             PauseGameInput(true);
             if (diabolical != null)
             {
-                switch (diabolical.ModelType)
-                {
-                    case GlobalSettings.modelTypeStructure:
-                        DisplayStructureForm();
-                        break;
-                }
+                diabolical.DisplayPropertyForms();
             }
             PauseGameInput(false);
-        }
-
-        private void DisplayStructureForm()
-        {
-            ModelStructureForm aForm = new ModelStructureForm();
-
-            aForm.ModelPath = diabolical.LastLoaded3DModelFile;
-            aForm.ModelRotation = diabolical.ModelRotation;
-            aForm.EffectType = diabolical.EffectType;
-            aForm.DepthMapFileName = diabolical.DepthMapFileName;
-            aForm.SpecularMapFileName = diabolical.SpecularMapFileName;
-            aForm.SpecularIntensity = diabolical.SpecularIntensity;
-            aForm.SpecularPower = diabolical.SpecularPower;
-            aForm.LargeBoundCount = diabolical.LargeBoundCount;
-            aForm.SmallBoundCount = diabolical.SmallBoundCount;
-
-            DialogResult diagResult = aForm.ShowDialog();
-            if (diagResult == DialogResult.OK)
-            {
-                // Results
-                diabolical.ModelRotation = aForm.ModelRotation;
-                diabolical.EffectType = aForm.EffectType;
-                diabolical.DepthMapFileName = aForm.DepthMapFileName;
-                diabolical.SpecularMapFileName = aForm.SpecularMapFileName;
-                diabolical.SpecularIntensity = aForm.SpecularIntensity;
-                diabolical.SpecularPower = aForm.SpecularPower;
-            }
         }
 
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
