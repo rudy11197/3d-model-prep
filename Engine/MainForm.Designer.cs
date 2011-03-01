@@ -60,6 +60,7 @@ namespace Engine
             this.boundsWhileStandingItem = new System.Windows.Forms.ToolStripMenuItem();
             this.boundsWhileCrouchedItem = new System.Windows.Forms.ToolStripMenuItem();
             this.boundsAttachedToBonesItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.wireframeItem = new System.Windows.Forms.ToolStripMenuItem();
             this.diabolicalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadmodelItem = new System.Windows.Forms.ToolStripMenuItem();
             this.savemodelItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -96,7 +97,7 @@ namespace Engine
             this.ClipNamesComboBox});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1008, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1008, 27);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -119,7 +120,7 @@ namespace Engine
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 23);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // LoadRigidModelMenu
@@ -247,6 +248,7 @@ namespace Engine
             this.zDownMenuItem,
             this.toolStripSeparator1,
             this.showFloorMenuItem,
+            this.wireframeItem,
             this.toolStripSeparator6,
             this.resetViewingPointMenu,
             this.toolStripSeparator3,
@@ -259,7 +261,7 @@ namespace Engine
             this.boundsWhileCrouchedItem,
             this.boundsAttachedToBonesItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 23);
             this.viewToolStripMenuItem.Text = "&View";
             // 
             // yUpMenuItem
@@ -366,6 +368,12 @@ namespace Engine
             this.boundsAttachedToBonesItem.Size = new System.Drawing.Size(267, 22);
             this.boundsAttachedToBonesItem.Text = "Bounds Attached To &Bones";
             // 
+            // wireframeItem
+            // 
+            this.wireframeItem.Name = "wireframeItem";
+            this.wireframeItem.Size = new System.Drawing.Size(267, 22);
+            this.wireframeItem.Text = "Wireframe Model";
+            // 
             // diabolicalToolStripMenuItem
             // 
             this.diabolicalToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -375,7 +383,7 @@ namespace Engine
             this.modelPropertiesItem,
             this.changeModelTypeItem});
             this.diabolicalToolStripMenuItem.Name = "diabolicalToolStripMenuItem";
-            this.diabolicalToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
+            this.diabolicalToolStripMenuItem.Size = new System.Drawing.Size(71, 23);
             this.diabolicalToolStripMenuItem.Text = "&Diabolical";
             // 
             // loadmodelItem
@@ -390,7 +398,7 @@ namespace Engine
             this.savemodelItem.Name = "savemodelItem";
             this.savemodelItem.Size = new System.Drawing.Size(181, 22);
             this.savemodelItem.Text = "&Save .model File...";
-            this.savemodelItem.Click += new System.EventHandler(this.savemodelFileToolStripMenuItem_Click);
+            this.savemodelItem.Click += new System.EventHandler(this.savemodelSettingsItem_Click);
             // 
             // toolStripSeparator7
             // 
@@ -422,7 +430,7 @@ namespace Engine
             this.toolStripSeparator8,
             this.optionsToolStripMenuItem});
             this.ToolsMenuItem.Name = "ToolsMenuItem";
-            this.ToolsMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.ToolsMenuItem.Size = new System.Drawing.Size(48, 23);
             this.ToolsMenuItem.Text = "&Tools";
             // 
             // splitFBXMenuItem
@@ -484,7 +492,7 @@ namespace Engine
             this.windowToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.helpToolStripMenuItem1});
             this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
-            this.windowToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
+            this.windowToolStripMenuItem.Size = new System.Drawing.Size(63, 23);
             this.windowToolStripMenuItem.Text = "&Window";
             // 
             // helpToolStripMenuItem1
@@ -497,7 +505,7 @@ namespace Engine
             // PoseHeading
             // 
             this.PoseHeading.Name = "PoseHeading";
-            this.PoseHeading.Size = new System.Drawing.Size(141, 20);
+            this.PoseHeading.Size = new System.Drawing.Size(141, 23);
             this.PoseHeading.Text = "|      &Animation or Pose:";
             this.PoseHeading.Visible = false;
             // 
@@ -532,7 +540,7 @@ namespace Engine
             this.modelViewerControl.Dock = System.Windows.Forms.DockStyle.Top;
             this.modelViewerControl.EmissiveLightLevel = 0.25F;
             this.modelViewerControl.IsAnimated = false;
-            this.modelViewerControl.Location = new System.Drawing.Point(0, 24);
+            this.modelViewerControl.Location = new System.Drawing.Point(0, 27);
             this.modelViewerControl.Name = "modelViewerControl";
             this.modelViewerControl.PauseInput = true;
             this.modelViewerControl.Size = new System.Drawing.Size(1008, 648);
@@ -614,6 +622,7 @@ namespace Engine
         private System.Windows.Forms.ToolStripMenuItem boundsWhileStandingItem;
         private System.Windows.Forms.ToolStripMenuItem boundsWhileCrouchedItem;
         private System.Windows.Forms.ToolStripMenuItem boundsAttachedToBonesItem;
+        private System.Windows.Forms.ToolStripMenuItem wireframeItem;
 
     }
 }

@@ -195,6 +195,11 @@ namespace Engine
             get { return debugShapes; }
         }
 
+        private bool wireframeEnabled = false;
+        private RasterizerState RasterWireFrame = new RasterizerState();
+        private RasterizerState RasterSolid = new RasterizerState();
+
+
         //////////////////////////////////////////////////////////////////////
         // == Change ==
         //
@@ -416,6 +421,11 @@ namespace Engine
             int x = 0;
             x++;
         }
+
+        public void WireFrameEnable(bool change)
+        {
+            wireframeEnabled = change;
+        }
         //
         //////////////////////////////////////////////////////////////////////
 
@@ -584,6 +594,12 @@ namespace Engine
 
             if (model != null)
             {
+                if (wireframeEnabled)
+                {
+                    // Draw the model in wireframe
+                    GraphicsDevice.RasterizerState = RasterWireFrame;
+                }
+
                 world = Matrix.Identity;
 
                 if (isAnimated)
@@ -593,6 +609,12 @@ namespace Engine
                 else
                 {
                     DrawRigid(world, view, projection, model);
+                }
+
+                if (wireframeEnabled)
+                {
+                    // Everything else draws normally
+                    GraphicsDevice.RasterizerState = RasterSolid;
                 }
 
                 if (showFloor && floor != null)
@@ -703,6 +725,14 @@ namespace Engine
 
             // Setup the shapes
             debugShapes = new Shapes(GraphicsDevice);
+
+            RasterWireFrame.CullMode = CullMode.CullCounterClockwiseFace;
+            RasterWireFrame.FillMode = FillMode.WireFrame;
+            RasterWireFrame.MultiSampleAntiAlias = true;
+
+            RasterSolid.CullMode = CullMode.CullCounterClockwiseFace;
+            RasterSolid.FillMode = FillMode.Solid;
+            RasterSolid.MultiSampleAntiAlias = true;
 
             currentKeyboardState = Keyboard.GetState();
             previousKeyboardState = currentKeyboardState;

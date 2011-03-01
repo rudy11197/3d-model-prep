@@ -29,6 +29,8 @@ namespace Engine
         public const string pathSaveDataFolder = "PrepModels";  // used to load and save the results
         public const string fileBoneMap = "BoneMap.txt";    // appended to the model name to save a bonemap
         public const string fileBindPose = "BindPose.txt";    // appended to the model name to save a bind pose
+        public const string settingsFileExcludingExtension = "Model";   // Use this is no other name available
+        public const string settingsFileExtension = ".model";   // The extension for model settings files
 
         // Save keyframes
         // All lowercase
