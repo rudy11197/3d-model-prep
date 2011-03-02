@@ -23,10 +23,15 @@ namespace Engine
         /// <summary>
         /// Set the path to the current model for use with the browse image dialogues.
         /// </summary>
-        private string modelPath = "";
-        public string ModelPath
+        private string modelFullPath = "";
+        public string ModelFullPath
         {
-            set { modelPath = value; }
+            set { modelFullPath = value; }
+        }
+
+        public string ModelRelativePath
+        {
+            set { textModelFile.Text = value; }
         }
 
         public Vector3 ModelRotation
@@ -178,7 +183,7 @@ namespace Engine
 
         private string BrowseImages(string previousName)
         {
-            string currentPath = Path.GetDirectoryName(modelPath);
+            string currentPath = Path.GetDirectoryName(modelFullPath);
             if (string.IsNullOrEmpty(currentPath))
             {
                 currentPath = MainForm.GetSavePath();

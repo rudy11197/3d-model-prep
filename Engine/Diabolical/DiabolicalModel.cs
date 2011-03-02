@@ -145,6 +145,8 @@ namespace Engine
 
         private void PreProcessSetup()
         {
+            largerBounds = new List<StructureSphere>();
+            smallerBounds = new List<StructureSphere>();
             boneAlignment = Matrix.Identity;
             standingSpheres = new List<BoundingSphere>();
             crouchedSpheres = new List<BoundingSphere>();
