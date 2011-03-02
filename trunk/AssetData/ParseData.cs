@@ -1,7 +1,5 @@
 ﻿#region File Description
 //-----------------------------------------------------------------------------
-// ParseData.cs
-//
 // Author: JCBDigger
 // URL: http://Games.DiscoverThat.co.uk
 //-----------------------------------------------------------------------------
@@ -9,6 +7,15 @@
 // Where they are converted they are done so using CultureInfo.InvariantCulture
 // That ensures they have the same result whatever language is set.
 //-----------------------------------------------------------------------------
+// \\ escapes the escape character e.g. "Something \\now\\"
+// @ ignores escape characters in the literal string e.g. @"Something \now\"
+// The escape character is only processed when creating strings in code or 
+// when typing in text boxes.  Escape characters are not processed in 
+// existing strings.
+// \ escape is the normal folder character
+// / can be used as an alternate folder character
+//-----------------------------------------------------------------------------
+
 #endregion
 
 #region Using Statements
@@ -312,7 +319,9 @@ namespace AssetData
         }
 
         #region Validation
-
+        //////////////////////////////////////////////////////////////////////
+        // == Validation ==
+        //
         /// <summary>
         /// Make sure the characters used are valid for an XNA asset name including the 
         /// folder path and return a safe string.
@@ -322,7 +331,7 @@ namespace AssetData
         {
             // Remove leading and trailing blank space
             strWords = strWords.Trim();
-            // Replace the escape character \ with the folder character /
+            // Replace the escape character \ with the alternate folder character /
             strWords = strWords.Replace("\\", "/");
 
             // Restrict file names to Unicode character codes in hex (decimal):
@@ -386,7 +395,7 @@ namespace AssetData
         {
             // Remove leading and trailing blank space
             strWords = strWords.Trim();
-            // Replace the escape character \ with the folder character /
+            // Replace the escape character \ with the alternate folder character /
             strWords = strWords.Replace("\\", "/");
             // Restrict to the characters we consider safe to use.  
             // Any characters not listed after ^ are not allowed0
@@ -484,7 +493,8 @@ namespace AssetData
             string sReturn = "";
             // Remove leading and trailing blank space
             fullpath = fullpath.Trim();
-            // Replace the escape character \ with the folder character /
+            // Replace the escape character \ with the alternate folder character /
+            // \\ is the escape for a normal single \
             fullpath = fullpath.Replace("\\", "/");
             // split the path in to separate folders and files (Xbox 360 only supports char[] not string)
             char[] delim = new char[] { '/' };
@@ -501,6 +511,19 @@ namespace AssetData
         public static string ValidateShortAssetFromLongAsset(string fullpath)
         {
             return ExtractShortAssetFromLongAsset(ValidateAssetname(fullpath));
+        }
+
+        /// <summary>
+        /// Use the standard \ character for all paths instead of the alternate /
+        /// </summary>
+        public static string StandardiseFolderCharacters(string fullpath)
+        {
+            // Remove leading and trailing blank space
+            fullpath = fullpath.Trim();
+            // Replace the alternate folder character / with the normal escape character \
+            // @ ignores escape characters in the literal string
+            fullpath = fullpath.Replace("/", @"\");
+            return fullpath;
         }
 
         public static float ValidateFloatFromString(string strWords)
@@ -551,7 +574,8 @@ namespace AssetData
             int i = ValidateIntFromString(strWords);
             return IntToString(i);
         }
-
+        //
+        //////////////////////////////////////////////////////////////////////
         #endregion
 
     }

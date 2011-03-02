@@ -137,6 +137,11 @@ namespace Engine
             }
         }
 
+        public string RelativeFileName
+        {
+            get { return modelAsset.modelFilename; }
+        }
+
         public Vector3 ModelRotation
         {
             get { return modelAsset.rotation; }
@@ -319,7 +324,7 @@ namespace Engine
             // The type and name
             data.Add(GlobalSettings.modelTypeStructure);
             // == Filename and effect parameters on one line
-            string effect = modelAsset.modelFilename;
+            string effect = ParseData.StandardiseFolderCharacters(modelAsset.modelFilename);
             if (!string.IsNullOrEmpty(modelAsset.effectType))
             {
                 effect += ParseData.div + modelAsset.effectType;
@@ -417,7 +422,7 @@ namespace Engine
             modelAsset = new DiabolicalModel(debugShapes);
             modelAsset.BuildModelAsset(
                 input.ModelType,
-                input.ModelFilename,
+                ParseData.StandardiseFolderCharacters(input.ModelFilename),
                 input.EffectType,
                 input.SpecularIntensity,
                 input.SpecularPower,
@@ -464,7 +469,8 @@ namespace Engine
         {
             ModelStructureForm aForm = new ModelStructureForm();
 
-            aForm.ModelPath = LastLoaded3DModelFile;
+            aForm.ModelFullPath = LastLoaded3DModelFile;
+            aForm.ModelRelativePath = RelativeFileName;
             aForm.ModelRotation = ModelRotation;
             aForm.EffectType = EffectType;
             aForm.DepthMapFileName = DepthMapFileName;

@@ -138,19 +138,14 @@ using System.Windows.Forms;
 // - Use a config file to convert multiple animations in to animationClip format
 // - Show a floor
 // - Load and save models with the Diabolical custom structure format
+// - View models in wireframe
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 // TODO:
 //-----------------------------------------------------------------------------
-// test - Add a button to reload a model when the rotation has been changed
-// test - Calculate the relative path to the model file when the .model file is being saved
-// test     Warn if the relative path is not a sub folder
-// done     Default to save new settings in to the same folder as the model
-// test - Draw the model in wireframe so the bounds can be seen better
 // - Draw the third loop to make spheres easier to see
 // - Calculate bounds
-// - Round the floor scale up to the nearest 10 or 100 units
 // - Edit structure model bounds
 // - Remove any smaller bounds that are surrounded on all sides
 //      Remember to calculate all the ones to remove before removing any otherwise

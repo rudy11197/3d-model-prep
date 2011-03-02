@@ -49,6 +49,7 @@ namespace Engine
             this.zDownMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.showFloorMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.wireframeItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.resetViewingPointMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -60,7 +61,6 @@ namespace Engine
             this.boundsWhileStandingItem = new System.Windows.Forms.ToolStripMenuItem();
             this.boundsWhileCrouchedItem = new System.Windows.Forms.ToolStripMenuItem();
             this.boundsAttachedToBonesItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.wireframeItem = new System.Windows.Forms.ToolStripMenuItem();
             this.diabolicalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadmodelItem = new System.Windows.Forms.ToolStripMenuItem();
             this.savemodelItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -299,6 +299,13 @@ namespace Engine
             this.showFloorMenuItem.Text = "Show &Floor";
             this.showFloorMenuItem.Click += new System.EventHandler(this.showFloor_Click);
             // 
+            // wireframeItem
+            // 
+            this.wireframeItem.Name = "wireframeItem";
+            this.wireframeItem.Size = new System.Drawing.Size(267, 22);
+            this.wireframeItem.Text = "&Wireframe Model View";
+            this.wireframeItem.Click += new System.EventHandler(this.wireframeItem_Click);
+            // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
@@ -367,12 +374,6 @@ namespace Engine
             this.boundsAttachedToBonesItem.Name = "boundsAttachedToBonesItem";
             this.boundsAttachedToBonesItem.Size = new System.Drawing.Size(267, 22);
             this.boundsAttachedToBonesItem.Text = "Bounds Attached To &Bones";
-            // 
-            // wireframeItem
-            // 
-            this.wireframeItem.Name = "wireframeItem";
-            this.wireframeItem.Size = new System.Drawing.Size(267, 22);
-            this.wireframeItem.Text = "Wireframe Model";
             // 
             // diabolicalToolStripMenuItem
             // 

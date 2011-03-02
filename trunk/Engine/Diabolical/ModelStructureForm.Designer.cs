@@ -32,6 +32,11 @@
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.textModelFile = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.buttonReload = new System.Windows.Forms.Button();
             this.buttonZero = new System.Windows.Forms.Button();
             this.labelCommonNote = new System.Windows.Forms.Label();
             this.buttonBlender = new System.Windows.Forms.Button();
@@ -58,8 +63,6 @@
             this.textLargeCount = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.buttonReload = new System.Windows.Forms.Button();
-            this.label12 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericSpecularPower)).BeginInit();
@@ -70,7 +73,7 @@
             // buttonOK
             // 
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(747, 417);
+            this.buttonOK.Location = new System.Drawing.Point(747, 456);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 50;
@@ -80,7 +83,7 @@
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(828, 417);
+            this.buttonCancel.Location = new System.Drawing.Point(828, 456);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 51;
@@ -89,6 +92,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label14);
+            this.groupBox1.Controls.Add(this.textModelFile);
+            this.groupBox1.Controls.Add(this.label13);
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.buttonReload);
             this.groupBox1.Controls.Add(this.buttonZero);
@@ -98,35 +104,81 @@
             this.groupBox1.Controls.Add(this.positionRotation);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(891, 108);
-            this.groupBox1.TabIndex = 52;
+            this.groupBox1.Size = new System.Drawing.Size(891, 157);
+            this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Common";
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(646, 26);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(204, 13);
+            this.label14.TabIndex = 57;
+            this.label14.Text = "Calculated when the settings file is saved.";
+            // 
+            // textModelFile
+            // 
+            this.textModelFile.Location = new System.Drawing.Point(161, 23);
+            this.textModelFile.Name = "textModelFile";
+            this.textModelFile.ReadOnly = true;
+            this.textModelFile.Size = new System.Drawing.Size(478, 20);
+            this.textModelFile.TabIndex = 56;
+            this.textModelFile.TabStop = false;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(6, 26);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(132, 13);
+            this.label13.TabIndex = 8;
+            this.label13.Text = "Model relative file location:";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(748, 58);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(102, 13);
+            this.label12.TabIndex = 7;
+            this.label12.Text = "Using these settings";
+            // 
+            // buttonReload
+            // 
+            this.buttonReload.DialogResult = System.Windows.Forms.DialogResult.Yes;
+            this.buttonReload.Location = new System.Drawing.Point(667, 53);
+            this.buttonReload.Name = "buttonReload";
+            this.buttonReload.Size = new System.Drawing.Size(75, 23);
+            this.buttonReload.TabIndex = 7;
+            this.buttonReload.Text = "Reload";
+            this.buttonReload.UseVisualStyleBackColor = true;
+            // 
             // buttonZero
             // 
-            this.buttonZero.Location = new System.Drawing.Point(564, 29);
+            this.buttonZero.Location = new System.Drawing.Point(564, 53);
             this.buttonZero.Name = "buttonZero";
             this.buttonZero.Size = new System.Drawing.Size(75, 23);
-            this.buttonZero.TabIndex = 5;
+            this.buttonZero.TabIndex = 6;
             this.buttonZero.Text = "Zero";
             this.buttonZero.UseVisualStyleBackColor = true;
             this.buttonZero.Click += new System.EventHandler(this.buttonZero_Click);
             // 
             // labelCommonNote
             // 
-            this.labelCommonNote.Location = new System.Drawing.Point(6, 67);
+            this.labelCommonNote.Location = new System.Drawing.Point(6, 91);
             this.labelCommonNote.Name = "labelCommonNote";
-            this.labelCommonNote.Size = new System.Drawing.Size(879, 38);
+            this.labelCommonNote.Size = new System.Drawing.Size(879, 63);
             this.labelCommonNote.TabIndex = 5;
             this.labelCommonNote.Text = resources.GetString("labelCommonNote.Text");
             // 
             // buttonBlender
             // 
-            this.buttonBlender.Location = new System.Drawing.Point(480, 29);
+            this.buttonBlender.Location = new System.Drawing.Point(480, 53);
             this.buttonBlender.Name = "buttonBlender";
             this.buttonBlender.Size = new System.Drawing.Size(75, 23);
-            this.buttonBlender.TabIndex = 4;
+            this.buttonBlender.TabIndex = 5;
             this.buttonBlender.Text = "Z To Y Up";
             this.buttonBlender.UseVisualStyleBackColor = true;
             this.buttonBlender.Click += new System.EventHandler(this.buttonBlender_Click);
@@ -134,7 +186,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 34);
+            this.label1.Location = new System.Drawing.Point(6, 58);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(50, 13);
             this.label1.TabIndex = 1;
@@ -148,12 +200,12 @@
             0,
             0,
             0});
-            this.positionRotation.Location = new System.Drawing.Point(115, 28);
+            this.positionRotation.Location = new System.Drawing.Point(115, 52);
             this.positionRotation.Maximum = new Microsoft.Xna.Framework.Vector3(180F, 180F, 180F);
             this.positionRotation.Minimum = new Microsoft.Xna.Framework.Vector3(-180F, -180F, -180F);
             this.positionRotation.Name = "positionRotation";
             this.positionRotation.Size = new System.Drawing.Size(359, 26);
-            this.positionRotation.TabIndex = 3;
+            this.positionRotation.TabIndex = 4;
             this.positionRotation.Value = new Microsoft.Xna.Framework.Vector3(0F, 0F, 0F);
             // 
             // groupBox2
@@ -173,10 +225,10 @@
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.comboEffect);
             this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Location = new System.Drawing.Point(12, 126);
+            this.groupBox2.Location = new System.Drawing.Point(12, 175);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(891, 169);
-            this.groupBox2.TabIndex = 53;
+            this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Effect";
             // 
@@ -203,7 +255,7 @@
             this.buttonSpecular.Location = new System.Drawing.Point(480, 128);
             this.buttonSpecular.Name = "buttonSpecular";
             this.buttonSpecular.Size = new System.Drawing.Size(75, 23);
-            this.buttonSpecular.TabIndex = 13;
+            this.buttonSpecular.TabIndex = 17;
             this.buttonSpecular.Text = "Browse";
             this.buttonSpecular.UseVisualStyleBackColor = true;
             this.buttonSpecular.Click += new System.EventHandler(this.buttonSpecular_Click);
@@ -213,7 +265,7 @@
             this.buttonBump.Location = new System.Drawing.Point(480, 58);
             this.buttonBump.Name = "buttonBump";
             this.buttonBump.Size = new System.Drawing.Size(75, 23);
-            this.buttonBump.TabIndex = 9;
+            this.buttonBump.TabIndex = 13;
             this.buttonBump.Text = "Browse";
             this.buttonBump.UseVisualStyleBackColor = true;
             this.buttonBump.Click += new System.EventHandler(this.buttonBump_Click);
@@ -223,14 +275,14 @@
             this.textSpecularFile.Location = new System.Drawing.Point(189, 130);
             this.textSpecularFile.Name = "textSpecularFile";
             this.textSpecularFile.Size = new System.Drawing.Size(285, 20);
-            this.textSpecularFile.TabIndex = 12;
+            this.textSpecularFile.TabIndex = 16;
             // 
             // textBumpFile
             // 
             this.textBumpFile.Location = new System.Drawing.Point(189, 60);
             this.textBumpFile.Name = "textBumpFile";
             this.textBumpFile.Size = new System.Drawing.Size(285, 20);
-            this.textBumpFile.TabIndex = 8;
+            this.textBumpFile.TabIndex = 12;
             // 
             // label7
             // 
@@ -255,7 +307,7 @@
             this.numericSpecularPower.Location = new System.Drawing.Point(405, 95);
             this.numericSpecularPower.Name = "numericSpecularPower";
             this.numericSpecularPower.Size = new System.Drawing.Size(120, 20);
-            this.numericSpecularPower.TabIndex = 11;
+            this.numericSpecularPower.TabIndex = 15;
             // 
             // numericSpecularIntensity
             // 
@@ -273,7 +325,7 @@
             65536});
             this.numericSpecularIntensity.Name = "numericSpecularIntensity";
             this.numericSpecularIntensity.Size = new System.Drawing.Size(120, 20);
-            this.numericSpecularIntensity.TabIndex = 10;
+            this.numericSpecularIntensity.TabIndex = 14;
             // 
             // label5
             // 
@@ -309,7 +361,7 @@
             this.comboEffect.Location = new System.Drawing.Point(130, 25);
             this.comboEffect.Name = "comboEffect";
             this.comboEffect.Size = new System.Drawing.Size(158, 21);
-            this.comboEffect.TabIndex = 7;
+            this.comboEffect.TabIndex = 11;
             // 
             // label2
             // 
@@ -326,10 +378,10 @@
             this.groupBox3.Controls.Add(this.textLargeCount);
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Controls.Add(this.label8);
-            this.groupBox3.Location = new System.Drawing.Point(12, 301);
+            this.groupBox3.Location = new System.Drawing.Point(12, 350);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(891, 100);
-            this.groupBox3.TabIndex = 54;
+            this.groupBox3.TabIndex = 20;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Structure";
             // 
@@ -369,30 +421,11 @@
             this.label8.TabIndex = 0;
             this.label8.Text = "Large Bounding Sphere Count:";
             // 
-            // buttonReload
-            // 
-            this.buttonReload.DialogResult = System.Windows.Forms.DialogResult.Yes;
-            this.buttonReload.Location = new System.Drawing.Point(667, 29);
-            this.buttonReload.Name = "buttonReload";
-            this.buttonReload.Size = new System.Drawing.Size(75, 23);
-            this.buttonReload.TabIndex = 6;
-            this.buttonReload.Text = "Reload";
-            this.buttonReload.UseVisualStyleBackColor = true;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(749, 34);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(102, 13);
-            this.label12.TabIndex = 7;
-            this.label12.Text = "Using these settings";
-            // 
             // ModelStructureForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(915, 454);
+            this.ClientSize = new System.Drawing.Size(915, 491);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -447,5 +480,8 @@
         private System.Windows.Forms.Button buttonZero;
         private System.Windows.Forms.Button buttonReload;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox textModelFile;
+        private System.Windows.Forms.Label label13;
     }
 }

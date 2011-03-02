@@ -555,7 +555,8 @@ namespace Engine
         public void LoadModel(bool isAnimated, string fileName, string rotateXdeg, string rotateYdeg, string rotateZdeg)
         {
             Cursor = Cursors.WaitCursor;
-
+            // Looks better when displaying results
+            fileName = ParseData.StandardiseFolderCharacters(fileName);
             // Unload any existing model.
             modelViewerControl.UnloadModel();
 
@@ -570,7 +571,7 @@ namespace Engine
                 AddMessageLine("Loading animated model: " + fileName);
                 // Test
                 //List<string> mergeFiles = new List<string>();
-                //mergeFiles.Add("C:\\Users\\John\\Documents\\SavedGames\\ExtractTakes\\TestDudeAnimations-Patrol2.fbx");
+                //mergeFiles.Add(@"C:\Users\John\Documents\SavedGames\ExtractTakes\TestDudeAnimations-Patrol2.fbx");
                 //contentBuilder.AddWithMergedAnimations(fileName, "Model", rotateXdeg, rotateYdeg, rotateZdeg, mergeFiles);
 
                 contentBuilder.AddAnimated(fileName, "Model", rotateXdeg, rotateYdeg, rotateZdeg);

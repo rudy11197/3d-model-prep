@@ -370,19 +370,19 @@ namespace Engine
             if (viewUp == 3)
             {
                 // Z Down
-                cameraPosition.Y += away;
+                cameraPosition.Y -= away;
                 cameraPosition.Z += up;
             }
             else if (viewUp == 2)
             {
                 // Z Up (Blender default)
-                cameraPosition.Y += away;
+                cameraPosition.Y -= away;
                 cameraPosition.Z += up;
             }
             else
             {
                 // XNA Default
-                cameraPosition.Z += away;
+                cameraPosition.Z -= away;
                 cameraPosition.Y += up;
             }
             CalculateProjection();
@@ -788,8 +788,21 @@ namespace Engine
         // Adjust the floor to match the model
         private void AdjustFloorSizes()
         {
-            // Change the size of the floor based on the model size (add one to round up)
-            floorScale = (int)((modelRadius / originalFloorRadius * 2f) + 1f);
+            // Change the size of the floor based on the model size
+            // Round up to the nearest one, 10 or 100
+            float tempScale = (modelRadius / originalFloorRadius * 2f);
+            if (tempScale < 10)
+            {
+                floorScale = (int)(tempScale + 1f);
+            }
+            else if (tempScale < 100)
+            {
+                floorScale = (((int)(tempScale / 10)) + 1) * 10;
+            }
+            else
+            {
+                floorScale = (((int)(tempScale / 100)) + 1) * 100;
+            }
             floorRadius = originalFloorRadius * floorScale;
         }
         //
