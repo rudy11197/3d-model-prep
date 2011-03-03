@@ -93,6 +93,7 @@
     <Compile Include="Diabolical\ModelTypeForm.designer.cs">
       <DependentUpon>ModelTypeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Diabolical\StructureBounds.cs" />
     <Compile Include="FormControls\GraphicsDeviceControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -137,6 +138,8 @@
     <Compile Include="Utilities\ContentBuilder.cs" />
     <Compile Include="Utilities\ErrorLogger.cs" />
     <Compile Include="Utilities\Shapes.cs" />
+    <Compile Include="Utilities\Triangle.cs" />
+    <Compile Include="Utilities\VertexHelper.cs" />
     <EmbeddedResource Include="Diabolical\ModelStructureForm.resx">
       <DependentUpon>ModelStructureForm.cs</DependentUpon>
     </EmbeddedResource>

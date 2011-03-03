@@ -52,6 +52,7 @@ namespace Engine
             this.wireframeItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.resetViewingPointMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.invertYControlsItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.noBoundsItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allLargeBoundsItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -80,8 +81,9 @@ namespace Engine
             this.PoseHeading = new System.Windows.Forms.ToolStripMenuItem();
             this.ClipNamesComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.statusPanel = new System.Windows.Forms.TextBox();
-            this.invertYControlsItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modelViewerControl = new Engine.ModelViewerControl();
+            this.createStructureBoundsItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -320,6 +322,13 @@ namespace Engine
             this.resetViewingPointMenu.Text = "&Reset Viewing Point";
             this.resetViewingPointMenu.Click += new System.EventHandler(this.resetViewingPoint_Click);
             // 
+            // invertYControlsItem
+            // 
+            this.invertYControlsItem.Name = "invertYControlsItem";
+            this.invertYControlsItem.Size = new System.Drawing.Size(267, 22);
+            this.invertYControlsItem.Text = "Invert &Y Controls";
+            this.invertYControlsItem.Click += new System.EventHandler(this.invertYControlsItem_Click);
+            // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
@@ -384,7 +393,9 @@ namespace Engine
             this.savemodelItem,
             this.toolStripSeparator7,
             this.modelPropertiesItem,
-            this.changeModelTypeItem});
+            this.changeModelTypeItem,
+            this.toolStripSeparator9,
+            this.createStructureBoundsItem});
             this.diabolicalToolStripMenuItem.Name = "diabolicalToolStripMenuItem";
             this.diabolicalToolStripMenuItem.Size = new System.Drawing.Size(71, 23);
             this.diabolicalToolStripMenuItem.Text = "&Diabolical";
@@ -392,33 +403,33 @@ namespace Engine
             // loadmodelItem
             // 
             this.loadmodelItem.Name = "loadmodelItem";
-            this.loadmodelItem.Size = new System.Drawing.Size(181, 22);
+            this.loadmodelItem.Size = new System.Drawing.Size(202, 22);
             this.loadmodelItem.Text = "&Load .model File...";
             this.loadmodelItem.Click += new System.EventHandler(this.loadmodelFileToolStripMenuItem_Click);
             // 
             // savemodelItem
             // 
             this.savemodelItem.Name = "savemodelItem";
-            this.savemodelItem.Size = new System.Drawing.Size(181, 22);
+            this.savemodelItem.Size = new System.Drawing.Size(202, 22);
             this.savemodelItem.Text = "&Save .model File...";
             this.savemodelItem.Click += new System.EventHandler(this.savemodelSettingsItem_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(178, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(199, 6);
             // 
             // modelPropertiesItem
             // 
             this.modelPropertiesItem.Name = "modelPropertiesItem";
-            this.modelPropertiesItem.Size = new System.Drawing.Size(181, 22);
+            this.modelPropertiesItem.Size = new System.Drawing.Size(202, 22);
             this.modelPropertiesItem.Text = "Model &Properties";
             this.modelPropertiesItem.Click += new System.EventHandler(this.modelPropertiesToolStripMenuItem_Click);
             // 
             // changeModelTypeItem
             // 
             this.changeModelTypeItem.Name = "changeModelTypeItem";
-            this.changeModelTypeItem.Size = new System.Drawing.Size(181, 22);
+            this.changeModelTypeItem.Size = new System.Drawing.Size(202, 22);
             this.changeModelTypeItem.Text = "Change Model &Type";
             this.changeModelTypeItem.Click += new System.EventHandler(this.changeModelTypeItem_Click);
             // 
@@ -534,13 +545,6 @@ namespace Engine
             this.statusPanel.TabIndex = 2;
             this.statusPanel.TabStop = false;
             // 
-            // invertYControlsItem
-            // 
-            this.invertYControlsItem.Name = "invertYControlsItem";
-            this.invertYControlsItem.Size = new System.Drawing.Size(267, 22);
-            this.invertYControlsItem.Text = "Invert &Y Controls";
-            this.invertYControlsItem.Click += new System.EventHandler(this.invertYControlsItem_Click);
-            // 
             // modelViewerControl
             // 
             this.modelViewerControl.AmbientLightLevel = 0.75F;
@@ -557,6 +561,18 @@ namespace Engine
             this.modelViewerControl.TabIndex = 1;
             this.modelViewerControl.Text = "modelViewerControl";
             this.modelViewerControl.ViewUp = 1;
+            // 
+            // createStructureBoundsItem
+            // 
+            this.createStructureBoundsItem.Name = "createStructureBoundsItem";
+            this.createStructureBoundsItem.Size = new System.Drawing.Size(202, 22);
+            this.createStructureBoundsItem.Text = "Create Structure Bounds";
+            this.createStructureBoundsItem.Click += new System.EventHandler(this.createStructureBoundsItem_Click);
+            // 
+            // toolStripSeparator9
+            // 
+            this.toolStripSeparator9.Name = "toolStripSeparator9";
+            this.toolStripSeparator9.Size = new System.Drawing.Size(199, 6);
             // 
             // MainForm
             // 
@@ -634,6 +650,8 @@ namespace Engine
         private System.Windows.Forms.ToolStripMenuItem boundsAttachedToBonesItem;
         private System.Windows.Forms.ToolStripMenuItem wireframeItem;
         private System.Windows.Forms.ToolStripMenuItem invertYControlsItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
+        private System.Windows.Forms.ToolStripMenuItem createStructureBoundsItem;
 
     }
 }

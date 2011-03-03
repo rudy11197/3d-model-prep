@@ -47,11 +47,29 @@ namespace Engine
             set { lastLoaded3DModelFile = value; }
         }
 
+        public Model Model
+        {
+            get
+            {
+                if (modelAsset != null)
+                {
+                    return modelAsset.model;
+                }
+                return null;
+            }
+            set
+            {
+                if (modelAsset != null)
+                {
+                    modelAsset.model = value;
+                }
+            }
+        }
+
         // Which types we have save methods for
         public bool CanSave()
         {
-            if (modelAsset != null &&
-                modelAsset.modelType == GlobalSettings.modelTypeStructure)
+            if (IsStructure)
             {
                 return true;
             }
@@ -61,19 +79,43 @@ namespace Engine
         // Which types we have property forms for
         public bool CanEdit()
         {
-            if (modelAsset != null &&
-                modelAsset.modelType == GlobalSettings.modelTypeStructure)
+            if (IsStructure)
             {
                 return true;
             }
             return false;
         }
 
+        public bool IsStructure
+        {
+            get 
+            {
+                if (modelAsset != null &&
+                    modelAsset.modelType == GlobalSettings.modelTypeStructure)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        public bool IsCharacter
+        {
+            get
+            {
+                if (modelAsset != null &&
+                    modelAsset.modelType == GlobalSettings.modelTypeCharacter)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+
         // If the model has any bounds that can be viewed
         public bool HasStructureBounds()
         {
-            if (modelAsset != null &&
-                modelAsset.modelType == GlobalSettings.modelTypeStructure  &&
+            if (IsStructure  &&
                 (modelAsset.largerBounds.Count > 0  || modelAsset.smallerBounds.Count > 0))
             {
                 return true;
@@ -85,7 +127,7 @@ namespace Engine
         {
             get
             {
-                if (modelAsset != null && modelAsset.modelType == GlobalSettings.modelTypeStructure)
+                if (IsStructure)
                 {
                     return modelAsset.largerBounds.Count;
                 }
@@ -97,7 +139,7 @@ namespace Engine
         {
             get
             {
-                if (modelAsset != null && modelAsset.modelType == GlobalSettings.modelTypeStructure)
+                if (IsStructure)
                 {
                     return modelAsset.smallerBounds.Count;
                 }
@@ -107,8 +149,7 @@ namespace Engine
 
         public bool HasCharacterBounds()
         {
-            if (modelAsset != null &&
-                modelAsset.modelType == GlobalSettings.modelTypeCharacter &&
+            if (IsCharacter &&
                 (modelAsset.standingSpheres.Count > 0 || 
                 modelAsset.crouchedSpheres.Count > 0 ||
                 modelAsset.attachedSpheres.Count > 0))
@@ -148,6 +189,15 @@ namespace Engine
             set { modelAsset.rotation = value; }
         }
 
+        // Used becuase the model processors use strings
+        public void SetModelRotation(string sX, string sY, string sZ)
+        {
+            float fX = ParseData.FloatFromString(sX);
+            float fY = ParseData.FloatFromString(sY);
+            float fZ = ParseData.FloatFromString(sZ);
+            ModelRotation = new Vector3(fX, fY, fZ);
+        }
+
         public string EffectType
         {
             get { return modelAsset.effectType; }
@@ -181,7 +231,7 @@ namespace Engine
         //////////////////////////////////////////////////////////////////////
 
         //////////////////////////////////////////////////////////////////////
-        // == Bounding Shapes ==
+        // == Show Bounding Shapes ==
         //
         public void ClearOutlines()
         {
@@ -214,6 +264,27 @@ namespace Engine
         //
         //////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////
+        // == Create and Edit Bounding Shapes ==
+        //
+        public void CreateStructureBounds()
+        {
+            if (modelAsset == null)
+            {
+                form.AddMessageLine("No model loaded!");
+                return;
+            }
+            if (modelAsset.modelType != GlobalSettings.modelTypeStructure)
+            {
+                form.AddMessageLine("Structure bounds can only be created for model types of Structure!");
+                return;
+            }
+            form.AddMessageLine("Calculating model bounds...");
+            StructureBounds.CreateModelFittedBounds(modelAsset);
+            form.AddMessageLine("== Finished ==");
+        }
+        //
+        //////////////////////////////////////////////////////////////////////
 
         //////////////////////////////////////////////////////////////////////
         // == Load and Save ==
