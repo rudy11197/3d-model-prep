@@ -242,15 +242,15 @@ namespace Engine
         {
             if (modelAsset != null && modelAsset.modelType == GlobalSettings.modelTypeStructure)
             {
-                modelAsset.OutlineLargerBounds(0);
+                modelAsset.OutlineLargerBounds(lastLargerBound);
             }
         }
 
-        public void OutlineSmallerBounds()
+        public void OutlineSmallerBoundsInLarger()
         {
             if (modelAsset != null && modelAsset.modelType == GlobalSettings.modelTypeStructure)
             {
-                modelAsset.OutlineSmallerBounds(0, 0);
+                modelAsset.OutlineSmallerBoundsInLarger(lastLargerBound, lastSmallerBound);
             }
         }
 
@@ -258,7 +258,7 @@ namespace Engine
         {
             if (modelAsset != null && modelAsset.modelType == GlobalSettings.modelTypeStructure)
             {
-                modelAsset.OutlineAllSmallerBounds(0);
+                modelAsset.OutlineAllSmallerBounds(lastSmallerBound);
             }
         }
         //
@@ -267,7 +267,7 @@ namespace Engine
         //////////////////////////////////////////////////////////////////////
         // == Create and Edit Bounding Shapes ==
         //
-        public void CreateStructureBounds()
+        public void CreateStructureBounds(float smallerBoundWidth, float largerBoundMultiple)
         {
             if (modelAsset == null)
             {
@@ -280,8 +280,186 @@ namespace Engine
                 return;
             }
             form.AddMessageLine("Calculating model bounds...");
-            StructureBounds.CreateModelFittedBounds(modelAsset);
+            StructureBounds.CreateModelFittedBounds(modelAsset, smallerBoundWidth, largerBoundMultiple);
             form.AddMessageLine("== Finished ==");
+        }
+
+        private int lastLargerBound = -1;
+        private int lastSmallerBound = -1;
+
+        public int CurrentLargerBound
+        {
+            get { return lastLargerBound; }
+        }
+
+        public int CurrentSmallerBound
+        {
+            get { return lastSmallerBound; }
+        }
+
+        public int HighestLargerBound
+        {
+            get
+            {
+                if (modelAsset != null && modelAsset.LargerBounds.Count > 0)
+                {
+                    return modelAsset.LargerBounds.Count - 1;
+                }
+                return -1;
+            }
+        }
+
+        public int HighestSmallerBound
+        {
+            get
+            {
+                if (modelAsset != null && modelAsset.SmallerBounds.Count > 0)
+                {
+                    return modelAsset.SmallerBounds.Count - 1;
+                }
+                return -1;
+            }
+        }
+
+        private void ChangeLargeBound(int increment)
+        {
+            if (modelAsset.LargerBounds.Count < 1)
+            {
+                lastLargerBound = -1;
+                return;
+            }
+            lastLargerBound += increment;
+            if (lastLargerBound < 0)
+            {
+                lastLargerBound = modelAsset.LargerBounds.Count - 1;
+            }
+            else if (lastLargerBound >= modelAsset.LargerBounds.Count)
+            {
+                lastLargerBound = 0;
+            }
+        }
+
+        private void ChangeSmallerBound(int increment)
+        {
+            if (modelAsset.SmallerBounds.Count < 1)
+            {
+                lastSmallerBound = -1;
+                return;
+            }
+            lastSmallerBound += increment;
+            if (lastSmallerBound < 0)
+            {
+                lastSmallerBound = modelAsset.SmallerBounds.Count - 1;
+            }
+            else if (lastSmallerBound >= modelAsset.SmallerBounds.Count)
+            {
+                lastSmallerBound = 0;
+            }
+        }
+
+        private void ChangeSmallerInLarger(int increment)
+        {
+            if (modelAsset.SmallerBounds.Count < 1)
+            {
+                lastSmallerBound = -1;
+                return;
+            }
+            if (modelAsset.LargerBounds.Count < 1)
+            {
+                lastLargerBound = -1;
+                return;
+            }
+            if (lastLargerBound < 0)
+            {
+                ChangeLargeBound(1);
+            }
+            // This only works if the smaller bounds are in numeric order smallest to highest
+            if (increment > 0)
+            {
+                // Going up
+                for (int s = 0; s < modelAsset.LargerBounds[lastLargerBound].IDs.Count; s++)
+                {
+                    int smallerID = modelAsset.LargerBounds[lastLargerBound].IDs[s];
+                    if (smallerID > lastSmallerBound)
+                    {
+                        lastSmallerBound = smallerID;
+                        return;
+                    }
+                }
+                lastSmallerBound = modelAsset.LargerBounds[lastLargerBound].IDs[0];
+                return;
+            }
+            else
+            {
+                // Going down
+                for (int s = modelAsset.LargerBounds[lastLargerBound].IDs.Count - 1; s >= 0; s--)
+                {
+                    int smallerID = modelAsset.LargerBounds[lastLargerBound].IDs[s];
+                    if (smallerID < lastSmallerBound)
+                    {
+                        lastSmallerBound = smallerID;
+                        return;
+                    }
+                }
+                lastSmallerBound = modelAsset.LargerBounds[lastLargerBound].IDs[modelAsset.LargerBounds[lastLargerBound].IDs.Count - 1];
+                return;
+            }
+        }
+
+        public void ChangeLargerShowSmaller(int change)
+        {
+            ChangeLargeBound(change);
+            OutlineSmallerBoundsInLarger();
+        }
+
+        public void ChangeLargerShowLarger(int change)
+        {
+            ChangeLargeBound(change);
+            OutlineLargerBounds();
+        }
+
+        public void ChangeSmallerShowSmaller(int change)
+        {
+            ChangeSmallerBound(change);
+            OutlineAllSmallerBounds();
+        }
+
+        public void ChangeSmallerInLargerShowInLarger(int change)
+        {
+            ChangeSmallerInLarger(change);
+            OutlineSmallerBoundsInLarger();
+        }
+
+        public void DeleteSmallerSelectedBound()
+        {
+            if (modelAsset == null || lastSmallerBound < 0 ||
+                modelAsset.LargerBounds.Count < 1 || modelAsset.SmallerBounds.Count < 1)
+            {
+                return;
+            }
+            int smallerID = lastSmallerBound;
+            // Remove the smaller bound from all larger bounds
+            for (int a = 0; a < modelAsset.LargerBounds.Count; a++)
+            {
+                // Work backwards because we might remove something as we go
+                for (int b = modelAsset.LargerBounds[a].IDs.Count - 1; b >= 0; b--)
+                {
+                    if (smallerID == modelAsset.LargerBounds[a].IDs[b])
+                    {
+                        modelAsset.LargerBounds[a].IDs.RemoveAt(b);
+                    }
+                    else if (modelAsset.LargerBounds[a].IDs[b] > smallerID)
+                    {
+                        // Reduce the ID by one because we are about to remove one of the
+                        // smaller bounds so the index will go down.
+                        modelAsset.LargerBounds[a].IDs[b] =
+                            modelAsset.LargerBounds[a].IDs[b] - 1;
+                    }
+                }
+            }
+            // Remove unused smaller bound now that all the indexes stored
+            // in the larger bounds have been adjusted.
+            modelAsset.SmallerBounds.RemoveAt(smallerID);
         }
         //
         //////////////////////////////////////////////////////////////////////

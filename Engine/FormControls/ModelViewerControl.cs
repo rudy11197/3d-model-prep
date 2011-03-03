@@ -30,6 +30,7 @@ namespace Engine
     /// </summary>
     class ModelViewerControl : GraphicsDeviceControl
     {
+
         /// <summary>
         /// Gets or sets the current model.
         /// </summary>
@@ -217,6 +218,11 @@ namespace Engine
         private bool wireframeEnabled = false;
         private RasterizerState RasterWireFrame = new RasterizerState();
         private RasterizerState RasterSolid = new RasterizerState();
+
+        public event EventHandler<EventArgs> StepUp;
+        public event EventHandler<EventArgs> StepDown;
+        public event EventHandler<EventArgs> DeleteSmaller;
+
 
 
         //////////////////////////////////////////////////////////////////////
@@ -498,6 +504,7 @@ namespace Engine
                 previousKeyboardState.IsKeyUp(Keys.RightShift))
                 )
             {
+                Mouse.WindowHandle = Handle;
                 // Position the cursor a few pixel in from the top left
                 mouseX = GlobalSettings.mouseZeroX;
                 mouseY = GlobalSettings.mouseZeroY;
@@ -614,7 +621,7 @@ namespace Engine
                 cameraPosition -= cameraUp * time * speed;
             }
 
-            // == Other
+            // == Other view
 
             if (currentKeyboardState.IsKeyDown(Keys.R))
             {
@@ -624,6 +631,38 @@ namespace Engine
 
             // Create the new view matrix
             view = Matrix.CreateLookAt(cameraPosition, cameraPosition + cameraForward, cameraUp);
+
+            // == Edit Bounds
+
+            if (currentKeyboardState.IsKeyDown(Keys.Space) && 
+                previousKeyboardState.IsKeyUp(Keys.Space))
+            {
+                if (currentKeyboardState.IsKeyDown(Keys.LeftShift) ||
+                currentKeyboardState.IsKeyDown(Keys.RightShift))
+                {
+                    // Use an event to send stuff back to the Main Form
+                    if (StepDown != null)
+                    {
+                        StepDown(this, EventArgs.Empty);
+                    }
+                }
+                else
+                {
+                    if (StepUp != null)
+                    {
+                        StepUp(this, EventArgs.Empty);
+                    }
+                }
+            }
+
+            if (currentKeyboardState.IsKeyDown(Keys.Delete) &&
+                previousKeyboardState.IsKeyUp(Keys.Delete))
+            {
+                if (DeleteSmaller != null)
+                {
+                    DeleteSmaller(this, EventArgs.Empty);
+                }
+            }
 
             previousKeyboardState = currentKeyboardState;
             previousMouseState = currentMouseState;
@@ -799,6 +838,7 @@ namespace Engine
             mouseX = GlobalSettings.mouseZeroX;
             mouseY = GlobalSettings.mouseZeroY;
             Mouse.SetPosition(mouseX, mouseY);
+
         }
 
         /// <summary>

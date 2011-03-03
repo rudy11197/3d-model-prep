@@ -57,7 +57,6 @@ namespace Engine
             this.noBoundsItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allLargeBoundsItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allSmallBoundsItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.selectedLargeBoundItem = new System.Windows.Forms.ToolStripMenuItem();
             this.smallBoundsInTheSelectedBoundItem = new System.Windows.Forms.ToolStripMenuItem();
             this.boundsWhileStandingItem = new System.Windows.Forms.ToolStripMenuItem();
             this.boundsWhileCrouchedItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,6 +67,8 @@ namespace Engine
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.modelPropertiesItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changeModelTypeItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
+            this.createStructureBoundsItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitFBXMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openTakesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -81,10 +82,15 @@ namespace Engine
             this.PoseHeading = new System.Windows.Forms.ToolStripMenuItem();
             this.ClipNamesComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.statusPanel = new System.Windows.Forms.TextBox();
+            this.textStatus = new System.Windows.Forms.TextBox();
+            this.numericLarge = new System.Windows.Forms.NumericUpDown();
+            this.numericSmall = new System.Windows.Forms.NumericUpDown();
+            this.labelLarge = new System.Windows.Forms.Label();
+            this.labelSmall = new System.Windows.Forms.Label();
             this.modelViewerControl = new Engine.ModelViewerControl();
-            this.createStructureBoundsItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericLarge)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericSmall)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -100,7 +106,7 @@ namespace Engine
             this.ClipNamesComboBox});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1008, 27);
+            this.menuStrip1.Size = new System.Drawing.Size(1008, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -123,7 +129,7 @@ namespace Engine
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 23);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // LoadRigidModelMenu
@@ -259,13 +265,12 @@ namespace Engine
             this.noBoundsItem,
             this.allLargeBoundsItem,
             this.allSmallBoundsItem,
-            this.selectedLargeBoundItem,
             this.smallBoundsInTheSelectedBoundItem,
             this.boundsWhileStandingItem,
             this.boundsWhileCrouchedItem,
             this.boundsAttachedToBonesItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 23);
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem.Text = "&View";
             // 
             // yUpMenuItem
@@ -355,12 +360,6 @@ namespace Engine
             this.allSmallBoundsItem.Text = "&All Small Bounds";
             this.allSmallBoundsItem.Click += new System.EventHandler(this.allSmallBoundsItem_Click);
             // 
-            // selectedLargeBoundItem
-            // 
-            this.selectedLargeBoundItem.Name = "selectedLargeBoundItem";
-            this.selectedLargeBoundItem.Size = new System.Drawing.Size(267, 22);
-            this.selectedLargeBoundItem.Text = "&Selected Large Bound";
-            // 
             // smallBoundsInTheSelectedBoundItem
             // 
             this.smallBoundsInTheSelectedBoundItem.Name = "smallBoundsInTheSelectedBoundItem";
@@ -397,7 +396,7 @@ namespace Engine
             this.toolStripSeparator9,
             this.createStructureBoundsItem});
             this.diabolicalToolStripMenuItem.Name = "diabolicalToolStripMenuItem";
-            this.diabolicalToolStripMenuItem.Size = new System.Drawing.Size(71, 23);
+            this.diabolicalToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
             this.diabolicalToolStripMenuItem.Text = "&Diabolical";
             // 
             // loadmodelItem
@@ -433,6 +432,18 @@ namespace Engine
             this.changeModelTypeItem.Text = "Change Model &Type";
             this.changeModelTypeItem.Click += new System.EventHandler(this.changeModelTypeItem_Click);
             // 
+            // toolStripSeparator9
+            // 
+            this.toolStripSeparator9.Name = "toolStripSeparator9";
+            this.toolStripSeparator9.Size = new System.Drawing.Size(199, 6);
+            // 
+            // createStructureBoundsItem
+            // 
+            this.createStructureBoundsItem.Name = "createStructureBoundsItem";
+            this.createStructureBoundsItem.Size = new System.Drawing.Size(202, 22);
+            this.createStructureBoundsItem.Text = "Create Structure Bounds";
+            this.createStructureBoundsItem.Click += new System.EventHandler(this.createStructureBoundsItem_Click);
+            // 
             // ToolsMenuItem
             // 
             this.ToolsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -444,7 +455,7 @@ namespace Engine
             this.toolStripSeparator8,
             this.optionsToolStripMenuItem});
             this.ToolsMenuItem.Name = "ToolsMenuItem";
-            this.ToolsMenuItem.Size = new System.Drawing.Size(48, 23);
+            this.ToolsMenuItem.Size = new System.Drawing.Size(48, 20);
             this.ToolsMenuItem.Text = "&Tools";
             // 
             // splitFBXMenuItem
@@ -506,7 +517,7 @@ namespace Engine
             this.windowToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.helpToolStripMenuItem1});
             this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
-            this.windowToolStripMenuItem.Size = new System.Drawing.Size(63, 23);
+            this.windowToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
             this.windowToolStripMenuItem.Text = "&Window";
             // 
             // helpToolStripMenuItem1
@@ -527,7 +538,7 @@ namespace Engine
             // 
             this.ClipNamesComboBox.Enabled = false;
             this.ClipNamesComboBox.Name = "ClipNamesComboBox";
-            this.ClipNamesComboBox.Size = new System.Drawing.Size(221, 23);
+            this.ClipNamesComboBox.Size = new System.Drawing.Size(201, 23);
             this.ClipNamesComboBox.Text = "Pose";
             this.ClipNamesComboBox.Visible = false;
             this.ClipNamesComboBox.TextChanged += new System.EventHandler(this.ClipNamesComboBox_Changed);
@@ -535,15 +546,64 @@ namespace Engine
             // statusPanel
             // 
             this.statusPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.statusPanel.Location = new System.Drawing.Point(0, 669);
+            this.statusPanel.Enabled = false;
+            this.statusPanel.Location = new System.Drawing.Point(0, 672);
             this.statusPanel.Margin = new System.Windows.Forms.Padding(12);
             this.statusPanel.Multiline = true;
             this.statusPanel.Name = "statusPanel";
             this.statusPanel.ReadOnly = true;
-            this.statusPanel.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.statusPanel.Size = new System.Drawing.Size(1008, 93);
+            this.statusPanel.Size = new System.Drawing.Size(1008, 121);
             this.statusPanel.TabIndex = 2;
             this.statusPanel.TabStop = false;
+            // 
+            // textStatus
+            // 
+            this.textStatus.Location = new System.Drawing.Point(12, 681);
+            this.textStatus.Multiline = true;
+            this.textStatus.Name = "textStatus";
+            this.textStatus.ReadOnly = true;
+            this.textStatus.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textStatus.Size = new System.Drawing.Size(780, 100);
+            this.textStatus.TabIndex = 3;
+            this.textStatus.TabStop = false;
+            // 
+            // numericLarge
+            // 
+            this.numericLarge.Enabled = false;
+            this.numericLarge.Location = new System.Drawing.Point(876, 682);
+            this.numericLarge.Name = "numericLarge";
+            this.numericLarge.ReadOnly = true;
+            this.numericLarge.Size = new System.Drawing.Size(90, 20);
+            this.numericLarge.TabIndex = 4;
+            this.numericLarge.TabStop = false;
+            // 
+            // numericSmall
+            // 
+            this.numericSmall.Enabled = false;
+            this.numericSmall.Location = new System.Drawing.Point(876, 708);
+            this.numericSmall.Name = "numericSmall";
+            this.numericSmall.ReadOnly = true;
+            this.numericSmall.Size = new System.Drawing.Size(90, 20);
+            this.numericSmall.TabIndex = 5;
+            this.numericSmall.TabStop = false;
+            // 
+            // labelLarge
+            // 
+            this.labelLarge.AutoSize = true;
+            this.labelLarge.Location = new System.Drawing.Point(833, 684);
+            this.labelLarge.Name = "labelLarge";
+            this.labelLarge.Size = new System.Drawing.Size(37, 13);
+            this.labelLarge.TabIndex = 6;
+            this.labelLarge.Text = "Large:";
+            // 
+            // labelSmall
+            // 
+            this.labelSmall.AutoSize = true;
+            this.labelSmall.Location = new System.Drawing.Point(835, 710);
+            this.labelSmall.Name = "labelSmall";
+            this.labelSmall.Size = new System.Drawing.Size(35, 13);
+            this.labelSmall.TabIndex = 7;
+            this.labelSmall.Text = "Small:";
             // 
             // modelViewerControl
             // 
@@ -554,7 +614,7 @@ namespace Engine
             this.modelViewerControl.Dock = System.Windows.Forms.DockStyle.Top;
             this.modelViewerControl.EmissiveLightLevel = 0.25F;
             this.modelViewerControl.IsAnimated = false;
-            this.modelViewerControl.Location = new System.Drawing.Point(0, 27);
+            this.modelViewerControl.Location = new System.Drawing.Point(0, 24);
             this.modelViewerControl.Name = "modelViewerControl";
             this.modelViewerControl.PauseInput = true;
             this.modelViewerControl.Size = new System.Drawing.Size(1008, 648);
@@ -562,33 +622,28 @@ namespace Engine
             this.modelViewerControl.Text = "modelViewerControl";
             this.modelViewerControl.ViewUp = 1;
             // 
-            // createStructureBoundsItem
-            // 
-            this.createStructureBoundsItem.Name = "createStructureBoundsItem";
-            this.createStructureBoundsItem.Size = new System.Drawing.Size(202, 22);
-            this.createStructureBoundsItem.Text = "Create Structure Bounds";
-            this.createStructureBoundsItem.Click += new System.EventHandler(this.createStructureBoundsItem_Click);
-            // 
-            // toolStripSeparator9
-            // 
-            this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(199, 6);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(1008, 762);
-            this.Controls.Add(this.statusPanel);
+            this.ClientSize = new System.Drawing.Size(1008, 793);
+            this.Controls.Add(this.labelSmall);
+            this.Controls.Add(this.labelLarge);
+            this.Controls.Add(this.numericSmall);
+            this.Controls.Add(this.numericLarge);
+            this.Controls.Add(this.textStatus);
             this.Controls.Add(this.modelViewerControl);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.statusPanel);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "3D Model Prep  __  [John C Brown http://www.MistyManor.co.uk]";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericLarge)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericSmall)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -638,7 +693,6 @@ namespace Engine
         private System.Windows.Forms.ToolStripMenuItem noBoundsItem;
         private System.Windows.Forms.ToolStripMenuItem allLargeBoundsItem;
         private System.Windows.Forms.ToolStripMenuItem allSmallBoundsItem;
-        private System.Windows.Forms.ToolStripMenuItem selectedLargeBoundItem;
         private System.Windows.Forms.ToolStripMenuItem smallBoundsInTheSelectedBoundItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
@@ -652,6 +706,11 @@ namespace Engine
         private System.Windows.Forms.ToolStripMenuItem invertYControlsItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
         private System.Windows.Forms.ToolStripMenuItem createStructureBoundsItem;
+        private System.Windows.Forms.TextBox textStatus;
+        private System.Windows.Forms.NumericUpDown numericLarge;
+        private System.Windows.Forms.NumericUpDown numericSmall;
+        private System.Windows.Forms.Label labelLarge;
+        private System.Windows.Forms.Label labelSmall;
 
     }
 }

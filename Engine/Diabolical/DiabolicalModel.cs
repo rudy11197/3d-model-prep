@@ -556,14 +556,14 @@ namespace Engine
         // == Bounding Shapes ==
         //
         // Used to view the result of creating bounding spheres
-        public void OutlineLargerBounds(int lastSelectedBound)
+        public void OutlineLargerBounds(int lastLargerBound)
         {
             debugShapes.ClearStoredShapes();
             MoveBounds();
             for (int i = 0; i < LargerBounds.Count; i++)
             {
                 // highlight the last selected bound
-                if (i == lastSelectedBound)
+                if (i == lastLargerBound)
                 {
                     debugShapes.StoreNewSphere(
                         LargerBounds[i].Sphere.Center,
@@ -581,43 +581,43 @@ namespace Engine
         }
 
         // Used to view and edit the result of creating bounding spheres
-        public void OutlineSmallerBounds(int lastSelectedBound, int lastSmallerBound)
+        public void OutlineSmallerBoundsInLarger(int lastLargerBound, int lastSmallerBound)
         {
             debugShapes.ClearStoredShapes();
             MoveBounds();
-            if (lastSelectedBound < 0 || lastSelectedBound >= LargerBounds.Count)
+            if (lastLargerBound < 0 || lastLargerBound >= LargerBounds.Count)
             {
                 return;
             }
             // Loop through all the indices contained in the larger bound
-            for (int i = 0; i < LargerBounds[lastSelectedBound].IDs.Count; i++)
+            for (int i = 0; i < LargerBounds[lastLargerBound].IDs.Count; i++)
             {
-                if (lastSmallerBound == i)
+                if (lastSmallerBound == LargerBounds[lastLargerBound].IDs[i])
                 {
                     debugShapes.StoreNewSphere(
-                        SmallerBounds[LargerBounds[lastSelectedBound].IDs[i]].Sphere.Center,
-                        SmallerBounds[LargerBounds[lastSelectedBound].IDs[i]].Sphere.Radius,
+                        SmallerBounds[LargerBounds[lastLargerBound].IDs[i]].Sphere.Center,
+                        SmallerBounds[LargerBounds[lastLargerBound].IDs[i]].Sphere.Radius,
                         Color.Yellow);
                 }
                 else
                 {
                     debugShapes.StoreNewSphere(
-                        SmallerBounds[LargerBounds[lastSelectedBound].IDs[i]].Sphere.Center,
-                        SmallerBounds[LargerBounds[lastSelectedBound].IDs[i]].Sphere.Radius,
+                        SmallerBounds[LargerBounds[lastLargerBound].IDs[i]].Sphere.Center,
+                        SmallerBounds[LargerBounds[lastLargerBound].IDs[i]].Sphere.Radius,
                         Color.Red);
                 }
             }
         }
 
         // Used to view the smaller bounds
-        public void OutlineAllSmallerBounds(int lastSelectedBound)
+        public void OutlineAllSmallerBounds(int lastSmallerBound)
         {
             debugShapes.ClearStoredShapes();
             MoveBounds();
             // Loop through all the smaller bounds
             for (int i = 0; i < SmallerBounds.Count; i++)
             {
-                if (i == lastSelectedBound)
+                if (i == lastSmallerBound)
                 {
                     debugShapes.StoreNewSphere(
                         SmallerBounds[i].Sphere.Center,
