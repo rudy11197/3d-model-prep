@@ -20,7 +20,7 @@ namespace Engine
     /// <summary>
     /// The model properties
     /// </summary>
-    class DiabolicalModel
+    public class DiabolicalModel
     {
         //////////////////////////////////////////////////////////////////////
         // == ActiveModelAsset ==
@@ -48,10 +48,12 @@ namespace Engine
         public List<StructureSphere> LargerBounds
         {
             get { return largerBounds; }
+            set { largerBounds = value; }
         }
         public List<StructureSphere> SmallerBounds
         {
             get { return smallerBounds; }
+            set { smallerBounds = value; }
         }
 
         // == Character
@@ -106,6 +108,10 @@ namespace Engine
         // Used for both normal and grey scale bump maps
         public string depthMapFile;
         public string specularMapFile;
+        // For per triangle impact from projectiles
+        // These remain null until calculated using ExposeVertices()
+        public List<Vector3> vertices;
+        public List<VertexHelper.TriangleVertexIndices> indices;
         //
         //////////////////////////////////////////////////////////////////////
 
@@ -650,6 +656,143 @@ namespace Engine
         }
         //
         //////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        // == Bounds ==
+        //
+        // Fill a list with the points and indices which can be used to make up the triangles 
+        // of the model.  Always calculated with the model on object space.
+        public void ExposeVertices()
+        {
+            List<Vector3> original = new List<Vector3>();
+            // Check if we've done this before
+            if (vertices == null)
+            {
+                vertices = new List<Vector3>();
+            }
+            else
+            {
+                vertices.Clear();
+            }
+            if (indices == null)
+            {
+                indices = new List<VertexHelper.TriangleVertexIndices>();
+            }
+            else
+            {
+                indices.Clear();
+            }
+            // In object space
+            VertexHelper.ExtractTrianglesFrom(model, original, indices, Matrix.Identity);
+
+            foreach (Vector3 vec in original)
+            {
+                // Create a duplicate for each model
+                // NOTE: I don't think this is necessary but it is to rule this out as a 
+                // possible cause of errors.
+                vertices.Add(new Vector3(vec.X, vec.Y, vec.Z));
+            }
+        }
+
+        /// <summary>
+        /// Calculate a tight fitting bounding box for this model.
+        /// Oversize adjusts the max and min by the amount specified e.g. 0.1 (10cm) or 0.01 (1cm)
+        /// Some methods work best if the result is a cube.
+        /// </summary>
+        public BoundingBox CalculateBoundBox(float oversize, bool cube)
+        {
+            // Then calculate the overall bounding shape
+            Vector3 min = Vector3.One * float.MaxValue;
+            Vector3 max = Vector3.One * float.MinValue;
+            // Loop through every triangle to find the min and max points
+            for (int i = 0; i < vertices.Count; i++)
+            {
+                Vector3 current = vertices[i];
+                // Get minimum of each of the Triangles minimum bound
+                Vector3.Min(ref min, ref current, out min);
+                // Get maximum of each of the Trigons maximum bound
+                Vector3.Max(ref max, ref current, out max);
+            }
+
+            // Expand each corner by the oversize fraction
+            min.X = min.X - oversize;
+            min.Y = min.Y - oversize;
+            min.Z = min.Z - oversize;
+            max.X = max.X + oversize;
+            max.Y = max.Y + oversize;
+            max.Z = max.Z + oversize;
+
+            if (cube)
+            {
+                // Find the longest edge
+                float longest = MathHelper.Max(max.X - min.X,
+                                MathHelper.Max(max.Y - min.Y, max.Z - min.Z));
+                // Find the middle
+                Vector3 middle = (max - min) * 0.5f;
+                Vector3 centre = min + middle;
+                // half the longest
+                float half = longest * 0.5f;
+                // Adjust corners to create a cube with sides equal to the longest side
+                min.X = centre.X - half;
+                min.Y = centre.Y - half;
+                min.Z = centre.Z - half;
+                max.X = centre.X + half;
+                max.Y = centre.Y + half;
+                max.Z = centre.Z + half;
+            }
+
+            return new BoundingBox(min, max);
+        }
+
+        public int CountTriangles()
+        {
+            return indices.Count;
+        }
+
+                // Set the size and position of the triangle provided to be that of the triangle index
+        // specified.
+        // This is called frequently so error checking has deliberately
+        // not been included.
+        public void GetTriangle(ref int index, ref Triangle triangle)
+        {
+            triangle.Resize(vertices[indices[index].A], vertices[indices[index].B],
+                vertices[indices[index].C]);
+        }
+
+        // This creates a copy of the triangle in world space
+        // This adds to the heap so is bad for Garbage collection
+        // Only use during level loading or saving never mid game
+        public Triangle GetTriangle(int index)
+        {
+            if (vertices != null && indices != null && index > -1 && index < indices.Count)
+            {
+                return new Triangle(vertices[indices[index].A], vertices[indices[index].B],
+                    vertices[indices[index].C]);
+            }
+            else
+            {
+                return new Triangle(Vector3.Zero, Vector3.Zero, Vector3.Zero);
+            }
+        }
+
+        // Return a new list of the the triangles in the model
+        // This adds loads to the heap so is bad for Garbage collection
+        // Only use during level loading or saving never mid game
+        public List<Triangle> GetTriangles()
+        {
+            List<Triangle> tris = new List<Triangle>();
+            if (vertices != null && indices != null && indices.Count > 0)
+            {
+                for (int i = 0; i < indices.Count; i++)
+                {
+                    tris.Add(GetTriangle(i));
+                }
+            }
+            return tris;
+        }
+        //
+        //////////////////////////////////////////////////////////////////////
+
 
     }
 }

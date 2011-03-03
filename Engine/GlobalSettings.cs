@@ -112,12 +112,24 @@ namespace Engine
         public const float defaultMoveSpeed = 0.6f;
         public const float defaultTurnSpeed = 1.0f;
         // Where the mouse cursor sits during mouse movement
-        public const int mouseZeroX = 5;
-        public const int mouseZeroY = 5;
+        public const int mouseZeroX = 15;
+        public const int mouseZeroY = 15;
         // Lighting
         public const float defaultEmissive = 0.25f;
         public const float defaultAmbient = 0.75f;
         public const float defaultDiffuse = 0.45f;
+
+        // Structure bounding spheres
+        // These sizes are applicable to the scale used in Diabolical
+        // If the models are too large the bounds will throw an exception!
+        // The width of the smallest bounding box
+        // The final result is converted to a sphere which will have a diameter equal 
+        // to the corner to corner size of this box.
+        public const float miniBoxWidth = 0.7f;
+        // The number of miniBoxWidths which make up the next larger sphere diameter.
+        // If their width multiple is too large there will be too many ray intersections
+        // for the xbox to test quickly.
+        public const float widthMultiple = 3.0f;
 
 
     }

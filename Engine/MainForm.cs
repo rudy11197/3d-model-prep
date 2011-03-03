@@ -454,6 +454,7 @@ namespace Engine
             savemodelItem.Enabled = false;
             modelPropertiesItem.Enabled = false;
             changeModelTypeItem.Enabled = false;
+            createStructureBoundsItem.Enabled = false;
             // Bounds
             noBoundsItem.Enabled = false;
             selectedLargeBoundItem.Enabled = false;
@@ -482,6 +483,11 @@ namespace Engine
                 if (diabolical.CanEdit())
                 {
                     modelPropertiesItem.Enabled = true;
+                }
+
+                if (diabolical.IsStructure)
+                {
+                    createStructureBoundsItem.Enabled = true;
                 }
 
                 if (diabolical.HasStructureBounds())
@@ -608,10 +614,12 @@ namespace Engine
                 }
                 if (modelViewerControl.Model != null)
                 {
-                    // Store the loaded model filename for use elsewhere
+                    // Store the loaded model filename and the model for use elsewhere
                     if (diabolical != null)
                     {
                         diabolical.LastLoaded3DModelFile = fileName;
+                        diabolical.Model = modelViewerControl.Model;
+                        diabolical.SetModelRotation(rotateXdeg, rotateYdeg, rotateZdeg);
                     }
                     // Scale
                     AddMessageLine("The width of each grid square is: " + modelViewerControl.GridSquareWidth + " unit(s)");
@@ -1317,6 +1325,21 @@ namespace Engine
             PauseGameInput(false);
             UpdateMenuItemVisibility();
         }
+
+        private void createStructureBoundsItem_Click(object sender, EventArgs e)
+        {
+            if (diabolical == null)
+            {
+                return;
+            }
+            if (MessageBox.Show("This will remove any existing bounds and calculate new bounds!\nAre you sure you want to continue?",
+                "Create Bounding Shapes", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                // To avoid confusion when the new bounds are created
+                HideAllOutlines();
+                diabolical.CreateStructureBounds();
+            }
+        }
         //
         //////////////////////////////////////////////////////////////////////
 
@@ -1324,6 +1347,11 @@ namespace Engine
         // == Bounds ==
         //
         private void noBoundsItem_Click(object sender, EventArgs e)
+        {
+            HideAllOutlines();
+        }
+
+        private void HideAllOutlines()
         {
             diabolical.ClearOutlines();
         }
@@ -1347,6 +1375,7 @@ namespace Engine
 
 
         //////////////////////////////////////////////////////////////////////
+        // == File Utilities ==
         //
         /// <summary>
         /// Creates a relative path from one file

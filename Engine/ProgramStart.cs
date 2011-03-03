@@ -140,12 +140,12 @@ using System.Windows.Forms;
 // - Show a floor
 // - Load and save models with the Diabolical custom structure format
 // - View models in wireframe
+// - Calculate bounding spheres for use in Diabolical: The Shoorter
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 // TODO:
 //-----------------------------------------------------------------------------
-// - Calculate bounds
 // - Edit structure model bounds
 // - Remove any smaller bounds that are surrounded on all sides
 //      Remember to calculate all the ones to remove before removing any otherwise
