@@ -65,6 +65,57 @@ namespace Engine
             defaultFileFolder = GetSavePath();
 
             UpdateMenuItemVisibility();
+
+            modelViewerControl.StepUp += new EventHandler<EventArgs>(modelViewerControl_StepUp);
+            modelViewerControl.StepDown += new EventHandler<EventArgs>(modelViewerControl_StepDown);
+            modelViewerControl.DeleteSmaller += new EventHandler<EventArgs>(modelViewerControl_DeleteSmaller);
+            
+        }
+
+        private void modelViewerControl_DeleteSmaller(object sender, EventArgs e)
+        {
+            DeleteSmallerBound();
+        }
+
+        private void modelViewerControl_StepDown(object sender, EventArgs e)
+        {
+            ChangeSelectedBound(-1);
+        }
+
+        private void modelViewerControl_StepUp(object sender, EventArgs e)
+        {
+            ChangeSelectedBound(1);
+        }
+
+        private void ChangeSelectedBound(int increment)
+        {
+            if (diabolical == null || noBoundsItem.Checked)
+            {
+                return;
+            }
+            if (allLargeBoundsItem.Checked)
+            {
+                diabolical.ChangeLargerShowLarger(increment);
+            }
+            else if (allSmallBoundsItem.Checked)
+            {
+                diabolical.ChangeSmallerShowSmaller(increment);
+            }
+            else if (smallBoundsInTheSelectedBoundItem.Checked)
+            {
+                diabolical.ChangeSmallerInLargerShowInLarger(increment);
+            }
+            ShowBoundSelections();
+        }
+
+        private void DeleteSmallerBound()
+        {
+            if (diabolical == null || noBoundsItem.Checked || allLargeBoundsItem.Checked)
+            {
+                return;
+            }
+            diabolical.DeleteSmallerSelectedBound();
+            ChangeSelectedBound(-1);
         }
 
         /// <summary>
@@ -409,6 +460,7 @@ namespace Engine
         {
             HasModelLoaded();
             WhatModelType();
+            ShowBoundSelections();
         }
         /// <summary>
         /// Call this to enable the various menu items that require an already loaded animated model
@@ -457,7 +509,6 @@ namespace Engine
             createStructureBoundsItem.Enabled = false;
             // Bounds
             noBoundsItem.Enabled = false;
-            selectedLargeBoundItem.Enabled = false;
             allLargeBoundsItem.Enabled = false;
             allSmallBoundsItem.Enabled = false;
             smallBoundsInTheSelectedBoundItem.Enabled = false;
@@ -465,7 +516,6 @@ namespace Engine
             boundsWhileCrouchedItem.Enabled = false;
             boundsAttachedToBonesItem.Enabled = false;
 
-            selectedLargeBoundItem.Visible = false;
             allLargeBoundsItem.Visible = false;
             allSmallBoundsItem.Visible = false;
             smallBoundsInTheSelectedBoundItem.Visible = false;
@@ -494,12 +544,10 @@ namespace Engine
                 {
                     noBoundsItem.Enabled = true;
 
-                    selectedLargeBoundItem.Visible = true;
                     allLargeBoundsItem.Visible = true;
                     allSmallBoundsItem.Visible = true;
                     smallBoundsInTheSelectedBoundItem.Visible = true;
 
-                    selectedLargeBoundItem.Enabled = true;
                     allLargeBoundsItem.Enabled = true;
                     allSmallBoundsItem.Enabled = true;
                     smallBoundsInTheSelectedBoundItem.Enabled = true;
@@ -519,6 +567,26 @@ namespace Engine
 
             }
         }
+
+        private void ShowBoundSelections()
+        {
+            numericLarge.ReadOnly = true;
+            numericSmall.ReadOnly = true;
+            numericLarge.Minimum = -1;
+            numericSmall.Minimum = -1;
+            if (diabolical != null)
+            {
+                numericLarge.Maximum = diabolical.HighestLargerBound;
+                numericLarge.Value = diabolical.CurrentLargerBound;
+                numericSmall.Maximum = diabolical.HighestSmallerBound;
+                numericSmall.Value = diabolical.CurrentSmallerBound;
+            }
+            else
+            {
+                numericLarge.Value = -1;
+                numericSmall.Value = -1;
+            }
+        }
         //
         //////////////////////////////////////////////////////////////////////
 
@@ -527,12 +595,12 @@ namespace Engine
         //
         public void ClearMessages()
         {
-            statusPanel.Clear();
+            textStatus.Clear();
         }
 
         public void AddMessageLine(string text)
         {
-            statusPanel.AppendText(text + "\n");
+            textStatus.AppendText(text + "\n");
         }
         //
         //////////////////////////////////////////////////////////////////////
@@ -569,7 +637,8 @@ namespace Engine
             Cursor = Cursors.WaitCursor;
             // Looks better when displaying results
             fileName = ParseData.StandardiseFolderCharacters(fileName);
-            // Unload any existing model.
+            // Clear away the previous stuff
+            HideAllOutlines();
             modelViewerControl.UnloadModel();
 
             // Clear the content manager so that a new model is loaded otherwise the same name cannot be loaded again!
@@ -1332,13 +1401,18 @@ namespace Engine
             {
                 return;
             }
-            if (MessageBox.Show("This will remove any existing bounds and calculate new bounds!\nAre you sure you want to continue?",
-                "Create Bounding Shapes", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            PauseGameInput(true);
+            CreateBoundsForm aForm = new CreateBoundsForm();
+            aForm.SmallerWidth = GlobalSettings.boundSmallerWidth;
+            aForm.LargerMultiple = GlobalSettings.boundLargerMultiple;
+            DialogResult diagResult = aForm.ShowDialog();
+            if (diagResult == DialogResult.Yes)
             {
                 // To avoid confusion when the new bounds are created
                 HideAllOutlines();
-                diabolical.CreateStructureBounds();
+                diabolical.CreateStructureBounds(aForm.SmallerWidth, aForm.LargerMultiple);
             }
+            PauseGameInput(false);
         }
         //
         //////////////////////////////////////////////////////////////////////
@@ -1353,22 +1427,38 @@ namespace Engine
 
         private void HideAllOutlines()
         {
+            ClearAllBoundTicks();
+            noBoundsItem.Checked = true;
             diabolical.ClearOutlines();
         }
 
         private void allLargeBoundsItem_Click(object sender, EventArgs e)
         {
-            diabolical.OutlineLargerBounds();
+            ClearAllBoundTicks();
+            allLargeBoundsItem.Checked = true;
+            diabolical.ChangeLargerShowLarger(0);
         }
 
         private void allSmallBoundsItem_Click(object sender, EventArgs e)
         {
-            diabolical.OutlineAllSmallerBounds();
+            ClearAllBoundTicks();
+            allSmallBoundsItem.Checked = true;
+            diabolical.ChangeSmallerShowSmaller(0);
         }
 
         private void smallBoundsInTheSelectedBoundItem_Click(object sender, EventArgs e)
         {
-            diabolical.OutlineSmallerBounds();
+            ClearAllBoundTicks();
+            smallBoundsInTheSelectedBoundItem.Checked = true;
+            diabolical.ChangeSmallerInLargerShowInLarger(0);
+        }
+
+        private void ClearAllBoundTicks()
+        {
+            noBoundsItem.Checked = false;
+            allLargeBoundsItem.Checked = false;
+            allSmallBoundsItem.Checked = false;
+            smallBoundsInTheSelectedBoundItem.Checked = false;
         }
         //
         //////////////////////////////////////////////////////////////////////

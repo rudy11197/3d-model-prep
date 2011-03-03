@@ -64,17 +64,17 @@ namespace Engine
         // There is a separate function that should be run after the smaller spheres 
         // have been edited that better fits the larger spheres with no overlap.
 
-        public static void CreateModelFittedBounds(DiabolicalModel aModel)
+        public static void CreateModelFittedBounds(DiabolicalModel aModel, float smallerBoundWidth, float largerBoundMultiple)
         {
             // The model and spheres need to be in object space not world space
             aModel.ExposeVertices();
             BoundingBox outsideBox = aModel.CalculateBoundBox(0.01f, false);
             // Get a lot of small boxes to fill the model bounds
-            float boxWidth = BestFitSmallWidth(LongestEdgeXorZ(outsideBox));
+            float boxWidth = BestFitSmallWidth(LongestEdgeXorZ(outsideBox), smallerBoundWidth, largerBoundMultiple);
             List<BoundingBox> boxes = FillWithBoxes(outsideBox, boxWidth);
             aModel.SmallerBounds = FillWithTriangles(boxes, aModel);
             // Work out the larger cubes based on the multiple of smaller ones we want to fit
-            boxWidth *= GlobalSettings.widthMultiple;
+            boxWidth *= largerBoundMultiple;
             boxes = FillWithBoxes(outsideBox, boxWidth);
             aModel.LargerBounds = FillWithSmallerBounds(boxes, aModel);
         }
@@ -235,18 +235,18 @@ namespace Engine
         // The larger bounding sphere will have a diameter of that multiple x the mini width.
         // This is to try the fit the boxes as efficiently as possible at least along the 
         // longest edge.
-        private static float BestFitSmallWidth(float edgeLength)
+        private static float BestFitSmallWidth(float edgeLength, float smallerBoundWidth, float largerBoundMultiple)
         {
-            float desiredLarger = GlobalSettings.miniBoxWidth * GlobalSettings.widthMultiple;
+            float desiredLarger = smallerBoundWidth * largerBoundMultiple;
             // For small objects use the default
             if (edgeLength < desiredLarger)
             {
-                return GlobalSettings.miniBoxWidth;
+                return smallerBoundWidth;
             }
             // Round to nearest hole number up or down
             float fits = (float)Math.Floor((edgeLength / desiredLarger)+0.5f);
             // The size of the smallest box to a multiple of times across the object
-            return edgeLength / fits / GlobalSettings.widthMultiple;
+            return edgeLength / fits / largerBoundMultiple;
         }
 
         // Calculate the longest edge across the ground

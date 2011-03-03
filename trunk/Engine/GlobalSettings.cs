@@ -125,11 +125,11 @@ namespace Engine
         // The width of the smallest bounding box
         // The final result is converted to a sphere which will have a diameter equal 
         // to the corner to corner size of this box.
-        public const float miniBoxWidth = 0.7f;
-        // The number of miniBoxWidths which make up the next larger sphere diameter.
+        public const float boundSmallerWidth = 0.7f;
+        // The number of MiniBoxWidths which make up the next larger sphere diameter.
         // If their width multiple is too large there will be too many ray intersections
         // for the xbox to test quickly.
-        public const float widthMultiple = 3.0f;
+        public const float boundLargerMultiple = 3.0f;
 
 
     }
