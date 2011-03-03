@@ -131,6 +131,7 @@ using System.Windows.Forms;
 // FEATURES
 //-----------------------------------------------------------------------------
 // - Load and view models, zoom in and out and rotate round
+// - Look and zoom using the mouse and keyboard
 // - Split FBX files in to one file per animation
 // - Load animations from FBX files
 // - Load animations from AnimationClips
@@ -144,14 +145,11 @@ using System.Windows.Forms;
 //-----------------------------------------------------------------------------
 // TODO:
 //-----------------------------------------------------------------------------
-// - Draw the third loop to make spheres easier to see
 // - Calculate bounds
 // - Edit structure model bounds
 // - Remove any smaller bounds that are surrounded on all sides
 //      Remember to calculate all the ones to remove before removing any otherwise
 //      the results will miss some.
-// - Move using the mouse
-//      Hold middle button or the space to look using the mouse
 
 
 //-----------------------------------------------------------------------------

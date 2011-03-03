@@ -97,8 +97,8 @@
             this.labelDiabolicalHelp.Name = "labelDiabolicalHelp";
             this.labelDiabolicalHelp.Size = new System.Drawing.Size(693, 71);
             this.labelDiabolicalHelp.TabIndex = 2;
-            this.labelDiabolicalHelp.Text = "Many of the options in this utility are for creating output suitable for using in" +
-                " that XNA game.";
+            this.labelDiabolicalHelp.Text = "Many of the options in this utility are for creating output suitable for use in t" +
+                "he development of that XNA game.";
             // 
             // linkDiabolical
             // 
@@ -117,8 +117,8 @@
             this.labelDiabolicalDescription.Name = "labelDiabolicalDescription";
             this.labelDiabolicalDescription.Size = new System.Drawing.Size(693, 25);
             this.labelDiabolicalDescription.TabIndex = 0;
-            this.labelDiabolicalDescription.Text = "Diabolical: The Shooter is a SciFi first person controlled game which will be ava" +
-                "ilable on the Xbox 360 Indie Channel.";
+            this.labelDiabolicalDescription.Text = "\'Diabolical: The Shooter\' is a SciFi first person controlled game which will be a" +
+                "vailable on the Xbox 360 Indie Channel.";
             // 
             // buttonClose
             // 

@@ -111,6 +111,9 @@ namespace Engine
         // Movement
         public const float defaultMoveSpeed = 0.6f;
         public const float defaultTurnSpeed = 1.0f;
+        // Where the mouse cursor sits during mouse movement
+        public const int mouseZeroX = 5;
+        public const int mouseZeroY = 5;
         // Lighting
         public const float defaultEmissive = 0.25f;
         public const float defaultAmbient = 0.75f;
