@@ -386,6 +386,12 @@ namespace Engine
             modelViewerControl.WireFrameEnable(wireframeItem.Checked);
         }
 
+        private void invertYControlsItem_Click(object sender, EventArgs e)
+        {
+            invertYControlsItem.Checked = !invertYControlsItem.Checked;
+            modelViewerControl.InvertY = invertYControlsItem.Checked;
+        }
+
         private void helpToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             PauseGameInput(true);

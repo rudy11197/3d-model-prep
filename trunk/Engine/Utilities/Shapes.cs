@@ -151,10 +151,18 @@ namespace Engine
             savedShapes.Add(vertexList);
         }
 
+        public void StoreNewCircle(Vector3 centre, float radius, Color colour, string onPlane)
+        {
+            ShapeList vertexList = new ShapeList();
+            vertexList.shape = GetCircle(radius, 9, colour, centre, onPlane);
+            savedShapes.Add(vertexList);
+        }
+
         public void StoreNewSphere(Vector3 centre, float radius, Color colour)
         {
-            StoreNewCircle(centre , radius, colour, true);
-            StoreNewCircle(centre, radius, colour, false);
+            StoreNewCircle(centre, radius, colour, "X");
+            StoreNewCircle(centre, radius, colour, "Y");
+            StoreNewCircle(centre, radius, colour, "Z");
         }
 
         /// <summary>
@@ -245,6 +253,59 @@ namespace Engine
                         ((float)Math.Sin(fAngle) * radius) + centre.Y,
                         ((float)Math.Cos(fAngle) * radius) + centre.Z),
                         colour);
+                // Move the point round by a segment of the circle
+                fAngle += fStep;
+            }
+            // Make sure the circle is complete the last point is the same as the first
+            pointList[sides] = pointList[0];
+            return pointList;
+        }
+
+        /// <summary>
+        /// Return a list of points forming a circle
+        /// </summary>
+        /// <param name="radius">Radius</param>
+        /// <param name="sides">The more sides the smoother the circle will appear</param>
+        /// <param name="colour">The colour e.g. Color.White or Color.Red</param>
+        public VertexPositionColor[] GetCircle(float radius, int sides, Color colour, Vector3 centre, string onPlane)
+        {
+            int points = sides + 1;
+            VertexPositionColor[] pointList = new VertexPositionColor[points];
+
+            // This function creates a circle so the maxArc is always 2PI (360 degrees)
+            float maxArc = 2 * (float)Math.PI;   // in Radians
+            float fStep = maxArc / (float)sides;
+
+            float fAngle = 0;
+            for (int i = 0; i < sides; i++)
+            {
+                if (onPlane == "X")
+                {
+                    // X plane Vertical forward
+                    pointList[i] = new VertexPositionColor(
+                        new Vector3(centre.X,
+                            ((float)Math.Sin(fAngle) * radius) + centre.Y,
+                            ((float)Math.Cos(fAngle) * radius) + centre.Z),
+                            colour);
+                }
+                else if (onPlane == "Y")
+                {
+                    // Y plane Horizontal
+                    pointList[i] = new VertexPositionColor(
+                        new Vector3(((float)Math.Sin(fAngle) * radius) + centre.X,
+                            centre.Y,
+                            ((float)Math.Cos(fAngle) * radius) + centre.Z),
+                            colour);
+                }
+                else
+                {
+                    // Z plane Vertical side
+                    pointList[i] = new VertexPositionColor(
+                        new Vector3(((float)Math.Sin(fAngle) * radius) + centre.X,
+                            ((float)Math.Cos(fAngle) * radius) + centre.Y,
+                            centre.Z),
+                            colour);
+                }
                 // Move the point round by a segment of the circle
                 fAngle += fStep;
             }

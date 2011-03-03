@@ -16,7 +16,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using AssetData;
+// To avoid ambiguities
 using Keys = Microsoft.Xna.Framework.Input.Keys;
+using ButtonState = Microsoft.Xna.Framework.Input.ButtonState;
 #endregion
 
 namespace Engine
@@ -104,6 +106,11 @@ namespace Engine
         // Camera movement
         KeyboardState currentKeyboardState;
         KeyboardState previousKeyboardState;
+        MouseState currentMouseState;
+        MouseState previousMouseState;
+        // Use to position the cursor each frame while using the mouse
+        int mouseX = 0;
+        int mouseY = 0;
         Vector3 cameraPosition = Vector3.Zero;
         // Point to look at when in orbit mode
         Vector3 orbitCentre = Vector3.Zero;
@@ -129,6 +136,18 @@ namespace Engine
         {
             get { return turnPerSec; }
             set { turnPerSec = value; }
+        }
+        private float invertY = 1.0f;
+        public bool InvertY
+        {
+            set
+            {
+                invertY = 1.0f;
+                if (value)
+                {
+                    invertY = -1.0f;
+                }
+            }
         }
 
         // Timer controls the movement speed.
@@ -458,6 +477,7 @@ namespace Engine
             }
 
             currentKeyboardState = Keyboard.GetState();
+            currentMouseState = Mouse.GetState();
 
             float time = (float)elapsedGameTime.TotalMilliseconds;
 
@@ -467,14 +487,42 @@ namespace Engine
             float turn = 0;
             float speed = 0.0005f * turnPerSec;
 
+            // Mouse look
+            // The first time we select the mouse move just position the mouse
+            // to a known location otherwise the model will spin dramatically
+            if ((currentMouseState.MiddleButton == ButtonState.Pressed &&
+                previousMouseState.MiddleButton == ButtonState.Released) ||
+                (currentKeyboardState.IsKeyDown(Keys.LeftShift) &&
+                previousKeyboardState.IsKeyUp(Keys.LeftShift)) ||
+                (currentKeyboardState.IsKeyDown(Keys.RightShift) &&
+                previousKeyboardState.IsKeyUp(Keys.RightShift))
+                )
+            {
+                // Position the cursor a few pixel in from the top left
+                mouseX = GlobalSettings.mouseZeroX;
+                mouseY = GlobalSettings.mouseZeroY;
+                Mouse.SetPosition(mouseX, mouseY);
+            }
+            else if (currentKeyboardState.IsKeyDown(Keys.LeftShift) ||
+                currentKeyboardState.IsKeyDown(Keys.RightShift) || 
+                currentMouseState.MiddleButton == ButtonState.Pressed)
+            {
+                // Mouse look
+                turn = (mouseX - currentMouseState.X) * time * speed;
+                pitch = (mouseY - currentMouseState.Y) * time * speed * invertY * -1.0f;
+                // centre mouse so we get the change each time
+                Mouse.SetPosition(mouseX, mouseY);
+            }
+
+            // Keyboard look
             if (currentKeyboardState.IsKeyDown(Keys.Up))
             {
-                pitch -= time * speed;
+                pitch -= time * speed * invertY;
             }
 
             if (currentKeyboardState.IsKeyDown(Keys.Down))
             {
-                pitch += time * speed;
+                pitch += time * speed * invertY;
             }
 
             if (currentKeyboardState.IsKeyDown(Keys.Left))
@@ -530,6 +578,10 @@ namespace Engine
                 speed = 0.005f * movePerSec * floorScale;
             }
 
+            // For the scroll wheel to work the Mouse.WindowHandle must be set to this control
+            float scroll = (currentMouseState.ScrollWheelValue - previousMouseState.ScrollWheelValue);
+            cameraPosition += cameraForward * time * speed * scroll;
+
             if (currentKeyboardState.IsKeyDown(Keys.W) || Keyboard.GetState().IsKeyDown(Keys.Z))
             {
                 cameraPosition += cameraForward * time * speed;
@@ -574,6 +626,7 @@ namespace Engine
             view = Matrix.CreateLookAt(cameraPosition, cameraPosition + cameraForward, cameraUp);
 
             previousKeyboardState = currentKeyboardState;
+            previousMouseState = currentMouseState;
         }
         //
         //////////////////////////////////////////////////////////////////////
@@ -734,8 +787,18 @@ namespace Engine
             RasterSolid.FillMode = FillMode.Solid;
             RasterSolid.MultiSampleAntiAlias = true;
 
+            // Initialise mouse and keyboard
+            // For the scroll wheel to work the Mouse.WindowHandle must be set to this control
+            Mouse.WindowHandle = Handle;
             currentKeyboardState = Keyboard.GetState();
             previousKeyboardState = currentKeyboardState;
+            currentMouseState = Mouse.GetState();
+            previousMouseState = currentMouseState;
+            // A few pixel in from the top left
+            // Once the WindowHandlw was set on the mouse this became relative to itself.
+            mouseX = GlobalSettings.mouseZeroX;
+            mouseY = GlobalSettings.mouseZeroY;
+            Mouse.SetPosition(mouseX, mouseY);
         }
 
         /// <summary>

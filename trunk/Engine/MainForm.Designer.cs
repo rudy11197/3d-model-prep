@@ -80,6 +80,7 @@ namespace Engine
             this.PoseHeading = new System.Windows.Forms.ToolStripMenuItem();
             this.ClipNamesComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.statusPanel = new System.Windows.Forms.TextBox();
+            this.invertYControlsItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modelViewerControl = new Engine.ModelViewerControl();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -251,6 +252,7 @@ namespace Engine
             this.wireframeItem,
             this.toolStripSeparator6,
             this.resetViewingPointMenu,
+            this.invertYControlsItem,
             this.toolStripSeparator3,
             this.noBoundsItem,
             this.allLargeBoundsItem,
@@ -270,7 +272,7 @@ namespace Engine
             this.yUpMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.yUpMenuItem.Name = "yUpMenuItem";
             this.yUpMenuItem.Size = new System.Drawing.Size(267, 22);
-            this.yUpMenuItem.Text = "&Y Up  (XNA Default)";
+            this.yUpMenuItem.Text = "Y Up  (&XNA Default)";
             this.yUpMenuItem.Click += new System.EventHandler(this.yUp_Click);
             // 
             // zUpMenuItem
@@ -532,6 +534,13 @@ namespace Engine
             this.statusPanel.TabIndex = 2;
             this.statusPanel.TabStop = false;
             // 
+            // invertYControlsItem
+            // 
+            this.invertYControlsItem.Name = "invertYControlsItem";
+            this.invertYControlsItem.Size = new System.Drawing.Size(267, 22);
+            this.invertYControlsItem.Text = "Invert &Y Controls";
+            this.invertYControlsItem.Click += new System.EventHandler(this.invertYControlsItem_Click);
+            // 
             // modelViewerControl
             // 
             this.modelViewerControl.AmbientLightLevel = 0.75F;
@@ -624,6 +633,7 @@ namespace Engine
         private System.Windows.Forms.ToolStripMenuItem boundsWhileCrouchedItem;
         private System.Windows.Forms.ToolStripMenuItem boundsAttachedToBonesItem;
         private System.Windows.Forms.ToolStripMenuItem wireframeItem;
+        private System.Windows.Forms.ToolStripMenuItem invertYControlsItem;
 
     }
 }
