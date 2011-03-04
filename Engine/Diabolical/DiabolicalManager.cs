@@ -430,7 +430,7 @@ namespace Engine
             OutlineSmallerBoundsInLarger();
         }
 
-        public void DeleteSmallerSelectedBound()
+        public void DeleteSelectedSmallerBound()
         {
             if (modelAsset == null || lastSmallerBound < 0 ||
                 modelAsset.LargerBounds.Count < 1 || modelAsset.SmallerBounds.Count < 1)
@@ -460,6 +460,24 @@ namespace Engine
             // Remove unused smaller bound now that all the indexes stored
             // in the larger bounds have been adjusted.
             modelAsset.SmallerBounds.RemoveAt(smallerID);
+        }
+
+        public void DeleteSelectedLargerBound()
+        {
+            if (modelAsset == null || lastLargerBound < 0 ||
+                modelAsset.LargerBounds.Count < 1 || lastLargerBound >= modelAsset.LargerBounds.Count)
+            {
+                return;
+            }
+            modelAsset.LargerBounds.RemoveAt(lastLargerBound);
+        }
+
+        public void OptimiseModelBounds()
+        {
+            if (modelAsset != null)
+            {
+                StructureBounds.OptimiseModelBounds(modelAsset);
+            }
         }
         //
         //////////////////////////////////////////////////////////////////////

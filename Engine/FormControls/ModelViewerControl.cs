@@ -221,7 +221,7 @@ namespace Engine
 
         public event EventHandler<EventArgs> StepUp;
         public event EventHandler<EventArgs> StepDown;
-        public event EventHandler<EventArgs> DeleteSmaller;
+        public event EventHandler<EventArgs> DeleteBound;
 
 
 
@@ -658,9 +658,9 @@ namespace Engine
             if (currentKeyboardState.IsKeyDown(Keys.Delete) &&
                 previousKeyboardState.IsKeyUp(Keys.Delete))
             {
-                if (DeleteSmaller != null)
+                if (DeleteBound != null)
                 {
-                    DeleteSmaller(this, EventArgs.Empty);
+                    DeleteBound(this, EventArgs.Empty);
                 }
             }
 

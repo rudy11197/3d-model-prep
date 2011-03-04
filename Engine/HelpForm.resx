@@ -126,4 +126,9 @@ Press F to face the model.  Hold down O to orbit round the point being looked at
   <data name="labelLoading.Text" xml:space="preserve">
     <value>Set values for the preset rotation prior to loading a model.  This is so that the model is loaded with the rotation built in to the model.  During loading the vertex positions and animations are recalculated so that the game does not need to perform any additional mathematics to orient the model to the world.</value>
   </data>
+  <data name="labelDiabolicalHelp.Text" xml:space="preserve">
+    <value>Many of the options in this utility are for creating output suitable for use in the development of that XNA game.
+
+When adding the bounding spheres to the structures it is essential to run the optimisation method prior to saving the model for the final time.  Failure to do this might result in smaller spheres overlapping the larger spheres which causes juddering effects while playing!</value>
+  </data>
 </root>

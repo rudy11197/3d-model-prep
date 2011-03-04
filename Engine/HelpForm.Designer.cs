@@ -86,7 +86,7 @@
             this.groupBox3.Controls.Add(this.labelDiabolicalDescription);
             this.groupBox3.Location = new System.Drawing.Point(12, 224);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(705, 142);
+            this.groupBox3.Size = new System.Drawing.Size(705, 184);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Diabolical";
@@ -95,10 +95,9 @@
             // 
             this.labelDiabolicalHelp.Location = new System.Drawing.Point(6, 68);
             this.labelDiabolicalHelp.Name = "labelDiabolicalHelp";
-            this.labelDiabolicalHelp.Size = new System.Drawing.Size(693, 71);
+            this.labelDiabolicalHelp.Size = new System.Drawing.Size(693, 113);
             this.labelDiabolicalHelp.TabIndex = 2;
-            this.labelDiabolicalHelp.Text = "Many of the options in this utility are for creating output suitable for use in t" +
-                "he development of that XNA game.";
+            this.labelDiabolicalHelp.Text = resources.GetString("labelDiabolicalHelp.Text");
             // 
             // linkDiabolical
             // 
