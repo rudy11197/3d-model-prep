@@ -141,13 +141,12 @@ using System.Windows.Forms;
 // - Load and save models with the Diabolical custom structure format
 // - View models in wireframe
 // - Calculate bounding spheres for use in Diabolical: The Shooter
-// - Delete the smaller bounds
+// - Delete the smaller and larger bounds
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 // TODO:
 //-----------------------------------------------------------------------------
-// - Delete larger bounds
 // - Remove any smaller bounds that are not in any of the larger bounds
 // - Remove any smaller bounds that are surrounded on all sides
 //      Remember to calculate all the ones to remove before removing any otherwise

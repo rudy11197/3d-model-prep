@@ -72,7 +72,7 @@ namespace Engine
             // Get a lot of small boxes to fill the model bounds
             float boxWidth = BestFitSmallWidth(LongestEdgeXorZ(outsideBox), smallerBoundWidth, largerBoundMultiple);
             List<BoundingBox> boxes = FillWithBoxes(outsideBox, boxWidth);
-            aModel.SmallerBounds = FillWithTriangles(boxes, aModel);
+            aModel.SmallerBounds = CreateSpheresFilledWithTriangles(boxes, aModel);
             // Work out the larger cubes based on the multiple of smaller ones we want to fit
             boxWidth *= largerBoundMultiple;
             boxes = FillWithBoxes(outsideBox, boxWidth);
@@ -84,10 +84,24 @@ namespace Engine
         // Call this after the smaller bounds have been edited just before saving the model.
         public static void OptimiseModelBounds(DiabolicalModel aModel)
         {
-            for (int b = 0; b < aModel.LargerBounds.Count; b++)
+            if (aModel.LargerBounds.Count < 1)
             {
-                aModel.LargerBounds[b].Sphere = SphereToEncompassSmaller(b, aModel);
-                aModel.LargerBounds[b].CentreInObjectSpace = aModel.LargerBounds[b].Sphere.Center;
+                return;
+            }
+            // Work backwards just in case any bounds are removed
+            for (int b = aModel.LargerBounds.Count - 1; b >= 0; b--)
+            {
+                if (aModel.LargerBounds[b].IDs.Count < 1)
+                {
+                    // If empty remove
+                    aModel.LargerBounds.RemoveAt(b);
+                }
+                else
+                {
+                    // Fit round the smaller spheres as efficiently as possible without overlap
+                    aModel.LargerBounds[b].Sphere = SphereToEncompassSmaller(b, aModel);
+                    aModel.LargerBounds[b].CentreInObjectSpace = aModel.LargerBounds[b].Sphere.Center;
+                }
             }
         }
 
@@ -96,7 +110,7 @@ namespace Engine
             BoundingSphere result = new BoundingSphere();
             Vector3 min = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
             Vector3 max = new Vector3(float.MinValue, float.MinValue, float.MinValue);
-            // Get the min and max corners of the spheres
+            // Get the min and max corners of the spheres as if a cube
             for (int s = 0; s < aModel.LargerBounds[larger].IDs.Count; s++)
             {
                 Vector3 lowCorner = aModel.SmallerBounds[aModel.LargerBounds[larger].IDs[s]].CentreInObjectSpace;
@@ -157,7 +171,7 @@ namespace Engine
         }
 
         // Create the smallest bounding spheres
-        private static List<StructureSphere> FillWithTriangles(List<BoundingBox> boxes, DiabolicalModel aModel)
+        private static List<StructureSphere> CreateSpheresFilledWithTriangles(List<BoundingBox> boxes, DiabolicalModel aModel)
         {
             List<StructureSphere> spheres = new List<StructureSphere>(boxes.Count);
             // Convert to spheres
@@ -166,6 +180,24 @@ namespace Engine
                 BoundingSphere ball = BoundingSphere.CreateFromBoundingBox(boxes[b]);
                 spheres.Add(new StructureSphere(ball.Center, ball.Radius));
             }
+            FillWithTriangles(spheres, aModel);
+            // Remove empty spheres
+            // Easier to add those that have something in them rather than remove from a list
+            List<StructureSphere> results = new List<StructureSphere>();
+            for (int r = 0; r < spheres.Count; r++)
+            {
+                // Add any that have triangles in them
+                if (spheres[r].IDs.Count > 0)
+                {
+                    results.Add(spheres[r]);
+                }
+            }
+            return results;
+        }
+
+        // Used for filling and refilling spheres
+        private static void FillWithTriangles(List<StructureSphere> spheres, DiabolicalModel aModel)
+        {
             // Loop through the triangles
             Triangle tri = new Triangle();
             bool result = false;
@@ -187,18 +219,6 @@ namespace Engine
                     }
                 }
             }
-            // Remove empty spheres
-            // Easier to add those that have something in them rather than remove from a list
-            List<StructureSphere> results = new List<StructureSphere>();
-            for (int r = 0; r < spheres.Count; r++)
-            {
-                // Add any that have triangles in them
-                if (spheres[r].IDs.Count > 0)
-                {
-                    results.Add(spheres[r]);
-                }
-            }
-            return results;
         }
 
         // Bounding boxes to fill the model bounds
@@ -233,7 +253,7 @@ namespace Engine
         // Calculate a size that in the desired multiples fit neatly across the model at roughly
         // the desired size.  
         // The larger bounding sphere will have a diameter of that multiple x the mini width.
-        // This is to try the fit the boxes as efficiently as possible at least along the 
+        // This is to try to fit the boxes as efficiently as possible at least along the 
         // longest edge.
         private static float BestFitSmallWidth(float edgeLength, float smallerBoundWidth, float largerBoundMultiple)
         {

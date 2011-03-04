@@ -68,13 +68,13 @@ namespace Engine
 
             modelViewerControl.StepUp += new EventHandler<EventArgs>(modelViewerControl_StepUp);
             modelViewerControl.StepDown += new EventHandler<EventArgs>(modelViewerControl_StepDown);
-            modelViewerControl.DeleteSmaller += new EventHandler<EventArgs>(modelViewerControl_DeleteSmaller);
+            modelViewerControl.DeleteBound += new EventHandler<EventArgs>(modelViewerControl_DeleteBound);
             
         }
 
-        private void modelViewerControl_DeleteSmaller(object sender, EventArgs e)
+        private void modelViewerControl_DeleteBound(object sender, EventArgs e)
         {
-            DeleteSmallerBound();
+            DeleteSelectedBound();
         }
 
         private void modelViewerControl_StepDown(object sender, EventArgs e)
@@ -108,14 +108,40 @@ namespace Engine
             ShowBoundSelections();
         }
 
-        private void DeleteSmallerBound()
+        private void DeleteSelectedBound()
         {
-            if (diabolical == null || noBoundsItem.Checked || allLargeBoundsItem.Checked)
+            if (diabolical == null || noBoundsItem.Checked)
             {
                 return;
             }
-            diabolical.DeleteSmallerSelectedBound();
-            ChangeSelectedBound(-1);
+            if (allLargeBoundsItem.Checked)
+            {
+                WarnBeforeDeleteLargerBound();
+            }
+            else if (allSmallBoundsItem.Checked)
+            {
+                diabolical.DeleteSelectedSmallerBound();
+                ChangeSelectedBound(-1);
+            }
+            else if (smallBoundsInTheSelectedBoundItem.Checked)
+            {
+                diabolical.DeleteSelectedSmallerBound();
+                ChangeSelectedBound(-1);
+            }
+        }
+
+        private void WarnBeforeDeleteLargerBound()
+        {
+            if (MessageBox.Show("Manually deleting the larger bounds can leave orphaned smaller\n" +
+                "bounds which will create holes in the collision model.\n" +
+                "It is recommended that you delete only smaller bounds and let\n" +
+                "the optimisation method remove empty larger bounds.\n" +
+                "Are you sure you want to continue?", "Delete Larger Bounds!",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                diabolical.DeleteSelectedLargerBound();
+                ChangeSelectedBound(-1);
+            }
         }
 
         /// <summary>
@@ -507,6 +533,7 @@ namespace Engine
             modelPropertiesItem.Enabled = false;
             changeModelTypeItem.Enabled = false;
             createStructureBoundsItem.Enabled = false;
+            optimiseBoundsItem.Enabled = false;
             // Bounds
             noBoundsItem.Enabled = false;
             allLargeBoundsItem.Enabled = false;
@@ -551,6 +578,8 @@ namespace Engine
                     allLargeBoundsItem.Enabled = true;
                     allSmallBoundsItem.Enabled = true;
                     smallBoundsInTheSelectedBoundItem.Enabled = true;
+
+                    optimiseBoundsItem.Enabled = true;
                 }
                 else if (diabolical.HasCharacterBounds())
                 {
@@ -1413,6 +1442,17 @@ namespace Engine
                 diabolical.CreateStructureBounds(aForm.SmallerWidth, aForm.LargerMultiple);
             }
             PauseGameInput(false);
+        }
+
+        private void optimiseBoundsItem_Click(object sender, EventArgs e)
+        {
+            if (diabolical != null)
+            {
+                HideAllOutlines();
+                AddMessageLine("Optimising bounds...");
+                diabolical.OptimiseModelBounds();
+                AddMessageLine("== Finished ==");
+            }
         }
         //
         //////////////////////////////////////////////////////////////////////
