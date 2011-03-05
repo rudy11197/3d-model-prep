@@ -79,9 +79,13 @@ namespace Engine
             aModel.LargerBounds = FillWithSmallerBounds(boxes, aModel);
         }
 
-        // Make sure the larger bounds fully contain all the smaller spheres
-        // Any smaller bound overlapping can cause undesirable bouncing collisions.
         // Call this after the smaller bounds have been edited just before saving the model.
+        // Optimisation Includes:
+        // - Make sure the larger bounds fully contain all the smaller spheres
+        //      Any smaller bound overlapping can cause undesirable bouncing collisions.
+        // - Removes any empty larger bounds
+        // TODO:
+        // - Remove any smaller bounds which are not included in any of the larger bounds
         public static void OptimiseModelBounds(DiabolicalModel aModel)
         {
             if (aModel.LargerBounds.Count < 1)
