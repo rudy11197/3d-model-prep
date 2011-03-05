@@ -142,16 +142,13 @@ using System.Windows.Forms;
 // - View models in wireframe
 // - Calculate bounding spheres for use in Diabolical: The Shooter
 // - Delete the smaller and larger bounds
+// - Select bounds by their index number
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 // TODO:
 //-----------------------------------------------------------------------------
-// - Remove any smaller bounds that are not in any of the larger bounds
-// - Remove any smaller bounds that are surrounded on all sides
-//      Remember to calculate all the ones to remove before removing any otherwise
-//      the results will miss some.
-
+// - Undo the last delete bounds
 
 //-----------------------------------------------------------------------------
 // TODO (Extras):

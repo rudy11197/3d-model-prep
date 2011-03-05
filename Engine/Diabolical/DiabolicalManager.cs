@@ -312,11 +312,25 @@ namespace Engine
         public int CurrentLargerBound
         {
             get { return lastLargerBound; }
+            set
+            {
+                if (modelAsset != null && value >= 0 && value < modelAsset.LargerBounds.Count)
+                {
+                    lastLargerBound = value;
+                }
+            }
         }
 
         public int CurrentSmallerBound
         {
             get { return lastSmallerBound; }
+            set
+            {
+                if (modelAsset != null && value >= 0 && value < modelAsset.SmallerBounds.Count)
+                {
+                    lastSmallerBound = value;
+                }
+            }
         }
 
         public int HighestLargerBound
@@ -459,8 +473,12 @@ namespace Engine
             {
                 return;
             }
+            DeleteSmallerBound(lastSmallerBound);
+        }
+
+        private void DeleteSmallerBound(int smallerID)
+        {
             ChangedSomething();
-            int smallerID = lastSmallerBound;
             // Remove the smaller bound from all larger bounds
             for (int a = 0; a < modelAsset.LargerBounds.Count; a++)
             {
@@ -496,15 +514,53 @@ namespace Engine
             modelAsset.LargerBounds.RemoveAt(lastLargerBound);
         }
 
+        // Call this after the smaller bounds have been edited just before saving the model.
+        // Optimisation Includes:
+        // - Make sure the larger bounds fully contain all the smaller spheres
+        //      Any smaller bound overlapping can cause undesirable bouncing collisions.
+        // - Removes any empty larger bounds
+        // - Remove any smaller bounds which are not included in any of the larger bounds
         public void OptimiseModelBounds()
         {
-            if (modelAsset != null)
+            if (modelAsset != null && modelAsset.LargerBounds.Count > 0 && modelAsset.SmallerBounds.Count > 0)
             {
                 form.AddMessageLine("Optimising bounds...");
+                form.HideAllOutlines();
                 StructureBounds.OptimiseModelBounds(modelAsset);
+                RemoveOrphanedBounds();
+                // Set haveOptimised to true after everything because optimisation 
+                // resets this during the processes.
                 haveOptimised = true;
                 form.AddMessageLine("== Finished ==");
             }
+        }
+
+        // Delete any smaller bounds that are not included in a larger bound
+        private void RemoveOrphanedBounds()
+        {
+            // Must be in reverse because bounds might be removed
+            for (int s = modelAsset.SmallerBounds.Count - 1; s >= 0; s--)
+            {
+                if (!IsInAnyLarger(s))
+                {
+                    DeleteSmallerBound(s);
+                }
+            }
+        }
+
+        private bool IsInAnyLarger(int smallerID)
+        {
+            for (int i = 0; i < modelAsset.LargerBounds.Count; i++)
+            {
+                for (int s = 0; s < modelAsset.LargerBounds[i].IDs.Count; s++)
+                {
+                    if (modelAsset.LargerBounds[i].IDs[s] == smallerID)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
         //
         //////////////////////////////////////////////////////////////////////

@@ -69,6 +69,7 @@ namespace Engine
             this.changeModelTypeItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.createStructureBoundsItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.optimiseBoundsItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitFBXMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openTakesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -87,8 +88,9 @@ namespace Engine
             this.numericSmall = new System.Windows.Forms.NumericUpDown();
             this.labelLarge = new System.Windows.Forms.Label();
             this.labelSmall = new System.Windows.Forms.Label();
+            this.buttonLarge = new System.Windows.Forms.Button();
+            this.buttonSmall = new System.Windows.Forms.Button();
             this.modelViewerControl = new Engine.ModelViewerControl();
-            this.optimiseBoundsItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericLarge)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericSmall)).BeginInit();
@@ -107,7 +109,7 @@ namespace Engine
             this.ClipNamesComboBox});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1008, 27);
+            this.menuStrip1.Size = new System.Drawing.Size(1008, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -130,7 +132,7 @@ namespace Engine
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 23);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // LoadRigidModelMenu
@@ -271,7 +273,7 @@ namespace Engine
             this.boundsWhileCrouchedItem,
             this.boundsAttachedToBonesItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 23);
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem.Text = "&View";
             // 
             // yUpMenuItem
@@ -398,7 +400,7 @@ namespace Engine
             this.createStructureBoundsItem,
             this.optimiseBoundsItem});
             this.diabolicalToolStripMenuItem.Name = "diabolicalToolStripMenuItem";
-            this.diabolicalToolStripMenuItem.Size = new System.Drawing.Size(71, 23);
+            this.diabolicalToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
             this.diabolicalToolStripMenuItem.Text = "&Diabolical";
             // 
             // loadmodelItem
@@ -446,6 +448,13 @@ namespace Engine
             this.createStructureBoundsItem.Text = "Create Structure Bounds";
             this.createStructureBoundsItem.Click += new System.EventHandler(this.createStructureBoundsItem_Click);
             // 
+            // optimiseBoundsItem
+            // 
+            this.optimiseBoundsItem.Name = "optimiseBoundsItem";
+            this.optimiseBoundsItem.Size = new System.Drawing.Size(221, 22);
+            this.optimiseBoundsItem.Text = "Optimise Bounds (Essential)";
+            this.optimiseBoundsItem.Click += new System.EventHandler(this.optimiseBoundsItem_Click);
+            // 
             // ToolsMenuItem
             // 
             this.ToolsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -457,7 +466,7 @@ namespace Engine
             this.toolStripSeparator8,
             this.optionsToolStripMenuItem});
             this.ToolsMenuItem.Name = "ToolsMenuItem";
-            this.ToolsMenuItem.Size = new System.Drawing.Size(48, 23);
+            this.ToolsMenuItem.Size = new System.Drawing.Size(48, 20);
             this.ToolsMenuItem.Text = "&Tools";
             // 
             // splitFBXMenuItem
@@ -519,7 +528,7 @@ namespace Engine
             this.windowToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.helpToolStripMenuItem1});
             this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
-            this.windowToolStripMenuItem.Size = new System.Drawing.Size(63, 23);
+            this.windowToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
             this.windowToolStripMenuItem.Text = "&Window";
             // 
             // helpToolStripMenuItem1
@@ -565,34 +574,32 @@ namespace Engine
             this.textStatus.Name = "textStatus";
             this.textStatus.ReadOnly = true;
             this.textStatus.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textStatus.Size = new System.Drawing.Size(780, 100);
+            this.textStatus.Size = new System.Drawing.Size(755, 100);
             this.textStatus.TabIndex = 3;
             this.textStatus.TabStop = false;
             // 
             // numericLarge
             // 
-            this.numericLarge.Enabled = false;
-            this.numericLarge.Location = new System.Drawing.Point(876, 682);
+            this.numericLarge.CausesValidation = false;
+            this.numericLarge.InterceptArrowKeys = false;
+            this.numericLarge.Location = new System.Drawing.Point(830, 682);
             this.numericLarge.Name = "numericLarge";
-            this.numericLarge.ReadOnly = true;
             this.numericLarge.Size = new System.Drawing.Size(90, 20);
-            this.numericLarge.TabIndex = 4;
-            this.numericLarge.TabStop = false;
+            this.numericLarge.TabIndex = 40;
             // 
             // numericSmall
             // 
-            this.numericSmall.Enabled = false;
-            this.numericSmall.Location = new System.Drawing.Point(876, 708);
+            this.numericSmall.CausesValidation = false;
+            this.numericSmall.InterceptArrowKeys = false;
+            this.numericSmall.Location = new System.Drawing.Point(830, 708);
             this.numericSmall.Name = "numericSmall";
-            this.numericSmall.ReadOnly = true;
             this.numericSmall.Size = new System.Drawing.Size(90, 20);
-            this.numericSmall.TabIndex = 5;
-            this.numericSmall.TabStop = false;
+            this.numericSmall.TabIndex = 42;
             // 
             // labelLarge
             // 
             this.labelLarge.AutoSize = true;
-            this.labelLarge.Location = new System.Drawing.Point(833, 684);
+            this.labelLarge.Location = new System.Drawing.Point(787, 684);
             this.labelLarge.Name = "labelLarge";
             this.labelLarge.Size = new System.Drawing.Size(37, 13);
             this.labelLarge.TabIndex = 6;
@@ -601,11 +608,31 @@ namespace Engine
             // labelSmall
             // 
             this.labelSmall.AutoSize = true;
-            this.labelSmall.Location = new System.Drawing.Point(835, 710);
+            this.labelSmall.Location = new System.Drawing.Point(789, 710);
             this.labelSmall.Name = "labelSmall";
             this.labelSmall.Size = new System.Drawing.Size(35, 13);
             this.labelSmall.TabIndex = 7;
             this.labelSmall.Text = "Small:";
+            // 
+            // buttonLarge
+            // 
+            this.buttonLarge.Location = new System.Drawing.Point(926, 680);
+            this.buttonLarge.Name = "buttonLarge";
+            this.buttonLarge.Size = new System.Drawing.Size(51, 23);
+            this.buttonLarge.TabIndex = 41;
+            this.buttonLarge.Text = "Go";
+            this.buttonLarge.UseVisualStyleBackColor = true;
+            this.buttonLarge.Click += new System.EventHandler(this.buttonLarge_Click);
+            // 
+            // buttonSmall
+            // 
+            this.buttonSmall.Location = new System.Drawing.Point(926, 706);
+            this.buttonSmall.Name = "buttonSmall";
+            this.buttonSmall.Size = new System.Drawing.Size(51, 23);
+            this.buttonSmall.TabIndex = 43;
+            this.buttonSmall.Text = "Go";
+            this.buttonSmall.UseVisualStyleBackColor = true;
+            this.buttonSmall.Click += new System.EventHandler(this.buttonSmall_Click);
             // 
             // modelViewerControl
             // 
@@ -616,7 +643,7 @@ namespace Engine
             this.modelViewerControl.Dock = System.Windows.Forms.DockStyle.Top;
             this.modelViewerControl.EmissiveLightLevel = 0.25F;
             this.modelViewerControl.IsAnimated = false;
-            this.modelViewerControl.Location = new System.Drawing.Point(0, 27);
+            this.modelViewerControl.Location = new System.Drawing.Point(0, 24);
             this.modelViewerControl.Name = "modelViewerControl";
             this.modelViewerControl.PauseInput = true;
             this.modelViewerControl.Size = new System.Drawing.Size(1008, 648);
@@ -624,19 +651,14 @@ namespace Engine
             this.modelViewerControl.Text = "modelViewerControl";
             this.modelViewerControl.ViewUp = 1;
             // 
-            // optimiseBoundsItem
-            // 
-            this.optimiseBoundsItem.Name = "optimiseBoundsItem";
-            this.optimiseBoundsItem.Size = new System.Drawing.Size(221, 22);
-            this.optimiseBoundsItem.Text = "Optimise Bounds (Essential)";
-            this.optimiseBoundsItem.Click += new System.EventHandler(this.optimiseBoundsItem_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(1008, 793);
+            this.Controls.Add(this.buttonSmall);
+            this.Controls.Add(this.buttonLarge);
             this.Controls.Add(this.labelSmall);
             this.Controls.Add(this.labelLarge);
             this.Controls.Add(this.numericSmall);
@@ -721,6 +743,8 @@ namespace Engine
         private System.Windows.Forms.Label labelLarge;
         private System.Windows.Forms.Label labelSmall;
         private System.Windows.Forms.ToolStripMenuItem optimiseBoundsItem;
+        private System.Windows.Forms.Button buttonLarge;
+        private System.Windows.Forms.Button buttonSmall;
 
     }
 }

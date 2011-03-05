@@ -72,6 +72,20 @@ namespace Engine
             
         }
 
+        private void buttonLarge_Click(object sender, EventArgs e)
+        {
+            diabolical.CurrentLargerBound = (int)numericLarge.Value;
+            ChangeSelectedBound(0);
+            ShowBoundSelections();
+        }
+
+        private void buttonSmall_Click(object sender, EventArgs e)
+        {
+            diabolical.CurrentSmallerBound = (int)numericSmall.Value;
+            ChangeSelectedBound(0);
+            ShowBoundSelections();
+        }
+
         private void modelViewerControl_DeleteBound(object sender, EventArgs e)
         {
             DeleteSelectedBound();
@@ -605,10 +619,15 @@ namespace Engine
             numericSmall.Minimum = -1;
             if (diabolical != null)
             {
-                numericLarge.Maximum = diabolical.HighestLargerBound;
-                numericLarge.Value = diabolical.CurrentLargerBound;
-                numericSmall.Maximum = diabolical.HighestSmallerBound;
-                numericSmall.Value = diabolical.CurrentSmallerBound;
+                if (diabolical.HasStructureBounds())
+                {
+                    numericLarge.Maximum = diabolical.HighestLargerBound;
+                    numericLarge.Value = diabolical.CurrentLargerBound;
+                    numericSmall.Maximum = diabolical.HighestSmallerBound;
+                    numericSmall.Value = diabolical.CurrentSmallerBound;
+                    numericLarge.ReadOnly = false;
+                    numericSmall.ReadOnly = false;
+                }
             }
             else
             {
@@ -1463,7 +1482,7 @@ namespace Engine
             HideAllOutlines();
         }
 
-        private void HideAllOutlines()
+        public void HideAllOutlines()
         {
             ClearAllBoundTicks();
             noBoundsItem.Checked = true;
