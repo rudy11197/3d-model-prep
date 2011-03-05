@@ -1449,9 +1449,7 @@ namespace Engine
             if (diabolical != null)
             {
                 HideAllOutlines();
-                AddMessageLine("Optimising bounds...");
                 diabolical.OptimiseModelBounds();
-                AddMessageLine("== Finished ==");
             }
         }
         //

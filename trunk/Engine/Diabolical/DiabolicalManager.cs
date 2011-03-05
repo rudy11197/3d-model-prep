@@ -227,6 +227,27 @@ namespace Engine
             get { return modelAsset.specularPower; }
             set { modelAsset.specularPower = value; }
         }
+
+        // Set when the optimise method has been run
+        private bool haveOptimised = true;
+        public bool HaveOptimised 
+        {
+            get { return haveOptimised; }
+        }
+
+        // Set when any change is made
+        private bool haveChanged = false;
+        public bool HaveChanged
+        {
+            get { return haveChanged; }
+        }
+
+        // Call this whenever anything is changed
+        public void ChangedSomething()
+        {
+            haveChanged = true;
+            haveOptimised = false;
+        }
         //
         //////////////////////////////////////////////////////////////////////
 
@@ -280,6 +301,7 @@ namespace Engine
                 return;
             }
             form.AddMessageLine("Calculating model bounds...");
+            ChangedSomething();
             StructureBounds.CreateModelFittedBounds(modelAsset, smallerBoundWidth, largerBoundMultiple);
             form.AddMessageLine("== Finished ==");
         }
@@ -437,6 +459,7 @@ namespace Engine
             {
                 return;
             }
+            ChangedSomething();
             int smallerID = lastSmallerBound;
             // Remove the smaller bound from all larger bounds
             for (int a = 0; a < modelAsset.LargerBounds.Count; a++)
@@ -469,6 +492,7 @@ namespace Engine
             {
                 return;
             }
+            ChangedSomething();
             modelAsset.LargerBounds.RemoveAt(lastLargerBound);
         }
 
@@ -476,7 +500,10 @@ namespace Engine
         {
             if (modelAsset != null)
             {
+                form.AddMessageLine("Optimising bounds...");
                 StructureBounds.OptimiseModelBounds(modelAsset);
+                haveOptimised = true;
+                form.AddMessageLine("== Finished ==");
             }
         }
         //
@@ -485,8 +512,26 @@ namespace Engine
         //////////////////////////////////////////////////////////////////////
         // == Load and Save ==
         //
+        private bool ChangesAreYouSure()
+        {
+            if (haveChanged)
+            {
+                if (MessageBox.Show("Are you sure you want to continue without saving changes?", "Unsaved Changes!",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    return true;
+                }
+                return false;
+            }
+            return true;
+        }
+
         public void LoadDialogue()
         {
+            if (!ChangesAreYouSure())
+            {
+                return;
+            }
             OpenFileDialog fileDialog = new OpenFileDialog();
             fileDialog.InitialDirectory = form.DefaultFileFolder;
             fileDialog.Title = "Load Diabolical Model Settings";
@@ -501,8 +546,27 @@ namespace Engine
             form.AddMessageLine("== Finished ==");
         }
 
+        private void OptimiseAreYouSure()
+        {
+            if (haveOptimised)
+            {
+                // If we have already optimised save time and skip it
+                return;
+            }
+            if (MessageBox.Show(
+                "Any changes to the bounds of the structure must be checked\n" +
+                "and optimised where necessary to avoid unwanted behaviour\n" + 
+                "during normal game play.\n" + 
+                "Do you want to run the optimisation process now?", "Changes Need To Be Optimised!",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                OptimiseModelBounds();
+            }
+        }
+
         public void SaveDialogue()
         {
+            OptimiseAreYouSure();
             // Path to default location
             string pathToSaveFolder = form.DefaultFileFolder;
             string fileName = GlobalSettings.settingsFileExcludingExtension + GlobalSettings.settingsFileExtension;
@@ -751,6 +815,7 @@ namespace Engine
             if (diagResult == DialogResult.OK || diagResult == DialogResult.Yes)
             {
                 // Results
+                ChangedSomething();
                 ModelRotation = aForm.ModelRotation;
                 EffectType = aForm.EffectType;
                 DepthMapFileName = aForm.DepthMapFileName;
