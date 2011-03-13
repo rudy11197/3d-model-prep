@@ -711,7 +711,8 @@ namespace Engine
             // The type and name
             data.Add(GlobalSettings.modelTypeStructure);
             // == Filename and effect parameters on one line
-            string effect = ParseData.StandardiseFolderCharacters(modelAsset.modelFilename);
+            // The model pipeline does not load textures correctly if the path uses the standard character
+            string effect = ParseData.UseAlternateFolderCharacters(modelAsset.modelFilename);
             if (!string.IsNullOrEmpty(modelAsset.effectType))
             {
                 effect += ParseData.div + modelAsset.effectType;
