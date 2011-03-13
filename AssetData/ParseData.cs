@@ -514,7 +514,7 @@ namespace AssetData
         }
 
         /// <summary>
-        /// Use the standard \ character for all paths instead of the alternate /
+        /// Use the standard folder \ character for all paths instead of the alternate /
         /// </summary>
         public static string StandardiseFolderCharacters(string fullpath)
         {
@@ -523,6 +523,21 @@ namespace AssetData
             // Replace the alternate folder character / with the normal escape character \
             // @ ignores escape characters in the literal string
             fullpath = fullpath.Replace("/", @"\");
+            return fullpath;
+        }
+
+        /// <summary>
+        /// The correct folder character does not always work!  I don't know why.
+        /// The model pipeline when loading textures from model files is one place the alternate is needed.
+        /// Use the alternate / character for all paths instead of the standard folder \
+        /// </summary>
+        public static string UseAlternateFolderCharacters(string fullpath)
+        {
+            // Remove leading and trailing blank space
+            fullpath = fullpath.Trim();
+            // Replace the alternate folder character / with the normal escape character \
+            // @ ignores escape characters in the literal string
+            fullpath = fullpath.Replace(@"\", "/");
             return fullpath;
         }
 
