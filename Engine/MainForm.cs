@@ -471,6 +471,14 @@ namespace Engine
             showFloorMenuItem.Checked = modelViewerControl.ShowFloor(show);
         }
 
+
+        private void showAxesMenuItem_Click(object sender, EventArgs e)
+        {
+            showAxesMenuItem.Checked = !showAxesMenuItem.Checked;
+            modelViewerControl.ShowAxes = showAxesMenuItem.Checked;
+        }
+
+
         private void wireframeItem_Click(object sender, EventArgs e)
         {
             wireframeItem.Checked = !wireframeItem.Checked;
