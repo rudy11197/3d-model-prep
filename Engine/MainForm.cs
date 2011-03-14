@@ -182,6 +182,7 @@ namespace Engine
             diabolical = new DiabolicalManager(this, modelViewerControl.DebugShapes);
 
             ShowFloor(true);
+            ShowAxes(true);
             modelViewerControl.PauseInput = false;
             menuStrip1.MenuActivate += new EventHandler(menuStrip1_MenuActivate);
             menuStrip1.MenuDeactivate += new EventHandler(menuStrip1_MenuDeactivate);
@@ -474,8 +475,18 @@ namespace Engine
 
         private void showAxesMenuItem_Click(object sender, EventArgs e)
         {
-            showAxesMenuItem.Checked = !showAxesMenuItem.Checked;
-            modelViewerControl.ShowAxes = showAxesMenuItem.Checked;
+            ShowAxes(!showAxesMenuItem.Checked);
+        }
+
+        private void ShowAxes(bool show)
+        {
+            if (show && !modelViewerControl.IsAxisFontLoaded())
+            {
+                Loader contentLoad = new Loader(modelViewerControl.Services);
+                modelViewerControl.SetAxisFont(contentLoad.GetFont("Axis"));
+            }
+            showAxesMenuItem.Checked = show;
+            modelViewerControl.ShowAxes = show;
         }
 
 

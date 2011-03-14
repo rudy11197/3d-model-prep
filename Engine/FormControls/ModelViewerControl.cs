@@ -459,6 +459,16 @@ namespace Engine
         {
             wireframeEnabled = change;
         }
+
+        public bool IsAxisFontLoaded()
+        {
+            return axes.FontLoaded;
+        }
+
+        public void SetAxisFont(SpriteFont font)
+        {
+            axes.SetFont(font);
+        }
         //
         //////////////////////////////////////////////////////////////////////
 

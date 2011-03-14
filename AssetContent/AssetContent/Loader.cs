@@ -30,5 +30,10 @@ namespace AssetContent
             return Content.Load<Model>(shortName);
         }
 
+        public SpriteFont GetFont(string shortName)
+        {
+            return Content.Load<SpriteFont>(shortName);
+        }
+
     }
 }
