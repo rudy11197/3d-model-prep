@@ -215,6 +215,15 @@ namespace Engine
             get { return debugShapes; }
         }
 
+        // To draw axes in the corner of the screen
+        private Axes3D axes;
+        private bool showAxes = true;
+        public bool ShowAxes
+        {
+            get { return showAxes; }
+            set { showAxes = value; }
+        }
+
         private bool wireframeEnabled = false;
         private RasterizerState RasterWireFrame = new RasterizerState();
         private RasterizerState RasterSolid = new RasterizerState();
@@ -429,17 +438,16 @@ namespace Engine
 
         private void CalculateProjection()
         {
-            float nearClip = 1;
+            // Near is close so we can draw the axes
+            float nearClip = 0.5f;
             float farClip = 100;
 
             if (model != null)
             {
-                nearClip = modelRadius / 100;
                 farClip = modelRadius * 100;
             }
             else if (showFloor && floor != null)
             {
-                nearClip = floorRadius / 100;
                 farClip = floorRadius * 100 * floorScale;
             }
             projection = Matrix.CreatePerspectiveFieldOfView(1, aspectRatio, nearClip, farClip);
@@ -722,6 +730,15 @@ namespace Engine
                 DrawRigid(world, view, projection, floor);
             }
             DrawStoredShapes();
+            DrawAxes();
+        }
+
+        private void DrawAxes()
+        {
+            if (showAxes)
+            {
+                axes.Draw(cameraPosition, cameraForward, cameraUp, view, projection);
+            }
         }
 
         // Draw shapes regardless of what created them
@@ -817,6 +834,7 @@ namespace Engine
 
             // Setup the shapes
             debugShapes = new Shapes(GraphicsDevice);
+            axes = new Axes3D(GraphicsDevice);
 
             RasterWireFrame.CullMode = CullMode.CullCounterClockwiseFace;
             RasterWireFrame.FillMode = FillMode.WireFrame;

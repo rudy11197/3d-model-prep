@@ -100,6 +100,7 @@
       <DependentUpon>ModelTypeForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Diabolical\StructureBounds.cs" />
+    <Compile Include="FormControls\Axes3D.cs" />
     <Compile Include="FormControls\GraphicsDeviceControl.cs">
       <SubType>Component</SubType>
     </Compile>

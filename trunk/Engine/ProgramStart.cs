@@ -143,6 +143,7 @@ using System.Windows.Forms;
 // - Calculate bounding spheres for use in Diabolical: The Shooter
 // - Delete the smaller and larger bounds
 // - Select bounds by their index number
+// - Display a set of axes to show which way the camera is facing
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
