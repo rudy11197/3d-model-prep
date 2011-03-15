@@ -104,6 +104,14 @@ namespace Engine
             get { return textSize; }
             set { textSize = value; }
         }
+
+        // How far from the ends of the line the text is displayed
+        private float textSpacing = 0.01f;
+        public float TextSpacing
+        {
+            get { return textSpacing; }
+            set { textSpacing = value; }
+        }
         //
         //////////////////////////////////////////////////////////////////////
 
@@ -131,12 +139,15 @@ namespace Engine
             endPoints[0] = at;
             endPoints[0].X += axesLength;
             DrawLine(at, endPoints[0], Color.Red, ref view, ref projection);
+            endPoints[0].X += textSpacing;
             endPoints[1] = at;
             endPoints[1].Y += axesLength;
             DrawLine(at, endPoints[1], Color.Green, ref view, ref projection);
+            endPoints[1].Y += textSpacing;
             endPoints[2] = at;
             endPoints[2].Z += axesLength;
             DrawLine(at, endPoints[2], Color.Blue, ref view, ref projection);
+            endPoints[2].Z += textSpacing;
             DrawAxesText(endPoints, ref view, ref projection);
         }
 
