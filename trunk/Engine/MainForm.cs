@@ -1265,6 +1265,20 @@ namespace Engine
                 rotateX + " Y=" + rotateY + " Z=" + rotateZ);
         }
 
+        private void PresetMinusZUpToYUpMenu_Click(object sender, EventArgs e)
+        {
+            XComboBox.Text = "X -90";
+            rotateX = "-90";
+            YComboBox.Text = "Y 0";
+            rotateY = "0";
+            ZComboBox.Text = "Z 180";
+            rotateZ = "180";
+
+            AddMessageLine("Preset rotation selected to rotate models from being +Z upwards to being +Y upwards (Blender to XNA)");
+            AddMessageLine("Models loaded will be rotated using the follow settings: X=" +
+                rotateX + " Y=" + rotateY + " Z=" + rotateZ);
+        }
+
         private void XComboBox_Changed(object sender, EventArgs e)
         {
             rotateX = XComboBox.Text;
@@ -1480,6 +1494,7 @@ namespace Engine
                 diabolical.CreateStructureBounds(aForm.SmallerWidth, aForm.LargerMultiple);
             }
             PauseGameInput(false);
+            UpdateMenuItemVisibility();
         }
 
         private void optimiseBoundsItem_Click(object sender, EventArgs e)
