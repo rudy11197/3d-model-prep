@@ -35,6 +35,7 @@ namespace Engine
             this.LoadFBXAnimationMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.PresetNoRotationMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.PresetZUpToYUpMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.PresetMinusZUpToYUpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.XComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.YComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.ZComboBox = new System.Windows.Forms.ToolStripComboBox();
@@ -49,6 +50,7 @@ namespace Engine
             this.zDownMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.showFloorMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showAxesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wireframeItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.resetViewingPointMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -91,7 +93,6 @@ namespace Engine
             this.buttonLarge = new System.Windows.Forms.Button();
             this.buttonSmall = new System.Windows.Forms.Button();
             this.modelViewerControl = new Engine.ModelViewerControl();
-            this.showAxesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericLarge)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericSmall)).BeginInit();
@@ -123,6 +124,7 @@ namespace Engine
             this.LoadFBXAnimationMenu,
             this.PresetNoRotationMenu,
             this.PresetZUpToYUpMenu,
+            this.PresetMinusZUpToYUpMenu,
             this.XComboBox,
             this.YComboBox,
             this.ZComboBox,
@@ -139,7 +141,7 @@ namespace Engine
             // LoadRigidModelMenu
             // 
             this.LoadRigidModelMenu.Name = "LoadRigidModelMenu";
-            this.LoadRigidModelMenu.Size = new System.Drawing.Size(227, 22);
+            this.LoadRigidModelMenu.Size = new System.Drawing.Size(232, 22);
             this.LoadRigidModelMenu.Text = "Load &Rigid Model...";
             this.LoadRigidModelMenu.Click += new System.EventHandler(this.OpenRigidModelMenu_Click);
             // 
@@ -148,7 +150,7 @@ namespace Engine
             this.LoadAnimatedModelMenu.BackColor = System.Drawing.SystemColors.Control;
             this.LoadAnimatedModelMenu.ForeColor = System.Drawing.SystemColors.ControlText;
             this.LoadAnimatedModelMenu.Name = "LoadAnimatedModelMenu";
-            this.LoadAnimatedModelMenu.Size = new System.Drawing.Size(227, 22);
+            this.LoadAnimatedModelMenu.Size = new System.Drawing.Size(232, 22);
             this.LoadAnimatedModelMenu.Text = "Load &Animated Model...";
             this.LoadAnimatedModelMenu.ToolTipText = "Load a 3D model in to the viewer";
             this.LoadAnimatedModelMenu.Click += new System.EventHandler(this.OpenAnimatedModelMenu_Click);
@@ -157,23 +159,30 @@ namespace Engine
             // 
             this.LoadFBXAnimationMenu.Enabled = false;
             this.LoadFBXAnimationMenu.Name = "LoadFBXAnimationMenu";
-            this.LoadFBXAnimationMenu.Size = new System.Drawing.Size(227, 22);
+            this.LoadFBXAnimationMenu.Size = new System.Drawing.Size(232, 22);
             this.LoadFBXAnimationMenu.Text = "&Load Animation...";
             this.LoadFBXAnimationMenu.Click += new System.EventHandler(this.LoadFBXAnimationMenu_Click);
             // 
             // PresetNoRotationMenu
             // 
             this.PresetNoRotationMenu.Name = "PresetNoRotationMenu";
-            this.PresetNoRotationMenu.Size = new System.Drawing.Size(227, 22);
+            this.PresetNoRotationMenu.Size = new System.Drawing.Size(232, 22);
             this.PresetNoRotationMenu.Text = "Rotation Preset: &No Rotation";
             this.PresetNoRotationMenu.Click += new System.EventHandler(this.PresetNoRotation_Click);
             // 
             // PresetZUpToYUpMenu
             // 
             this.PresetZUpToYUpMenu.Name = "PresetZUpToYUpMenu";
-            this.PresetZUpToYUpMenu.Size = new System.Drawing.Size(227, 22);
+            this.PresetZUpToYUpMenu.Size = new System.Drawing.Size(232, 22);
             this.PresetZUpToYUpMenu.Text = "Rotation Preset: &Z Up to Y Up";
             this.PresetZUpToYUpMenu.Click += new System.EventHandler(this.PresetZUpToYUp_Click);
+            // 
+            // PresetMinusZUpToYUpMenu
+            // 
+            this.PresetMinusZUpToYUpMenu.Name = "PresetMinusZUpToYUpMenu";
+            this.PresetMinusZUpToYUpMenu.Size = new System.Drawing.Size(232, 22);
+            this.PresetMinusZUpToYUpMenu.Text = "Rotation Preset: -Z Up to Y Up";
+            this.PresetMinusZUpToYUpMenu.Click += new System.EventHandler(this.PresetMinusZUpToYUpMenu_Click);
             // 
             // XComboBox
             // 
@@ -183,7 +192,8 @@ namespace Engine
             "X 0",
             "X 90",
             "X 180",
-            "X 270"});
+            "X 270",
+            "X -90"});
             this.XComboBox.Name = "XComboBox";
             this.XComboBox.Size = new System.Drawing.Size(121, 23);
             this.XComboBox.Tag = "";
@@ -197,7 +207,8 @@ namespace Engine
             "Y 0",
             "Y 90",
             "Y 180",
-            "Y 270"});
+            "Y 270",
+            "Y -90"});
             this.YComboBox.Name = "YComboBox";
             this.YComboBox.Size = new System.Drawing.Size(121, 23);
             this.YComboBox.Text = "Y 0";
@@ -210,7 +221,8 @@ namespace Engine
             "Z 0",
             "Z 90",
             "Z 180",
-            "Z 270"});
+            "Z 270",
+            "Z -90"});
             this.ZComboBox.Name = "ZComboBox";
             this.ZComboBox.Size = new System.Drawing.Size(121, 23);
             this.ZComboBox.Text = "Z 0";
@@ -220,13 +232,13 @@ namespace Engine
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(224, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(229, 6);
             // 
             // LoadIndividualClipMenu
             // 
             this.LoadIndividualClipMenu.Enabled = false;
             this.LoadIndividualClipMenu.Name = "LoadIndividualClipMenu";
-            this.LoadIndividualClipMenu.Size = new System.Drawing.Size(227, 22);
+            this.LoadIndividualClipMenu.Size = new System.Drawing.Size(232, 22);
             this.LoadIndividualClipMenu.Text = "Load Individual &Clip...";
             this.LoadIndividualClipMenu.Click += new System.EventHandler(this.loadIndividualClip_Click);
             // 
@@ -234,7 +246,7 @@ namespace Engine
             // 
             this.SaveClipMenu.Enabled = false;
             this.SaveClipMenu.Name = "SaveClipMenu";
-            this.SaveClipMenu.Size = new System.Drawing.Size(227, 22);
+            this.SaveClipMenu.Size = new System.Drawing.Size(232, 22);
             this.SaveClipMenu.Text = "&Save Animation Clip...";
             this.SaveClipMenu.ToolTipText = "Save the currently playing animation in AnimationClip format";
             this.SaveClipMenu.Click += new System.EventHandler(this.SaveClip_Click);
@@ -242,14 +254,14 @@ namespace Engine
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(224, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(229, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.exitToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitMenu_Click);
             // 
@@ -312,6 +324,15 @@ namespace Engine
             this.showFloorMenuItem.Size = new System.Drawing.Size(267, 22);
             this.showFloorMenuItem.Text = "Show &Floor";
             this.showFloorMenuItem.Click += new System.EventHandler(this.showFloor_Click);
+            // 
+            // showAxesMenuItem
+            // 
+            this.showAxesMenuItem.Checked = true;
+            this.showAxesMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.showAxesMenuItem.Name = "showAxesMenuItem";
+            this.showAxesMenuItem.Size = new System.Drawing.Size(267, 22);
+            this.showAxesMenuItem.Text = "Show Axes";
+            this.showAxesMenuItem.Click += new System.EventHandler(this.showAxesMenuItem_Click);
             // 
             // wireframeItem
             // 
@@ -487,7 +508,7 @@ namespace Engine
             this.openTakesToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.openTakesToolStripMenuItem.Text = "&Extract FBX Takes...";
             this.openTakesToolStripMenuItem.ToolTipText = "Load a list of animation takes from an FBX file and save them in a keyframe forma" +
-                "t";
+    "t";
             this.openTakesToolStripMenuItem.Click += new System.EventHandler(this.OpenTakesMenu_Click);
             // 
             // toolStripSeparator5
@@ -648,19 +669,11 @@ namespace Engine
             this.modelViewerControl.Location = new System.Drawing.Point(0, 27);
             this.modelViewerControl.Name = "modelViewerControl";
             this.modelViewerControl.PauseInput = true;
+            this.modelViewerControl.ShowAxes = true;
             this.modelViewerControl.Size = new System.Drawing.Size(1008, 648);
             this.modelViewerControl.TabIndex = 1;
             this.modelViewerControl.Text = "modelViewerControl";
             this.modelViewerControl.ViewUp = 1;
-            // 
-            // showAxesMenuItem
-            // 
-            this.showAxesMenuItem.Checked = true;
-            this.showAxesMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.showAxesMenuItem.Name = "showAxesMenuItem";
-            this.showAxesMenuItem.Size = new System.Drawing.Size(267, 22);
-            this.showAxesMenuItem.Text = "Show Axes";
-            this.showAxesMenuItem.Click += new System.EventHandler(this.showAxesMenuItem_Click);
             // 
             // MainForm
             // 
@@ -757,6 +770,7 @@ namespace Engine
         private System.Windows.Forms.Button buttonLarge;
         private System.Windows.Forms.Button buttonSmall;
         private System.Windows.Forms.ToolStripMenuItem showAxesMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem PresetMinusZUpToYUpMenu;
 
     }
 }
