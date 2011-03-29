@@ -112,6 +112,8 @@ namespace Engine
         // Use to position the cursor each frame while using the mouse
         int mouseX = 0;
         int mouseY = 0;
+        int previousMouseX = 0;
+        int previousMouseY = 0;
         Vector3 cameraPosition = Vector3.Zero;
         // Point to look at when in orbit mode
         Vector3 orbitCentre = Vector3.Zero;
@@ -523,7 +525,10 @@ namespace Engine
                 )
             {
                 Mouse.WindowHandle = Handle;
-                // Position the cursor a few pixel in from the top left
+                // Save the position of the mouse
+                previousMouseX = currentMouseState.X;
+                previousMouseY = currentMouseState.Y;
+                // Position the cursor a few pixel in from the top left to keep it out of view
                 mouseX = GlobalSettings.mouseZeroX;
                 mouseY = GlobalSettings.mouseZeroY;
                 Mouse.SetPosition(mouseX, mouseY);
@@ -537,6 +542,18 @@ namespace Engine
                 pitch = (mouseY - currentMouseState.Y) * time * speed * invertY * -1.0f;
                 // centre mouse so we get the change each time
                 Mouse.SetPosition(mouseX, mouseY);
+            }
+            else if ((currentMouseState.MiddleButton == ButtonState.Released &&
+                previousMouseState.MiddleButton == ButtonState.Pressed) ||
+                (currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
+                previousKeyboardState.IsKeyDown(Keys.LeftShift)) ||
+                (currentKeyboardState.IsKeyUp(Keys.RightShift) &&
+                previousKeyboardState.IsKeyDown(Keys.RightShift))
+                )
+            {
+                // No longer mouse moving so reset the original position
+                // This is less likely to cause the mouse to be in the wrong or unexpected position
+                Mouse.SetPosition(previousMouseX, previousMouseY);
             }
 
             // Keyboard look
