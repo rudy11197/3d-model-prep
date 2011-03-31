@@ -88,5 +88,13 @@ namespace AssetData
             return Sphere.Center.Y - Sphere.Radius;
         }
 
+        // Used when optimising the bound sizes when the model file is created
+        public void RePosition(BoundingSphere bound)
+        {
+            CentreInObjectSpace = bound.Center;
+            Sphere.Center = bound.Center;
+            Sphere.Radius = bound.Radius;
+        }
+
     }
 }

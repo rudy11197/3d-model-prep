@@ -11,6 +11,7 @@
 
 #region Using Statements
 using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using AssetData;
 #endregion
@@ -154,6 +155,18 @@ namespace Engine
             {
                 return 0;
             }
+        }
+
+        /// <summary>
+        /// Return the index of any corner except the one specified
+        /// </summary>
+        public int GetAnyOtherIndex(int a)
+        {
+            if (a == 0)
+            {
+                return 1;
+            }
+            return 0;
         }
 
         /// <summary>
@@ -436,6 +449,155 @@ namespace Engine
             }
             // Only if we get this far have we missed the triangle
             result = false;
+        }
+
+        // Return the centre point of the circular section formed by 
+        // the intersection of a sphere with the triangle.  
+        // Returns null if no intersect
+        public Vector3? IntersectSectionCentre(BoundingSphere sphere)
+        {
+            // Calculate the InverseNormal of the triangle from the centre of the sphere
+            // Do a ray intersection from the centre of the sphere to the triangle.
+            // This will always create a vector facing towards the triangle from the 
+            // ray starting point.
+            Vector3 direction = Vector3.Zero;
+            InverseNormal(ref sphere.Center, out direction);
+            Ray ray = new Ray(sphere.Center, direction);
+            float? length = null;
+            Intersects(ref ray, out length);
+            if (length != null && length > 0 && length < sphere.Radius)
+            {
+                // Hit the surface of the triangle
+                return sphere.Center + (direction * length);
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// The nearest point on the sphere to the point specified where the 
+        /// sphere and triangle intersect.
+        /// Returns null if there is no intersect
+        /// </summary>
+        public Vector3? IntersectNearestOnPlane(BoundingSphere sphere, int point)
+        {
+            // Find the nearest point on the plane of the triangle that 
+            // intersects the sphere
+            Vector3? centre = IntersectSectionCentre(sphere);
+            if (centre == null)
+            {
+                // No intersect
+                return null;
+            }
+            // Test from the point to the centre
+            Vector3 line = (Vector3)centre - Vertex[point];
+            // Important:  The direction of the ray MUST
+            // be normalised otherwise the resulting length 
+            // of any intersect is wrong!
+            Ray ray = new Ray(Vertex[point], Vector3.Normalize(line));
+            float distSq = 0;
+            float? length = null;
+            sphere.Intersects(ref ray, out length);
+            if (length != null)
+            {
+                distSq = (float)length * (float)length;
+                if (length > 0 && distSq < line.LengthSquared())
+                {
+                    // The line hits the edge of the sphere
+                    // so save the point of impact.
+                    return ray.Position + (ray.Direction * (float)length);
+                }
+            }
+            return null;
+        }
+
+
+        /// <summary>
+        /// Returns a list of the extremities of the triangle that 
+        /// are fully within the sphere.
+        /// This is sufficient for collission testing but is not
+        /// intended to be an accurate cross section.
+        /// Triangles larger than the sphere return points that touch
+        /// the edges of the bounding sphere where the triangle sides
+        /// penetrates the sphere or if all three points are outside  
+        /// tey return the nearest point on the sphere which is sufficient 
+        /// to get an approximate section of the sphere.
+        /// Returns an empty list if the triangle does not intersect the sphere.
+        /// This is an expensive test.  Use at design time only.
+        /// </summary>
+        public List<Vector3> PointsInsideSphere(BoundingSphere sphere)
+        {
+            List<Vector3> result = new List<Vector3>();
+
+            // Test which if any points are inside the sphere
+            for (int p = 0; p < Vertex.Length; p++)
+            {
+                if (sphere.Contains(Vertex[p]) != ContainmentType.Disjoint)
+                {
+                    // == Inside the sphere
+                    result.Add(Vertex[p]);
+                }
+                else
+                {
+                    // == Outside the sphere
+                    // Test both side eminating from the point to see where they 
+                    // intersect the sphere, if at all.
+                    int other = GetAnyOtherIndex(p);
+                    Vector3 side = Vertex[other] - Vertex[p];
+                    // Important:  The direction of the ray MUST
+                    // be normalised otherwise the resulting length 
+                    // of any intersect is wrong!
+                    Ray ray = new Ray(Vertex[p], Vector3.Normalize(side));
+                    float distSq = 0;
+                    float? length = null;
+                    sphere.Intersects(ref ray, out length);
+                    if (length != null)
+                    {
+                        distSq = (float)length * (float)length;
+                        if (length > 0 && distSq < side.LengthSquared())
+                        {
+                            // The side of the triangle hits the edge of the sphere
+                            // so save the point of impact.
+                            result.Add(ray.Position + (ray.Direction * (float)length));
+                        }
+                    }
+                    else
+                    {
+                        // Side is fully outside the sphere
+                        Vector3? impact = IntersectNearestOnPlane(sphere, p);
+                        if (impact != null)
+                        {
+                            result.Add((Vector3)impact);
+                        }
+                    }
+                    // Get the other corner
+                    other = GetOtherIndex(other, p);
+                    // Same point but the other edge
+                    side = Vertex[other] - Vertex[p];
+                    ray.Direction = Vector3.Normalize(side);
+                    length = null;
+                    sphere.Intersects(ref ray, out length);
+                    if (length != null)
+                    {
+                        distSq = (float)length * (float)length;
+                        if (length > 0 && distSq < side.LengthSquared())
+                        {
+                            // The side of the triangle hits the edge of the sphere
+                            // so save the point of impact.
+                            result.Add(ray.Position + (ray.Direction * (float)length));
+                        }
+                    }
+                    else
+                    {
+                        // Side is fully outside the sphere
+                        Vector3? impact = IntersectNearestOnPlane(sphere, p);
+                        if (impact != null)
+                        {
+                            result.Add((Vector3)impact);
+                        }
+                    }
+                }
+            }
+            return result;
         }
 
 
