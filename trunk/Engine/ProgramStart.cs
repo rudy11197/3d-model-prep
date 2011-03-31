@@ -149,6 +149,18 @@ using System.Windows.Forms;
 //-----------------------------------------------------------------------------
 // TODO:
 //-----------------------------------------------------------------------------
+// - Optimise the smaller bounds
+//      Have the smallest sphere that encompases all the triangles that are in the
+//      sphere.  Recentre.
+//      Include only the triangles already calculated.
+//      Any that are fully enclosed in the existing sphere take all the vertices
+//      Any that overlap the sphere take vertices inside the sphere plus
+//      a point where the side of the triangle penetrates the sphere.
+//      That would form a new smaller triangle that is fully inside the sphere.
+//      Take those three vertices.
+//      Use all the vertices for working out the smallest radius and then the centre
+//      for that smaller sphere.
+//      Have a minimum radius of 0.01 to avoid dot like spheres.
 // - Undo the last delete bounds
 
 //-----------------------------------------------------------------------------
