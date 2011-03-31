@@ -134,6 +134,17 @@ namespace Engine
             return result;
         }
 
+        /// <summary>
+        /// Return the smallest bounding sphere that all the points fit in to
+        /// </summary>
+        public static BoundingSphere SmallestToFit(List<Vector3> points)
+        {
+            // This uses the built in method but I don't trust it.
+            // Should the built in method produce results that are 
+            // not the most efficient I can add my own code here.
+            return BoundingSphere.CreateFromPoints(points);
+        }
+
         // Create the larger bounding spheres
         private static List<StructureSphere> FillWithSmallerBounds(List<BoundingBox> boxes, DiabolicalModel aModel)
         {
@@ -194,7 +205,25 @@ namespace Engine
                     results.Add(spheres[r]);
                 }
             }
+            OptimiseFittedSphere(results, aModel);
             return results;
+        }
+
+        // Optimise the size of the spheres
+        private static void OptimiseFittedSphere(List<StructureSphere> spheres, DiabolicalModel aModel)
+        {
+            Triangle tri = new Triangle();
+            List<Vector3> points = new List<Vector3>();
+            for (int s = 0; s < spheres.Count; s++)
+            {
+                points.Clear();
+                for (int t = 0; t < spheres[s].IDs.Count; t++)
+                {
+                    aModel.GetTriangle(ref t, ref tri);
+                    points.AddRange(tri.PointsInsideSphere(spheres[s].Sphere));
+                }
+                spheres[s].RePosition(SmallestToFit(points));
+            }
         }
 
         // Used for filling and refilling spheres
