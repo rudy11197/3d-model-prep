@@ -149,9 +149,6 @@ using System.Windows.Forms;
 //-----------------------------------------------------------------------------
 // TODO:
 //-----------------------------------------------------------------------------
-// test - Optimise the smaller bounds
-//      Have the smallest sphere that encompases all the triangles that are in the
-//      sphere.  Recentre.
 // - Undo the last delete bounds
 
 //-----------------------------------------------------------------------------
