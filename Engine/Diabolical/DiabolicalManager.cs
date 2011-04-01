@@ -806,23 +806,25 @@ namespace Engine
                 form.LoadModel(false, filepath, input.RotateX, input.RotateY, input.RotateZ);
             }
 
-            // Create the class
-            modelAsset = new DiabolicalModel(debugShapes);
-            modelAsset.BuildModelAsset(
-                input.ModelType,
-                ParseData.StandardiseFolderCharacters(input.ModelFilename),
-                input.EffectType,
-                input.SpecularIntensity,
-                input.SpecularPower,
-                input.DepthMapFilename,
-                input.SpecularMapFilename,
-                form.CurrentModel,
-                CalculateBoundsFromModel(form.CurrentModel),
-                input.RotateX,
-                input.RotateY,
-                input.RotateZ,
-                input.Options);
-
+            if (form.CurrentModel != null)
+            {
+                // Create the class
+                modelAsset = new DiabolicalModel(debugShapes);
+                modelAsset.BuildModelAsset(
+                    input.ModelType,
+                    ParseData.StandardiseFolderCharacters(input.ModelFilename),
+                    input.EffectType,
+                    input.SpecularIntensity,
+                    input.SpecularPower,
+                    input.DepthMapFilename,
+                    input.SpecularMapFilename,
+                    form.CurrentModel,
+                    CalculateBoundsFromModel(form.CurrentModel),
+                    input.RotateX,
+                    input.RotateY,
+                    input.RotateZ,
+                    input.Options);
+            }
             // Change which menu items are enabled based on the loaded model type
             form.UpdateMenuItemVisibility();
         }
