@@ -149,6 +149,8 @@ using System.Windows.Forms;
 //-----------------------------------------------------------------------------
 // TODO:
 //-----------------------------------------------------------------------------
+// - Stop movement making a ping or selecting the wrong thing
+//      Add a dummy box to put the cursor in.
 // - Undo the last delete bounds
 
 //-----------------------------------------------------------------------------

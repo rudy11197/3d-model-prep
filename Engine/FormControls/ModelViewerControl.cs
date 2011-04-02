@@ -230,9 +230,11 @@ namespace Engine
         private RasterizerState RasterWireFrame = new RasterizerState();
         private RasterizerState RasterSolid = new RasterizerState();
 
+        // Pass control back to the form
         public event EventHandler<EventArgs> StepUp;
         public event EventHandler<EventArgs> StepDown;
         public event EventHandler<EventArgs> DeleteBound;
+        public event EventHandler<EventArgs> IsMoving;
 
 
 
@@ -501,6 +503,8 @@ namespace Engine
             {
                 return;
             }
+            // Used to set the dialogue box to prevent the cursor causing problems
+            bool isMoving = false;
 
             currentKeyboardState = Keyboard.GetState();
             currentMouseState = Mouse.GetState();
@@ -524,6 +528,7 @@ namespace Engine
                 previousKeyboardState.IsKeyUp(Keys.RightShift))
                 )
             {
+                isMoving = true;
                 Mouse.WindowHandle = Handle;
                 // Save the position of the mouse
                 previousMouseX = currentMouseState.X;
@@ -537,6 +542,7 @@ namespace Engine
                 currentKeyboardState.IsKeyDown(Keys.RightShift) || 
                 currentMouseState.MiddleButton == ButtonState.Pressed)
             {
+                isMoving = true;
                 // Mouse look
                 turn = (mouseX - currentMouseState.X) * time * speed;
                 pitch = (mouseY - currentMouseState.Y) * time * speed * invertY * -1.0f;
@@ -559,21 +565,25 @@ namespace Engine
             // Keyboard look
             if (currentKeyboardState.IsKeyDown(Keys.Up))
             {
+                isMoving = true;
                 pitch -= time * speed * invertY;
             }
 
             if (currentKeyboardState.IsKeyDown(Keys.Down))
             {
+                isMoving = true;
                 pitch += time * speed * invertY;
             }
 
             if (currentKeyboardState.IsKeyDown(Keys.Left))
             {
+                isMoving = true;
                 turn += time * speed;
             }
 
             if (currentKeyboardState.IsKeyDown(Keys.Right))
             {
+                isMoving = true;
                 turn -= time * speed;
             }
 
@@ -598,12 +608,14 @@ namespace Engine
 
             if (currentKeyboardState.IsKeyDown(Keys.F) && model != null)
             {
+                isMoving = true;
                 // Face the model
                 cameraForward = modelCentre - cameraPosition;
                 // Keep the turn speed unchanged
             }
             if (currentKeyboardState.IsKeyDown(Keys.O) && model != null)
             {
+                isMoving = true;
                 // Orbit mode
                 if (previousKeyboardState.IsKeyUp(Keys.O))
                 {
@@ -626,21 +638,25 @@ namespace Engine
 
             if (currentKeyboardState.IsKeyDown(Keys.W) || Keyboard.GetState().IsKeyDown(Keys.Z))
             {
+                isMoving = true;
                 cameraPosition += cameraForward * time * speed;
             }
 
             if (currentKeyboardState.IsKeyDown(Keys.S))
             {
+                isMoving = true;
                 cameraPosition -= cameraForward * time * speed;
             }
 
             if (currentKeyboardState.IsKeyDown(Keys.A) || Keyboard.GetState().IsKeyDown(Keys.Q))
             {
+                isMoving = true;
                 cameraPosition += cameraRight * time * speed;
             }
 
             if (currentKeyboardState.IsKeyDown(Keys.D))
             {
+                isMoving = true;
                 cameraPosition -= cameraRight * time * speed;
             }
 
@@ -648,11 +664,13 @@ namespace Engine
 
             if (currentKeyboardState.IsKeyDown(Keys.PageUp))
             {
+                isMoving = true;
                 cameraPosition += cameraUp * time * speed;
             }
 
             if (currentKeyboardState.IsKeyDown(Keys.PageDown))
             {
+                isMoving = true;
                 cameraPosition -= cameraUp * time * speed;
             }
 
@@ -660,6 +678,7 @@ namespace Engine
 
             if (currentKeyboardState.IsKeyDown(Keys.R))
             {
+                isMoving = true;
                 // Reset view
                 InitialiseCameraPosition();
             }
@@ -672,6 +691,7 @@ namespace Engine
             if (currentKeyboardState.IsKeyDown(Keys.Space) && 
                 previousKeyboardState.IsKeyUp(Keys.Space))
             {
+                isMoving = true;
                 if (currentKeyboardState.IsKeyDown(Keys.LeftShift) ||
                 currentKeyboardState.IsKeyDown(Keys.RightShift))
                 {
@@ -693,9 +713,19 @@ namespace Engine
             if (currentKeyboardState.IsKeyDown(Keys.Delete) &&
                 previousKeyboardState.IsKeyUp(Keys.Delete))
             {
+                isMoving = true;
                 if (DeleteBound != null)
                 {
                     DeleteBound(this, EventArgs.Empty);
+                }
+            }
+
+            // Set the focus to an unused dialogue to avoid a mess of key input
+            if (isMoving)
+            {
+                if (IsMoving != null)
+                {
+                    IsMoving(this, EventArgs.Empty);
                 }
             }
 
