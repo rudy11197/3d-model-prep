@@ -69,6 +69,8 @@ namespace Engine
             modelViewerControl.StepUp += new EventHandler<EventArgs>(modelViewerControl_StepUp);
             modelViewerControl.StepDown += new EventHandler<EventArgs>(modelViewerControl_StepDown);
             modelViewerControl.DeleteBound += new EventHandler<EventArgs>(modelViewerControl_DeleteBound);
+            modelViewerControl.IsMoving += new EventHandler<EventArgs>(modelViewerControl_IsMoving);
+            modelViewerControl.Click += new EventHandler(modelViewerControl_Click);
             
         }
 
@@ -201,6 +203,25 @@ namespace Engine
         private void PauseGameInput(bool change)
         {
             modelViewerControl.PauseInput = change;
+        }
+
+        private void modelViewerControl_Click(object sender, EventArgs e)
+        {
+            ParkCursor();
+        }
+
+        private void modelViewerControl_IsMoving(object sender, EventArgs e)
+        {
+            ParkCursor();
+        }
+
+        /// <summary>
+        /// Move the cursor to an unused dialogue while the model is being moved
+        /// this is to avoid unexpected menu changes
+        /// </summary>
+        public void ParkCursor()
+        {
+            modelViewerControl.Focus();
         }
         //
         //////////////////////////////////////////////////////////////////////
