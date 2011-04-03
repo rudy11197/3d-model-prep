@@ -222,7 +222,10 @@ namespace Engine
                     aModel.GetTriangle(ref t, ref tri);
                     points.AddRange(tri.PointsInsideSphere(spheres[s].Sphere));
                 }
-                spheres[s].RePosition(SmallestToFit(points));
+                if (points.Count > 0)
+                {
+                    spheres[s].RePosition(SmallestToFit(points));
+                }
             }
         }
 
