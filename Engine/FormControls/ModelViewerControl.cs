@@ -454,6 +454,8 @@ namespace Engine
             {
                 farClip = floorRadius * 100 * floorScale;
             }
+            // Avoids silly values
+            farClip = Math.Max(nearClip + 1, farClip);
             projection = Matrix.CreatePerspectiveFieldOfView(1, aspectRatio, nearClip, farClip);
             int x = 0;
             x++;

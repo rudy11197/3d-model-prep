@@ -43,6 +43,7 @@ namespace Engine
         private string rotateX = "0";
         private string rotateY = "0";
         private string rotateZ = "0";
+        private string scale = "1";
 
         private Dictionary<string, AnimationClip> loadedClips = new Dictionary<string,AnimationClip>();
         private List<string> clipNames = new List<string>();
