@@ -130,6 +130,10 @@ using System.Windows.Forms;
 //-----------------------------------------------------------------------------
 // FEATURES
 //-----------------------------------------------------------------------------
+// - Rotate models and animations during load using the content pipeline processor
+//      Select from a list of right angle rotations or preset selections.
+//      The AnimatedModelProcessor.cs can also scale models and animations but this
+//      scale feature has not been added to the user menus.
 // - Load and view models, zoom in and out and rotate round
 // - Look and zoom using the mouse and keyboard
 // - Split FBX files in to one file per animation
@@ -149,8 +153,6 @@ using System.Windows.Forms;
 //-----------------------------------------------------------------------------
 // TODO:
 //-----------------------------------------------------------------------------
-// - Stop movement making a ping or selecting the wrong thing
-//      Add a dummy box to put the cursor in.
 // - Undo the last delete bounds
 
 //-----------------------------------------------------------------------------

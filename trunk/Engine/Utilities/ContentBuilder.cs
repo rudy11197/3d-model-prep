@@ -247,6 +247,7 @@ namespace Engine
               <ProcessorParameters_RotationX>90</ProcessorParameters_RotationX>
               <ProcessorParameters_RotationZ>180</ProcessorParameters_RotationZ>
               <ProcessorParameters_RotationY>90</ProcessorParameters_RotationY>
+              <ProcessorParameters_Scale>2</ProcessorParameters_Scale>
             </Compile>
           </ItemGroup>
          * */

@@ -12,6 +12,9 @@
 // This has been modified to change exceptions to errors for use with 
 // the model viewer.
 //
+// Rotates and scales animated models as the model is processed by the pipeline
+// at build time.
+//
 //-----------------------------------------------------------------------------
 #endregion
 
@@ -43,7 +46,10 @@ namespace AssetPipeline
         // the maximum to 52 for the Xbox 360 however the PC managed 56.
         private const int MaxBones = 52;
         // The built in ModelProcessor fails to rotate animations correctly.
-        // These are added to prevent that by stopping rotations on this processor.
+        // This version of the processor rotates animations and models
+        // The original rotations have been overriden and replaced by
+        // these alternates.
+        // The new and the old settings always set the new values.
         private float degreesX;
         public float DegreesX
         {
@@ -104,6 +110,28 @@ namespace AssetPipeline
             }
         }
 
+        // Scale is added here for demonstration purposes but not implimented in the model viewer user interface.
+        // Use the Scale property of the content pipeline processor
+        private float scaleMultiple = 1.0f;
+        public float ScaleMultiple
+        {
+            get { return scaleMultiple; }
+            set { scaleMultiple = value; }
+        }
+
+        public override float Scale
+        {
+            get
+            {
+                return base.Scale;
+            }
+            set
+            {
+                scaleMultiple = value;
+                base.Scale = 1.0f;
+            }
+        }
+
         /// <summary>
         /// The main Process method converts an intermediate format content pipeline
         /// NodeContent tree to a ModelContent object with embedded animation data.
@@ -115,7 +143,7 @@ namespace AssetPipeline
             // Remember that the keyframes are separated so the animations
             // have to be extracted from a model rotated the same way as the 
             // recipient of those animations.
-            RotateAll(input, DegreesX, DegreesY, DegreesZ);
+            RotateAll(input, DegreesX, DegreesY, DegreesZ, ScaleMultiple);
 
             if (ValidateMesh(input, context, null))
             {
@@ -212,14 +240,15 @@ namespace AssetPipeline
          * */
         // This only works if the animation keyframes are also rotated
         // As my animations are separate the source model would need to be rotated first.
-        public static void RotateAll(NodeContent node, float degX, float degY, float degZ)
+        public static void RotateAll(NodeContent node, float degX, float degY, float degZ, float scaleFactor)
         {
             Matrix rotate = Matrix.Identity *
                 Matrix.CreateRotationX(MathHelper.ToRadians(degX)) *
                 Matrix.CreateRotationY(MathHelper.ToRadians(degY)) *
                 Matrix.CreateRotationZ(MathHelper.ToRadians(degZ));
             // http://msdn.microsoft.com/en-us/library/microsoft.xna.framework.content.pipeline.graphics.meshhelper.transformscene.aspx
-            MeshHelper.TransformScene(node, rotate);
+            Matrix transform = Matrix.Identity * Matrix.CreateScale(scaleFactor) * rotate;
+            MeshHelper.TransformScene(node, transform);
         }
 
         /// <summary>
