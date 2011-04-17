@@ -154,6 +154,9 @@ using System.Windows.Forms;
 // TODO:
 //-----------------------------------------------------------------------------
 // - Undo the last delete bounds
+// - Add methods and menu items to test different lighting effects
+//      - Add BasicEffect colours
+//      - Add BasicEffect three light positons
 
 //-----------------------------------------------------------------------------
 // TODO (Extras):
