@@ -200,10 +200,11 @@ namespace Engine
 
         public string EffectType
         {
-            get { return modelAsset.effectType; }
-            set { modelAsset.effectType = value; }
+            get { return modelAsset.EffectType; }
+            set { modelAsset.EffectType = value; }
         }
 
+        /*
         public string DepthMapFileName
         {
             get { return modelAsset.depthMapFile; }
@@ -227,6 +228,7 @@ namespace Engine
             get { return modelAsset.specularPower; }
             set { modelAsset.specularPower = value; }
         }
+         * */
 
         // Set when the optimise method has been run
         private bool haveOptimised = true;
@@ -713,11 +715,12 @@ namespace Engine
             // == Filename and effect parameters on one line
             // The model pipeline does not load textures correctly if the path uses the standard character
             string effect = ParseData.UseAlternateFolderCharacters(modelAsset.modelFilename);
-            if (!string.IsNullOrEmpty(modelAsset.effectType))
+            if (!string.IsNullOrEmpty(modelAsset.EffectType))
             {
-                effect += ParseData.div + modelAsset.effectType;
-                effect += ParseData.div + ParseData.FloatToString(modelAsset.specularIntensity);
-                effect += ParseData.div + ParseData.FloatToString(modelAsset.specularPower);
+                effect += ParseData.div + modelAsset.EffectType;
+                //effect += ParseData.div + ParseData.FloatToString(modelAsset.specularIntensity);
+                //effect += ParseData.div + ParseData.FloatToString(modelAsset.specularPower);
+                /*
                 if (!string.IsNullOrEmpty(modelAsset.depthMapFile))
                 {
                     effect += ParseData.div + modelAsset.depthMapFile;
@@ -726,6 +729,7 @@ namespace Engine
                         effect += ParseData.div + modelAsset.specularMapFile;
                     }
                 }
+                 * */
             }
             data.Add(effect);
             // == Parameters
@@ -814,10 +818,6 @@ namespace Engine
                     input.ModelType,
                     ParseData.StandardiseFolderCharacters(input.ModelFilename),
                     input.EffectType,
-                    input.SpecularIntensity,
-                    input.SpecularPower,
-                    input.DepthMapFilename,
-                    input.SpecularMapFilename,
                     form.CurrentModel,
                     CalculateBoundsFromModel(form.CurrentModel),
                     input.RotateX,
@@ -845,13 +845,52 @@ namespace Engine
         //////////////////////////////////////////////////////////////////////
         // == Property Forms ==
         //
-        public void DisplayPropertyForms()
+        public void DisplayCommonPropertyForms()
+        {
+            DisplayCommonForm();
+        }
+
+        public void DisplayTypePropertyForms()
         {
             switch (ModelType)
             {
                 case GlobalSettings.modelTypeStructure:
                     DisplayStructureForm();
                     break;
+            }
+        }
+
+        private void DisplayCommonForm()
+        {
+            ModelCommonForm aForm = new ModelCommonForm();
+
+            aForm.ModelFullPath = LastLoaded3DModelFile;
+            aForm.ModelRelativePath = RelativeFileName;
+            aForm.ModelRotation = ModelRotation;
+            aForm.EffectType = EffectType;
+            //aForm.DepthMapFileName = DepthMapFileName;
+            //aForm.SpecularMapFileName = SpecularMapFileName;
+            //aForm.SpecularIntensity = SpecularIntensity;
+            //aForm.SpecularPower = SpecularPower;
+            aForm.LargeBoundCount = LargeBoundCount;
+            aForm.SmallBoundCount = SmallBoundCount;
+
+            DialogResult diagResult = aForm.ShowDialog();
+            if (diagResult == DialogResult.OK || diagResult == DialogResult.Yes)
+            {
+                // Results
+                ChangedSomething();
+                ModelRotation = aForm.ModelRotation;
+                EffectType = aForm.EffectType;
+                //DepthMapFileName = aForm.DepthMapFileName;
+                //SpecularMapFileName = aForm.SpecularMapFileName;
+                //SpecularIntensity = aForm.SpecularIntensity;
+                //SpecularPower = aForm.SpecularPower;
+            }
+            if (diagResult == DialogResult.Yes && !string.IsNullOrEmpty(lastLoaded3DModelFile))
+            {
+                // Reload the model
+                form.LoadModel(false, lastLoaded3DModelFile, ModelRotation.X, ModelRotation.Y, ModelRotation.Z);
             }
         }
 
@@ -863,10 +902,10 @@ namespace Engine
             aForm.ModelRelativePath = RelativeFileName;
             aForm.ModelRotation = ModelRotation;
             aForm.EffectType = EffectType;
-            aForm.DepthMapFileName = DepthMapFileName;
-            aForm.SpecularMapFileName = SpecularMapFileName;
-            aForm.SpecularIntensity = SpecularIntensity;
-            aForm.SpecularPower = SpecularPower;
+            //aForm.DepthMapFileName = DepthMapFileName;
+            //aForm.SpecularMapFileName = SpecularMapFileName;
+            //aForm.SpecularIntensity = SpecularIntensity;
+            //aForm.SpecularPower = SpecularPower;
             aForm.LargeBoundCount = LargeBoundCount;
             aForm.SmallBoundCount = SmallBoundCount;
 
@@ -877,10 +916,10 @@ namespace Engine
                 ChangedSomething();
                 ModelRotation = aForm.ModelRotation;
                 EffectType = aForm.EffectType;
-                DepthMapFileName = aForm.DepthMapFileName;
-                SpecularMapFileName = aForm.SpecularMapFileName;
-                SpecularIntensity = aForm.SpecularIntensity;
-                SpecularPower = aForm.SpecularPower;
+                //DepthMapFileName = aForm.DepthMapFileName;
+                //SpecularMapFileName = aForm.SpecularMapFileName;
+                //SpecularIntensity = aForm.SpecularIntensity;
+                //SpecularPower = aForm.SpecularPower;
             }
             if (diagResult == DialogResult.Yes && !string.IsNullOrEmpty(lastLoaded3DModelFile))
             {

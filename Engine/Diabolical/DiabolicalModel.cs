@@ -25,6 +25,9 @@ namespace Engine
         //////////////////////////////////////////////////////////////////////
         // == ActiveModelAsset ==
 
+        // The fbx or x file of the model including the relative path
+        public string modelFilename;
+
         // == All models
         // Type, e.g. Character, Structure, Weapon, HeadGear etc.
         public string modelType = GlobalSettings.modelTypeStructure;
@@ -34,6 +37,73 @@ namespace Engine
         public BoundingSphere oversizeBounds;
         // Rotate the model when loaded round X, Y, Z
         public Vector3 rotation;
+
+        // == Lighting ==
+        // These are only needed for the initial setup of the effect once loaded
+        // Effect type
+        public string EffectType = GlobalSettings.effectTypeRigid;
+        // Highlight tightness
+        protected float specularPower = 16f;
+        public float SpecularPower
+        {
+            get { return specularPower; }
+            set
+            {
+                specularPower = value;
+            }
+        }
+        protected Vector3 specularColour = new Vector3(0.25f);
+        /// <summary>
+        /// The colour of the reflective shiny surfaces of an objects materials (range 0 to 1).
+        /// </summary>
+        public Vector3 SpecularColour
+        {
+            get { return specularColour; }
+            set
+            {
+                specularColour = value;
+            }
+        }
+
+        protected float materialAlpha = 1;
+        /// <summary>
+        /// The objects material alpha (transparency if that is enabled) (range 0 to 1).
+        /// </summary>
+        public float MaterialAlpha
+        {
+            get { return materialAlpha; }
+            set
+            {
+                materialAlpha = value;
+            }
+        }
+
+        protected Vector3 diffuseColour = Vector3.One;
+        /// <summary>
+        /// Diffuse colour of the objects material (range 0 to 1).
+        /// </summary>
+        public Vector3 DiffuseColour
+        {
+            get { return diffuseColour; }
+            set
+            {
+                diffuseColour = value;
+            }
+        }
+
+        protected Vector3 emissiveColour = Vector3.Zero;
+        /// <summary>
+        /// The colour emitted from an objects materials (range 0 to 1).
+        /// </summary>
+        public Vector3 EmissiveColour
+        {
+            get { return emissiveColour; }
+            set
+            {
+                emissiveColour = value;
+            }
+        }
+        //
 
         // == Gear
         // Used for weapons to align them to the characters hands.
@@ -99,15 +169,6 @@ namespace Engine
         // Sight cross hairs to use at each zoom level
         public List<int> crossHairs;
 
-        // == Only used by the editor
-        // The fbx or x file of the model including the relative path
-        public string modelFilename;
-        public string effectType;
-        public float specularIntensity = 0.3f;
-        public float specularPower = 4.0f;
-        // Used for both normal and grey scale bump maps
-        public string depthMapFile;
-        public string specularMapFile;
         // For per triangle impact from projectiles
         // These remain null until calculated using ExposeVertices()
         public List<Vector3> vertices;
@@ -133,15 +194,11 @@ namespace Engine
         //////////////////////////////////////////////////////////////////////
         // == ActiveModelAssetContent ==
         //
-        public void BuildModelAsset(string type, string filename, string effect, float intensity, float power, string depthmap, string specular, Model baseModel, BoundingSphere bounds, float rotXdegrees, float rotYdegrees, float rotZdegrees, string[] options)
+        public void BuildModelAsset(string type, string filename, string effect, Model baseModel, BoundingSphere bounds, float rotXdegrees, float rotYdegrees, float rotZdegrees, string[] options)
         {
             modelType = type;
             modelFilename = filename;
-            effectType = effect;
-            specularIntensity = intensity;
-            specularPower = power;
-            depthMapFile = depthmap;
-            specularMapFile = specular;
+            EffectType = effect;
             model = baseModel;
             oversizeBounds = bounds;
             rotation = new Vector3(rotXdegrees, rotYdegrees, rotZdegrees);
@@ -191,6 +248,12 @@ namespace Engine
             // What have we got
             switch (item[0])
             {
+                case GlobalSettings.typeColour:
+                    if (item.Length > 5)
+                    {
+                        SetMaterialColours(item[1], item[2], item[3], item[4], item[5]);
+                    }
+                    break;
                 case GlobalSettings.typeLargerBounds:
                     if (item.Length > 2)
                     {
@@ -312,7 +375,7 @@ namespace Engine
         private void AddLargerBounds(string[] items)
         {
             // The first item (index 0) is the type so is ignored
-            Vector3 centre = ParseData.StringToVector(items[1]);
+            Vector3 centre = ParseData.StringToVector3(items[1]);
             float radius = ParseData.FloatFromString(items[2]);
             if (largerBounds == null)
             {
@@ -329,7 +392,7 @@ namespace Engine
         private void AddSmallerBounds(string[] items)
         {
             // The first item (index 0) is the type so is ignored
-            Vector3 centre = ParseData.StringToVector(items[1]);
+            Vector3 centre = ParseData.StringToVector3(items[1]);
             float radius = ParseData.FloatFromString(items[2]);
             if (smallerBounds == null)
             {
@@ -348,10 +411,10 @@ namespace Engine
         private void AddBodySpheres(string centreStanding, string radiusStanding,
                 string centreCrouched, string radiusCrouched)
         {
-            Vector3 vCentre = ParseData.StringToVector(centreStanding);
+            Vector3 vCentre = ParseData.StringToVector3(centreStanding);
             float fRadius = ParseData.FloatFromString(radiusStanding);
             standingSpheres.Add(new BoundingSphere(vCentre, fRadius));
-            vCentre = ParseData.StringToVector(centreCrouched);
+            vCentre = ParseData.StringToVector3(centreCrouched);
             fRadius = ParseData.FloatFromString(radiusCrouched);
             crouchedSpheres.Add(new BoundingSphere(vCentre, fRadius));
         }
@@ -548,6 +611,17 @@ namespace Engine
             boneAlignment *= Matrix.CreateRotationX(radX) *
                 Matrix.CreateRotationY(radY) *
                 Matrix.CreateRotationZ(radZ);
+        }
+
+        // == All models
+
+        private void SetMaterialColours(string specularPower, string specularColour, string materialAlpha, string diffuseColour, string emissiveColour)
+        {
+            SpecularPower = ParseData.FloatFromString(specularPower);
+            SpecularColour = ParseData.StringToVector3(specularColour);
+            MaterialAlpha = ParseData.FloatFromString(materialAlpha);
+            DiffuseColour = ParseData.StringToVector3(diffuseColour);
+            EmissiveColour = ParseData.StringToVector3(emissiveColour);
         }
         //
         //////////////////////////////////////////////////////////////////////

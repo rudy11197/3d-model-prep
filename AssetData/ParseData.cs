@@ -59,7 +59,7 @@ namespace AssetData
         }
 
         // Space separated floats "xx.x yy.y zz.z"
-        public static Vector3 StringToVector(string change)
+        public static Vector3 StringToVector3(string change)
         {
             string[] numbers = SplitNumbersAtSpaces(change);
             Vector3 vReturn = Vector3.Zero;
@@ -70,6 +70,42 @@ namespace AssetData
                 vReturn.Z = FloatFromString(numbers[2]);
             }
             return vReturn;
+        }
+
+        // Used for colour
+        public static Vector4 StringToVector4(string change)
+        {
+            string[] numbers = SplitNumbersAtSpaces(change);
+            Vector4 vReturn = Vector4.Zero;
+            if (numbers.Length > 3)
+            {
+                vReturn.X = FloatFromString(numbers[0]);
+                vReturn.Y = FloatFromString(numbers[1]);
+                vReturn.Z = FloatFromString(numbers[2]);
+                vReturn.W = FloatFromString(numbers[3]);
+            }
+            return vReturn;
+        }
+
+        // Space separated floats "xx.x yy.y zz.z" unlimited decimal places
+        public static string ColorToString(Vector3 change)
+        {
+            string sReturn = "";
+            sReturn += FloatToString(change.X, -1) + " ";
+            sReturn += FloatToString(change.Y, -1) + " ";
+            sReturn += FloatToString(change.Z, -1);
+            return sReturn;
+        }
+
+        // Space separated floats "xx.x yy.y zz.z ww.w" unlimited decimal places
+        public static string ColorToString(Vector4 change)
+        {
+            string sReturn = "";
+            sReturn += FloatToString(change.X, -1) + " ";
+            sReturn += FloatToString(change.Y, -1) + " ";
+            sReturn += FloatToString(change.Z, -1) + " ";
+            sReturn += FloatToString(change.W, -1);
+            return sReturn;
         }
 
         public static string MatrixToString(Matrix change)
@@ -118,31 +154,6 @@ namespace AssetData
                 mReturn.M44 = FloatFromString(numbers[15]);
             }
             return mReturn;
-        }
-
-        // Space separated floats "xx.x yy.y zz.z ww.w"
-        public static string ColorToString(Vector4 change)
-        {
-            string sReturn = "";
-            sReturn += FloatToString(change.X, -1) + " ";
-            sReturn += FloatToString(change.Y, -1) + " ";
-            sReturn += FloatToString(change.Z, -1) + " ";
-            sReturn += FloatToString(change.W, -1);
-            return sReturn;
-        }
-
-        public static Vector4 StringToColor(string change)
-        {
-            string[] numbers = SplitNumbersAtSpaces(change);
-            Vector4 vReturn = Vector4.Zero;
-            if (numbers.Length > 3)
-            {
-                vReturn.X = FloatFromString(numbers[0]);
-                vReturn.Y = FloatFromString(numbers[1]);
-                vReturn.Z = FloatFromString(numbers[2]);
-                vReturn.W = FloatFromString(numbers[3]);
-            }
-            return vReturn;
         }
 
         public static bool ShortStringToBool(string change)

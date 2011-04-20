@@ -7,9 +7,9 @@ using Microsoft.Xna.Framework;
 
 namespace Engine
 {
-    public partial class ModelStructureForm : Form
+    public partial class ModelCommonForm : Form
     {
-        public ModelStructureForm()
+        public ModelCommonForm()
         {
             InitializeComponent();
             BuildList();
