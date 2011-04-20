@@ -154,9 +154,8 @@ using System.Windows.Forms;
 // TODO:
 //-----------------------------------------------------------------------------
 // - Undo the last delete bounds
-// - Add methods and menu items to test different lighting effects
-//      - Add BasicEffect colours
-//      - Add BasicEffect three light positons
+// - Save using the new model format version "2"
+// - Load the new version "2" format
 
 //-----------------------------------------------------------------------------
 // TODO (Extras):
@@ -169,10 +168,15 @@ using System.Windows.Forms;
 //      The name of the animation to save (used for both the FBX and the keyframe files)
 // e.g.
 //  List|1250|2300|Walk
-//
+
 // - Add a UI for adding animations to the merge animations processor
 //     Merge animations:
 //      http://blogs.msdn.com/b/shawnhar/archive/2010/06/18/merging-animation-files.aspx
+
+// - Add methods and menu items to test different lighting effects
+//      - Add BasicEffect colours
+//      - Add BasicEffect three light positons
+
 //-----------------------------------------------------------------------------
 
 #region Source Control

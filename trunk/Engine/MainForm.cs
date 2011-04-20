@@ -585,7 +585,7 @@ namespace Engine
         {
             // Diabolical model properties
             savemodelItem.Enabled = false;
-            modelPropertiesItem.Enabled = false;
+            modelCommonPropertiesItem.Enabled = false;
             changeModelTypeItem.Enabled = false;
             createStructureBoundsItem.Enabled = false;
             optimiseBoundsItem.Enabled = false;
@@ -614,7 +614,7 @@ namespace Engine
                 }
                 if (diabolical.CanEdit())
                 {
-                    modelPropertiesItem.Enabled = true;
+                    modelCommonPropertiesItem.Enabled = true;
                 }
 
                 if (diabolical.IsStructure)
@@ -1413,12 +1413,22 @@ namespace Engine
             diabolical.SaveDialogue();
         }
 
-        private void modelPropertiesToolStripMenuItem_Click(object sender, EventArgs e)
+        private void modelCommonPropertiesItem_Click(object sender, EventArgs e)
         {
             PauseGameInput(true);
             if (diabolical != null)
             {
-                diabolical.DisplayPropertyForms();
+                diabolical.DisplayCommonPropertyForms();
+            }
+            PauseGameInput(false);
+        }
+
+        private void modelTypePropertiesItem_Click(object sender, EventArgs e)
+        {
+            PauseGameInput(true);
+            if (diabolical != null)
+            {
+                diabolical.DisplayTypePropertyForms();
             }
             PauseGameInput(false);
         }

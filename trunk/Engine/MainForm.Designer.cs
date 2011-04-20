@@ -67,8 +67,9 @@ namespace Engine
             this.loadmodelItem = new System.Windows.Forms.ToolStripMenuItem();
             this.savemodelItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            this.modelPropertiesItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.modelCommonPropertiesItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changeModelTypeItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.modelTypePropertiesItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.createStructureBoundsItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optimiseBoundsItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -417,8 +418,9 @@ namespace Engine
             this.loadmodelItem,
             this.savemodelItem,
             this.toolStripSeparator7,
-            this.modelPropertiesItem,
+            this.modelCommonPropertiesItem,
             this.changeModelTypeItem,
+            this.modelTypePropertiesItem,
             this.toolStripSeparator9,
             this.createStructureBoundsItem,
             this.optimiseBoundsItem});
@@ -445,12 +447,12 @@ namespace Engine
             this.toolStripSeparator7.Name = "toolStripSeparator7";
             this.toolStripSeparator7.Size = new System.Drawing.Size(218, 6);
             // 
-            // modelPropertiesItem
+            // modelCommonPropertiesItem
             // 
-            this.modelPropertiesItem.Name = "modelPropertiesItem";
-            this.modelPropertiesItem.Size = new System.Drawing.Size(221, 22);
-            this.modelPropertiesItem.Text = "Model &Properties";
-            this.modelPropertiesItem.Click += new System.EventHandler(this.modelPropertiesToolStripMenuItem_Click);
+            this.modelCommonPropertiesItem.Name = "modelCommonPropertiesItem";
+            this.modelCommonPropertiesItem.Size = new System.Drawing.Size(221, 22);
+            this.modelCommonPropertiesItem.Text = "Model &Common Properties";
+            this.modelCommonPropertiesItem.Click += new System.EventHandler(this.modelCommonPropertiesItem_Click);
             // 
             // changeModelTypeItem
             // 
@@ -458,6 +460,13 @@ namespace Engine
             this.changeModelTypeItem.Size = new System.Drawing.Size(221, 22);
             this.changeModelTypeItem.Text = "Change Model &Type";
             this.changeModelTypeItem.Click += new System.EventHandler(this.changeModelTypeItem_Click);
+            // 
+            // modelTypePropertiesItem
+            // 
+            this.modelTypePropertiesItem.Name = "modelTypePropertiesItem";
+            this.modelTypePropertiesItem.Size = new System.Drawing.Size(221, 22);
+            this.modelTypePropertiesItem.Text = "Model &Type Properties";
+            this.modelTypePropertiesItem.Click += new System.EventHandler(this.modelTypePropertiesItem_Click);
             // 
             // toolStripSeparator9
             // 
@@ -468,14 +477,14 @@ namespace Engine
             // 
             this.createStructureBoundsItem.Name = "createStructureBoundsItem";
             this.createStructureBoundsItem.Size = new System.Drawing.Size(221, 22);
-            this.createStructureBoundsItem.Text = "Create Structure Bounds";
+            this.createStructureBoundsItem.Text = "Create Structure &Bounds";
             this.createStructureBoundsItem.Click += new System.EventHandler(this.createStructureBoundsItem_Click);
             // 
             // optimiseBoundsItem
             // 
             this.optimiseBoundsItem.Name = "optimiseBoundsItem";
             this.optimiseBoundsItem.Size = new System.Drawing.Size(221, 22);
-            this.optimiseBoundsItem.Text = "Optimise Bounds (Essential)";
+            this.optimiseBoundsItem.Text = "Optimise Bounds (&Essential)";
             this.optimiseBoundsItem.Click += new System.EventHandler(this.optimiseBoundsItem_Click);
             // 
             // ToolsMenuItem
@@ -744,7 +753,7 @@ namespace Engine
         private System.Windows.Forms.ToolStripMenuItem loadmodelItem;
         private System.Windows.Forms.ToolStripMenuItem savemodelItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
-        private System.Windows.Forms.ToolStripMenuItem modelPropertiesItem;
+        private System.Windows.Forms.ToolStripMenuItem modelCommonPropertiesItem;
         private System.Windows.Forms.ToolStripMenuItem noBoundsItem;
         private System.Windows.Forms.ToolStripMenuItem allLargeBoundsItem;
         private System.Windows.Forms.ToolStripMenuItem allSmallBoundsItem;
@@ -771,6 +780,7 @@ namespace Engine
         private System.Windows.Forms.Button buttonSmall;
         private System.Windows.Forms.ToolStripMenuItem showAxesMenuItem;
         private System.Windows.Forms.ToolStripMenuItem PresetMinusZUpToYUpMenu;
+        private System.Windows.Forms.ToolStripMenuItem modelTypePropertiesItem;
 
     }
 }

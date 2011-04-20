@@ -44,6 +44,10 @@ namespace Engine
         // Names
         public const string listRestPoseName = "* Rest or bind pose";
 
+        // Effects
+        public const string effectTypeNormalMap = "NormalMap";
+        public const string effectTypeAnimated = "Animated";
+        public const string effectTypeRigid = "Rigid";
         // Models
         public const string modelTypeCharacter = "Character";
         public const string modelTypeStructure = "Structure";
@@ -54,17 +58,13 @@ namespace Engine
         public const string modelTypeGearHead = "HeadGear";
         public const string modelTypeGearAccessory = "Accessory";
         public const string modelTypeGearOther = "OtherGear";
-        // Default effect type
-        public const string effectTypeNone = "None";
-        // Normal map is a texture containing the normal directions
-        public const string effectTypeNormalMap = "NormalMap";
-        // Bump map is a grey scale containing depth levels as grey scales
-        public const string effectTypeBumpMap = "BumpMap";
         // == Types of object that can be loaded from the model file
         // These are used to parse the data from the file because not all models have 
         // all the types of data.
         // Armature Rig type used to prefix animation filenames (Skeleton) e.g. human, insect, robot etc.
         public const string typeRig = "RigType";
+        // The various material colours for lighting
+        public const string typeColour = "Colour";
         // Idle animation for characters when they are loaded or not doing anything else
         public const string typeAnimation = "Idle";
         // Bounding shapes used for structures
