@@ -155,7 +155,8 @@ using System.Windows.Forms;
 //-----------------------------------------------------------------------------
 // - Undo the last delete bounds
 // - Save using the new model format version "2"
-// - Load the new version "2" format
+// - The weapon and gear dialogue will need a +/- rotation in all three 
+//      directions instead of the absolutes currently set in the older files.
 
 //-----------------------------------------------------------------------------
 // TODO (Extras):

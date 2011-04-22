@@ -173,6 +173,15 @@ namespace Engine
         // These remain null until calculated using ExposeVertices()
         public List<Vector3> vertices;
         public List<VertexHelper.TriangleVertexIndices> indices;
+
+        // For calculation only not part of the model object in the game
+        // Shots per second
+        private float ammoRateOfFire = 1;
+        public float AmmoRateOfFire
+        {
+            get { return ammoRateOfFire; }
+            set { ammoRateOfFire = value; }
+        }
         //
         //////////////////////////////////////////////////////////////////////
 
@@ -289,11 +298,21 @@ namespace Engine
                     {
                         AddAttachEquipment(item[1], item[2], item[3], item[4], item[5], item[6], item[7]);
                     }
+                    else if (item.Length > 2)
+                    {
+                        // Matrix
+                        AddAttachEquipment(item[1], item[2]);
+                    }
                     break;
                 case GlobalSettings.typeAttachAdornment:
                     if (item.Length > 7)
                     {
                         AddAttachAdornment(item[1], item[2], item[3], item[4], item[5], item[6], item[7]);
+                    }
+                    else if (item.Length > 2)
+                    {
+                        // Matrix
+                        AddAttachAdornment(item[1], item[2]);
                     }
                     break;
                 case GlobalSettings.typeWeaponHoldBone:
@@ -301,11 +320,20 @@ namespace Engine
                     {
                         AddWeaponHold(item[1], item[2], item[3], item[4], item[5], item[6], item[7]);
                     }
+                    else if (item.Length > 2)
+                    {
+                        // Matrix
+                        AddWeaponHold(item[1], item[2]);
+                    }
                     break;
                 case GlobalSettings.typeAimAdjustment:
                     if (item.Length > 6)
                     {
                         AddBoneAdjustment(item[1], item[2], item[3], item[4], item[5], item[6]);
+                    }
+                    else if (item.Length > 1)
+                    {
+                        SetAlignment(item[1]);
                     }
                     break;
                 case GlobalSettings.typeHeadOffset:
@@ -321,9 +349,9 @@ namespace Engine
                     }
                     break;
                 case GlobalSettings.typeWeaponMuzzle:
-                    if (item.Length > 3)
+                    if (item.Length > 1)
                     {
-                        SetMuzzleOffset(item[1], item[2], item[3]);
+                        SetMuzzleOffset(item[1]);
                     }
                     break;
                 case GlobalSettings.typeWeaponHalfWidth:
@@ -335,7 +363,7 @@ namespace Engine
                 case GlobalSettings.typeWeaponAmmo:
                     if (item.Length > 7)
                     {
-                        SetAmmo(item[1], item[2], item[3], item[4], item[5], item[6], item[7]);
+                        SetAmmo(item[1], item[2], item[3], item[4], item[5], item[6], item[7], item[8]);
                     }
                     break;
                 case GlobalSettings.typeWeaponRanges:
@@ -453,6 +481,15 @@ namespace Engine
             attachEquip.Add(new AttachmentPoint(boneID, X, Y, Z, rotateX, rotateY, rotateZ));
         }
 
+        private void AddAttachEquipment(string boneName, string mtxS)
+        {
+            // Offset from the bone position to the attachment point
+            Matrix mtx = ParseData.StringToMatrix(mtxS);
+            // The model must have been loaded first so the bonemap works
+            int boneID = GetBoneID(boneName);
+            attachEquip.Add(new AttachmentPoint(boneID, mtx));
+        }
+
         private void AddAttachAdornment(string boneName, string sX, string sY, string sZ, string sRotX, string sRotY, string sRotZ)
         {
             // Offset from the bone position to the attachment point
@@ -467,6 +504,15 @@ namespace Engine
             // Add the attachment point even if the bone is not valid
             // This is so that dummies can be added and ignored when attempted to be used
             attachAdorn.Add(new AttachmentPoint(boneID, X, Y, Z, rotateX, rotateY, rotateZ));
+        }
+
+        private void AddAttachAdornment(string boneName, string mtxS)
+        {
+            // Offset from the bone position to the attachment point
+            Matrix mtx = ParseData.StringToMatrix(mtxS);
+            // The model must have been loaded first so the bonemap works
+            int boneID = GetBoneID(boneName);
+            attachAdorn.Add(new AttachmentPoint(boneID, mtx));
         }
 
         private void AddWeaponHold(string boneName, string sX, string sY, string sZ, string sRotX, string sRotY, string sRotZ)
@@ -485,6 +531,15 @@ namespace Engine
             attachHold = new AttachmentPoint(boneID, X, Y, Z, rotateX, rotateY, rotateZ);
         }
 
+        private void AddWeaponHold(string boneName, string mtxS)
+        {
+            // Offset from the bone position to the attachment point
+            Matrix mtx = ParseData.StringToMatrix(mtxS);
+            // The model must have been loaded first so the bonemap works
+            int boneID = GetBoneID(boneName);
+            attachHold = new AttachmentPoint(boneID, mtx);
+        }
+
         // Return the bone number from the bone name
         private int GetBoneID(string boneName)
         {
@@ -499,6 +554,34 @@ namespace Engine
             {
                 return skinningData.BoneMap[boneName];
             }
+        }
+
+        public string GetBoneName(int ID)
+        {
+            // Look up our custom skinning information.
+            SkinningData skinningData = model.Tag as SkinningData;
+            if (skinningData == null)
+            {
+                //This model does not contain a SkinningData tag.
+                throw new Exception("This character cannot be animated because the skinning data is missing!");
+            }
+            else
+            {
+                List<string> list = new List<string>();
+                // Get all the bone names
+                list.AddRange(skinningData.BoneMap.Keys);
+                for ( int i = 0; i < list.Count; i++)
+                {
+                    // Try each bone in turn
+                    if (skinningData.BoneMap[list[i]] == ID)
+                    {
+                        // When the bone ID matches
+                        // return the name of the bone
+                        return list[i];
+                    }
+                }
+            }
+            return "None";
         }
 
         // == Weapons
@@ -526,11 +609,9 @@ namespace Engine
             }
         }
 
-        private void SetMuzzleOffset(string sX, string sY, string sZ)
+        private void SetMuzzleOffset(string sOffset)
         {
-            muzzleOffset.X = ParseData.FloatFromString(sX);
-            muzzleOffset.Y = ParseData.FloatFromString(sY);
-            muzzleOffset.Z = ParseData.FloatFromString(sZ);
+            muzzleOffset = ParseData.StringToVector3(sOffset);
         }
 
         private void SetHalfWidth(string sWidth)
@@ -538,22 +619,14 @@ namespace Engine
             halfWidth = ParseData.FloatFromString(sWidth);
         }
 
-        private void SetAmmo(string sType, string sClip, string sCarried, string sFireRate, string sReloadTime, string sReloadSound, string sEmptySound)
+        private void SetAmmo(string sType, string sClip, string sCarried, string autoFire, string sFireRate, string sReloadTime, string sReloadSound, string sEmptySound)
         {
             ammoType = sType;
             ammoClipCapacity = ParseData.IntFromString(sClip);
             ammoMaxCarried = ParseData.IntFromString(sCarried);
+            isAutoFire = ParseData.ShortStringToBool(autoFire);
             float rate = ParseData.FloatFromString(sFireRate);
-            if (rate < 0)
-            {
-                // Single shot
-                isAutoFire = false;
-                rate = -1.0f * rate;
-            }
-            else
-            {
-                isAutoFire = true;
-            }
+            ammoRateOfFire = rate;
             // Calculate the time to chamber from the rate of fire
             if (MoreMaths.NearZero(rate))
             {
@@ -577,6 +650,14 @@ namespace Engine
 
         // == Gear
 
+        // Bone alignment is used to adjust the models so they are all in the same position 
+        // relative to the rest of the model despite how they are drawn.
+        // Typically only necessary to make fine adjustments to how the weapon is held
+        // in the animated models hand.
+
+        // Older hand crafted model files use separate translation and rotation settings
+        // Newer model files save the resulting matrix to the model file
+
         // Adjustments to alignments are applied in the order they are in the XML file.
         // As a matrix rotation changes the axes a rotation followed by a translation will be 
         // difficult to understand.  A translation followed by a rotation is easier to visualise.
@@ -585,6 +666,12 @@ namespace Engine
         {
             AddBoneRotation(sDegX, sDegY, sDegZ);
             AddBoneTranslate(sX, sY, sZ);
+        }
+
+        private void SetAlignment(string adjust)
+        {
+            Matrix align = ParseData.StringToMatrix(adjust);
+            boneAlignment = align;
         }
 
         // Position the model in relation to something else.  This is used for the weapons in

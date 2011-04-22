@@ -50,12 +50,20 @@ namespace AssetData
         public AttachmentPoint(int boneIndex, float X, float Y, float Z, 
             float degreesAboutX, float degreesAboutY, float degreesAboutZ)
         {
-            float thing = MathHelper.ToRadians(1);
             idBone = boneIndex;
             mtxTransform = Matrix.Identity * Matrix.CreateRotationX(MathHelper.ToRadians(degreesAboutX)) *
                 Matrix.CreateRotationY(MathHelper.ToRadians(degreesAboutY)) * 
                 Matrix.CreateRotationZ(MathHelper.ToRadians(degreesAboutZ));
             mtxTransform.Translation = new Vector3(X, Y, Z);
+        }
+
+        /// <summary>
+        /// Matrix
+        /// </summary>
+        public AttachmentPoint(int boneIndex, Matrix transform)
+        {
+            idBone = boneIndex;
+            mtxTransform = transform;
         }
     }
 }
