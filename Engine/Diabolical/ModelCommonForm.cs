@@ -76,14 +76,8 @@ namespace Engine
 
         public string DepthMapFileName
         {
-            get { return textBumpFile.Text; }
-            set { textBumpFile.Text = value; }
-        }
-
-        public float SpecularIntensity
-        {
-            get { return (float)numericSpecularIntensity.Value; }
-            set { numericSpecularIntensity.Value = (decimal)value; }
+            get { return textNormalMapFile.Text; }
+            set { textNormalMapFile.Text = value; }
         }
 
         public float SpecularPower
@@ -92,21 +86,58 @@ namespace Engine
             set { numericSpecularPower.Value = (decimal)value; }
         }
 
-        public string SpecularMapFileName
+        private System.Drawing.Color specularColour = System.Drawing.Color.White;
+        public Vector3 SpecularColour
         {
-            get { return textSpecularFile.Text; }
-            set { textSpecularFile.Text = value; }
+            get { return ColorToVector(specularColour); }
+            set 
+            { 
+                specularColour = VectorToColor(value);
+                UpdateColours();
+            }
         }
 
-        public int LargeBoundCount
+        private System.Drawing.Color diffuseColour = System.Drawing.Color.White;
+        public Vector3 DiffuseColour
         {
-            set { textLargeCount.Text = value.ToString(); }
+            get { return ColorToVector(diffuseColour); }
+            set 
+            { 
+                diffuseColour = VectorToColor(value);
+                UpdateColours();
+            }
         }
 
-        public int SmallBoundCount
+        private System.Drawing.Color emissiveColour = System.Drawing.Color.Black;
+        public Vector3 EmissiveColour
         {
-            set { textSmallCount.Text = value.ToString(); }
+            get { return ColorToVector(emissiveColour); }
+            set 
+            { 
+                emissiveColour = VectorToColor(value);
+                UpdateColours();
+            }
         }
+
+        private System.Drawing.Color VectorToColor(Vector3 colour)
+        {
+            return System.Drawing.Color.FromArgb(255, (int)colour.X * 255, (int)colour.Y * 255, (int)colour.Z * 255);
+        }
+
+        private Vector3 ColorToVector(System.Drawing.Color colour)
+        {
+            return new Vector3((float)colour.R / 255f, (float)colour.G / 255f, (float)colour.B / 255f);
+        }
+
+        // Convert to the int32 colour values for use with the colorDialog custom colours
+        // CustomColor = ((FirstColor.B << 16) || (FirstColor.G << 8) || (FirstColor.R));
+        // or
+        // CustomColor = (FirstColor.R) + (FirstColor.G * 256) + (FirstColor.B * 256 * 256);
+        private int ColorToBGR(System.Drawing.Color colour)
+        {
+            return (colour.B << 16) + (colour.G << 8) + colour.R;
+        }
+
         //
         //////////////////////////////////////////////////////////////////////
 
@@ -118,13 +149,16 @@ namespace Engine
             comboEffect.Items.Clear();
             comboEffect.Items.Add(GlobalSettings.effectTypeRigid);
             comboEffect.Items.Add(GlobalSettings.effectTypeAnimated);
-            comboEffect.Items.Add(GlobalSettings.effectTypeNormalMap);
+            //comboEffect.Items.Add(GlobalSettings.effectTypeNormalMap);
         }
 
         private void SetInitialValues()
         {
             comboEffect.SelectedItem = GlobalSettings.effectTypeRigid;
+            UpdateColours();
         }
+
+
 
         private void SetInitialEvents()
         {
@@ -144,31 +178,47 @@ namespace Engine
         private void UpdateEnableDisable()
         {
             // Effect
-            textBumpFile.Enabled = true;
-            buttonBump.Enabled = true;
-            numericSpecularIntensity.Enabled = true;
-            numericSpecularPower.Enabled = true;
-            textSpecularFile.Enabled = true;
-            buttonSpecular.Enabled = true;
-            if (IsEffectRigid)
-            {
-                textBumpFile.Enabled = false;
-                buttonBump.Enabled = false;
-                numericSpecularIntensity.Enabled = false;
-                numericSpecularPower.Enabled = false;
-                textSpecularFile.Enabled = false;
-                buttonSpecular.Enabled = false;
-            }
+            DisableNormalMap();
+            UpdateColours();
+        }
+
+        // Disable the normal map options as they are not supported for the time being
+        private void DisableNormalMap()
+        {
+            labelNormalMapHeading.Enabled = false;
+            textNormalMapFile.Enabled = false;
+            buttonNormalMapFileBrowse.Enabled = false;
+            labelNormalMapNote.Enabled = false;
+
+            labelNormalMapHeading.Visible = false;
+            textNormalMapFile.Visible = false;
+            buttonNormalMapFileBrowse.Visible = false;
+            labelNormalMapNote.Visible = false;
+        }
+
+        private void UpdateColours()
+        {
+            buttonSpecularColour.BackColor = specularColour;
         }
 
         /// <summary>
         /// Rotation suitable to change models produced using Z as the up axis to XNA which uses the Y as the up axis.
-        /// Blender to XNA.
+        /// For some reason rigid model exported from Blender are a different way up to animated models.
+        /// Animated Blender to XNA.
         /// </summary>
-        private void buttonBlender_Click(object sender, EventArgs e)
+        private void buttonBlenderAnimated_Click(object sender, EventArgs e)
         {
             // 90 0 180
             positionRotation.Value = new Vector3(90, 0, 180);
+        }
+
+        /// Rotation suitable to change models produced using Z as the up axis to XNA which uses the Y as the up axis.
+        /// For some reason rigid model exported from Blender are a different way up to animated models.
+        /// Rigid Blender to XNA.
+        private void buttonBlenderRigid_Click(object sender, EventArgs e)
+        {
+            // -90 0 180
+            positionRotation.Value = new Vector3(-90, 0, 180);
         }
 
         private void buttonZero_Click(object sender, EventArgs e)
@@ -206,14 +256,90 @@ namespace Engine
             return previousName;
         }
 
-        private void buttonBump_Click(object sender, EventArgs e)
+        private void buttonNormalMap_Click(object sender, EventArgs e)
         {
-            textBumpFile.Text = BrowseImages(textBumpFile.Text);
+            textNormalMapFile.Text = BrowseImages(textNormalMapFile.Text);
         }
 
-        private void buttonSpecular_Click(object sender, EventArgs e)
+        //
+        //////////////////////////////////////////////////////////////////////
+
+
+        //////////////////////////////////////////////////////////////////////
+        // == Colours ==
+        //
+        private void SpecularColourDialogue()
         {
-            textSpecularFile.Text = BrowseImages(textSpecularFile.Text);
+            ColorDialog colourDialog = new ColorDialog();
+            colourDialog.Color = specularColour;
+            colourDialog.FullOpen = true;
+            colourDialog.CustomColors = new int[3] { ColorToBGR(specularColour), ColorToBGR(diffuseColour), ColorToBGR(emissiveColour) };
+            if (colourDialog.ShowDialog() == DialogResult.OK)
+            {
+                // Results
+                specularColour = colourDialog.Color;
+                UpdateColours();
+            }
+        }
+
+        private void DiffuseColourDialogue()
+        {
+            ColorDialog colourDialog = new ColorDialog();
+            colourDialog.Color = diffuseColour;
+            colourDialog.FullOpen = true;
+            colourDialog.CustomColors = new int[3] { ColorToBGR(specularColour), ColorToBGR(diffuseColour), ColorToBGR(emissiveColour) };
+            if (colourDialog.ShowDialog() == DialogResult.OK)
+            {
+                // Results
+                diffuseColour = colourDialog.Color;
+                UpdateColours();
+            }
+        }
+
+        private void EmissiveColourDialogue()
+        {
+            ColorDialog colourDialog = new ColorDialog();
+            colourDialog.Color = emissiveColour;
+            colourDialog.FullOpen = true;
+            colourDialog.CustomColors = new int[3] { ColorToBGR(specularColour), ColorToBGR(diffuseColour), ColorToBGR(emissiveColour) };
+            if (colourDialog.ShowDialog() == DialogResult.OK)
+            {
+                // Results
+                emissiveColour = colourDialog.Color;
+                UpdateColours();
+            }
+        }
+
+
+        private void buttonSpecularColour_Click(object sender, EventArgs e)
+        {
+            SpecularColourDialogue();
+        }
+
+        private void buttonDiffuseColour_Click(object sender, EventArgs e)
+        {
+            DiffuseColourDialogue();
+
+        }
+
+        private void buttonEmissiveColour_Click(object sender, EventArgs e)
+        {
+            EmissiveColourDialogue();
+        }
+
+        private void buttonSpecularDefault_Click(object sender, EventArgs e)
+        {
+            SpecularColour = Vector3.One;
+        }
+
+        private void buttonDiffuseDefault_Click(object sender, EventArgs e)
+        {
+            DiffuseColour = Vector3.One;
+        }
+
+        private void buttonEmissiveDefault_Click(object sender, EventArgs e)
+        {
+            EmissiveColour = Vector3.Zero;
         }
         //
         //////////////////////////////////////////////////////////////////////

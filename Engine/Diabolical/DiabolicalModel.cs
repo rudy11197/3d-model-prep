@@ -52,7 +52,7 @@ namespace Engine
                 specularPower = value;
             }
         }
-        protected Vector3 specularColour = new Vector3(0.25f);
+        protected Vector3 specularColour = Vector3.One;
         /// <summary>
         /// The colour of the reflective shiny surfaces of an objects materials (range 0 to 1).
         /// </summary>

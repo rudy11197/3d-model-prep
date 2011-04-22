@@ -164,49 +164,35 @@ namespace Engine
         // This is changed to match the control colour
         private Color gameBackColor = Color.CornflowerBlue;
 
-        // For displaying the models
-        private Vector3 emissiveLighting = new Vector3(GlobalSettings.defaultEmissive, GlobalSettings.defaultEmissive, GlobalSettings.defaultEmissive);
-        private Vector3 ambientLighting = new Vector3(GlobalSettings.defaultAmbient, GlobalSettings.defaultAmbient, GlobalSettings.defaultAmbient);
-        private Vector3 diffuseLighting = new Vector3(GlobalSettings.defaultDiffuse, GlobalSettings.defaultDiffuse, GlobalSettings.defaultDiffuse);
-        public float EmissiveLightLevel
+        // Material colours for displaying the models
+        private Vector3 specularColour = Vector3.One;
+        public Vector3 SpecularColour
         {
-            get
-            {
-                return emissiveLighting.X;
-            }
-            set
-            {
-                emissiveLighting.X = value;
-                emissiveLighting.Y = value;
-                emissiveLighting.Z = value;
-            }
+            get { return specularColour; }
+            set { specularColour = value; }
         }
-        public float AmbientLightLevel
+
+        private float specularPower = 16;
+        public float SpecularPower
         {
-            get
-            {
-                return ambientLighting.X;
-            }
-            set
-            {
-                ambientLighting.X = value;
-                ambientLighting.Y = value;
-                ambientLighting.Z = value;
-            }
+            get { return specularPower; }
+            set { specularPower = value; }
         }
-        public float DiffuseLightLevel
+
+        private Vector3 diffuseColour = Vector3.One;
+        public Vector3 DiffuseColour
         {
-            get
-            {
-                return diffuseLighting.X;
-            }
-            set
-            {
-                diffuseLighting.X = value;
-                diffuseLighting.Y = value;
-                diffuseLighting.Z = value;
-            }
+            get { return diffuseColour; }
+            set { diffuseColour = value; }
         }
+
+        private Vector3 emissiveColour = Vector3.Zero;
+        public Vector3 EmissiveColour
+        {
+            get { return emissiveColour; }
+            set { emissiveColour = value; }
+        }
+
 
         /// <summary>
         /// For displaying shapes in 3D
@@ -824,13 +810,12 @@ namespace Engine
                     effect.Projection = aProjection;
 
                     effect.EnableDefaultLighting();
-                    effect.AmbientLightColor = ambientLighting;
-                    effect.DiffuseColor = diffuseLighting;
-                    effect.EmissiveColor = emissiveLighting;
+                    effect.SpecularColor = specularColour;
+                    effect.SpecularPower = specularPower;
+                    effect.DiffuseColor = diffuseColour;
+                    effect.EmissiveColor = emissiveColour;
 
                     effect.PreferPerPixelLighting = true;
-                    //effect.SpecularColor = new Vector3(0.25f);
-                    //effect.SpecularPower = 16;
                 }
 
                 mesh.Draw();
@@ -856,13 +841,12 @@ namespace Engine
                     effect.Projection = aProjection;
 
                     effect.EnableDefaultLighting();
-                    effect.AmbientLightColor = ambientLighting;
-                    effect.DiffuseColor = diffuseLighting;
-                    effect.EmissiveColor = emissiveLighting;
+                    effect.SpecularColor = specularColour;
+                    effect.SpecularPower = specularPower;
+                    effect.DiffuseColor = diffuseColour;
+                    effect.EmissiveColor = emissiveColour;
 
                     effect.PreferPerPixelLighting = true;
-                    //effect.SpecularColor = new Vector3(0.25f);
-                    //effect.SpecularPower = 16;
                 }
 
                 mesh.Draw();

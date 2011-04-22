@@ -118,10 +118,6 @@ namespace Engine
         // Where the mouse cursor sits during mouse movement
         public const int mouseZeroX = 15;
         public const int mouseZeroY = 15;
-        // Lighting
-        public const float defaultEmissive = 0.25f;
-        public const float defaultAmbient = 0.75f;
-        public const float defaultDiffuse = 0.45f;
 
         // Structure bounding spheres
         // These sizes are applicable to the scale used in Diabolical
