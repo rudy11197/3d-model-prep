@@ -194,15 +194,6 @@ namespace Engine
             set { modelAsset.rotation = value; }
         }
 
-        // Used becuase the model processors use strings
-        public void SetModelRotation(string sX, string sY, string sZ)
-        {
-            float fX = ParseData.FloatFromString(sX);
-            float fY = ParseData.FloatFromString(sY);
-            float fZ = ParseData.FloatFromString(sZ);
-            ModelRotation = new Vector3(fX, fY, fZ);
-        }
-
         /// <summary>
         /// In most cases the effect type should match the model type but it can differ
         /// if the effect type is set after the model type.
@@ -212,32 +203,6 @@ namespace Engine
             get { return modelAsset.EffectType; }
             set { modelAsset.EffectType = value; }
         }
-
-        /*
-        public string DepthMapFileName
-        {
-            get { return modelAsset.depthMapFile; }
-            set { modelAsset.depthMapFile = value; }
-        }
-
-        public string SpecularMapFileName
-        {
-            get { return modelAsset.specularMapFile; }
-            set { modelAsset.specularMapFile = value; }
-        }
-
-        public float SpecularIntensity
-        {
-            get { return modelAsset.specularIntensity; }
-            set { modelAsset.specularIntensity = value; }
-        }
-
-        public float SpecularPower
-        {
-            get { return modelAsset.specularPower; }
-            set { modelAsset.specularPower = value; }
-        }
-         * */
 
         // Set when the optimise method has been run
         private bool haveOptimised = true;
@@ -258,6 +223,31 @@ namespace Engine
         {
             haveChanged = true;
             haveOptimised = false;
+        }
+
+        // Model Material Colours
+        public float SpecularPower
+        {
+            get { return modelAsset.SpecularPower; }
+            set { modelAsset.SpecularPower = value; }
+        }
+
+        public Vector3 SpecularColour
+        {
+            get { return modelAsset.SpecularColour; }
+            set { modelAsset.SpecularColour = value; }
+        }
+
+        public Vector3 DiffuseColour
+        {
+            get { return modelAsset.DiffuseColour; }
+            set { modelAsset.DiffuseColour = value; }
+        }
+
+        public Vector3 EmissiveColour
+        {
+            get { return modelAsset.EmissiveColour; }
+            set { modelAsset.EmissiveColour = value; }
         }
         //
         //////////////////////////////////////////////////////////////////////
@@ -1061,12 +1051,11 @@ namespace Engine
             aForm.ModelRelativePath = RelativeFileName;
             aForm.ModelRotation = ModelRotation;
             aForm.EffectType = EffectType;
-            //aForm.DepthMapFileName = DepthMapFileName;
-            //aForm.SpecularMapFileName = SpecularMapFileName;
-            //aForm.SpecularIntensity = SpecularIntensity;
-            //aForm.SpecularPower = SpecularPower;
-            aForm.LargeBoundCount = LargeBoundCount;
-            aForm.SmallBoundCount = SmallBoundCount;
+            aForm.SpecularPower = SpecularPower;
+            aForm.SpecularColour = SpecularColour;
+            aForm.DiffuseColour = DiffuseColour;
+            aForm.EmissiveColour = EmissiveColour;
+
 
             DialogResult diagResult = aForm.ShowDialog();
             if (diagResult == DialogResult.OK || diagResult == DialogResult.Yes)
@@ -1074,11 +1063,13 @@ namespace Engine
                 // Results
                 ChangedSomething();
                 ModelRotation = aForm.ModelRotation;
+                form.SetRotation(ModelRotation);
                 EffectType = aForm.EffectType;
-                //DepthMapFileName = aForm.DepthMapFileName;
-                //SpecularMapFileName = aForm.SpecularMapFileName;
-                //SpecularIntensity = aForm.SpecularIntensity;
-                //SpecularPower = aForm.SpecularPower;
+                SpecularPower = aForm.SpecularPower;
+                SpecularColour = aForm.SpecularColour;
+                DiffuseColour = aForm.DiffuseColour;
+                EmissiveColour = aForm.EmissiveColour;
+                form.SetMaterialColours(SpecularPower, SpecularColour, DiffuseColour, EmissiveColour);
             }
             if (diagResult == DialogResult.Yes && !string.IsNullOrEmpty(lastLoaded3DModelFile))
             {
@@ -1091,14 +1082,6 @@ namespace Engine
         {
             ModelStructureForm aForm = new ModelStructureForm();
 
-            aForm.ModelFullPath = LastLoaded3DModelFile;
-            aForm.ModelRelativePath = RelativeFileName;
-            aForm.ModelRotation = ModelRotation;
-            aForm.EffectType = EffectType;
-            //aForm.DepthMapFileName = DepthMapFileName;
-            //aForm.SpecularMapFileName = SpecularMapFileName;
-            //aForm.SpecularIntensity = SpecularIntensity;
-            //aForm.SpecularPower = SpecularPower;
             aForm.LargeBoundCount = LargeBoundCount;
             aForm.SmallBoundCount = SmallBoundCount;
 
@@ -1106,13 +1089,7 @@ namespace Engine
             if (diagResult == DialogResult.OK || diagResult == DialogResult.Yes)
             {
                 // Results
-                ChangedSomething();
-                ModelRotation = aForm.ModelRotation;
-                EffectType = aForm.EffectType;
-                //DepthMapFileName = aForm.DepthMapFileName;
-                //SpecularMapFileName = aForm.SpecularMapFileName;
-                //SpecularIntensity = aForm.SpecularIntensity;
-                //SpecularPower = aForm.SpecularPower;
+                //ChangedSomething();
             }
             if (diagResult == DialogResult.Yes && !string.IsNullOrEmpty(lastLoaded3DModelFile))
             {

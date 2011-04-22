@@ -43,7 +43,6 @@ namespace Engine
         private string rotateX = "0";
         private string rotateY = "0";
         private string rotateZ = "0";
-        private string scale = "1";
 
         private Dictionary<string, AnimationClip> loadedClips = new Dictionary<string,AnimationClip>();
         private List<string> clipNames = new List<string>();
@@ -232,6 +231,13 @@ namespace Engine
         //
         private void OpenRigidModelMenu_Click(object sender, EventArgs e)
         {
+            // Check if we want to rotate the model
+            if (!DisplayRotationForm())
+            {
+                AddMessageLine("== Aborted ==");
+                return;
+            }
+            // Find out what file we want to open
             OpenFileDialog fileDialog = new OpenFileDialog();
 
             fileDialog.InitialDirectory = defaultFileFolder;
@@ -258,6 +264,13 @@ namespace Engine
         /// </summary>
         private void OpenAnimatedModelMenu_Click(object sender, EventArgs e)
         {
+            // Check if we want to rotate the model
+            if (!DisplayRotationForm())
+            {
+                AddMessageLine("== Aborted ==");
+                return;
+            }
+            // Find out what file we want to open
             OpenFileDialog fileDialog = new OpenFileDialog();
 
             fileDialog.InitialDirectory = defaultFileFolder;
@@ -542,6 +555,11 @@ namespace Engine
             HasModelLoaded();
             WhatModelType();
             ShowBoundSelections();
+            RotateLegend();
+        }
+        private void RotateLegend()
+        {
+            RotationMenuItem.Text = "Rotation:  X " + rotateX + ",  Y " + rotateY + ",  Z " + rotateZ;
         }
         /// <summary>
         /// Call this to enable the various menu items that require an already loaded animated model
@@ -586,6 +604,7 @@ namespace Engine
             // Diabolical model properties
             savemodelItem.Enabled = false;
             modelCommonPropertiesItem.Enabled = false;
+            modelTypePropertiesItem.Enabled = false;
             changeModelTypeItem.Enabled = false;
             createStructureBoundsItem.Enabled = false;
             optimiseBoundsItem.Enabled = false;
@@ -615,6 +634,7 @@ namespace Engine
                 if (diabolical.CanEdit())
                 {
                     modelCommonPropertiesItem.Enabled = true;
+                    modelTypePropertiesItem.Enabled = true;
                 }
 
                 if (diabolical.IsStructure)
@@ -712,9 +732,7 @@ namespace Engine
 
         public void LoadModel(bool isAnimated, string fileName, float rotateXdeg, float rotateYdeg, float rotateZdeg)
         {
-            rotateX = ParseData.FloatToString(rotateXdeg);
-            rotateY = ParseData.FloatToString(rotateYdeg);
-            rotateZ = ParseData.FloatToString(rotateZdeg);
+            SetRotation(rotateXdeg, rotateYdeg, rotateZdeg);
             LoadModel(isAnimated, fileName, rotateX, rotateY, rotateZ);
         }
 
@@ -777,7 +795,7 @@ namespace Engine
                     {
                         diabolical.LastLoaded3DModelFile = fileName;
                         diabolical.Model = modelViewerControl.Model;
-                        diabolical.SetModelRotation(rotateXdeg, rotateYdeg, rotateZdeg);
+                        diabolical.ModelRotation = GetRotation(rotateXdeg, rotateYdeg, rotateZdeg);
                     }
                     // Scale
                     AddMessageLine("The width of each grid square is: " + modelViewerControl.GridSquareWidth + " unit(s)");
@@ -1258,65 +1276,60 @@ namespace Engine
         //////////////////////////////////////////////////////////////////////
         // == Rotations ==
         //
-        private void PresetNoRotation_Click(object sender, EventArgs e)
+        public void SetRotation(Vector3 rotateDegrees)
         {
-            XComboBox.Text = "X 0";
-            rotateX = "0";
-            YComboBox.Text = "Y 0";
-            rotateY = "0";
-            ZComboBox.Text = "Z 0";
-            rotateZ = "0";
-
-            AddMessageLine("Reset to no rotation");
-            AddMessageLine("Models loaded will be rotated using the follow settings: X=" +
-                rotateX + " Y=" + rotateY + " Z=" + rotateZ);
+            SetRotation(rotateDegrees.X, rotateDegrees.Y, rotateDegrees.Z);
         }
 
-        // Blender to XNA
-        private void PresetZUpToYUp_Click(object sender, EventArgs e)
+        /// <summary>
+        /// The model properties use strings not floats so this converts
+        /// </summary>
+        public void SetRotation(float rotateXdeg, float rotateYdeg, float rotateZdeg)
         {
-            XComboBox.Text = "X 90";
-            rotateX = "90";
-            YComboBox.Text = "Y 0";
-            rotateY = "0";
-            ZComboBox.Text = "Z 180";
-            rotateZ = "180";
-
-            AddMessageLine("Preset rotation selected to rotate models from being +Z upwards to being +Y upwards (Blender to XNA)");
-            AddMessageLine("Models loaded will be rotated using the follow settings: X=" +
-                rotateX + " Y=" + rotateY + " Z=" + rotateZ);
+            rotateX = ParseData.FloatToString(rotateXdeg);
+            rotateY = ParseData.FloatToString(rotateYdeg);
+            rotateZ = ParseData.FloatToString(rotateZdeg);
+            UpdateMenuItemVisibility();
         }
 
-        private void PresetMinusZUpToYUpMenu_Click(object sender, EventArgs e)
+        public Vector3 GetRotation()
         {
-            XComboBox.Text = "X -90";
-            rotateX = "-90";
-            YComboBox.Text = "Y 0";
-            rotateY = "0";
-            ZComboBox.Text = "Z 180";
-            rotateZ = "180";
-
-            AddMessageLine("Preset rotation selected to rotate models from being +Z upwards to being +Y upwards (Blender to XNA)");
-            AddMessageLine("Models loaded will be rotated using the follow settings: X=" +
-                rotateX + " Y=" + rotateY + " Z=" + rotateZ);
+            return GetRotation(rotateX, rotateY, rotateZ);
         }
 
-        private void XComboBox_Changed(object sender, EventArgs e)
+        public Vector3 GetRotation(string sX, string sY, string sZ)
         {
-            rotateX = XComboBox.Text;
-            rotateX = rotateX.Substring(2);
+            float fX = ParseData.FloatFromString(sX);
+            float fY = ParseData.FloatFromString(sY);
+            float fZ = ParseData.FloatFromString(sZ);
+            return new Vector3(fX, fY, fZ);
         }
 
-        private void YComboBox_Changed(object sender, EventArgs e)
+        // Return false if the form was cancelled
+        private bool DisplayRotationForm()
         {
-            rotateY = YComboBox.Text;
-            rotateY = rotateY.Substring(2);
+            RotationForm aForm = new RotationForm();
+
+            aForm.ModelRotation = GetRotation();
+
+            DialogResult diagResult = aForm.ShowDialog();
+            if (diagResult == DialogResult.OK)
+            {
+                // Results
+                SetRotation(aForm.ModelRotation);
+                return true;
+            }
+            return false;
         }
 
-        private void ZComboBox_Changed(object sender, EventArgs e)
+        private void RotationMenuItem_Click(object sender, EventArgs e)
         {
-            rotateZ = ZComboBox.Text;
-            rotateZ = rotateZ.Substring(2);
+            if (DisplayRotationForm())
+            {
+                AddMessageLine("Models loaded will be rotated using the follow settings: X=" +
+                    rotateX + " Y=" + rotateY + " Z=" + rotateZ);
+                UpdateMenuItemVisibility();
+            }
         }
 
         private void resetViewingPoint_Click(object sender, EventArgs e)
@@ -1436,58 +1449,17 @@ namespace Engine
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PauseGameInput(true);
-            float previousEmissive = modelViewerControl.EmissiveLightLevel;
-            float previousAmbient = modelViewerControl.AmbientLightLevel;
-            float previousDiffuse = modelViewerControl.DiffuseLightLevel;
             OptionsForm aForm = new OptionsForm();
             aForm.MovementSpeed = modelViewerControl.CurrentMoveSpeed;
             aForm.TurnSpeed = modelViewerControl.CurrentTurnSpeed;
             aForm.GridSquareWidth = modelViewerControl.GridSquareWidth.ToString();
-            aForm.EmissiveLevel = previousEmissive;
-            aForm.AmbientLevel = previousAmbient;
-            aForm.DiffuseLevel = previousDiffuse;
-            aForm.Emissive.ValueChanged += new EventHandler(Emissive_ValueChanged);
-            aForm.Ambient.ValueChanged += new EventHandler(Ambient_ValueChanged);
-            aForm.Diffuse.ValueChanged += new EventHandler(Diffuse_ValueChanged);
             DialogResult diagResult = aForm.ShowDialog();
             if (diagResult == DialogResult.OK)
             {
                 modelViewerControl.CurrentMoveSpeed = aForm.MovementSpeed;
                 modelViewerControl.CurrentTurnSpeed = aForm.TurnSpeed;
-                modelViewerControl.EmissiveLightLevel = aForm.EmissiveLevel;
-                modelViewerControl.AmbientLightLevel = aForm.AmbientLevel;
-                modelViewerControl.DiffuseLightLevel = aForm.DiffuseLevel;
-            }
-            else
-            {
-                // Revert back to the previous levels
-                modelViewerControl.EmissiveLightLevel = previousEmissive;
-                modelViewerControl.AmbientLightLevel = previousAmbient;
-                modelViewerControl.DiffuseLightLevel = previousDiffuse;
             }
             PauseGameInput(false);
-        }
-
-        private void Diffuse_ValueChanged(object sender, EventArgs e)
-        {
-            NumericUpDown sent = (NumericUpDown)sender;
-            OptionsForm aForm = (OptionsForm)sent.Parent;
-            modelViewerControl.DiffuseLightLevel = aForm.DiffuseLevel;
-        }
-
-        private void Ambient_ValueChanged(object sender, EventArgs e)
-        {
-            NumericUpDown sent = (NumericUpDown)sender;
-            OptionsForm aForm = (OptionsForm)sent.Parent;
-            modelViewerControl.AmbientLightLevel = aForm.AmbientLevel;
-        }
-
-        // Update the lighting level on the fly
-        private void Emissive_ValueChanged(object sender, EventArgs e)
-        {
-            NumericUpDown sent = (NumericUpDown)sender;
-            OptionsForm aForm = (OptionsForm)sent.Parent;
-            modelViewerControl.EmissiveLightLevel = aForm.EmissiveLevel;
         }
 
         private void changeModelTypeItem_Click(object sender, EventArgs e)
@@ -1693,6 +1665,18 @@ namespace Engine
         }
         //
         //////////////////////////////////////////////////////////////////////
-    
+
+        //////////////////////////////////////////////////////////////////////
+        // == Colours ==
+        //
+        public void SetMaterialColours(float specularPower, Vector3 specularColour, Vector3 diffuseColour, Vector3 emissiveColour)
+        {
+            modelViewerControl.SpecularPower = specularPower;
+            modelViewerControl.SpecularColour = specularColour;
+            modelViewerControl.DiffuseColour = diffuseColour;
+            modelViewerControl.EmissiveColour = emissiveColour;
+        }
+        //
+        //////////////////////////////////////////////////////////////////////
     }
 }
