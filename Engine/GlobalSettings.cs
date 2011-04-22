@@ -77,13 +77,17 @@ namespace Engine
         // Adjusts the weapon to align the grips with the hand bones so that the grips remain
         // in the right place while aiming.
         // These are offsets from the model origin in object space
+        // Can be individual rotations and transformations or a single matrix
         public const string typeAimAdjustment = "AimAdjust";
         // Other attachement positions
         public const string typeHeadOffset = "HeadOffset";
-        // Attachment points load in order
+        // Attachment points load in order 
+        // Can be individual rotations and transformations or a single matrix
         public const string typeAttachEquipment = "AttachEquip";
         // Matches the position of the gear types
+        // Can be individual rotations and transformations or a single matrix
         public const string typeAttachAdornment = "AttachAdorn";
+        // Can be individual rotations and transformations or a single matrix
         public const string typeWeaponHoldBone = "AttachHold";
         // Bone that the gear is usually attached to
         public const string typeBone = "Bone";

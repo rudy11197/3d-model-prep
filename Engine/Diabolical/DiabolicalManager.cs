@@ -159,6 +159,10 @@ namespace Engine
             return false;
         }
 
+        /// <summary>
+        /// Changing the model type also resets the effect type back to the typical 
+        /// for that model type.
+        /// </summary>
         public string ModelType
         {
             get
@@ -174,6 +178,7 @@ namespace Engine
                 if (modelAsset != null)
                 {
                     modelAsset.modelType = value;
+                    SetEffectToDefaultForType();
                 }
             }
         }
@@ -198,6 +203,10 @@ namespace Engine
             ModelRotation = new Vector3(fX, fY, fZ);
         }
 
+        /// <summary>
+        /// In most cases the effect type should match the model type but it can differ
+        /// if the effect type is set after the model type.
+        /// </summary>
         public string EffectType
         {
             get { return modelAsset.EffectType; }
@@ -249,6 +258,24 @@ namespace Engine
         {
             haveChanged = true;
             haveOptimised = false;
+        }
+        //
+        //////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        // == Validate ==
+        //
+        private void SetEffectToDefaultForType()
+        {
+            switch (ModelType)
+            {
+                case GlobalSettings.modelTypeCharacter:
+                    EffectType = GlobalSettings.effectTypeAnimated;
+                    break;
+                default:
+                    EffectType = GlobalSettings.effectTypeRigid;
+                    break;
+            }
         }
         //
         //////////////////////////////////////////////////////////////////////
@@ -584,26 +611,6 @@ namespace Engine
             return true;
         }
 
-        public void LoadDialogue()
-        {
-            if (!ChangesAreYouSure())
-            {
-                return;
-            }
-            OpenFileDialog fileDialog = new OpenFileDialog();
-            fileDialog.InitialDirectory = form.DefaultFileFolder;
-            fileDialog.Title = "Load Diabolical Model Settings";
-            fileDialog.Filter = "Model Settings (*.model)|*.model|" +
-                                "All Files (*.*)|*.*";
-
-            if (fileDialog.ShowDialog() == DialogResult.OK)
-            {
-                form.ClearMessages();
-                LoadModelSettingsFile(fileDialog.FileName);
-            }
-            form.AddMessageLine("== Finished ==");
-        }
-
         private void OptimiseAreYouSure()
         {
             if (haveOptimised)
@@ -621,6 +628,9 @@ namespace Engine
                 OptimiseModelBounds();
             }
         }
+
+        // ------------------------------------------------------------------
+        // - Save
 
         public void SaveDialogue()
         {
@@ -692,6 +702,7 @@ namespace Engine
             return result;
         }
 
+        // Save file format (.model)
         private void SaveModelSettingsFile(string fileName)
         {
             switch (modelAsset.modelType)
@@ -699,49 +710,67 @@ namespace Engine
                 case GlobalSettings.modelTypeStructure:
                     form.SaveTextFile(fileName, GetStructureSaveData());
                     break;
+                case GlobalSettings.modelTypeGearHead:
+                    form.SaveTextFile(fileName, GetHeadGearSaveData());
+                    break;
+                case GlobalSettings.modelTypeEquipLight:
+                    form.SaveTextFile(fileName, GetWeaponSaveData());
+                    break;
+                case GlobalSettings.modelTypeEquipSmallArms:
+                    form.SaveTextFile(fileName, GetWeaponSaveData());
+                    break;
+                case GlobalSettings.modelTypeEquipSupport:
+                    form.SaveTextFile(fileName, GetWeaponSaveData());
+                    break;
                 default:
                     form.AddMessageLine("The " + modelAsset.modelType + " model type is not yet supported!");
                     break;
             }
         }
 
-        // Save file format (.model)
+        private List<string> GetCommonSaveData()
+        {
+            List<string> data = new List<string>();
+            // == Common parameters
+            string output = "";
+            // - File format version
+            data.Add("2");
+            // - Effect Type
+            data.Add(ParseData.div + modelAsset.EffectType);
+            // - Model type
+            data.Add(GlobalSettings.modelTypeStructure);
+            // - Filename including relative path (.X or .FBX)
+            // The model pipeline does not load textures correctly if the path uses the standard character
+            data.Add(ParseData.UseAlternateFolderCharacters(modelAsset.modelFilename));
+            // - Rotation
+            output = ParseData.FloatToString(modelAsset.rotation.X) +
+                ParseData.div + ParseData.FloatToString(modelAsset.rotation.Y) +
+                ParseData.div + ParseData.FloatToString(modelAsset.rotation.Z);
+            data.Add(output);
+            // == Common options
+            // - Material colours
+            output = GlobalSettings.typeColour +
+                ParseData.div + ParseData.FloatToString(modelAsset.SpecularPower) +
+                ParseData.div + ParseData.ColorToString(modelAsset.SpecularColour) +
+                ParseData.div + ParseData.FloatToString(modelAsset.MaterialAlpha) +
+                ParseData.div + ParseData.ColorToString(modelAsset.DiffuseColour) +
+                ParseData.div + ParseData.ColorToString(modelAsset.EmissiveColour);
+            data.Add(output);
+
+            return data;
+        }
+
         private List<string> GetStructureSaveData()
         {
             List<string> data = new List<string>();
-            // == Model data
-            // The type and name
-            data.Add(GlobalSettings.modelTypeStructure);
-            // == Filename and effect parameters on one line
-            // The model pipeline does not load textures correctly if the path uses the standard character
-            string effect = ParseData.UseAlternateFolderCharacters(modelAsset.modelFilename);
-            if (!string.IsNullOrEmpty(modelAsset.EffectType))
-            {
-                effect += ParseData.div + modelAsset.EffectType;
-                //effect += ParseData.div + ParseData.FloatToString(modelAsset.specularIntensity);
-                //effect += ParseData.div + ParseData.FloatToString(modelAsset.specularPower);
-                /*
-                if (!string.IsNullOrEmpty(modelAsset.depthMapFile))
-                {
-                    effect += ParseData.div + modelAsset.depthMapFile;
-                    if (!string.IsNullOrEmpty(modelAsset.specularMapFile))
-                    {
-                        effect += ParseData.div + modelAsset.specularMapFile;
-                    }
-                }
-                 * */
-            }
-            data.Add(effect);
-            // == Parameters
-            string parameters = ParseData.FloatToString(modelAsset.rotation.X) +
-                ParseData.div + ParseData.FloatToString(modelAsset.rotation.Y) +
-                ParseData.div + ParseData.FloatToString(modelAsset.rotation.Z);
-            data.Add(parameters);
-            // == Options
-            // Bounds
+            // == Common parameters
+            data.AddRange(GetCommonSaveData());
+            // == Type specific options
+            string output = "";
+            // - Larger bounds
             foreach (StructureSphere ssBound in modelAsset.largerBounds)
             {
-                string output = String.Format("{0}{1}{2}{1}{3}",
+                output = String.Format("{0}{1}{2}{1}{3}",
                     GlobalSettings.typeLargerBounds,
                     ParseData.div,
                     ParseData.VectorToString(ssBound.CentreInObjectSpace),
@@ -752,9 +781,10 @@ namespace Engine
                 }
                 data.Add(output);
             }
+            // - Smaller bounds
             foreach (StructureSphere ssBound in modelAsset.smallerBounds)
             {
-                string output = String.Format("{0}{1}{2}{1}{3}",
+                output = String.Format("{0}{1}{2}{1}{3}",
                     GlobalSettings.typeSmallerBounds,
                     ParseData.div,
                     ParseData.VectorToString(ssBound.CentreInObjectSpace),
@@ -766,6 +796,147 @@ namespace Engine
                 data.Add(output);
             }
             return data;
+        }
+
+        private List<string> GetHeadGearSaveData()
+        {
+            List<string> data = new List<string>();
+            // == Common parameters
+            data.AddRange(GetCommonSaveData());
+            // == Type specific options
+            string output = "";
+            // - Bone offsets
+            output = GlobalSettings.typeHeadOffset +
+                ParseData.div + ParseData.VectorToString(modelAsset.boneAlignment.Translation);
+            data.Add(output);
+
+            return data;
+        }
+
+        private List<string> GetWeaponSaveData()
+        {
+            List<string> data = new List<string>();
+            // == Common parameters
+            data.AddRange(GetCommonSaveData());
+            // == Type specific options
+            string output = "";
+            // - Manufacturer
+            output = GlobalSettings.typeManufacturer +
+                ParseData.div + ParseData.IntToString(modelAsset.manufacturer);
+            data.Add(output);
+            // - Aim adjustment
+            // This version saves the matrix instead of individual values
+            output = GlobalSettings.typeAimAdjustment +
+                ParseData.div + ParseData.MatrixToString(modelAsset.boneAlignment);
+            data.Add(output);
+            // - Muzzle position relative to the start of the aim bone
+            output = GlobalSettings.typeWeaponMuzzle +
+                ParseData.div + ParseData.VectorToString(modelAsset.muzzleOffset);
+            data.Add(output);
+            // Half the width so the weapon can be positioned lying on the ground
+            output = GlobalSettings.typeWeaponHalfWidth +
+                ParseData.div + ParseData.FloatToString(modelAsset.halfWidth);
+            data.Add(output);
+            // Ammo
+            output = GlobalSettings.typeWeaponAmmo +
+                ParseData.div + modelAsset.ammoType +
+                ParseData.div + ParseData.IntToString(modelAsset.ammoClipCapacity) +
+                ParseData.div + ParseData.IntToString(modelAsset.ammoMaxCarried) +
+                ParseData.div + ParseData.BoolToShortString(modelAsset.isAutoFire) +
+                ParseData.div + ParseData.FloatToString(modelAsset.AmmoRateOfFire) +
+                ParseData.div + ParseData.FloatToString(modelAsset.ammoSecondsToReload) +
+                ParseData.div + modelAsset.fxReload +
+                ParseData.div + modelAsset.fxEmpty;
+            data.Add(output);
+            // - Ranges, optimum and farthest for use by the AI
+            output = GlobalSettings.typeWeaponRanges +
+                ParseData.div + ParseData.FloatToString(modelAsset.optimumClosest) +
+                ParseData.div + ParseData.FloatToString(modelAsset.optimumFarthest);
+            data.Add(output);
+            // - Recoil amount
+            output = GlobalSettings.typeWeaponRecoil +
+                ParseData.div + ParseData.FloatToString(modelAsset.recoilDegrees);
+            data.Add(output);
+            // - Zoom options
+            output = GlobalSettings.typeWeaponZoom;
+            for (int i = 0; i < modelAsset.zoomMultipliers.Count; i++)
+            {
+                output += ParseData.div + ParseData.FloatToString(modelAsset.zoomMultipliers[i]);
+            }
+            data.Add(output);
+            // - Croasshair types
+            output = GlobalSettings.typeWeaponSights;
+            for (int i = 0; i < modelAsset.crossHairs.Count; i++)
+            {
+                output += ParseData.div + ParseData.FloatToString(modelAsset.crossHairs[i]);
+            }
+            data.Add(output);
+
+            return data;
+        }
+
+        private List<string> GetCharacterSaveData()
+        {
+            List<string> data = new List<string>();
+            // == Common parameters
+            data.AddRange(GetCommonSaveData());
+            // == Type specific options
+            string output = "";
+            // - Rig type
+            output = GlobalSettings.typeRig +
+                ParseData.div + modelAsset.rigTypeName;
+            data.Add(output);
+            // - Attach equipment positions
+            for (int a = 0; a < modelAsset.attachEquip.Count; a++)
+            {
+                output = GlobalSettings.typeAttachEquipment +
+                    ParseData.div + modelAsset.GetBoneName(modelAsset.attachEquip[a].idBone) +
+                    ParseData.div + ParseData.MatrixToString(modelAsset.attachEquip[a].mtxTransform);
+                data.Add(output);
+            }
+            // - Attach adornments
+            for (int b = 0; b < modelAsset.attachAdorn.Count; b++)
+            {
+                output = GlobalSettings.typeAttachAdornment +
+                    ParseData.div + modelAsset.GetBoneName(modelAsset.attachAdorn[b].idBone) +
+                    ParseData.div + ParseData.MatrixToString(modelAsset.attachAdorn[b].mtxTransform);
+                data.Add(output);
+            }
+            // - Weapon Hold
+            output = GlobalSettings.typeWeaponHoldBone +
+                ParseData.div + modelAsset.GetBoneName(modelAsset.attachHold.idBone) +
+                ParseData.div + ParseData.MatrixToString(modelAsset.attachHold.mtxTransform);
+            data.Add(output);
+            // - Body spheres
+
+            // - Smaller bone attached spheres
+
+
+
+            return data;
+        }
+
+        // ------------------------------------------------------------------
+        // - Load
+
+        public void LoadDialogue()
+        {
+            if (!ChangesAreYouSure())
+            {
+                return;
+            }
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            fileDialog.InitialDirectory = form.DefaultFileFolder;
+            fileDialog.Title = "Load Diabolical Model Settings";
+            fileDialog.Filter = "Model Settings (*.model)|*.model|" +
+                                "All Files (*.*)|*.*";
+
+            if (fileDialog.ShowDialog() == DialogResult.OK)
+            {
+                form.ClearMessages();
+                LoadModelSettingsFile(fileDialog.FileName);
+            }
+            form.AddMessageLine("== Finished ==");
         }
 
         private void LoadModelSettingsFile(string fileName)
@@ -801,7 +972,7 @@ namespace Engine
             string filepath = Path.Combine(directory, input.ModelFilename);
             lastLoaded3DModelFile = filepath;
 
-            if (input.ModelType == GlobalSettings.modelTypeCharacter)
+            if (input.EffectType == GlobalSettings.effectTypeAnimated)
             {
                 form.LoadModel(true, filepath, input.RotateX, input.RotateY, input.RotateZ);
             }
