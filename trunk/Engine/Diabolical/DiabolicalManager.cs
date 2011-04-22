@@ -722,6 +722,9 @@ namespace Engine
                 case GlobalSettings.modelTypeEquipSupport:
                     form.SaveTextFile(fileName, GetWeaponSaveData());
                     break;
+                case GlobalSettings.modelTypeCharacter:
+                    form.SaveTextFile(fileName, GetCharacterSaveData());
+                    break;
                 default:
                     form.AddMessageLine("The " + modelAsset.modelType + " model type is not yet supported!");
                     break;
@@ -770,11 +773,9 @@ namespace Engine
             // - Larger bounds
             foreach (StructureSphere ssBound in modelAsset.largerBounds)
             {
-                output = String.Format("{0}{1}{2}{1}{3}",
-                    GlobalSettings.typeLargerBounds,
-                    ParseData.div,
-                    ParseData.VectorToString(ssBound.CentreInObjectSpace),
-                    ParseData.FloatToString(ssBound.Sphere.Radius));
+                output = GlobalSettings.typeLargerBounds + 
+                    ParseData.div + ParseData.VectorToString(ssBound.CentreInObjectSpace) +
+                    ParseData.div + ParseData.FloatToString(ssBound.Sphere.Radius);
                 if (ssBound.IDs.Count > 0)
                 {
                     output += ParseData.div + ParseData.IntListToString(ssBound.IDs);
@@ -784,11 +785,9 @@ namespace Engine
             // - Smaller bounds
             foreach (StructureSphere ssBound in modelAsset.smallerBounds)
             {
-                output = String.Format("{0}{1}{2}{1}{3}",
-                    GlobalSettings.typeSmallerBounds,
-                    ParseData.div,
-                    ParseData.VectorToString(ssBound.CentreInObjectSpace),
-                    ParseData.FloatToString(ssBound.Sphere.Radius));
+                output = GlobalSettings.typeSmallerBounds + 
+                    ParseData.div + ParseData.VectorToString(ssBound.CentreInObjectSpace) +
+                    ParseData.div + ParseData.FloatToString(ssBound.Sphere.Radius);
                 if (ssBound.IDs.Count > 0)
                 {
                     output += ParseData.div + ParseData.IntListToString(ssBound.IDs);
@@ -908,10 +907,33 @@ namespace Engine
                 ParseData.div + ParseData.MatrixToString(modelAsset.attachHold.mtxTransform);
             data.Add(output);
             // - Body spheres
-
+            // Standing sphere and crouched sphere
+            if (modelAsset.standingSpheres.Count != modelAsset.crouchedSpheres.Count)
+            {
+                form.AddMessageLine("The quantity of standing and crouched spheres do not match so may not load correctly!");
+            }
+            for (int c = 0; c < modelAsset.standingSpheres.Count; c++)
+            {
+                output = GlobalSettings.typeLargerSpheres +
+                    ParseData.div + ParseData.VectorToString(modelAsset.standingSpheres[c].Center) +
+                    ParseData.div + ParseData.FloatToString(modelAsset.standingSpheres[c].Radius);
+                if (c < modelAsset.crouchedSpheres.Count)
+                {
+                    output += ParseData.div + ParseData.VectorToString(modelAsset.crouchedSpheres[c].Center) +
+                              ParseData.div + ParseData.FloatToString(modelAsset.crouchedSpheres[c].Radius);
+                }
+                data.Add(output);
+            }
             // - Smaller bone attached spheres
-
-
+            // Bone name, radius and offset
+            for (int d = 0; d < modelAsset.attachedSpheres.Count; d++)
+            {
+                output = GlobalSettings.typeSmallerSpheres +
+                    ParseData.div + modelAsset.GetBoneName(modelAsset.attachedSpheres[d].BoneIndex) + 
+                    ParseData.div + ParseData.FloatToString(modelAsset.attachedSpheres[d].Sphere.Radius) +
+                    ParseData.div + ParseData.FloatToString(modelAsset.attachedSpheres[d].Offset);
+                data.Add(output);
+            }
 
             return data;
         }

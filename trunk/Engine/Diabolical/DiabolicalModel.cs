@@ -556,6 +556,7 @@ namespace Engine
             }
         }
 
+        // This method is not efficient but should be reliable.
         public string GetBoneName(int ID)
         {
             // Look up our custom skinning information.
