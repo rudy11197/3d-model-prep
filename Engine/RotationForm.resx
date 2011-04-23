@@ -122,6 +122,6 @@
 
 For use in Diabolical: The Shooter models created in Blender and animated usually require +Z to Y up.  Those models created without animation typically require -Z to Y up!
 
-Note that the preset rotations end up with the model facing away from the XNA BasicEffect default lighting so the front of the model is in darkness and the back is lit by the key light!</value>
+The preset rotations end up with the model facing away from the XNA BasicEffect default lighting so the front of the model is in darkness and the back is lit by the key light!  This model viewer also defaults to have the lighting direction in the reverse of the directions used by BasicEffect but that can be changed from the View menu.</value>
   </data>
 </root>

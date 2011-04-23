@@ -347,6 +347,34 @@ namespace Engine
         {
             EmissiveColour = Vector3.Zero;
         }
+
+        private void buttonSpecFabric_Click(object sender, EventArgs e)
+        {
+            SpecularColour = new Vector3(0.25f);
+            SpecularPower = 8f;
+            UpdateColours();
+        }
+
+        private void buttonSpecDefault_Click(object sender, EventArgs e)
+        {
+            SpecularColour = new Vector3(GlobalSettings.colourSpecularGreyDefault);
+            SpecularPower = 16f;
+            UpdateColours();
+        }
+
+        private void buttonSpecMetal_Click(object sender, EventArgs e)
+        {
+            SpecularColour = new Vector3(0.5f);
+            SpecularPower = 24f;
+            UpdateColours();
+        }
+
+        private void buttonSpecPolished_Click(object sender, EventArgs e)
+        {
+            SpecularColour = new Vector3(0.75f);
+            SpecularPower = 48f;
+            UpdateColours();
+        }
         //
         //////////////////////////////////////////////////////////////////////
     }
