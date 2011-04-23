@@ -58,6 +58,9 @@ namespace Engine
             this.boundsWhileStandingItem = new System.Windows.Forms.ToolStripMenuItem();
             this.boundsWhileCrouchedItem = new System.Windows.Forms.ToolStripMenuItem();
             this.boundsAttachedToBonesItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
+            this.light1EnabledToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.light2EnabledToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.diabolicalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadmodelItem = new System.Windows.Forms.ToolStripMenuItem();
             this.savemodelItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -88,9 +91,7 @@ namespace Engine
             this.labelSmall = new System.Windows.Forms.Label();
             this.buttonLarge = new System.Windows.Forms.Button();
             this.buttonSmall = new System.Windows.Forms.Button();
-            this.light1EnabledToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
-            this.light2EnabledToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reverseLightingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modelViewerControl = new Engine.ModelViewerControl();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericLarge)).BeginInit();
@@ -110,7 +111,7 @@ namespace Engine
             this.ClipNamesComboBox});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1008, 27);
+            this.menuStrip1.Size = new System.Drawing.Size(1008, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -129,7 +130,7 @@ namespace Engine
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 23);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // LoadRigidModelMenu
@@ -223,9 +224,10 @@ namespace Engine
             this.boundsAttachedToBonesItem,
             this.toolStripSeparator10,
             this.light1EnabledToolStripMenuItem,
-            this.light2EnabledToolStripMenuItem});
+            this.light2EnabledToolStripMenuItem,
+            this.reverseLightingToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 23);
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem.Text = "&View";
             // 
             // yUpMenuItem
@@ -349,6 +351,29 @@ namespace Engine
             this.boundsAttachedToBonesItem.Size = new System.Drawing.Size(267, 22);
             this.boundsAttachedToBonesItem.Text = "Bounds Attached To &Bones";
             // 
+            // toolStripSeparator10
+            // 
+            this.toolStripSeparator10.Name = "toolStripSeparator10";
+            this.toolStripSeparator10.Size = new System.Drawing.Size(264, 6);
+            // 
+            // light1EnabledToolStripMenuItem
+            // 
+            this.light1EnabledToolStripMenuItem.Checked = true;
+            this.light1EnabledToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.light1EnabledToolStripMenuItem.Name = "light1EnabledToolStripMenuItem";
+            this.light1EnabledToolStripMenuItem.Size = new System.Drawing.Size(267, 22);
+            this.light1EnabledToolStripMenuItem.Text = "Light 1 Enabled";
+            this.light1EnabledToolStripMenuItem.Click += new System.EventHandler(this.light1EnabledToolStripMenuItem_Click);
+            // 
+            // light2EnabledToolStripMenuItem
+            // 
+            this.light2EnabledToolStripMenuItem.Checked = true;
+            this.light2EnabledToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.light2EnabledToolStripMenuItem.Name = "light2EnabledToolStripMenuItem";
+            this.light2EnabledToolStripMenuItem.Size = new System.Drawing.Size(267, 22);
+            this.light2EnabledToolStripMenuItem.Text = "Light 2 Enabled";
+            this.light2EnabledToolStripMenuItem.Click += new System.EventHandler(this.light2EnabledToolStripMenuItem_Click);
+            // 
             // diabolicalToolStripMenuItem
             // 
             this.diabolicalToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -362,7 +387,7 @@ namespace Engine
             this.createStructureBoundsItem,
             this.optimiseBoundsItem});
             this.diabolicalToolStripMenuItem.Name = "diabolicalToolStripMenuItem";
-            this.diabolicalToolStripMenuItem.Size = new System.Drawing.Size(71, 23);
+            this.diabolicalToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
             this.diabolicalToolStripMenuItem.Text = "&Diabolical";
             // 
             // loadmodelItem
@@ -435,7 +460,7 @@ namespace Engine
             this.toolStripSeparator8,
             this.optionsToolStripMenuItem});
             this.ToolsMenuItem.Name = "ToolsMenuItem";
-            this.ToolsMenuItem.Size = new System.Drawing.Size(48, 23);
+            this.ToolsMenuItem.Size = new System.Drawing.Size(48, 20);
             this.ToolsMenuItem.Text = "&Tools";
             // 
             // splitFBXMenuItem
@@ -497,7 +522,7 @@ namespace Engine
             this.windowToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.helpToolStripMenuItem1});
             this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
-            this.windowToolStripMenuItem.Size = new System.Drawing.Size(63, 23);
+            this.windowToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
             this.windowToolStripMenuItem.Text = "&Window";
             // 
             // helpToolStripMenuItem1
@@ -603,28 +628,14 @@ namespace Engine
             this.buttonSmall.UseVisualStyleBackColor = true;
             this.buttonSmall.Click += new System.EventHandler(this.buttonSmall_Click);
             // 
-            // light1EnabledToolStripMenuItem
+            // reverseLightingToolStripMenuItem
             // 
-            this.light1EnabledToolStripMenuItem.Checked = true;
-            this.light1EnabledToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.light1EnabledToolStripMenuItem.Name = "light1EnabledToolStripMenuItem";
-            this.light1EnabledToolStripMenuItem.Size = new System.Drawing.Size(267, 22);
-            this.light1EnabledToolStripMenuItem.Text = "Light 1 Enabled";
-            this.light1EnabledToolStripMenuItem.Click += new System.EventHandler(this.light1EnabledToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator10
-            // 
-            this.toolStripSeparator10.Name = "toolStripSeparator10";
-            this.toolStripSeparator10.Size = new System.Drawing.Size(264, 6);
-            // 
-            // light2EnabledToolStripMenuItem
-            // 
-            this.light2EnabledToolStripMenuItem.Checked = true;
-            this.light2EnabledToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.light2EnabledToolStripMenuItem.Name = "light2EnabledToolStripMenuItem";
-            this.light2EnabledToolStripMenuItem.Size = new System.Drawing.Size(267, 22);
-            this.light2EnabledToolStripMenuItem.Text = "Light 2 Enabled";
-            this.light2EnabledToolStripMenuItem.Click += new System.EventHandler(this.light2EnabledToolStripMenuItem_Click);
+            this.reverseLightingToolStripMenuItem.Checked = true;
+            this.reverseLightingToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.reverseLightingToolStripMenuItem.Name = "reverseLightingToolStripMenuItem";
+            this.reverseLightingToolStripMenuItem.Size = new System.Drawing.Size(267, 22);
+            this.reverseLightingToolStripMenuItem.Text = "Reverse Lighting";
+            this.reverseLightingToolStripMenuItem.Click += new System.EventHandler(this.reverseLightingToolStripMenuItem_Click);
             // 
             // modelViewerControl
             // 
@@ -634,11 +645,12 @@ namespace Engine
             this.modelViewerControl.Dock = System.Windows.Forms.DockStyle.Top;
             this.modelViewerControl.EmissiveColour = new Microsoft.Xna.Framework.Vector3(0F, 0F, 0F);
             this.modelViewerControl.IsAnimated = false;
-            this.modelViewerControl.Light1Enabled = false;
-            this.modelViewerControl.Light2Enabled = false;
-            this.modelViewerControl.Location = new System.Drawing.Point(0, 27);
+            this.modelViewerControl.Light1Enabled = true;
+            this.modelViewerControl.Light2Enabled = true;
+            this.modelViewerControl.Location = new System.Drawing.Point(0, 24);
             this.modelViewerControl.Name = "modelViewerControl";
             this.modelViewerControl.PauseInput = true;
+            this.modelViewerControl.ReverseLighting = true;
             this.modelViewerControl.ShowAxes = true;
             this.modelViewerControl.Size = new System.Drawing.Size(1008, 648);
             this.modelViewerControl.SpecularColour = new Microsoft.Xna.Framework.Vector3(0.25F, 0.25F, 0.25F);
@@ -742,6 +754,7 @@ namespace Engine
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
         private System.Windows.Forms.ToolStripMenuItem light1EnabledToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem light2EnabledToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reverseLightingToolStripMenuItem;
 
     }
 }

@@ -567,6 +567,7 @@ namespace Engine
         {
             light1EnabledToolStripMenuItem.Checked = modelViewerControl.Light1Enabled;
             light2EnabledToolStripMenuItem.Checked = modelViewerControl.Light2Enabled;
+            reverseLightingToolStripMenuItem.Checked = modelViewerControl.ReverseLighting;
         }
         /// <summary>
         /// Call this to enable the various menu items that require an already loaded animated model
@@ -1694,6 +1695,12 @@ namespace Engine
         {
             modelViewerControl.Light2Enabled = !modelViewerControl.Light2Enabled;
             light2EnabledToolStripMenuItem.Checked = modelViewerControl.Light2Enabled;
+        }
+
+        private void reverseLightingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            modelViewerControl.ReverseLighting = !modelViewerControl.ReverseLighting;
+            reverseLightingToolStripMenuItem.Checked = modelViewerControl.ReverseLighting;
         }
         //
         //////////////////////////////////////////////////////////////////////

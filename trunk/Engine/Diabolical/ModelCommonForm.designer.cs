@@ -42,6 +42,7 @@
             this.labelCommonNote = new System.Windows.Forms.Label();
             this.buttonBlenderAnimated = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.positionRotation = new Engine.PositionControl();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
             this.buttonSpecularDefault = new System.Windows.Forms.Button();
@@ -66,7 +67,7 @@
             this.buttonDiffuseColour = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.positionRotation = new Engine.PositionControl();
+            this.label15 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericSpecularPower)).BeginInit();
@@ -205,6 +206,22 @@
             this.label1.Size = new System.Drawing.Size(50, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Rotation:";
+            // 
+            // positionRotation
+            // 
+            this.positionRotation.DecimalPlaces = 0;
+            this.positionRotation.Increment = new decimal(new int[] {
+            45,
+            0,
+            0,
+            0});
+            this.positionRotation.Location = new System.Drawing.Point(115, 52);
+            this.positionRotation.Maximum = new Microsoft.Xna.Framework.Vector3(180F, 180F, 180F);
+            this.positionRotation.Minimum = new Microsoft.Xna.Framework.Vector3(-180F, -180F, -180F);
+            this.positionRotation.Name = "positionRotation";
+            this.positionRotation.Size = new System.Drawing.Size(359, 26);
+            this.positionRotation.TabIndex = 70;
+            this.positionRotation.Value = new Microsoft.Xna.Framework.Vector3(0F, 0F, 0F);
             // 
             // groupBox2
             // 
@@ -360,6 +377,7 @@
             // 
             // groupMaterial
             // 
+            this.groupMaterial.Controls.Add(this.label15);
             this.groupMaterial.Controls.Add(this.label11);
             this.groupMaterial.Controls.Add(this.buttonEmissiveDefault);
             this.groupMaterial.Controls.Add(this.label10);
@@ -451,21 +469,15 @@
             this.label7.TabIndex = 0;
             this.label7.Text = "Diffuse Colour:";
             // 
-            // positionRotation
+            // label15
             // 
-            this.positionRotation.DecimalPlaces = 0;
-            this.positionRotation.Increment = new decimal(new int[] {
-            45,
-            0,
-            0,
-            0});
-            this.positionRotation.Location = new System.Drawing.Point(115, 52);
-            this.positionRotation.Maximum = new Microsoft.Xna.Framework.Vector3(180F, 180F, 180F);
-            this.positionRotation.Minimum = new Microsoft.Xna.Framework.Vector3(-180F, -180F, -180F);
-            this.positionRotation.Name = "positionRotation";
-            this.positionRotation.Size = new System.Drawing.Size(359, 26);
-            this.positionRotation.TabIndex = 67;
-            this.positionRotation.Value = new Microsoft.Xna.Framework.Vector3(0F, 0F, 0F);
+            this.label15.Location = new System.Drawing.Point(469, 23);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(416, 61);
+            this.label15.TabIndex = 65;
+            this.label15.Text = "Unless you want to create a specific effect it is likely that the material colour" +
+    "s should remain at their defaults so that the colour of the object is taken from" +
+    " the texture applied to the model.";
             // 
             // ModelCommonForm
             // 
@@ -532,5 +544,6 @@
         private System.Windows.Forms.Button buttonDiffuseDefault;
         private System.Windows.Forms.Button buttonEmissiveColour;
         private System.Windows.Forms.Button buttonDiffuseColour;
+        private System.Windows.Forms.Label label15;
     }
 }

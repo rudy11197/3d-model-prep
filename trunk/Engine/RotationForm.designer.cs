@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RotationForm));
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.groupRotate = new System.Windows.Forms.GroupBox();
@@ -44,7 +45,7 @@
             // buttonOK
             // 
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(370, 178);
+            this.buttonOK.Location = new System.Drawing.Point(371, 226);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 50;
@@ -54,7 +55,7 @@
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(451, 178);
+            this.buttonCancel.Location = new System.Drawing.Point(452, 226);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 51;
@@ -72,7 +73,7 @@
             this.groupRotate.Controls.Add(this.positionRotation);
             this.groupRotate.Location = new System.Drawing.Point(12, 12);
             this.groupRotate.Name = "groupRotate";
-            this.groupRotate.Size = new System.Drawing.Size(514, 160);
+            this.groupRotate.Size = new System.Drawing.Size(514, 208);
             this.groupRotate.TabIndex = 0;
             this.groupRotate.TabStop = false;
             this.groupRotate.Text = "Rotate the model while loading";
@@ -119,11 +120,9 @@
             // 
             this.labelCommonNote.Location = new System.Drawing.Point(6, 91);
             this.labelCommonNote.Name = "labelCommonNote";
-            this.labelCommonNote.Size = new System.Drawing.Size(486, 56);
+            this.labelCommonNote.Size = new System.Drawing.Size(486, 114);
             this.labelCommonNote.TabIndex = 5;
-            this.labelCommonNote.Text = "The rotation is applied as the model is loaded.  This rotates all the vertices an" +
-    "d animations.\r\n\r\nBlender animated models usually require +Z to Y up and rigid mo" +
-    "dels typically require -Z to Y up!";
+            this.labelCommonNote.Text = resources.GetString("labelCommonNote.Text");
             // 
             // buttonBlenderAnimated
             // 
@@ -148,14 +147,14 @@
             this.positionRotation.Minimum = new Microsoft.Xna.Framework.Vector3(-180F, -180F, -180F);
             this.positionRotation.Name = "positionRotation";
             this.positionRotation.Size = new System.Drawing.Size(359, 26);
-            this.positionRotation.TabIndex = 9;
+            this.positionRotation.TabIndex = 12;
             this.positionRotation.Value = new Microsoft.Xna.Framework.Vector3(0F, 0F, 0F);
             // 
             // RotationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(539, 213);
+            this.ClientSize = new System.Drawing.Size(539, 261);
             this.Controls.Add(this.groupRotate);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);

@@ -79,7 +79,7 @@ namespace Engine
         // Which types we have property forms for
         public bool CanEdit()
         {
-            if (IsStructure)
+            if (IsStructure || IsCharacter || IsWeapon)
             {
                 return true;
             }
@@ -105,6 +105,21 @@ namespace Engine
             {
                 if (modelAsset != null &&
                     modelAsset.modelType == GlobalSettings.modelTypeCharacter)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        public bool IsWeapon
+        {
+            get
+            {
+                if (modelAsset != null &&
+                    (modelAsset.modelType == GlobalSettings.modelTypeEquipLight ||
+                    modelAsset.modelType == GlobalSettings.modelTypeEquipSupport ||
+                    modelAsset.modelType == GlobalSettings.modelTypeEquipSmallArms))
                 {
                     return true;
                 }
