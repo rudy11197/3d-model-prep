@@ -973,6 +973,17 @@ namespace Engine
             }
 
             ProcessData(result, fileName);
+            SetColourValuesFromModel();
+        }
+
+        // Call after the model has loaded to make sure everyting is working to the same values
+        private void SetColourValuesFromModel()
+        {
+            SpecularPower = modelAsset.SpecularPower;
+            SpecularColour = modelAsset.SpecularColour;
+            DiffuseColour = modelAsset.DiffuseColour;
+            EmissiveColour = modelAsset.EmissiveColour;
+            form.SetMaterialColours(SpecularPower, SpecularColour, DiffuseColour, EmissiveColour);
         }
 
         private void ProcessData(string[] source, string fileName)

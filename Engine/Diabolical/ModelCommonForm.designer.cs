@@ -43,6 +43,9 @@
             this.buttonBlenderAnimated = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.buttonSpecularDefault = new System.Windows.Forms.Button();
+            this.buttonSpecularColour = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.labelNormalMapNote = new System.Windows.Forms.Label();
@@ -55,18 +58,15 @@
             this.comboEffect = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupMaterial = new System.Windows.Forms.GroupBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.buttonSpecularColour = new System.Windows.Forms.Button();
-            this.buttonSpecularDefault = new System.Windows.Forms.Button();
-            this.positionRotation = new Engine.PositionControl();
-            this.label9 = new System.Windows.Forms.Label();
-            this.buttonDiffuseColour = new System.Windows.Forms.Button();
-            this.buttonEmissiveColour = new System.Windows.Forms.Button();
-            this.label10 = new System.Windows.Forms.Label();
-            this.buttonDiffuseDefault = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.buttonEmissiveDefault = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.buttonDiffuseDefault = new System.Windows.Forms.Button();
+            this.buttonEmissiveColour = new System.Windows.Forms.Button();
+            this.buttonDiffuseColour = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.positionRotation = new Engine.PositionControl();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericSpecularPower)).BeginInit();
@@ -76,7 +76,7 @@
             // buttonOK
             // 
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(747, 456);
+            this.buttonOK.Location = new System.Drawing.Point(747, 505);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 50;
@@ -86,7 +86,7 @@
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(828, 456);
+            this.buttonCancel.Location = new System.Drawing.Point(828, 505);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 51;
@@ -224,10 +224,39 @@
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Location = new System.Drawing.Point(12, 175);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(891, 169);
+            this.groupBox2.Size = new System.Drawing.Size(891, 218);
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Effect";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(294, 141);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(16, 13);
+            this.label9.TabIndex = 60;
+            this.label9.Text = "or";
+            // 
+            // buttonSpecularDefault
+            // 
+            this.buttonSpecularDefault.Location = new System.Drawing.Point(316, 136);
+            this.buttonSpecularDefault.Name = "buttonSpecularDefault";
+            this.buttonSpecularDefault.Size = new System.Drawing.Size(131, 23);
+            this.buttonSpecularDefault.TabIndex = 59;
+            this.buttonSpecularDefault.Text = "Default Colour Grey";
+            this.buttonSpecularDefault.UseVisualStyleBackColor = true;
+            this.buttonSpecularDefault.Click += new System.EventHandler(this.buttonSpecularDefault_Click);
+            // 
+            // buttonSpecularColour
+            // 
+            this.buttonSpecularColour.BackColor = System.Drawing.Color.White;
+            this.buttonSpecularColour.Location = new System.Drawing.Point(130, 136);
+            this.buttonSpecularColour.Name = "buttonSpecularColour";
+            this.buttonSpecularColour.Size = new System.Drawing.Size(144, 23);
+            this.buttonSpecularColour.TabIndex = 58;
+            this.buttonSpecularColour.UseVisualStyleBackColor = false;
+            this.buttonSpecularColour.Click += new System.EventHandler(this.buttonSpecularColour_Click);
             // 
             // label6
             // 
@@ -240,12 +269,11 @@
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(294, 97);
+            this.label4.Location = new System.Drawing.Point(466, 97);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(556, 34);
+            this.label4.Size = new System.Drawing.Size(419, 118);
             this.label4.TabIndex = 56;
-            this.label4.Text = "How much the surface of the model shines.  The lower the number the more shiny.  " +
-    "\r\n20 is dull.  16 is fairly normal.  4 is for metal.  2 is shiny.";
+            this.label4.Text = resources.GetString("label4.Text");
             // 
             // labelNormalMapNote
             // 
@@ -340,114 +368,12 @@
             this.groupMaterial.Controls.Add(this.buttonDiffuseColour);
             this.groupMaterial.Controls.Add(this.label8);
             this.groupMaterial.Controls.Add(this.label7);
-            this.groupMaterial.Location = new System.Drawing.Point(12, 350);
+            this.groupMaterial.Location = new System.Drawing.Point(12, 399);
             this.groupMaterial.Name = "groupMaterial";
             this.groupMaterial.Size = new System.Drawing.Size(891, 100);
             this.groupMaterial.TabIndex = 20;
             this.groupMaterial.TabStop = false;
             this.groupMaterial.Text = "Material";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 66);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(84, 13);
-            this.label8.TabIndex = 1;
-            this.label8.Text = "Emissive Colour:";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 28);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(76, 13);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "Diffuse Colour:";
-            // 
-            // buttonSpecularColour
-            // 
-            this.buttonSpecularColour.BackColor = System.Drawing.Color.White;
-            this.buttonSpecularColour.Location = new System.Drawing.Point(130, 136);
-            this.buttonSpecularColour.Name = "buttonSpecularColour";
-            this.buttonSpecularColour.Size = new System.Drawing.Size(144, 23);
-            this.buttonSpecularColour.TabIndex = 58;
-            this.buttonSpecularColour.UseVisualStyleBackColor = false;
-            this.buttonSpecularColour.Click += new System.EventHandler(this.buttonSpecularColour_Click);
-            // 
-            // buttonSpecularDefault
-            // 
-            this.buttonSpecularDefault.Location = new System.Drawing.Point(316, 136);
-            this.buttonSpecularDefault.Name = "buttonSpecularDefault";
-            this.buttonSpecularDefault.Size = new System.Drawing.Size(131, 23);
-            this.buttonSpecularDefault.TabIndex = 59;
-            this.buttonSpecularDefault.Text = "Default Colour White";
-            this.buttonSpecularDefault.UseVisualStyleBackColor = true;
-            this.buttonSpecularDefault.Click += new System.EventHandler(this.buttonSpecularDefault_Click);
-            // 
-            // positionRotation
-            // 
-            this.positionRotation.DecimalPlaces = 0;
-            this.positionRotation.Increment = new decimal(new int[] {
-            45,
-            0,
-            0,
-            0});
-            this.positionRotation.Location = new System.Drawing.Point(115, 52);
-            this.positionRotation.Maximum = new Microsoft.Xna.Framework.Vector3(180F, 180F, 180F);
-            this.positionRotation.Minimum = new Microsoft.Xna.Framework.Vector3(-180F, -180F, -180F);
-            this.positionRotation.Name = "positionRotation";
-            this.positionRotation.Size = new System.Drawing.Size(359, 26);
-            this.positionRotation.TabIndex = 40;
-            this.positionRotation.Value = new Microsoft.Xna.Framework.Vector3(0F, 0F, 0F);
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(294, 141);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(16, 13);
-            this.label9.TabIndex = 60;
-            this.label9.Text = "or";
-            // 
-            // buttonDiffuseColour
-            // 
-            this.buttonDiffuseColour.BackColor = System.Drawing.Color.White;
-            this.buttonDiffuseColour.Location = new System.Drawing.Point(130, 23);
-            this.buttonDiffuseColour.Name = "buttonDiffuseColour";
-            this.buttonDiffuseColour.Size = new System.Drawing.Size(144, 23);
-            this.buttonDiffuseColour.TabIndex = 59;
-            this.buttonDiffuseColour.UseVisualStyleBackColor = false;
-            this.buttonDiffuseColour.Click += new System.EventHandler(this.buttonDiffuseColour_Click);
-            // 
-            // buttonEmissiveColour
-            // 
-            this.buttonEmissiveColour.BackColor = System.Drawing.Color.Black;
-            this.buttonEmissiveColour.Location = new System.Drawing.Point(130, 61);
-            this.buttonEmissiveColour.Name = "buttonEmissiveColour";
-            this.buttonEmissiveColour.Size = new System.Drawing.Size(144, 23);
-            this.buttonEmissiveColour.TabIndex = 60;
-            this.buttonEmissiveColour.UseVisualStyleBackColor = false;
-            this.buttonEmissiveColour.Click += new System.EventHandler(this.buttonEmissiveColour_Click);
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(294, 28);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(16, 13);
-            this.label10.TabIndex = 62;
-            this.label10.Text = "or";
-            // 
-            // buttonDiffuseDefault
-            // 
-            this.buttonDiffuseDefault.Location = new System.Drawing.Point(316, 23);
-            this.buttonDiffuseDefault.Name = "buttonDiffuseDefault";
-            this.buttonDiffuseDefault.Size = new System.Drawing.Size(131, 23);
-            this.buttonDiffuseDefault.TabIndex = 61;
-            this.buttonDiffuseDefault.Text = "Default Colour White";
-            this.buttonDiffuseDefault.UseVisualStyleBackColor = true;
-            this.buttonDiffuseDefault.Click += new System.EventHandler(this.buttonDiffuseDefault_Click);
             // 
             // label11
             // 
@@ -468,11 +394,84 @@
             this.buttonEmissiveDefault.UseVisualStyleBackColor = true;
             this.buttonEmissiveDefault.Click += new System.EventHandler(this.buttonEmissiveDefault_Click);
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(294, 28);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(16, 13);
+            this.label10.TabIndex = 62;
+            this.label10.Text = "or";
+            // 
+            // buttonDiffuseDefault
+            // 
+            this.buttonDiffuseDefault.Location = new System.Drawing.Point(316, 23);
+            this.buttonDiffuseDefault.Name = "buttonDiffuseDefault";
+            this.buttonDiffuseDefault.Size = new System.Drawing.Size(131, 23);
+            this.buttonDiffuseDefault.TabIndex = 61;
+            this.buttonDiffuseDefault.Text = "Default Colour White";
+            this.buttonDiffuseDefault.UseVisualStyleBackColor = true;
+            this.buttonDiffuseDefault.Click += new System.EventHandler(this.buttonDiffuseDefault_Click);
+            // 
+            // buttonEmissiveColour
+            // 
+            this.buttonEmissiveColour.BackColor = System.Drawing.Color.Black;
+            this.buttonEmissiveColour.Location = new System.Drawing.Point(130, 61);
+            this.buttonEmissiveColour.Name = "buttonEmissiveColour";
+            this.buttonEmissiveColour.Size = new System.Drawing.Size(144, 23);
+            this.buttonEmissiveColour.TabIndex = 60;
+            this.buttonEmissiveColour.UseVisualStyleBackColor = false;
+            this.buttonEmissiveColour.Click += new System.EventHandler(this.buttonEmissiveColour_Click);
+            // 
+            // buttonDiffuseColour
+            // 
+            this.buttonDiffuseColour.BackColor = System.Drawing.Color.White;
+            this.buttonDiffuseColour.Location = new System.Drawing.Point(130, 23);
+            this.buttonDiffuseColour.Name = "buttonDiffuseColour";
+            this.buttonDiffuseColour.Size = new System.Drawing.Size(144, 23);
+            this.buttonDiffuseColour.TabIndex = 59;
+            this.buttonDiffuseColour.UseVisualStyleBackColor = false;
+            this.buttonDiffuseColour.Click += new System.EventHandler(this.buttonDiffuseColour_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 66);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(84, 13);
+            this.label8.TabIndex = 1;
+            this.label8.Text = "Emissive Colour:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 28);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(76, 13);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "Diffuse Colour:";
+            // 
+            // positionRotation
+            // 
+            this.positionRotation.DecimalPlaces = 0;
+            this.positionRotation.Increment = new decimal(new int[] {
+            45,
+            0,
+            0,
+            0});
+            this.positionRotation.Location = new System.Drawing.Point(115, 52);
+            this.positionRotation.Maximum = new Microsoft.Xna.Framework.Vector3(180F, 180F, 180F);
+            this.positionRotation.Minimum = new Microsoft.Xna.Framework.Vector3(-180F, -180F, -180F);
+            this.positionRotation.Name = "positionRotation";
+            this.positionRotation.Size = new System.Drawing.Size(359, 26);
+            this.positionRotation.TabIndex = 67;
+            this.positionRotation.Value = new Microsoft.Xna.Framework.Vector3(0F, 0F, 0F);
+            // 
             // ModelCommonForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(915, 491);
+            this.ClientSize = new System.Drawing.Size(915, 540);
             this.Controls.Add(this.groupMaterial);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);

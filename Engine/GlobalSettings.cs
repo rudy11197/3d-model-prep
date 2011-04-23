@@ -48,6 +48,7 @@ namespace Engine
         public const string effectTypeNormalMap = "NormalMap";
         public const string effectTypeAnimated = "Animated";
         public const string effectTypeRigid = "Rigid";
+        public const float colourSpecularGreyDefault = 0.25f;
         // Models
         public const string modelTypeCharacter = "Character";
         public const string modelTypeStructure = "Structure";

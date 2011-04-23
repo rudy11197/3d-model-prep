@@ -88,6 +88,9 @@ namespace Engine
             this.labelSmall = new System.Windows.Forms.Label();
             this.buttonLarge = new System.Windows.Forms.Button();
             this.buttonSmall = new System.Windows.Forms.Button();
+            this.light1EnabledToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
+            this.light2EnabledToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modelViewerControl = new Engine.ModelViewerControl();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericLarge)).BeginInit();
@@ -217,7 +220,10 @@ namespace Engine
             this.smallBoundsInTheSelectedBoundItem,
             this.boundsWhileStandingItem,
             this.boundsWhileCrouchedItem,
-            this.boundsAttachedToBonesItem});
+            this.boundsAttachedToBonesItem,
+            this.toolStripSeparator10,
+            this.light1EnabledToolStripMenuItem,
+            this.light2EnabledToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 23);
             this.viewToolStripMenuItem.Text = "&View";
@@ -597,17 +603,46 @@ namespace Engine
             this.buttonSmall.UseVisualStyleBackColor = true;
             this.buttonSmall.Click += new System.EventHandler(this.buttonSmall_Click);
             // 
+            // light1EnabledToolStripMenuItem
+            // 
+            this.light1EnabledToolStripMenuItem.Checked = true;
+            this.light1EnabledToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.light1EnabledToolStripMenuItem.Name = "light1EnabledToolStripMenuItem";
+            this.light1EnabledToolStripMenuItem.Size = new System.Drawing.Size(267, 22);
+            this.light1EnabledToolStripMenuItem.Text = "Light 1 Enabled";
+            this.light1EnabledToolStripMenuItem.Click += new System.EventHandler(this.light1EnabledToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator10
+            // 
+            this.toolStripSeparator10.Name = "toolStripSeparator10";
+            this.toolStripSeparator10.Size = new System.Drawing.Size(264, 6);
+            // 
+            // light2EnabledToolStripMenuItem
+            // 
+            this.light2EnabledToolStripMenuItem.Checked = true;
+            this.light2EnabledToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.light2EnabledToolStripMenuItem.Name = "light2EnabledToolStripMenuItem";
+            this.light2EnabledToolStripMenuItem.Size = new System.Drawing.Size(267, 22);
+            this.light2EnabledToolStripMenuItem.Text = "Light 2 Enabled";
+            this.light2EnabledToolStripMenuItem.Click += new System.EventHandler(this.light2EnabledToolStripMenuItem_Click);
+            // 
             // modelViewerControl
             // 
             this.modelViewerControl.CurrentMoveSpeed = 0.6F;
             this.modelViewerControl.CurrentTurnSpeed = 1F;
+            this.modelViewerControl.DiffuseColour = new Microsoft.Xna.Framework.Vector3(1F, 1F, 1F);
             this.modelViewerControl.Dock = System.Windows.Forms.DockStyle.Top;
+            this.modelViewerControl.EmissiveColour = new Microsoft.Xna.Framework.Vector3(0F, 0F, 0F);
             this.modelViewerControl.IsAnimated = false;
+            this.modelViewerControl.Light1Enabled = false;
+            this.modelViewerControl.Light2Enabled = false;
             this.modelViewerControl.Location = new System.Drawing.Point(0, 27);
             this.modelViewerControl.Name = "modelViewerControl";
             this.modelViewerControl.PauseInput = true;
             this.modelViewerControl.ShowAxes = true;
             this.modelViewerControl.Size = new System.Drawing.Size(1008, 648);
+            this.modelViewerControl.SpecularColour = new Microsoft.Xna.Framework.Vector3(0.25F, 0.25F, 0.25F);
+            this.modelViewerControl.SpecularPower = 16F;
             this.modelViewerControl.TabIndex = 1;
             this.modelViewerControl.Text = "modelViewerControl";
             this.modelViewerControl.ViewUp = 1;
@@ -704,6 +739,9 @@ namespace Engine
         private System.Windows.Forms.Button buttonSmall;
         private System.Windows.Forms.ToolStripMenuItem showAxesMenuItem;
         private System.Windows.Forms.ToolStripMenuItem modelTypePropertiesItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
+        private System.Windows.Forms.ToolStripMenuItem light1EnabledToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem light2EnabledToolStripMenuItem;
 
     }
 }

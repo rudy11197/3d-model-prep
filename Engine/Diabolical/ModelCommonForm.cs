@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Drawing;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
@@ -86,7 +87,7 @@ namespace Engine
             set { numericSpecularPower.Value = (decimal)value; }
         }
 
-        private System.Drawing.Color specularColour = System.Drawing.Color.White;
+        private System.Drawing.Color specularColour = System.Drawing.Color.FromArgb(255, 63, 63, 63);
         public Vector3 SpecularColour
         {
             get { return ColorToVector(specularColour); }
@@ -121,7 +122,7 @@ namespace Engine
 
         private System.Drawing.Color VectorToColor(Vector3 colour)
         {
-            return System.Drawing.Color.FromArgb(255, (int)colour.X * 255, (int)colour.Y * 255, (int)colour.Z * 255);
+            return System.Drawing.Color.FromArgb(255, (int)(colour.X * 255f), (int)(colour.Y * 255f), (int)(colour.Z * 255f));
         }
 
         private Vector3 ColorToVector(System.Drawing.Color colour)
@@ -130,12 +131,12 @@ namespace Engine
         }
 
         // Convert to the int32 colour values for use with the colorDialog custom colours
-        // CustomColor = ((FirstColor.B << 16) || (FirstColor.G << 8) || (FirstColor.R));
-        // or
-        // CustomColor = (FirstColor.R) + (FirstColor.G * 256) + (FirstColor.B * 256 * 256);
         private int ColorToBGR(System.Drawing.Color colour)
         {
-            return (colour.B << 16) + (colour.G << 8) + colour.R;
+            // All three of these produce the same results
+            //return (colour.B << 16) + (colour.G << 8) + colour.R;
+            //return colour.R + (colour.G * 256) + (colour.B * 256 * 256);
+            return System.Drawing.ColorTranslator.ToWin32(colour);
         }
 
         //
@@ -199,6 +200,8 @@ namespace Engine
         private void UpdateColours()
         {
             buttonSpecularColour.BackColor = specularColour;
+            buttonDiffuseColour.BackColor = diffuseColour;
+            buttonEmissiveColour.BackColor = emissiveColour;
         }
 
         /// <summary>
@@ -272,6 +275,7 @@ namespace Engine
         {
             ColorDialog colourDialog = new ColorDialog();
             colourDialog.Color = specularColour;
+            colourDialog.AnyColor = true;
             colourDialog.FullOpen = true;
             colourDialog.CustomColors = new int[3] { ColorToBGR(specularColour), ColorToBGR(diffuseColour), ColorToBGR(emissiveColour) };
             if (colourDialog.ShowDialog() == DialogResult.OK)
@@ -286,6 +290,7 @@ namespace Engine
         {
             ColorDialog colourDialog = new ColorDialog();
             colourDialog.Color = diffuseColour;
+            colourDialog.AnyColor = true;
             colourDialog.FullOpen = true;
             colourDialog.CustomColors = new int[3] { ColorToBGR(specularColour), ColorToBGR(diffuseColour), ColorToBGR(emissiveColour) };
             if (colourDialog.ShowDialog() == DialogResult.OK)
@@ -300,6 +305,7 @@ namespace Engine
         {
             ColorDialog colourDialog = new ColorDialog();
             colourDialog.Color = emissiveColour;
+            colourDialog.AnyColor = true;
             colourDialog.FullOpen = true;
             colourDialog.CustomColors = new int[3] { ColorToBGR(specularColour), ColorToBGR(diffuseColour), ColorToBGR(emissiveColour) };
             if (colourDialog.ShowDialog() == DialogResult.OK)
@@ -329,7 +335,7 @@ namespace Engine
 
         private void buttonSpecularDefault_Click(object sender, EventArgs e)
         {
-            SpecularColour = Vector3.One;
+            SpecularColour = new Vector3(GlobalSettings.colourSpecularGreyDefault);
         }
 
         private void buttonDiffuseDefault_Click(object sender, EventArgs e)
