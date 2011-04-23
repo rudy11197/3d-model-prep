@@ -42,7 +42,6 @@
             this.labelCommonNote = new System.Windows.Forms.Label();
             this.buttonBlenderAnimated = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.positionRotation = new Engine.PositionControl();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
             this.buttonSpecularDefault = new System.Windows.Forms.Button();
@@ -59,6 +58,7 @@
             this.comboEffect = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupMaterial = new System.Windows.Forms.GroupBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.buttonEmissiveDefault = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
@@ -67,7 +67,13 @@
             this.buttonDiffuseColour = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.buttonSpecFabric = new System.Windows.Forms.Button();
+            this.buttonSpecDefault = new System.Windows.Forms.Button();
+            this.buttonSpecMetal = new System.Windows.Forms.Button();
+            this.buttonSpecPolished = new System.Windows.Forms.Button();
+            this.positionRotation = new Engine.PositionControl();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericSpecularPower)).BeginInit();
@@ -207,24 +213,14 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Rotation:";
             // 
-            // positionRotation
-            // 
-            this.positionRotation.DecimalPlaces = 0;
-            this.positionRotation.Increment = new decimal(new int[] {
-            45,
-            0,
-            0,
-            0});
-            this.positionRotation.Location = new System.Drawing.Point(115, 52);
-            this.positionRotation.Maximum = new Microsoft.Xna.Framework.Vector3(180F, 180F, 180F);
-            this.positionRotation.Minimum = new Microsoft.Xna.Framework.Vector3(-180F, -180F, -180F);
-            this.positionRotation.Name = "positionRotation";
-            this.positionRotation.Size = new System.Drawing.Size(359, 26);
-            this.positionRotation.TabIndex = 70;
-            this.positionRotation.Value = new Microsoft.Xna.Framework.Vector3(0F, 0F, 0F);
-            // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.buttonSpecPolished);
+            this.groupBox2.Controls.Add(this.buttonSpecMetal);
+            this.groupBox2.Controls.Add(this.buttonSpecDefault);
+            this.groupBox2.Controls.Add(this.buttonSpecFabric);
+            this.groupBox2.Controls.Add(this.label17);
+            this.groupBox2.Controls.Add(this.label16);
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.buttonSpecularDefault);
             this.groupBox2.Controls.Add(this.buttonSpecularColour);
@@ -260,7 +256,7 @@
             this.buttonSpecularDefault.Location = new System.Drawing.Point(316, 136);
             this.buttonSpecularDefault.Name = "buttonSpecularDefault";
             this.buttonSpecularDefault.Size = new System.Drawing.Size(131, 23);
-            this.buttonSpecularDefault.TabIndex = 59;
+            this.buttonSpecularDefault.TabIndex = 15;
             this.buttonSpecularDefault.Text = "Default Colour Grey";
             this.buttonSpecularDefault.UseVisualStyleBackColor = true;
             this.buttonSpecularDefault.Click += new System.EventHandler(this.buttonSpecularDefault_Click);
@@ -271,7 +267,7 @@
             this.buttonSpecularColour.Location = new System.Drawing.Point(130, 136);
             this.buttonSpecularColour.Name = "buttonSpecularColour";
             this.buttonSpecularColour.Size = new System.Drawing.Size(144, 23);
-            this.buttonSpecularColour.TabIndex = 58;
+            this.buttonSpecularColour.TabIndex = 14;
             this.buttonSpecularColour.UseVisualStyleBackColor = false;
             this.buttonSpecularColour.Click += new System.EventHandler(this.buttonSpecularColour_Click);
             // 
@@ -306,7 +302,7 @@
             this.buttonNormalMapFileBrowse.Location = new System.Drawing.Point(480, 58);
             this.buttonNormalMapFileBrowse.Name = "buttonNormalMapFileBrowse";
             this.buttonNormalMapFileBrowse.Size = new System.Drawing.Size(75, 23);
-            this.buttonNormalMapFileBrowse.TabIndex = 13;
+            this.buttonNormalMapFileBrowse.TabIndex = 12;
             this.buttonNormalMapFileBrowse.Text = "Browse";
             this.buttonNormalMapFileBrowse.UseVisualStyleBackColor = true;
             this.buttonNormalMapFileBrowse.Click += new System.EventHandler(this.buttonNormalMap_Click);
@@ -316,7 +312,7 @@
             this.textNormalMapFile.Location = new System.Drawing.Point(189, 60);
             this.textNormalMapFile.Name = "textNormalMapFile";
             this.textNormalMapFile.Size = new System.Drawing.Size(285, 20);
-            this.textNormalMapFile.TabIndex = 12;
+            this.textNormalMapFile.TabIndex = 11;
             // 
             // labelNormalMapHeading
             // 
@@ -332,7 +328,7 @@
             this.numericSpecularPower.Location = new System.Drawing.Point(130, 97);
             this.numericSpecularPower.Name = "numericSpecularPower";
             this.numericSpecularPower.Size = new System.Drawing.Size(120, 20);
-            this.numericSpecularPower.TabIndex = 15;
+            this.numericSpecularPower.TabIndex = 13;
             this.numericSpecularPower.Value = new decimal(new int[] {
             16,
             0,
@@ -364,7 +360,7 @@
             this.comboEffect.Location = new System.Drawing.Point(130, 25);
             this.comboEffect.Name = "comboEffect";
             this.comboEffect.Size = new System.Drawing.Size(158, 21);
-            this.comboEffect.TabIndex = 11;
+            this.comboEffect.TabIndex = 10;
             // 
             // label2
             // 
@@ -393,6 +389,16 @@
             this.groupMaterial.TabStop = false;
             this.groupMaterial.Text = "Material";
             // 
+            // label15
+            // 
+            this.label15.Location = new System.Drawing.Point(469, 23);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(416, 61);
+            this.label15.TabIndex = 65;
+            this.label15.Text = "Unless you want to create a specific effect it is likely that the material colour" +
+    "s should remain at their defaults so that the colour of the object is taken from" +
+    " the texture applied to the model.";
+            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -407,7 +413,7 @@
             this.buttonEmissiveDefault.Location = new System.Drawing.Point(316, 61);
             this.buttonEmissiveDefault.Name = "buttonEmissiveDefault";
             this.buttonEmissiveDefault.Size = new System.Drawing.Size(131, 23);
-            this.buttonEmissiveDefault.TabIndex = 63;
+            this.buttonEmissiveDefault.TabIndex = 23;
             this.buttonEmissiveDefault.Text = "Default Colour Black";
             this.buttonEmissiveDefault.UseVisualStyleBackColor = true;
             this.buttonEmissiveDefault.Click += new System.EventHandler(this.buttonEmissiveDefault_Click);
@@ -426,7 +432,7 @@
             this.buttonDiffuseDefault.Location = new System.Drawing.Point(316, 23);
             this.buttonDiffuseDefault.Name = "buttonDiffuseDefault";
             this.buttonDiffuseDefault.Size = new System.Drawing.Size(131, 23);
-            this.buttonDiffuseDefault.TabIndex = 61;
+            this.buttonDiffuseDefault.TabIndex = 21;
             this.buttonDiffuseDefault.Text = "Default Colour White";
             this.buttonDiffuseDefault.UseVisualStyleBackColor = true;
             this.buttonDiffuseDefault.Click += new System.EventHandler(this.buttonDiffuseDefault_Click);
@@ -437,7 +443,7 @@
             this.buttonEmissiveColour.Location = new System.Drawing.Point(130, 61);
             this.buttonEmissiveColour.Name = "buttonEmissiveColour";
             this.buttonEmissiveColour.Size = new System.Drawing.Size(144, 23);
-            this.buttonEmissiveColour.TabIndex = 60;
+            this.buttonEmissiveColour.TabIndex = 22;
             this.buttonEmissiveColour.UseVisualStyleBackColor = false;
             this.buttonEmissiveColour.Click += new System.EventHandler(this.buttonEmissiveColour_Click);
             // 
@@ -447,7 +453,7 @@
             this.buttonDiffuseColour.Location = new System.Drawing.Point(130, 23);
             this.buttonDiffuseColour.Name = "buttonDiffuseColour";
             this.buttonDiffuseColour.Size = new System.Drawing.Size(144, 23);
-            this.buttonDiffuseColour.TabIndex = 59;
+            this.buttonDiffuseColour.TabIndex = 20;
             this.buttonDiffuseColour.UseVisualStyleBackColor = false;
             this.buttonDiffuseColour.Click += new System.EventHandler(this.buttonDiffuseColour_Click);
             // 
@@ -469,15 +475,79 @@
             this.label7.TabIndex = 0;
             this.label7.Text = "Diffuse Colour:";
             // 
-            // label15
+            // label16
             // 
-            this.label15.Location = new System.Drawing.Point(469, 23);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(416, 61);
-            this.label15.TabIndex = 65;
-            this.label15.Text = "Unless you want to create a specific effect it is likely that the material colour" +
-    "s should remain at their defaults so that the colour of the object is taken from" +
-    " the texture applied to the model.";
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(256, 99);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(128, 13);
+            this.label16.TabIndex = 61;
+            this.label16.Text = "How tight the hightlight is.";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(6, 178);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(45, 13);
+            this.label17.TabIndex = 62;
+            this.label17.Text = "Presets:";
+            // 
+            // buttonSpecFabric
+            // 
+            this.buttonSpecFabric.Location = new System.Drawing.Point(129, 173);
+            this.buttonSpecFabric.Name = "buttonSpecFabric";
+            this.buttonSpecFabric.Size = new System.Drawing.Size(75, 23);
+            this.buttonSpecFabric.TabIndex = 16;
+            this.buttonSpecFabric.Text = "Fabric";
+            this.buttonSpecFabric.UseVisualStyleBackColor = true;
+            this.buttonSpecFabric.Click += new System.EventHandler(this.buttonSpecFabric_Click);
+            // 
+            // buttonSpecDefault
+            // 
+            this.buttonSpecDefault.Location = new System.Drawing.Point(210, 173);
+            this.buttonSpecDefault.Name = "buttonSpecDefault";
+            this.buttonSpecDefault.Size = new System.Drawing.Size(75, 23);
+            this.buttonSpecDefault.TabIndex = 17;
+            this.buttonSpecDefault.Text = "Default";
+            this.buttonSpecDefault.UseVisualStyleBackColor = true;
+            this.buttonSpecDefault.Click += new System.EventHandler(this.buttonSpecDefault_Click);
+            // 
+            // buttonSpecMetal
+            // 
+            this.buttonSpecMetal.Location = new System.Drawing.Point(291, 172);
+            this.buttonSpecMetal.Name = "buttonSpecMetal";
+            this.buttonSpecMetal.Size = new System.Drawing.Size(75, 23);
+            this.buttonSpecMetal.TabIndex = 18;
+            this.buttonSpecMetal.Text = "Gun Metal";
+            this.buttonSpecMetal.UseVisualStyleBackColor = true;
+            this.buttonSpecMetal.Click += new System.EventHandler(this.buttonSpecMetal_Click);
+            // 
+            // buttonSpecPolished
+            // 
+            this.buttonSpecPolished.Location = new System.Drawing.Point(372, 173);
+            this.buttonSpecPolished.Name = "buttonSpecPolished";
+            this.buttonSpecPolished.Size = new System.Drawing.Size(75, 23);
+            this.buttonSpecPolished.TabIndex = 19;
+            this.buttonSpecPolished.Text = "Polished";
+            this.buttonSpecPolished.UseVisualStyleBackColor = true;
+            this.buttonSpecPolished.Click += new System.EventHandler(this.buttonSpecPolished_Click);
+            // 
+            // positionRotation
+            // 
+            this.positionRotation.DecimalPlaces = 0;
+            this.positionRotation.Increment = new decimal(new int[] {
+            45,
+            0,
+            0,
+            0});
+            this.positionRotation.Location = new System.Drawing.Point(115, 52);
+            this.positionRotation.Maximum = new Microsoft.Xna.Framework.Vector3(180F, 180F, 180F);
+            this.positionRotation.Minimum = new Microsoft.Xna.Framework.Vector3(-180F, -180F, -180F);
+            this.positionRotation.Name = "positionRotation";
+            this.positionRotation.Size = new System.Drawing.Size(359, 26);
+            this.positionRotation.TabIndex = 76;
+            this.positionRotation.Value = new Microsoft.Xna.Framework.Vector3(0F, 0F, 0F);
             // 
             // ModelCommonForm
             // 
@@ -545,5 +615,11 @@
         private System.Windows.Forms.Button buttonEmissiveColour;
         private System.Windows.Forms.Button buttonDiffuseColour;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Button buttonSpecPolished;
+        private System.Windows.Forms.Button buttonSpecMetal;
+        private System.Windows.Forms.Button buttonSpecDefault;
+        private System.Windows.Forms.Button buttonSpecFabric;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label16;
     }
 }
