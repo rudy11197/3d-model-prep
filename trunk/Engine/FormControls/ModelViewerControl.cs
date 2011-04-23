@@ -60,6 +60,11 @@ namespace Engine
             get { return floor; }
         }
         private Model floor;
+        // Material colours for the floor
+        private Vector3 specColourFloor = new Vector3(0.25f);
+        private float specPowerFloor = 16f;
+        private Vector3 diffColourFloor = Vector3.One;
+        private Vector3 emisColourFloor = Vector3.Zero;
 
         private bool showFloor = true;
         private Vector3 floorCentre = Vector3.Zero;
@@ -165,7 +170,7 @@ namespace Engine
         private Color gameBackColor = Color.CornflowerBlue;
 
         // Material colours for displaying the models
-        private Vector3 specularColour = Vector3.One;
+        private Vector3 specularColour = new Vector3(GlobalSettings.colourSpecularGreyDefault);
         public Vector3 SpecularColour
         {
             get { return specularColour; }
@@ -193,6 +198,19 @@ namespace Engine
             set { emissiveColour = value; }
         }
 
+        private bool light1enabled = true;
+        public bool Light1Enabled
+        {
+            get { return light1enabled; }
+            set { light1enabled = value; }
+        }
+
+        private bool light2enabled = true;
+        public bool Light2Enabled
+        {
+            get { return light2enabled; }
+            set { light2enabled = value; }
+        }
 
         /// <summary>
         /// For displaying shapes in 3D
@@ -766,13 +784,13 @@ namespace Engine
                 {
                     // Scale to 1unit per grid square then enlarge to fit the model size
                     world = Matrix.CreateScale(floorModelScale * floorScale);
-                    DrawRigid(world, view, projection, floor);
+                    DrawFloor(world, view, projection);
                 }
             }
             else if (showFloor && floor != null)
             {
                 world = Matrix.CreateTranslation(floorCentre);
-                DrawRigid(world, view, projection, floor);
+                DrawFloor(world, view, projection);
             }
             DrawStoredShapes();
             DrawAxes();
@@ -810,6 +828,8 @@ namespace Engine
                     effect.Projection = aProjection;
 
                     effect.EnableDefaultLighting();
+                    effect.DirectionalLight1.Enabled = light1enabled;
+                    effect.DirectionalLight2.Enabled = light2enabled;
                     effect.SpecularColor = specularColour;
                     effect.SpecularPower = specularPower;
                     effect.DiffuseColor = diffuseColour;
@@ -823,6 +843,22 @@ namespace Engine
         }
 
         private void DrawRigid(Matrix aWorld, Matrix aView, Matrix aProjection, Model aModel)
+        {
+            // Draw the model.
+            DrawStatic(ref aWorld, ref aView, ref aProjection, aModel, 
+                ref specularColour, specularPower, ref diffuseColour, ref emissiveColour);
+        }
+
+        private void DrawFloor(Matrix aWorld, Matrix aView, Matrix aProjection)
+        {
+            // Draw the model.
+            DrawStatic(ref aWorld, ref aView, ref aProjection, floor,
+                ref specColourFloor, specPowerFloor, ref diffColourFloor, ref emisColourFloor);
+        }
+
+        // The floor uses different colours to the loaded model
+        private void DrawStatic(ref Matrix aWorld, ref Matrix aView, ref Matrix aProjection, Model aModel, 
+            ref Vector3 specColour, float specPower, ref Vector3 diffColour, ref Vector3 emisColour)
         {
             // Draw the model.
             foreach (ModelMesh mesh in aModel.Meshes)
@@ -841,10 +877,12 @@ namespace Engine
                     effect.Projection = aProjection;
 
                     effect.EnableDefaultLighting();
-                    effect.SpecularColor = specularColour;
-                    effect.SpecularPower = specularPower;
-                    effect.DiffuseColor = diffuseColour;
-                    effect.EmissiveColor = emissiveColour;
+                    effect.DirectionalLight1.Enabled = light1enabled;
+                    effect.DirectionalLight2.Enabled = light2enabled;
+                    effect.SpecularColor = specColour;
+                    effect.SpecularPower = specPower;
+                    effect.DiffuseColor = diffColour;
+                    effect.EmissiveColor = emisColour;
 
                     effect.PreferPerPixelLighting = true;
                 }

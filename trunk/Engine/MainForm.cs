@@ -553,6 +553,7 @@ namespace Engine
         public void UpdateMenuItemVisibility()
         {
             HasModelLoaded();
+            WhatLighting();
             WhatModelType();
             ShowBoundSelections();
             RotateLegend();
@@ -560,6 +561,12 @@ namespace Engine
         private void RotateLegend()
         {
             RotationMenuItem.Text = "Rotation:  X " + rotateX + ",  Y " + rotateY + ",  Z " + rotateZ;
+        }
+
+        private void WhatLighting()
+        {
+            light1EnabledToolStripMenuItem.Checked = modelViewerControl.Light1Enabled;
+            light2EnabledToolStripMenuItem.Checked = modelViewerControl.Light2Enabled;
         }
         /// <summary>
         /// Call this to enable the various menu items that require an already loaded animated model
@@ -1667,7 +1674,7 @@ namespace Engine
         //////////////////////////////////////////////////////////////////////
 
         //////////////////////////////////////////////////////////////////////
-        // == Colours ==
+        // == Colours and Lighting==
         //
         public void SetMaterialColours(float specularPower, Vector3 specularColour, Vector3 diffuseColour, Vector3 emissiveColour)
         {
@@ -1675,6 +1682,18 @@ namespace Engine
             modelViewerControl.SpecularColour = specularColour;
             modelViewerControl.DiffuseColour = diffuseColour;
             modelViewerControl.EmissiveColour = emissiveColour;
+        }
+
+        private void light1EnabledToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            modelViewerControl.Light1Enabled = !modelViewerControl.Light1Enabled;
+            light1EnabledToolStripMenuItem.Checked = modelViewerControl.Light1Enabled;
+        }
+
+        private void light2EnabledToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            modelViewerControl.Light2Enabled = !modelViewerControl.Light2Enabled;
+            light2EnabledToolStripMenuItem.Checked = modelViewerControl.Light2Enabled;
         }
         //
         //////////////////////////////////////////////////////////////////////

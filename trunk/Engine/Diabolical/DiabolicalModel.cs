@@ -52,7 +52,7 @@ namespace Engine
                 specularPower = value;
             }
         }
-        protected Vector3 specularColour = Vector3.One;
+        protected Vector3 specularColour = new Vector3(GlobalSettings.colourSpecularGreyDefault);
         /// <summary>
         /// The colour of the reflective shiny surfaces of an objects materials (range 0 to 1).
         /// </summary>
@@ -234,6 +234,7 @@ namespace Engine
         {
             if (options != null && model != null && modelType != "")
             {
+                SetDefaultValues();
                 // Parse the rest of the loaded data if there is any
                 if (options.Length > 0)
                 {
@@ -250,6 +251,14 @@ namespace Engine
                     }
                 }
             }
+        }
+
+        private void SetDefaultValues()
+        {
+            specularColour = new Vector3(GlobalSettings.colourSpecularGreyDefault);
+            specularPower = 16f;
+            diffuseColour = Vector3.One;
+            emissiveColour = Vector3.Zero;
         }
 
         private void ExtractModelOption(string[] item)

@@ -134,6 +134,7 @@ using System.Windows.Forms;
 //      Select from a list of right angle rotations or preset selections.
 //      The AnimatedModelProcessor.cs can also scale models and animations but this
 //      scale feature has not been added to the user menus.
+// - Change the model material colours and specular lighting
 // - Load and view models, zoom in and out and rotate round
 // - Look and zoom using the mouse and keyboard
 // - Split FBX files in to one file per animation
@@ -153,11 +154,9 @@ using System.Windows.Forms;
 //-----------------------------------------------------------------------------
 // TODO:
 //-----------------------------------------------------------------------------
-// - Why is the initial Specular colour black instead of white?
 // - Undo the last delete bounds
 // - The weapon and gear dialogue will need a +/- rotation in all three 
 //      directions instead of the absolutes currently set in the older files.
-// - Add the colour pickers to the Options form, Specular, Diffuse and Emissive
 
 //-----------------------------------------------------------------------------
 // TODO (Extras):

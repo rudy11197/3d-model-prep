@@ -121,4 +121,11 @@
     <value>The rotation is applied as the model is loaded.  This rotates all the vertices and animations.
 This does not rotate any existing bounds.  If the rotation is changed the bounds will have to be recreated.</value>
   </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>How much the surface of the model shines.  The higher the number and the brighter the colour the more shiny the object appears.   
+
+16 is fairly normal.  Less than 16 is dull.  Greater than 16 tends towards shiny.  Over 30 is very shiny.  
+
+For bright objects the specular colour should be a lighter grey.</value>
+  </data>
 </root>
