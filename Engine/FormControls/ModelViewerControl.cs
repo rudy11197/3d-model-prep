@@ -169,6 +169,9 @@ namespace Engine
         // This is changed to match the control colour
         private Color gameBackColor = Color.CornflowerBlue;
 
+        /////////////////////////////////////////////////////////////////////
+        // == Colours and Lighting ==
+        //
         // Material colours for displaying the models
         private Vector3 specularColour = new Vector3(GlobalSettings.colourSpecularGreyDefault);
         public Vector3 SpecularColour
@@ -211,6 +214,22 @@ namespace Engine
             get { return light2enabled; }
             set { light2enabled = value; }
         }
+
+        // Key
+        private Vector3 light0Reverse = new Vector3(0.5265408f, -0.5735765f, 0.6275069f);
+        // Fill
+        private Vector3 light1Reverse = new Vector3(-0.7198464f, 0.3420201f, -0.6040227f);
+        // Back
+        private Vector3 light2Reverse = new Vector3(-0.4545195f, -0.7660444f, -0.4545195f);
+        private bool reverseLighting = true;
+        public bool ReverseLighting
+        {
+            get { return reverseLighting; }
+            set { reverseLighting = value; }
+        }
+        //
+        /////////////////////////////////////////////////////////////////////
+
 
         /// <summary>
         /// For displaying shapes in 3D
@@ -828,6 +847,12 @@ namespace Engine
                     effect.Projection = aProjection;
 
                     effect.EnableDefaultLighting();
+                    if (reverseLighting)
+                    {
+                        effect.DirectionalLight0.Direction = light0Reverse;
+                        effect.DirectionalLight1.Direction = light1Reverse;
+                        effect.DirectionalLight2.Direction = light2Reverse;
+                    }
                     effect.DirectionalLight1.Enabled = light1enabled;
                     effect.DirectionalLight2.Enabled = light2enabled;
                     effect.SpecularColor = specularColour;
@@ -877,6 +902,12 @@ namespace Engine
                     effect.Projection = aProjection;
 
                     effect.EnableDefaultLighting();
+                    if (reverseLighting)
+                    {
+                        effect.DirectionalLight0.Direction = light0Reverse;
+                        effect.DirectionalLight1.Direction = light1Reverse;
+                        effect.DirectionalLight2.Direction = light2Reverse;
+                    }
                     effect.DirectionalLight1.Enabled = light1enabled;
                     effect.DirectionalLight2.Enabled = light2enabled;
                     effect.SpecularColor = specColour;

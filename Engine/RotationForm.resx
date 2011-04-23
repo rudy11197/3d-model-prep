@@ -117,4 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="labelCommonNote.Text" xml:space="preserve">
+    <value>The rotation is applied as the model is loaded.  This rotates all the vertices and animations.
+
+For use in Diabolical: The Shooter models created in Blender and animated usually require +Z to Y up.  Those models created without animation typically require -Z to Y up!
+
+Note that the preset rotations end up with the model facing away from the XNA BasicEffect default lighting so the front of the model is in darkness and the back is lit by the key light!</value>
+  </data>
 </root>

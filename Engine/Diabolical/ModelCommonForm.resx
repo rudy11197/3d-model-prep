@@ -119,7 +119,9 @@
   </resheader>
   <data name="labelCommonNote.Text" xml:space="preserve">
     <value>The rotation is applied as the model is loaded.  This rotates all the vertices and animations.
-This does not rotate any existing bounds.  If the rotation is changed the bounds will have to be recreated.</value>
+This does not rotate any existing bounds.  If the rotation is changed the bounds will have to be recreated.
+
+Lighting in Diabolical: The Shooter and in this viewer is the reverse direction to XNA BasicEffect default lighting.</value>
   </data>
   <data name="label4.Text" xml:space="preserve">
     <value>How much the surface of the model shines.  The higher the number and the brighter the colour the more shiny the object appears.   
