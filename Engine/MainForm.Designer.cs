@@ -61,6 +61,7 @@ namespace Engine
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.light1EnabledToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.light2EnabledToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reverseLightingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.diabolicalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadmodelItem = new System.Windows.Forms.ToolStripMenuItem();
             this.savemodelItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -91,7 +92,6 @@ namespace Engine
             this.labelSmall = new System.Windows.Forms.Label();
             this.buttonLarge = new System.Windows.Forms.Button();
             this.buttonSmall = new System.Windows.Forms.Button();
-            this.reverseLightingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modelViewerControl = new Engine.ModelViewerControl();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericLarge)).BeginInit();
@@ -374,6 +374,15 @@ namespace Engine
             this.light2EnabledToolStripMenuItem.Text = "Light 2 Enabled";
             this.light2EnabledToolStripMenuItem.Click += new System.EventHandler(this.light2EnabledToolStripMenuItem_Click);
             // 
+            // reverseLightingToolStripMenuItem
+            // 
+            this.reverseLightingToolStripMenuItem.Checked = true;
+            this.reverseLightingToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.reverseLightingToolStripMenuItem.Name = "reverseLightingToolStripMenuItem";
+            this.reverseLightingToolStripMenuItem.Size = new System.Drawing.Size(267, 22);
+            this.reverseLightingToolStripMenuItem.Text = "Reverse Lighting";
+            this.reverseLightingToolStripMenuItem.Click += new System.EventHandler(this.reverseLightingToolStripMenuItem_Click);
+            // 
             // diabolicalToolStripMenuItem
             // 
             this.diabolicalToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -628,15 +637,6 @@ namespace Engine
             this.buttonSmall.UseVisualStyleBackColor = true;
             this.buttonSmall.Click += new System.EventHandler(this.buttonSmall_Click);
             // 
-            // reverseLightingToolStripMenuItem
-            // 
-            this.reverseLightingToolStripMenuItem.Checked = true;
-            this.reverseLightingToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.reverseLightingToolStripMenuItem.Name = "reverseLightingToolStripMenuItem";
-            this.reverseLightingToolStripMenuItem.Size = new System.Drawing.Size(267, 22);
-            this.reverseLightingToolStripMenuItem.Text = "Reverse Lighting";
-            this.reverseLightingToolStripMenuItem.Click += new System.EventHandler(this.reverseLightingToolStripMenuItem_Click);
-            // 
             // modelViewerControl
             // 
             this.modelViewerControl.CurrentMoveSpeed = 0.6F;
@@ -676,7 +676,9 @@ namespace Engine
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.statusPanel);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "3D Model Prep  __  [John C Brown http://www.MistyManor.co.uk]";
             this.menuStrip1.ResumeLayout(false);
