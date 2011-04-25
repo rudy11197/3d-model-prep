@@ -69,7 +69,7 @@ namespace Engine
         // Which types we have save methods for
         public bool CanSave()
         {
-            if (IsStructure)
+            if (IsStructure || IsCharacter || IsWeapon)
             {
                 return true;
             }
@@ -224,6 +224,11 @@ namespace Engine
         public bool HaveOptimised 
         {
             get { return haveOptimised; }
+        }
+
+        public bool HasBoundsToOptimise
+        {
+            get { return IsStructure; }
         }
 
         // Set when any change is made
@@ -618,9 +623,9 @@ namespace Engine
 
         private void OptimiseAreYouSure()
         {
-            if (haveOptimised)
+            if (haveOptimised || !HasBoundsToOptimise)
             {
-                // If we have already optimised save time and skip it
+                // If we have already optimised or don't need to then save time and skip it
                 return;
             }
             if (MessageBox.Show(
@@ -714,21 +719,27 @@ namespace Engine
             {
                 case GlobalSettings.modelTypeStructure:
                     form.SaveTextFile(fileName, GetStructureSaveData());
+                    haveChanged = false;
                     break;
                 case GlobalSettings.modelTypeGearHead:
                     form.SaveTextFile(fileName, GetHeadGearSaveData());
+                    haveChanged = false;
                     break;
                 case GlobalSettings.modelTypeEquipLight:
                     form.SaveTextFile(fileName, GetWeaponSaveData());
+                    haveChanged = false;
                     break;
                 case GlobalSettings.modelTypeEquipSmallArms:
                     form.SaveTextFile(fileName, GetWeaponSaveData());
+                    haveChanged = false;
                     break;
                 case GlobalSettings.modelTypeEquipSupport:
                     form.SaveTextFile(fileName, GetWeaponSaveData());
+                    haveChanged = false;
                     break;
                 case GlobalSettings.modelTypeCharacter:
                     form.SaveTextFile(fileName, GetCharacterSaveData());
+                    haveChanged = false;
                     break;
                 default:
                     form.AddMessageLine("The " + modelAsset.modelType + " model type is not yet supported!");
@@ -744,9 +755,9 @@ namespace Engine
             // - File format version
             data.Add("2");
             // - Effect Type
-            data.Add(ParseData.div + modelAsset.EffectType);
+            data.Add(modelAsset.EffectType);
             // - Model type
-            data.Add(GlobalSettings.modelTypeStructure);
+            data.Add(modelAsset.modelType);
             // - Filename including relative path (.X or .FBX)
             // The model pipeline does not load textures correctly if the path uses the standard character
             data.Add(ParseData.UseAlternateFolderCharacters(modelAsset.modelFilename));
@@ -989,6 +1000,11 @@ namespace Engine
 
             ProcessData(result, fileName);
             SetColourValuesFromModel();
+            if (IsWeapon)
+            {
+                // Weapons are drawn with the trigger at the origin so are half in the floor
+                form.ShowFloor(false);
+            }
         }
 
         // Call after the model has loaded to make sure everyting is working to the same values

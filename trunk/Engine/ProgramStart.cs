@@ -174,10 +174,6 @@ using System.Windows.Forms;
 //     Merge animations:
 //      http://blogs.msdn.com/b/shawnhar/archive/2010/06/18/merging-animation-files.aspx
 
-// - Add methods and menu items to test different lighting effects
-//      - Add BasicEffect colours
-//      - Add BasicEffect three light positons
-
 //-----------------------------------------------------------------------------
 
 #region Source Control

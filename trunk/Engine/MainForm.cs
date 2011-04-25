@@ -496,7 +496,7 @@ namespace Engine
             previousShowFloor = showFloorMenuItem.Checked;
         }
 
-        private void ShowFloor(bool show)
+        public void ShowFloor(bool show)
         {
             if (show && modelViewerControl.Floor == null)
             {
@@ -1483,6 +1483,11 @@ namespace Engine
             if (diagResult == DialogResult.OK)
             {
                 diabolical.ModelType = aForm.ModelType;
+                if (diabolical.IsWeapon)
+                {
+                    // Weapons are drawn with the trigger at the origin so are half in the floor
+                    ShowFloor(false);
+                }
             }
             PauseGameInput(false);
             UpdateMenuItemVisibility();
