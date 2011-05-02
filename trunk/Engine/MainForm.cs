@@ -827,6 +827,12 @@ namespace Engine
             {
                 // If the build failed, display an error message and log it
                 AddMessageLine(buildError);
+                if (buildError.Contains("bone") || buildError.Contains("weight"))
+                {
+                    AddMessageLine("Errors relating to bone weights are most likely caused because some of " +
+                        "the vertices have not been included in any of the bone vertex groups.");
+                    AddMessageLine("Errors with bone weights must be fixed in the modelling application.");
+                }
                 MessageBox.Show(buildError, "Error");
             }
 

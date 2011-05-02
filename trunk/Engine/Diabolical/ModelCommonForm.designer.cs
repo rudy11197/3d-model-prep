@@ -42,7 +42,14 @@
             this.labelCommonNote = new System.Windows.Forms.Label();
             this.buttonBlenderAnimated = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.positionRotation = new Engine.PositionControl();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.buttonSpecPolished = new System.Windows.Forms.Button();
+            this.buttonSpecMetal = new System.Windows.Forms.Button();
+            this.buttonSpecDefault = new System.Windows.Forms.Button();
+            this.buttonSpecFabric = new System.Windows.Forms.Button();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.buttonSpecularDefault = new System.Windows.Forms.Button();
             this.buttonSpecularColour = new System.Windows.Forms.Button();
@@ -67,13 +74,6 @@
             this.buttonDiffuseColour = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.buttonSpecFabric = new System.Windows.Forms.Button();
-            this.buttonSpecDefault = new System.Windows.Forms.Button();
-            this.buttonSpecMetal = new System.Windows.Forms.Button();
-            this.buttonSpecPolished = new System.Windows.Forms.Button();
-            this.positionRotation = new Engine.PositionControl();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericSpecularPower)).BeginInit();
@@ -122,11 +122,11 @@
             // 
             // buttonBlenderRigid
             // 
-            this.buttonBlenderRigid.Location = new System.Drawing.Point(653, 53);
+            this.buttonBlenderRigid.Location = new System.Drawing.Point(718, 53);
             this.buttonBlenderRigid.Name = "buttonBlenderRigid";
-            this.buttonBlenderRigid.Size = new System.Drawing.Size(75, 23);
+            this.buttonBlenderRigid.Size = new System.Drawing.Size(140, 23);
             this.buttonBlenderRigid.TabIndex = 6;
-            this.buttonBlenderRigid.Text = "-Z To Y Up";
+            this.buttonBlenderRigid.Text = "-Z To Y Up Backwards";
             this.buttonBlenderRigid.UseVisualStyleBackColor = true;
             this.buttonBlenderRigid.Click += new System.EventHandler(this.buttonBlenderRigid_Click);
             // 
@@ -198,9 +198,9 @@
             // 
             this.buttonBlenderAnimated.Location = new System.Drawing.Point(572, 53);
             this.buttonBlenderAnimated.Name = "buttonBlenderAnimated";
-            this.buttonBlenderAnimated.Size = new System.Drawing.Size(75, 23);
+            this.buttonBlenderAnimated.Size = new System.Drawing.Size(140, 23);
             this.buttonBlenderAnimated.TabIndex = 5;
-            this.buttonBlenderAnimated.Text = "+Z To Y Up";
+            this.buttonBlenderAnimated.Text = "+Z To Y Up Backwards";
             this.buttonBlenderAnimated.UseVisualStyleBackColor = true;
             this.buttonBlenderAnimated.Click += new System.EventHandler(this.buttonBlenderAnimated_Click);
             // 
@@ -212,6 +212,22 @@
             this.label1.Size = new System.Drawing.Size(50, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Rotation:";
+            // 
+            // positionRotation
+            // 
+            this.positionRotation.DecimalPlaces = 0;
+            this.positionRotation.Increment = new decimal(new int[] {
+            45,
+            0,
+            0,
+            0});
+            this.positionRotation.Location = new System.Drawing.Point(115, 52);
+            this.positionRotation.Maximum = new Microsoft.Xna.Framework.Vector3(180F, 180F, 180F);
+            this.positionRotation.Minimum = new Microsoft.Xna.Framework.Vector3(-180F, -180F, -180F);
+            this.positionRotation.Name = "positionRotation";
+            this.positionRotation.Size = new System.Drawing.Size(359, 26);
+            this.positionRotation.TabIndex = 85;
+            this.positionRotation.Value = new Microsoft.Xna.Framework.Vector3(0F, 0F, 0F);
             // 
             // groupBox2
             // 
@@ -241,6 +257,64 @@
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Effect";
+            // 
+            // buttonSpecPolished
+            // 
+            this.buttonSpecPolished.Location = new System.Drawing.Point(372, 173);
+            this.buttonSpecPolished.Name = "buttonSpecPolished";
+            this.buttonSpecPolished.Size = new System.Drawing.Size(75, 23);
+            this.buttonSpecPolished.TabIndex = 19;
+            this.buttonSpecPolished.Text = "Polished";
+            this.buttonSpecPolished.UseVisualStyleBackColor = true;
+            this.buttonSpecPolished.Click += new System.EventHandler(this.buttonSpecPolished_Click);
+            // 
+            // buttonSpecMetal
+            // 
+            this.buttonSpecMetal.Location = new System.Drawing.Point(291, 172);
+            this.buttonSpecMetal.Name = "buttonSpecMetal";
+            this.buttonSpecMetal.Size = new System.Drawing.Size(75, 23);
+            this.buttonSpecMetal.TabIndex = 18;
+            this.buttonSpecMetal.Text = "Gun Metal";
+            this.buttonSpecMetal.UseVisualStyleBackColor = true;
+            this.buttonSpecMetal.Click += new System.EventHandler(this.buttonSpecMetal_Click);
+            // 
+            // buttonSpecDefault
+            // 
+            this.buttonSpecDefault.Location = new System.Drawing.Point(210, 173);
+            this.buttonSpecDefault.Name = "buttonSpecDefault";
+            this.buttonSpecDefault.Size = new System.Drawing.Size(75, 23);
+            this.buttonSpecDefault.TabIndex = 17;
+            this.buttonSpecDefault.Text = "Default";
+            this.buttonSpecDefault.UseVisualStyleBackColor = true;
+            this.buttonSpecDefault.Click += new System.EventHandler(this.buttonSpecDefault_Click);
+            // 
+            // buttonSpecFabric
+            // 
+            this.buttonSpecFabric.Location = new System.Drawing.Point(129, 173);
+            this.buttonSpecFabric.Name = "buttonSpecFabric";
+            this.buttonSpecFabric.Size = new System.Drawing.Size(75, 23);
+            this.buttonSpecFabric.TabIndex = 16;
+            this.buttonSpecFabric.Text = "Fabric";
+            this.buttonSpecFabric.UseVisualStyleBackColor = true;
+            this.buttonSpecFabric.Click += new System.EventHandler(this.buttonSpecFabric_Click);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(6, 178);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(45, 13);
+            this.label17.TabIndex = 62;
+            this.label17.Text = "Presets:";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(256, 99);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(128, 13);
+            this.label16.TabIndex = 61;
+            this.label16.Text = "How tight the hightlight is.";
             // 
             // label9
             // 
@@ -474,80 +548,6 @@
             this.label7.Size = new System.Drawing.Size(76, 13);
             this.label7.TabIndex = 0;
             this.label7.Text = "Diffuse Colour:";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(256, 99);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(128, 13);
-            this.label16.TabIndex = 61;
-            this.label16.Text = "How tight the hightlight is.";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(6, 178);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(45, 13);
-            this.label17.TabIndex = 62;
-            this.label17.Text = "Presets:";
-            // 
-            // buttonSpecFabric
-            // 
-            this.buttonSpecFabric.Location = new System.Drawing.Point(129, 173);
-            this.buttonSpecFabric.Name = "buttonSpecFabric";
-            this.buttonSpecFabric.Size = new System.Drawing.Size(75, 23);
-            this.buttonSpecFabric.TabIndex = 16;
-            this.buttonSpecFabric.Text = "Fabric";
-            this.buttonSpecFabric.UseVisualStyleBackColor = true;
-            this.buttonSpecFabric.Click += new System.EventHandler(this.buttonSpecFabric_Click);
-            // 
-            // buttonSpecDefault
-            // 
-            this.buttonSpecDefault.Location = new System.Drawing.Point(210, 173);
-            this.buttonSpecDefault.Name = "buttonSpecDefault";
-            this.buttonSpecDefault.Size = new System.Drawing.Size(75, 23);
-            this.buttonSpecDefault.TabIndex = 17;
-            this.buttonSpecDefault.Text = "Default";
-            this.buttonSpecDefault.UseVisualStyleBackColor = true;
-            this.buttonSpecDefault.Click += new System.EventHandler(this.buttonSpecDefault_Click);
-            // 
-            // buttonSpecMetal
-            // 
-            this.buttonSpecMetal.Location = new System.Drawing.Point(291, 172);
-            this.buttonSpecMetal.Name = "buttonSpecMetal";
-            this.buttonSpecMetal.Size = new System.Drawing.Size(75, 23);
-            this.buttonSpecMetal.TabIndex = 18;
-            this.buttonSpecMetal.Text = "Gun Metal";
-            this.buttonSpecMetal.UseVisualStyleBackColor = true;
-            this.buttonSpecMetal.Click += new System.EventHandler(this.buttonSpecMetal_Click);
-            // 
-            // buttonSpecPolished
-            // 
-            this.buttonSpecPolished.Location = new System.Drawing.Point(372, 173);
-            this.buttonSpecPolished.Name = "buttonSpecPolished";
-            this.buttonSpecPolished.Size = new System.Drawing.Size(75, 23);
-            this.buttonSpecPolished.TabIndex = 19;
-            this.buttonSpecPolished.Text = "Polished";
-            this.buttonSpecPolished.UseVisualStyleBackColor = true;
-            this.buttonSpecPolished.Click += new System.EventHandler(this.buttonSpecPolished_Click);
-            // 
-            // positionRotation
-            // 
-            this.positionRotation.DecimalPlaces = 0;
-            this.positionRotation.Increment = new decimal(new int[] {
-            45,
-            0,
-            0,
-            0});
-            this.positionRotation.Location = new System.Drawing.Point(115, 52);
-            this.positionRotation.Maximum = new Microsoft.Xna.Framework.Vector3(180F, 180F, 180F);
-            this.positionRotation.Minimum = new Microsoft.Xna.Framework.Vector3(-180F, -180F, -180F);
-            this.positionRotation.Name = "positionRotation";
-            this.positionRotation.Size = new System.Drawing.Size(359, 26);
-            this.positionRotation.TabIndex = 76;
-            this.positionRotation.Value = new Microsoft.Xna.Framework.Vector3(0F, 0F, 0F);
             // 
             // ModelCommonForm
             // 
