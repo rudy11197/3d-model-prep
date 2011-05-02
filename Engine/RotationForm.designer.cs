@@ -98,11 +98,11 @@
             // 
             // buttonBlenderRigid
             // 
-            this.buttonBlenderRigid.Location = new System.Drawing.Point(239, 56);
+            this.buttonBlenderRigid.Location = new System.Drawing.Point(304, 56);
             this.buttonBlenderRigid.Name = "buttonBlenderRigid";
-            this.buttonBlenderRigid.Size = new System.Drawing.Size(75, 23);
+            this.buttonBlenderRigid.Size = new System.Drawing.Size(140, 23);
             this.buttonBlenderRigid.TabIndex = 6;
-            this.buttonBlenderRigid.Text = "-Z To Y Up";
+            this.buttonBlenderRigid.Text = "-Z To Y Up Backwards";
             this.buttonBlenderRigid.UseVisualStyleBackColor = true;
             this.buttonBlenderRigid.Click += new System.EventHandler(this.buttonBlenderRigid_Click);
             // 
@@ -128,9 +128,9 @@
             // 
             this.buttonBlenderAnimated.Location = new System.Drawing.Point(158, 56);
             this.buttonBlenderAnimated.Name = "buttonBlenderAnimated";
-            this.buttonBlenderAnimated.Size = new System.Drawing.Size(75, 23);
+            this.buttonBlenderAnimated.Size = new System.Drawing.Size(140, 23);
             this.buttonBlenderAnimated.TabIndex = 5;
-            this.buttonBlenderAnimated.Text = "+Z To Y Up";
+            this.buttonBlenderAnimated.Text = "+Z To Y Up Backwards";
             this.buttonBlenderAnimated.UseVisualStyleBackColor = true;
             this.buttonBlenderAnimated.Click += new System.EventHandler(this.buttonBlenderAnimated_Click);
             // 
@@ -147,7 +147,7 @@
             this.positionRotation.Minimum = new Microsoft.Xna.Framework.Vector3(-180F, -180F, -180F);
             this.positionRotation.Name = "positionRotation";
             this.positionRotation.Size = new System.Drawing.Size(359, 26);
-            this.positionRotation.TabIndex = 3;
+            this.positionRotation.TabIndex = 9;
             this.positionRotation.Value = new Microsoft.Xna.Framework.Vector3(0F, 0F, 0F);
             // 
             // RotationForm
