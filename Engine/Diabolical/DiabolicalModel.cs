@@ -26,17 +26,17 @@ namespace Engine
         // == ActiveModelAsset ==
 
         // The fbx or x file of the model including the relative path
-        public string modelFilename;
+        public string ModelFilename;
 
         // == All models
         // Type, e.g. Character, Structure, Weapon, HeadGear etc.
-        public string modelType = GlobalSettings.modelTypeStructure;
+        public string ModelType = GlobalSettings.modelTypeStructure;
         // Model and components
-        public Model model;    //that's what we are working on
+        public Model Replica;
         // Used to store the bounding sphere in object space
-        public BoundingSphere oversizeBounds;
+        public BoundingSphere OversizeBounds;
         // Rotate the model when loaded round X, Y, Z
-        public Vector3 rotation;
+        public Vector3 Rotation;
 
         // == Lighting ==
         // These are only needed for the initial setup of the effect once loaded
@@ -108,7 +108,7 @@ namespace Engine
         // == Gear
         // Used for weapons to align them to the characters hands.
         // It can be made up by applying a rotation and translation.
-        public Matrix boneAlignment;
+        public Matrix BoneAlignment;
 
         // == Structure
         // The bounding spheres making up the model for use for collision 
@@ -128,51 +128,59 @@ namespace Engine
 
         // == Character
         // Armature Rig type (Skeleton) used to calculate which animations to use  e.g. 'human'
-        public string rigTypeName = "";
+        public string RigTypeName = "";
+        // The weight of the character in kilograms (kg) used for physics simulations
+        public float Mass = 80f;
+        // The standing height of the character in metres (m)
+        public float HeightStanding = 1.8f;
+        // The crouched height of the character (m)
+        public float HeightCrouched = 1.0f;
+        // The radius of the collision cylinder that closely fits the character
+        public float CylinderRadius = 0.5f;
         // There are always the same number of standing and crouched spheres
         public List<BoundingSphere> standingSpheres;
         public List<BoundingSphere> crouchedSpheres;
         // The list of bounding spheres attached to bones used for more detailed collision with projectiles
-        public List<AttachedSphere> attachedSpheres;
+        public List<AttachedSphere> AttachedBounds;
         // The list of equipment attachment points
-        public List<AttachmentPoint> attachEquip;
+        public List<AttachmentPoint> AttachEquip;
         // The list of adornment attachment points starting with the head
-        public List<AttachmentPoint> attachAdorn;
+        public List<AttachmentPoint> AttachAdorn;
         // The hand to hold the weapon
-        public AttachmentPoint attachHold;
+        public AttachmentPoint AttachHold;
 
         // == Weapon
         // The source Human or Alien
-        public int manufacturer = 0;
+        public int Manufacturer = 0;
         // The position of the muzzle in relation to the origin of the model
-        public Vector3 muzzleOffset;
+        public Vector3 MuzzleOffset;
         // Half the width of the weapon used to position the model lying on the ground
-        public float halfWidth = 0;
+        public float HalfWidth = 0;
         // Ammo
-        public string ammoType = "";
-        public int ammoClipCapacity = 0;
-        public int ammoMaxCarried = 0;
-        public float ammoSecondsToReload = 0;
+        public string AmmoType = "";
+        public int AmmoClipCapacity = 0;
+        public int AmmoMaxCarried = 0;
+        public float AmmoSecondsToReload = 0;
         // Calculated from the ammo fire rate
-        public float ammoSecondsToChamber = 0;
-        public bool isAutoFire = false;
+        public float AmmoSecondsToChamber = 0;
+        public bool IsAutoFire = false;
         // Sounds
-        public string fxReload = "";
-        public string fxEmpty = "";
+        public string FxReload = "";
+        public string FxEmpty = "";
         // Optimum ranges used by the AI for the bots
-        public float optimumClosest = 0;
-        public float optimumFarthest = 0;
+        public float OptimumClosest = 0;
+        public float OptimumFarthest = 0;
         // Recoil - How many degrees the weapon lifts each shot
-        public float recoilDegrees;
+        public float RecoilDegrees;
         // Zoom using a scope
-        public List<float> zoomMultipliers;
+        public List<float> ZoomMultipliers;
         // Sight cross hairs to use at each zoom level
-        public List<int> crossHairs;
+        public List<int> CrossHairs;
 
         // For per triangle impact from projectiles
         // These remain null until calculated using ExposeVertices()
-        public List<Vector3> vertices;
-        public List<VertexHelper.TriangleVertexIndices> indices;
+        public List<Vector3> Vertices;
+        public List<VertexHelper.TriangleVertexIndices> Indices;
 
         // For calculation only not part of the model object in the game
         // Shots per second
@@ -205,12 +213,12 @@ namespace Engine
         //
         public void BuildModelAsset(string type, string filename, string effect, Model baseModel, BoundingSphere bounds, float rotXdegrees, float rotYdegrees, float rotZdegrees, string[] options)
         {
-            modelType = type;
-            modelFilename = filename;
+            ModelType = type;
+            ModelFilename = filename;
             EffectType = effect;
-            model = baseModel;
-            oversizeBounds = bounds;
-            rotation = new Vector3(rotXdegrees, rotYdegrees, rotZdegrees);
+            Replica = baseModel;
+            OversizeBounds = bounds;
+            Rotation = new Vector3(rotXdegrees, rotYdegrees, rotZdegrees);
             PreProcessSetup();
             ProcessOptions(options);
         }
@@ -219,20 +227,20 @@ namespace Engine
         {
             largerBounds = new List<StructureSphere>();
             smallerBounds = new List<StructureSphere>();
-            boneAlignment = Matrix.Identity;
+            BoneAlignment = Matrix.Identity;
             standingSpheres = new List<BoundingSphere>();
             crouchedSpheres = new List<BoundingSphere>();
-            attachedSpheres = new List<AttachedSphere>();
-            attachAdorn = new List<AttachmentPoint>();
-            attachEquip = new List<AttachmentPoint>();
-            muzzleOffset = Vector3.Zero;
-            zoomMultipliers = new List<float>();
-            crossHairs = new List<int>();
+            AttachedBounds = new List<AttachedSphere>();
+            AttachAdorn = new List<AttachmentPoint>();
+            AttachEquip = new List<AttachmentPoint>();
+            MuzzleOffset = Vector3.Zero;
+            ZoomMultipliers = new List<float>();
+            CrossHairs = new List<int>();
         }
 
         private void ProcessOptions(string[] options)
         {
-            if (options != null && model != null && modelType != "")
+            if (options != null && Replica != null && ModelType != "")
             {
                 SetDefaultValues();
                 // Parse the rest of the loaded data if there is any
@@ -287,7 +295,7 @@ namespace Engine
                 case GlobalSettings.typeRig:
                     if (item.Length > 1)
                     {
-                        rigTypeName = item[1];
+                        RigTypeName = item[1];
                     }
                     break;
                 case GlobalSettings.typeLargerSpheres:
@@ -296,7 +304,13 @@ namespace Engine
                         AddBodySpheres(item[1], item[2], item[3], item[4]);
                     }
                     break;
-                case GlobalSettings.typeSmallerSpheres:
+                case GlobalSettings.typeBodySizes:
+                    if (item.Length > 4)
+                    {
+                        SetBodySizes(item[1], item[2], item[3], item[4]);
+                    }
+                    break;
+                case GlobalSettings.typeAttachedSpheres:
                     if (item.Length > 3)
                     {
                         AddAttachedSphere(item[1], item[2], item[3]);
@@ -384,7 +398,7 @@ namespace Engine
                 case GlobalSettings.typeWeaponRecoil:
                     if (item.Length > 1)
                     {
-                        recoilDegrees = ParseData.FloatFromString(item[1]);
+                        RecoilDegrees = ParseData.FloatFromString(item[1]);
                     }
                     break;
                 case GlobalSettings.typeWeaponZoom:
@@ -456,6 +470,14 @@ namespace Engine
             crouchedSpheres.Add(new BoundingSphere(vCentre, fRadius));
         }
 
+        private void SetBodySizes(string mass, string standing, string crouched, string radius)
+        {
+            Mass = ParseData.FloatFromString(mass);
+            HeightStanding = ParseData.FloatFromString(standing);
+            HeightCrouched = ParseData.FloatFromString(crouched);
+            CylinderRadius = ParseData.FloatFromString(radius);
+        }
+
         private void AddAttachedSphere(string boneName, string radius, string offset)
         {
             float fRadius = ParseData.FloatFromString(radius);
@@ -465,7 +487,7 @@ namespace Engine
             int boneID = GetBoneID(boneName);
             if (boneID >= 0)
             {
-                attachedSpheres.Add(new AttachedSphere(boneID, new Vector3(0, fOffset, 0),
+                AttachedBounds.Add(new AttachedSphere(boneID, new Vector3(0, fOffset, 0),
                     fRadius, fOffset));
             }
             else
@@ -487,7 +509,7 @@ namespace Engine
             int boneID = GetBoneID(boneName);
             // Add the attachment point even if the bone is not valid
             // This is so that dummies can be added and ignored when attempted to be used
-            attachEquip.Add(new AttachmentPoint(boneID, X, Y, Z, rotateX, rotateY, rotateZ));
+            AttachEquip.Add(new AttachmentPoint(boneID, X, Y, Z, rotateX, rotateY, rotateZ));
         }
 
         private void AddAttachEquipment(string boneName, string mtxS)
@@ -496,7 +518,7 @@ namespace Engine
             Matrix mtx = ParseData.StringToMatrix(mtxS);
             // The model must have been loaded first so the bonemap works
             int boneID = GetBoneID(boneName);
-            attachEquip.Add(new AttachmentPoint(boneID, mtx));
+            AttachEquip.Add(new AttachmentPoint(boneID, mtx));
         }
 
         private void AddAttachAdornment(string boneName, string sX, string sY, string sZ, string sRotX, string sRotY, string sRotZ)
@@ -512,7 +534,7 @@ namespace Engine
             int boneID = GetBoneID(boneName);
             // Add the attachment point even if the bone is not valid
             // This is so that dummies can be added and ignored when attempted to be used
-            attachAdorn.Add(new AttachmentPoint(boneID, X, Y, Z, rotateX, rotateY, rotateZ));
+            AttachAdorn.Add(new AttachmentPoint(boneID, X, Y, Z, rotateX, rotateY, rotateZ));
         }
 
         private void AddAttachAdornment(string boneName, string mtxS)
@@ -521,7 +543,7 @@ namespace Engine
             Matrix mtx = ParseData.StringToMatrix(mtxS);
             // The model must have been loaded first so the bonemap works
             int boneID = GetBoneID(boneName);
-            attachAdorn.Add(new AttachmentPoint(boneID, mtx));
+            AttachAdorn.Add(new AttachmentPoint(boneID, mtx));
         }
 
         private void AddWeaponHold(string boneName, string sX, string sY, string sZ, string sRotX, string sRotY, string sRotZ)
@@ -537,7 +559,7 @@ namespace Engine
             int boneID = GetBoneID(boneName);
             // Add the attachment point even if the bone is not valid
             // This is so that dummies can be added and ignored when attempted to be used
-            attachHold = new AttachmentPoint(boneID, X, Y, Z, rotateX, rotateY, rotateZ);
+            AttachHold = new AttachmentPoint(boneID, X, Y, Z, rotateX, rotateY, rotateZ);
         }
 
         private void AddWeaponHold(string boneName, string mtxS)
@@ -546,14 +568,14 @@ namespace Engine
             Matrix mtx = ParseData.StringToMatrix(mtxS);
             // The model must have been loaded first so the bonemap works
             int boneID = GetBoneID(boneName);
-            attachHold = new AttachmentPoint(boneID, mtx);
+            AttachHold = new AttachmentPoint(boneID, mtx);
         }
 
         // Return the bone number from the bone name
         private int GetBoneID(string boneName)
         {
             // Look up our custom skinning information.
-            SkinningData skinningData = model.Tag as SkinningData;
+            SkinningData skinningData = Replica.Tag as SkinningData;
             if (skinningData == null)
             {
                 //This model does not contain a SkinningData tag.
@@ -569,7 +591,7 @@ namespace Engine
         public string GetBoneName(int ID)
         {
             // Look up our custom skinning information.
-            SkinningData skinningData = model.Tag as SkinningData;
+            SkinningData skinningData = Replica.Tag as SkinningData;
             if (skinningData == null)
             {
                 //This model does not contain a SkinningData tag.
@@ -598,7 +620,7 @@ namespace Engine
 
         private void SetManufacturer(string id)
         {
-            manufacturer = ParseData.IntFromString(id);
+            Manufacturer = ParseData.IntFromString(id);
         }
 
         private void SetZoomMultipliers(string[] sZooms)
@@ -606,7 +628,7 @@ namespace Engine
             // The first item will be the type so skip it
             for (int i = 1; i < sZooms.Length; i++)
             {
-                zoomMultipliers.Add(ParseData.FloatFromString(sZooms[i]));
+                ZoomMultipliers.Add(ParseData.FloatFromString(sZooms[i]));
             }
         }
 
@@ -615,47 +637,47 @@ namespace Engine
             // The first item will be the type so skip it
             for (int i = 1; i < sTypes.Length; i++)
             {
-                crossHairs.Add(ParseData.IntFromString(sTypes[i]));
+                CrossHairs.Add(ParseData.IntFromString(sTypes[i]));
             }
         }
 
         private void SetMuzzleOffset(string sOffset)
         {
-            muzzleOffset = ParseData.StringToVector3(sOffset);
+            MuzzleOffset = ParseData.StringToVector3(sOffset);
         }
 
         private void SetHalfWidth(string sWidth)
         {
-            halfWidth = ParseData.FloatFromString(sWidth);
+            HalfWidth = ParseData.FloatFromString(sWidth);
         }
 
         private void SetAmmo(string sType, string sClip, string sCarried, string autoFire, string sFireRate, string sReloadTime, string sReloadSound, string sEmptySound)
         {
-            ammoType = sType;
-            ammoClipCapacity = ParseData.IntFromString(sClip);
-            ammoMaxCarried = ParseData.IntFromString(sCarried);
-            isAutoFire = ParseData.ShortStringToBool(autoFire);
+            AmmoType = sType;
+            AmmoClipCapacity = ParseData.IntFromString(sClip);
+            AmmoMaxCarried = ParseData.IntFromString(sCarried);
+            IsAutoFire = ParseData.ShortStringToBool(autoFire);
             float rate = ParseData.FloatFromString(sFireRate);
             ammoRateOfFire = rate;
             // Calculate the time to chamber from the rate of fire
             if (MoreMaths.NearZero(rate))
             {
                 // Very quick
-                ammoSecondsToChamber = 0.01f;
+                AmmoSecondsToChamber = 0.01f;
             }
             else
             {
-                ammoSecondsToChamber = 1.0f / rate;
+                AmmoSecondsToChamber = 1.0f / rate;
             }
-            ammoSecondsToReload = ParseData.FloatFromString(sReloadTime);
-            fxReload = sReloadSound;
-            fxEmpty = sEmptySound;
+            AmmoSecondsToReload = ParseData.FloatFromString(sReloadTime);
+            FxReload = sReloadSound;
+            FxEmpty = sEmptySound;
         }
 
         private void SetRanges(string sClose, string sFar)
         {
-            optimumClosest = ParseData.FloatFromString(sClose);
-            optimumFarthest = ParseData.FloatFromString(sFar);
+            OptimumClosest = ParseData.FloatFromString(sClose);
+            OptimumFarthest = ParseData.FloatFromString(sFar);
         }
 
         // == Gear
@@ -681,7 +703,7 @@ namespace Engine
         private void SetAlignment(string adjust)
         {
             Matrix align = ParseData.StringToMatrix(adjust);
-            boneAlignment = align;
+            BoneAlignment = align;
         }
 
         // Position the model in relation to something else.  This is used for the weapons in
@@ -695,7 +717,7 @@ namespace Engine
             // Typically the model should be drawn or rotated to +Y up with the barrel 
             // along the X axis.
             // Therefore +Y = up, +X = away from the grip, +Z = Right if looking from the stock end
-            boneAlignment *= Matrix.CreateTranslation(ParseData.FloatFromString(sX),
+            BoneAlignment *= Matrix.CreateTranslation(ParseData.FloatFromString(sX),
                 ParseData.FloatFromString(sY), ParseData.FloatFromString(sZ));
         }
 
@@ -705,7 +727,7 @@ namespace Engine
             float radX = MathHelper.ToRadians(ParseData.FloatFromString(sDegX));
             float radY = MathHelper.ToRadians(ParseData.FloatFromString(sDegY));
             float radZ = MathHelper.ToRadians(ParseData.FloatFromString(sDegZ));
-            boneAlignment *= Matrix.CreateRotationX(radX) *
+            BoneAlignment *= Matrix.CreateRotationX(radX) *
                 Matrix.CreateRotationY(radY) *
                 Matrix.CreateRotationZ(radZ);
         }
@@ -837,31 +859,31 @@ namespace Engine
         {
             List<Vector3> original = new List<Vector3>();
             // Check if we've done this before
-            if (vertices == null)
+            if (Vertices == null)
             {
-                vertices = new List<Vector3>();
+                Vertices = new List<Vector3>();
             }
             else
             {
-                vertices.Clear();
+                Vertices.Clear();
             }
-            if (indices == null)
+            if (Indices == null)
             {
-                indices = new List<VertexHelper.TriangleVertexIndices>();
+                Indices = new List<VertexHelper.TriangleVertexIndices>();
             }
             else
             {
-                indices.Clear();
+                Indices.Clear();
             }
             // In object space
-            VertexHelper.ExtractTrianglesFrom(model, original, indices, Matrix.Identity);
+            VertexHelper.ExtractTrianglesFrom(Replica, original, Indices, Matrix.Identity);
 
             foreach (Vector3 vec in original)
             {
                 // Create a duplicate for each model
                 // NOTE: I don't think this is necessary but it is to rule this out as a 
                 // possible cause of errors.
-                vertices.Add(new Vector3(vec.X, vec.Y, vec.Z));
+                Vertices.Add(new Vector3(vec.X, vec.Y, vec.Z));
             }
         }
 
@@ -876,9 +898,9 @@ namespace Engine
             Vector3 min = Vector3.One * float.MaxValue;
             Vector3 max = Vector3.One * float.MinValue;
             // Loop through every triangle to find the min and max points
-            for (int i = 0; i < vertices.Count; i++)
+            for (int i = 0; i < Vertices.Count; i++)
             {
-                Vector3 current = vertices[i];
+                Vector3 current = Vertices[i];
                 // Get minimum of each of the Triangles minimum bound
                 Vector3.Min(ref min, ref current, out min);
                 // Get maximum of each of the Trigons maximum bound
@@ -917,7 +939,7 @@ namespace Engine
 
         public int CountTriangles()
         {
-            return indices.Count;
+            return Indices.Count;
         }
 
                 // Set the size and position of the triangle provided to be that of the triangle index
@@ -926,8 +948,8 @@ namespace Engine
         // not been included.
         public void GetTriangle(ref int index, ref Triangle triangle)
         {
-            triangle.Resize(vertices[indices[index].A], vertices[indices[index].B],
-                vertices[indices[index].C]);
+            triangle.Resize(Vertices[Indices[index].A], Vertices[Indices[index].B],
+                Vertices[Indices[index].C]);
         }
 
         // This creates a copy of the triangle in world space
@@ -935,10 +957,10 @@ namespace Engine
         // Only use during level loading or saving never mid game
         public Triangle GetTriangle(int index)
         {
-            if (vertices != null && indices != null && index > -1 && index < indices.Count)
+            if (Vertices != null && Indices != null && index > -1 && index < Indices.Count)
             {
-                return new Triangle(vertices[indices[index].A], vertices[indices[index].B],
-                    vertices[indices[index].C]);
+                return new Triangle(Vertices[Indices[index].A], Vertices[Indices[index].B],
+                    Vertices[Indices[index].C]);
             }
             else
             {
@@ -952,9 +974,9 @@ namespace Engine
         public List<Triangle> GetTriangles()
         {
             List<Triangle> tris = new List<Triangle>();
-            if (vertices != null && indices != null && indices.Count > 0)
+            if (Vertices != null && Indices != null && Indices.Count > 0)
             {
-                for (int i = 0; i < indices.Count; i++)
+                for (int i = 0; i < Indices.Count; i++)
                 {
                     tris.Add(GetTriangle(i));
                 }

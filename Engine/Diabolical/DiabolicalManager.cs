@@ -53,7 +53,7 @@ namespace Engine
             {
                 if (modelAsset != null)
                 {
-                    return modelAsset.model;
+                    return modelAsset.Replica;
                 }
                 return null;
             }
@@ -61,7 +61,7 @@ namespace Engine
             {
                 if (modelAsset != null)
                 {
-                    modelAsset.model = value;
+                    modelAsset.Replica = value;
                 }
             }
         }
@@ -91,7 +91,7 @@ namespace Engine
             get 
             {
                 if (modelAsset != null &&
-                    modelAsset.modelType == GlobalSettings.modelTypeStructure)
+                    modelAsset.ModelType == GlobalSettings.modelTypeStructure)
                 {
                     return true;
                 }
@@ -104,7 +104,7 @@ namespace Engine
             get
             {
                 if (modelAsset != null &&
-                    modelAsset.modelType == GlobalSettings.modelTypeCharacter)
+                    modelAsset.ModelType == GlobalSettings.modelTypeCharacter)
                 {
                     return true;
                 }
@@ -117,9 +117,9 @@ namespace Engine
             get
             {
                 if (modelAsset != null &&
-                    (modelAsset.modelType == GlobalSettings.modelTypeEquipLight ||
-                    modelAsset.modelType == GlobalSettings.modelTypeEquipSupport ||
-                    modelAsset.modelType == GlobalSettings.modelTypeEquipSmallArms))
+                    (modelAsset.ModelType == GlobalSettings.modelTypeEquipLight ||
+                    modelAsset.ModelType == GlobalSettings.modelTypeEquipSupport ||
+                    modelAsset.ModelType == GlobalSettings.modelTypeEquipSmallArms))
                 {
                     return true;
                 }
@@ -167,7 +167,7 @@ namespace Engine
             if (IsCharacter &&
                 (modelAsset.standingSpheres.Count > 0 || 
                 modelAsset.crouchedSpheres.Count > 0 ||
-                modelAsset.attachedSpheres.Count > 0))
+                modelAsset.AttachedBounds.Count > 0))
             {
                 return true;
             }
@@ -184,7 +184,7 @@ namespace Engine
             {
                 if (modelAsset != null)
                 {
-                    return modelAsset.modelType;
+                    return modelAsset.ModelType;
                 }
                 return "";
             }
@@ -192,7 +192,7 @@ namespace Engine
             {
                 if (modelAsset != null)
                 {
-                    modelAsset.modelType = value;
+                    modelAsset.ModelType = value;
                     SetEffectToDefaultForType();
                 }
             }
@@ -200,13 +200,13 @@ namespace Engine
 
         public string RelativeFileName
         {
-            get { return modelAsset.modelFilename; }
+            get { return modelAsset.ModelFilename; }
         }
 
         public Vector3 ModelRotation
         {
-            get { return modelAsset.rotation; }
-            set { modelAsset.rotation = value; }
+            get { return modelAsset.Rotation; }
+            set { modelAsset.Rotation = value; }
         }
 
         /// <summary>
@@ -300,7 +300,7 @@ namespace Engine
 
         public void OutlineLargerBounds()
         {
-            if (modelAsset != null && modelAsset.modelType == GlobalSettings.modelTypeStructure)
+            if (modelAsset != null && modelAsset.ModelType == GlobalSettings.modelTypeStructure)
             {
                 modelAsset.OutlineLargerBounds(lastLargerBound);
             }
@@ -308,7 +308,7 @@ namespace Engine
 
         public void OutlineSmallerBoundsInLarger()
         {
-            if (modelAsset != null && modelAsset.modelType == GlobalSettings.modelTypeStructure)
+            if (modelAsset != null && modelAsset.ModelType == GlobalSettings.modelTypeStructure)
             {
                 modelAsset.OutlineSmallerBoundsInLarger(lastLargerBound, lastSmallerBound);
             }
@@ -316,7 +316,7 @@ namespace Engine
 
         public void OutlineAllSmallerBounds()
         {
-            if (modelAsset != null && modelAsset.modelType == GlobalSettings.modelTypeStructure)
+            if (modelAsset != null && modelAsset.ModelType == GlobalSettings.modelTypeStructure)
             {
                 modelAsset.OutlineAllSmallerBounds(lastSmallerBound);
             }
@@ -334,7 +334,7 @@ namespace Engine
                 form.AddMessageLine("No model loaded!");
                 return;
             }
-            if (modelAsset.modelType != GlobalSettings.modelTypeStructure)
+            if (modelAsset.ModelType != GlobalSettings.modelTypeStructure)
             {
                 form.AddMessageLine("Structure bounds can only be created for model types of Structure!");
                 return;
@@ -670,7 +670,7 @@ namespace Engine
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
                 CalculateRelativePaths(fileDialog.FileName);
-                if (AcceptInvalidPath(modelAsset.modelFilename))
+                if (AcceptInvalidPath(modelAsset.ModelFilename))
                 {
                     SaveModelSettingsFile(fileDialog.FileName);
                 }
@@ -687,7 +687,7 @@ namespace Engine
                 return;
             }
             string fromFolder = Path.GetDirectoryName(from);
-            modelAsset.modelFilename = MainForm.RelativePathTo(fromFolder, lastLoaded3DModelFile);
+            modelAsset.ModelFilename = MainForm.RelativePathTo(fromFolder, lastLoaded3DModelFile);
         }
 
         private bool AcceptInvalidPath(string relativePath)
@@ -715,7 +715,7 @@ namespace Engine
         // Save file format (.model)
         private void SaveModelSettingsFile(string fileName)
         {
-            switch (modelAsset.modelType)
+            switch (modelAsset.ModelType)
             {
                 case GlobalSettings.modelTypeStructure:
                     form.SaveTextFile(fileName, GetStructureSaveData());
@@ -742,7 +742,7 @@ namespace Engine
                     haveChanged = false;
                     break;
                 default:
-                    form.AddMessageLine("The " + modelAsset.modelType + " model type is not yet supported!");
+                    form.AddMessageLine("The " + modelAsset.ModelType + " model type is not yet supported!");
                     break;
             }
         }
@@ -757,14 +757,14 @@ namespace Engine
             // - Effect Type
             data.Add(modelAsset.EffectType);
             // - Model type
-            data.Add(modelAsset.modelType);
+            data.Add(modelAsset.ModelType);
             // - Filename including relative path (.X or .FBX)
             // The model pipeline does not load textures correctly if the path uses the standard character
-            data.Add(ParseData.UseAlternateFolderCharacters(modelAsset.modelFilename));
+            data.Add(ParseData.UseAlternateFolderCharacters(modelAsset.ModelFilename));
             // - Rotation
-            output = ParseData.FloatToString(modelAsset.rotation.X) +
-                ParseData.div + ParseData.FloatToString(modelAsset.rotation.Y) +
-                ParseData.div + ParseData.FloatToString(modelAsset.rotation.Z);
+            output = ParseData.FloatToString(modelAsset.Rotation.X) +
+                ParseData.div + ParseData.FloatToString(modelAsset.Rotation.Y) +
+                ParseData.div + ParseData.FloatToString(modelAsset.Rotation.Z);
             data.Add(output);
             // == Common options
             // - Material colours
@@ -822,7 +822,7 @@ namespace Engine
             string output = "";
             // - Bone offsets
             output = GlobalSettings.typeHeadOffset +
-                ParseData.div + ParseData.VectorToString(modelAsset.boneAlignment.Translation);
+                ParseData.div + ParseData.VectorToString(modelAsset.BoneAlignment.Translation);
             data.Add(output);
 
             return data;
@@ -837,53 +837,53 @@ namespace Engine
             string output = "";
             // - Manufacturer
             output = GlobalSettings.typeManufacturer +
-                ParseData.div + ParseData.IntToString(modelAsset.manufacturer);
+                ParseData.div + ParseData.IntToString(modelAsset.Manufacturer);
             data.Add(output);
             // - Aim adjustment
             // This version saves the matrix instead of individual values
             output = GlobalSettings.typeAimAdjustment +
-                ParseData.div + ParseData.MatrixToString(modelAsset.boneAlignment);
+                ParseData.div + ParseData.MatrixToString(modelAsset.BoneAlignment);
             data.Add(output);
             // - Muzzle position relative to the start of the aim bone
             output = GlobalSettings.typeWeaponMuzzle +
-                ParseData.div + ParseData.VectorToString(modelAsset.muzzleOffset);
+                ParseData.div + ParseData.VectorToString(modelAsset.MuzzleOffset);
             data.Add(output);
             // Half the width so the weapon can be positioned lying on the ground
             output = GlobalSettings.typeWeaponHalfWidth +
-                ParseData.div + ParseData.FloatToString(modelAsset.halfWidth);
+                ParseData.div + ParseData.FloatToString(modelAsset.HalfWidth);
             data.Add(output);
             // Ammo
             output = GlobalSettings.typeWeaponAmmo +
-                ParseData.div + modelAsset.ammoType +
-                ParseData.div + ParseData.IntToString(modelAsset.ammoClipCapacity) +
-                ParseData.div + ParseData.IntToString(modelAsset.ammoMaxCarried) +
-                ParseData.div + ParseData.BoolToShortString(modelAsset.isAutoFire) +
+                ParseData.div + modelAsset.AmmoType +
+                ParseData.div + ParseData.IntToString(modelAsset.AmmoClipCapacity) +
+                ParseData.div + ParseData.IntToString(modelAsset.AmmoMaxCarried) +
+                ParseData.div + ParseData.BoolToShortString(modelAsset.IsAutoFire) +
                 ParseData.div + ParseData.FloatToString(modelAsset.AmmoRateOfFire) +
-                ParseData.div + ParseData.FloatToString(modelAsset.ammoSecondsToReload) +
-                ParseData.div + modelAsset.fxReload +
-                ParseData.div + modelAsset.fxEmpty;
+                ParseData.div + ParseData.FloatToString(modelAsset.AmmoSecondsToReload) +
+                ParseData.div + modelAsset.FxReload +
+                ParseData.div + modelAsset.FxEmpty;
             data.Add(output);
             // - Ranges, optimum and farthest for use by the AI
             output = GlobalSettings.typeWeaponRanges +
-                ParseData.div + ParseData.FloatToString(modelAsset.optimumClosest) +
-                ParseData.div + ParseData.FloatToString(modelAsset.optimumFarthest);
+                ParseData.div + ParseData.FloatToString(modelAsset.OptimumClosest) +
+                ParseData.div + ParseData.FloatToString(modelAsset.OptimumFarthest);
             data.Add(output);
             // - Recoil amount
             output = GlobalSettings.typeWeaponRecoil +
-                ParseData.div + ParseData.FloatToString(modelAsset.recoilDegrees);
+                ParseData.div + ParseData.FloatToString(modelAsset.RecoilDegrees);
             data.Add(output);
             // - Zoom options
             output = GlobalSettings.typeWeaponZoom;
-            for (int i = 0; i < modelAsset.zoomMultipliers.Count; i++)
+            for (int i = 0; i < modelAsset.ZoomMultipliers.Count; i++)
             {
-                output += ParseData.div + ParseData.FloatToString(modelAsset.zoomMultipliers[i]);
+                output += ParseData.div + ParseData.FloatToString(modelAsset.ZoomMultipliers[i]);
             }
             data.Add(output);
             // - Croasshair types
             output = GlobalSettings.typeWeaponSights;
-            for (int i = 0; i < modelAsset.crossHairs.Count; i++)
+            for (int i = 0; i < modelAsset.CrossHairs.Count; i++)
             {
-                output += ParseData.div + ParseData.FloatToString(modelAsset.crossHairs[i]);
+                output += ParseData.div + ParseData.FloatToString(modelAsset.CrossHairs[i]);
             }
             data.Add(output);
 
@@ -899,28 +899,35 @@ namespace Engine
             string output = "";
             // - Rig type
             output = GlobalSettings.typeRig +
-                ParseData.div + modelAsset.rigTypeName;
+                ParseData.div + modelAsset.RigTypeName;
+            data.Add(output);
+            // - Body sizes
+            output = GlobalSettings.typeBodySizes + 
+                ParseData.div + modelAsset.Mass +
+                ParseData.div + modelAsset.HeightStanding +
+                ParseData.div + modelAsset.HeightCrouched +
+                ParseData.div + modelAsset.CylinderRadius;
             data.Add(output);
             // - Attach equipment positions
-            for (int a = 0; a < modelAsset.attachEquip.Count; a++)
+            for (int a = 0; a < modelAsset.AttachEquip.Count; a++)
             {
                 output = GlobalSettings.typeAttachEquipment +
-                    ParseData.div + modelAsset.GetBoneName(modelAsset.attachEquip[a].idBone) +
-                    ParseData.div + ParseData.MatrixToString(modelAsset.attachEquip[a].mtxTransform);
+                    ParseData.div + modelAsset.GetBoneName(modelAsset.AttachEquip[a].idBone) +
+                    ParseData.div + ParseData.MatrixToString(modelAsset.AttachEquip[a].mtxTransform);
                 data.Add(output);
             }
             // - Attach adornments
-            for (int b = 0; b < modelAsset.attachAdorn.Count; b++)
+            for (int b = 0; b < modelAsset.AttachAdorn.Count; b++)
             {
                 output = GlobalSettings.typeAttachAdornment +
-                    ParseData.div + modelAsset.GetBoneName(modelAsset.attachAdorn[b].idBone) +
-                    ParseData.div + ParseData.MatrixToString(modelAsset.attachAdorn[b].mtxTransform);
+                    ParseData.div + modelAsset.GetBoneName(modelAsset.AttachAdorn[b].idBone) +
+                    ParseData.div + ParseData.MatrixToString(modelAsset.AttachAdorn[b].mtxTransform);
                 data.Add(output);
             }
             // - Weapon Hold
             output = GlobalSettings.typeWeaponHoldBone +
-                ParseData.div + modelAsset.GetBoneName(modelAsset.attachHold.idBone) +
-                ParseData.div + ParseData.MatrixToString(modelAsset.attachHold.mtxTransform);
+                ParseData.div + modelAsset.GetBoneName(modelAsset.AttachHold.idBone) +
+                ParseData.div + ParseData.MatrixToString(modelAsset.AttachHold.mtxTransform);
             data.Add(output);
             // - Body spheres
             // Standing sphere and crouched sphere
@@ -942,12 +949,12 @@ namespace Engine
             }
             // - Smaller bone attached spheres
             // Bone name, radius and offset
-            for (int d = 0; d < modelAsset.attachedSpheres.Count; d++)
+            for (int d = 0; d < modelAsset.AttachedBounds.Count; d++)
             {
-                output = GlobalSettings.typeSmallerSpheres +
-                    ParseData.div + modelAsset.GetBoneName(modelAsset.attachedSpheres[d].BoneIndex) + 
-                    ParseData.div + ParseData.FloatToString(modelAsset.attachedSpheres[d].Sphere.Radius) +
-                    ParseData.div + ParseData.FloatToString(modelAsset.attachedSpheres[d].Offset);
+                output = GlobalSettings.typeAttachedSpheres +
+                    ParseData.div + modelAsset.GetBoneName(modelAsset.AttachedBounds[d].BoneIndex) + 
+                    ParseData.div + ParseData.FloatToString(modelAsset.AttachedBounds[d].Sphere.Radius) +
+                    ParseData.div + ParseData.FloatToString(modelAsset.AttachedBounds[d].Offset);
                 data.Add(output);
             }
 

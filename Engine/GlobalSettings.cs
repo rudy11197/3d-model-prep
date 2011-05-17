@@ -71,10 +71,12 @@ namespace Engine
         // Bounding shapes used for structures
         public const string typeLargerBounds = "Lb";
         public const string typeSmallerBounds = "Sb";
+        // Dimensions used to create the bounding shapes for the character
+        public const string typeBodySizes = "BodySizes";
         // Bounding spheres to make up the collision shape of the character
         // Must be listed in the same order.  Usually head first working down.
         public const string typeLargerSpheres = "Ls";
-        public const string typeSmallerSpheres = "Ss";
+        public const string typeAttachedSpheres = "Ss";
         // Adjusts the weapon to align the grips with the hand bones so that the grips remain
         // in the right place while aiming.
         // These are offsets from the model origin in object space
