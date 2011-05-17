@@ -157,6 +157,7 @@ using System.Windows.Forms;
 // - Undo the last delete bounds
 // - The weapon and gear dialogue will need a +/- rotation in all three 
 //      directions instead of the absolutes currently set in the older files.
+// - Add a character options form to setup the attached bounding spheres
 
 //-----------------------------------------------------------------------------
 // TODO (Extras):
