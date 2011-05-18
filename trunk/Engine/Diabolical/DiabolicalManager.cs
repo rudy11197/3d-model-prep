@@ -164,10 +164,7 @@ namespace Engine
 
         public bool HasCharacterBounds()
         {
-            if (IsCharacter &&
-                (modelAsset.standingSpheres.Count > 0 || 
-                modelAsset.crouchedSpheres.Count > 0 ||
-                modelAsset.AttachedBounds.Count > 0))
+            if (IsCharacter && modelAsset.AttachedBounds.Count > 0)
             {
                 return true;
             }
@@ -929,24 +926,6 @@ namespace Engine
                 ParseData.div + modelAsset.GetBoneName(modelAsset.AttachHold.idBone) +
                 ParseData.div + ParseData.MatrixToString(modelAsset.AttachHold.mtxTransform);
             data.Add(output);
-            // - Body spheres
-            // Standing sphere and crouched sphere
-            if (modelAsset.standingSpheres.Count != modelAsset.crouchedSpheres.Count)
-            {
-                form.AddMessageLine("The quantity of standing and crouched spheres do not match so may not load correctly!");
-            }
-            for (int c = 0; c < modelAsset.standingSpheres.Count; c++)
-            {
-                output = GlobalSettings.typeLargerSpheres +
-                    ParseData.div + ParseData.VectorToString(modelAsset.standingSpheres[c].Center) +
-                    ParseData.div + ParseData.FloatToString(modelAsset.standingSpheres[c].Radius);
-                if (c < modelAsset.crouchedSpheres.Count)
-                {
-                    output += ParseData.div + ParseData.VectorToString(modelAsset.crouchedSpheres[c].Center) +
-                              ParseData.div + ParseData.FloatToString(modelAsset.crouchedSpheres[c].Radius);
-                }
-                data.Add(output);
-            }
             // - Smaller bone attached spheres
             // Bone name, radius and offset
             for (int d = 0; d < modelAsset.AttachedBounds.Count; d++)

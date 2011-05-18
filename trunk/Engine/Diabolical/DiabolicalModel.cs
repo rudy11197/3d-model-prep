@@ -137,9 +137,6 @@ namespace Engine
         public float HeightCrouched = 1.0f;
         // The radius of the collision cylinder that closely fits the character
         public float CylinderRadius = 0.5f;
-        // There are always the same number of standing and crouched spheres
-        public List<BoundingSphere> standingSpheres;
-        public List<BoundingSphere> crouchedSpheres;
         // The list of bounding spheres attached to bones used for more detailed collision with projectiles
         public List<AttachedSphere> AttachedBounds;
         // The list of equipment attachment points
@@ -228,8 +225,6 @@ namespace Engine
             largerBounds = new List<StructureSphere>();
             smallerBounds = new List<StructureSphere>();
             BoneAlignment = Matrix.Identity;
-            standingSpheres = new List<BoundingSphere>();
-            crouchedSpheres = new List<BoundingSphere>();
             AttachedBounds = new List<AttachedSphere>();
             AttachAdorn = new List<AttachmentPoint>();
             AttachEquip = new List<AttachmentPoint>();
@@ -296,12 +291,6 @@ namespace Engine
                     if (item.Length > 1)
                     {
                         RigTypeName = item[1];
-                    }
-                    break;
-                case GlobalSettings.typeLargerSpheres:
-                    if (item.Length > 4)
-                    {
-                        AddBodySpheres(item[1], item[2], item[3], item[4]);
                     }
                     break;
                 case GlobalSettings.typeBodySizes:
@@ -458,17 +447,6 @@ namespace Engine
         }
 
         // == Characters
-
-        private void AddBodySpheres(string centreStanding, string radiusStanding,
-                string centreCrouched, string radiusCrouched)
-        {
-            Vector3 vCentre = ParseData.StringToVector3(centreStanding);
-            float fRadius = ParseData.FloatFromString(radiusStanding);
-            standingSpheres.Add(new BoundingSphere(vCentre, fRadius));
-            vCentre = ParseData.StringToVector3(centreCrouched);
-            fRadius = ParseData.FloatFromString(radiusCrouched);
-            crouchedSpheres.Add(new BoundingSphere(vCentre, fRadius));
-        }
 
         private void SetBodySizes(string mass, string standing, string crouched, string radius)
         {
