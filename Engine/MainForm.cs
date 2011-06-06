@@ -1394,6 +1394,16 @@ namespace Engine
             // TODO:
             // Merge clips
 
+            if (modelViewerControl.Model == null)
+            {
+                AddMessageLine("No loaded model!");
+                return;
+            }
+            AnimationClip upper = modelViewerControl.GetClipWithName(upperClip);
+            AnimationClip lower = modelViewerControl.GetClipWithName(lowerClip);
+
+            //ParseClips.MergeClips(
+
             Cursor = Cursors.Arrow;
 
             string name = ClipSaveDialogue(data);
@@ -1412,6 +1422,18 @@ namespace Engine
 
             AddMessageLine("== Finished ==");
             Cursor = Cursors.Arrow;
+        }
+
+        private List<int> ConvertBoneNamesToIDs(List<string> source)
+        {
+            List<int> result = new List<int>();
+            IDictionary<string, int> boneMap = GetBoneMap();
+
+            for (int i = 0; i < source.Count; i++)
+            {
+                result.Add(boneMap[source[i]]);
+            }
+            return result;
         }
 
         //
