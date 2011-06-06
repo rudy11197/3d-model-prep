@@ -34,6 +34,11 @@ namespace Engine
         // Head = Head and Neck (Look and Aim)
         public bool IsBoneWeWant(int bone)
         {
+            if (boneMap == null || bonesFilter == null)
+            {
+                return true;
+            }
+
             for (int i = 0; i < bonesFilter.Count; i++)
             {
                 if (bone == boneMap[bonesFilter[i]])

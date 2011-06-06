@@ -101,7 +101,7 @@ namespace Engine
         public static List<string> GetAnimationClipData(AnimationClip clip, IDictionary<string, int> BoneMap, List<string> bonesFilter)
         {
             bool IsClip = false;
-            if (bonesFilter == null || bonesFilter.Count < 1)
+            if (bonesFilter == null || bonesFilter.Count < 1 || BoneMap == null)
             {
                 IsClip = true;
             }
@@ -157,6 +157,65 @@ namespace Engine
                 }
             }
             return data;
+        }
+
+        public static List<string> MergeClips(AnimationClip upper, AnimationClip lower, IDictionary<string, int> BoneMap, List<string> upperBonesFilter)
+        {
+            // Only valid if both clips are for the same skeleton
+            int boneCount = upper.BoneCount;
+            if (lower.BoneCount != boneCount)
+            {
+                return null;
+            }
+
+            TimeSpan duration = lower.Duration;
+            if (upper.Duration > lower.Duration)
+            {
+                duration = upper.Duration;
+            }
+            // The foot sounds only come from the lower bones.
+            List<TimeSpan> steps = lower.SoundFrameTimes;
+
+            IList<Keyframe> keyframes = new List<Keyframe>();
+            IList<Keyframe> upperframes = upper.Keyframes;
+            IList<Keyframe> lowerframes = lower.Keyframes;
+
+            WantedBones UpperBoneTest = new WantedBones(BoneMap, upperBonesFilter);
+
+            int nextUpper = 0;
+            int nextLower = 0;
+
+            while (nextLower < lowerframes.Count)
+            {
+                while (nextUpper < upperframes.Count &&
+                    upperframes[nextUpper].Time <= lowerframes[nextLower].Time)
+                {
+                    if (UpperBoneTest.IsBoneWeWant(upperframes[nextUpper].Bone))
+                    {
+                        keyframes.Add(upperframes[nextLower]);
+                    }
+                    nextUpper++;
+                }
+                if (!UpperBoneTest.IsBoneWeWant(lowerframes[nextLower].Bone))
+                {
+                    keyframes.Add(lowerframes[nextLower]);
+                }
+                nextLower++;
+            }
+            // Add the remainder
+            if (nextUpper < upperframes.Count)
+            {
+                for (int i = nextUpper; i < upperframes.Count; i++)
+                {
+                    if (UpperBoneTest.IsBoneWeWant(upperframes[nextUpper].Bone))
+                    {
+                        keyframes.Add(upperframes[i]);
+                    }
+                }
+            }
+
+            AnimationClip result = new AnimationClip(boneCount, duration, keyframes, steps);
+            return GetAnimationClipData(result, null, null);
         }
 
     }

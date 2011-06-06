@@ -75,6 +75,7 @@ namespace Engine
             this.ToolsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitFBXMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openTakesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mergeToClipsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.SaveBoneMapMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.SaveBindPoseMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -93,7 +94,6 @@ namespace Engine
             this.buttonLarge = new System.Windows.Forms.Button();
             this.buttonSmall = new System.Windows.Forms.Button();
             this.modelViewerControl = new Engine.ModelViewerControl();
-            this.mergeToClipsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericLarge)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericSmall)).BeginInit();
@@ -112,7 +112,7 @@ namespace Engine
             this.ClipNamesComboBox});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1008, 27);
+            this.menuStrip1.Size = new System.Drawing.Size(1008, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -131,7 +131,7 @@ namespace Engine
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 23);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // LoadRigidModelMenu
@@ -228,7 +228,7 @@ namespace Engine
             this.light2EnabledToolStripMenuItem,
             this.reverseLightingToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 23);
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem.Text = "&View";
             // 
             // yUpMenuItem
@@ -397,7 +397,7 @@ namespace Engine
             this.createStructureBoundsItem,
             this.optimiseBoundsItem});
             this.diabolicalToolStripMenuItem.Name = "diabolicalToolStripMenuItem";
-            this.diabolicalToolStripMenuItem.Size = new System.Drawing.Size(71, 23);
+            this.diabolicalToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
             this.diabolicalToolStripMenuItem.Text = "&Diabolical";
             // 
             // loadmodelItem
@@ -471,7 +471,7 @@ namespace Engine
             this.toolStripSeparator8,
             this.optionsToolStripMenuItem});
             this.ToolsMenuItem.Name = "ToolsMenuItem";
-            this.ToolsMenuItem.Size = new System.Drawing.Size(48, 23);
+            this.ToolsMenuItem.Size = new System.Drawing.Size(48, 20);
             this.ToolsMenuItem.Text = "&Tools";
             // 
             // splitFBXMenuItem
@@ -492,6 +492,13 @@ namespace Engine
             this.openTakesToolStripMenuItem.ToolTipText = "Load a list of animation takes from an FBX file and save them in a keyframe forma" +
     "t";
             this.openTakesToolStripMenuItem.Click += new System.EventHandler(this.OpenTakesMenu_Click);
+            // 
+            // mergeToClipsMenuItem
+            // 
+            this.mergeToClipsMenuItem.Name = "mergeToClipsMenuItem";
+            this.mergeToClipsMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.mergeToClipsMenuItem.Text = "&Merge Animations To Clips...";
+            this.mergeToClipsMenuItem.Click += new System.EventHandler(this.mergeToClipsMenuItem_Click);
             // 
             // toolStripSeparator5
             // 
@@ -533,7 +540,7 @@ namespace Engine
             this.windowToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.helpToolStripMenuItem1});
             this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
-            this.windowToolStripMenuItem.Size = new System.Drawing.Size(63, 23);
+            this.windowToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
             this.windowToolStripMenuItem.Text = "&Window";
             // 
             // helpToolStripMenuItem1
@@ -649,7 +656,7 @@ namespace Engine
             this.modelViewerControl.IsAnimated = false;
             this.modelViewerControl.Light1Enabled = true;
             this.modelViewerControl.Light2Enabled = true;
-            this.modelViewerControl.Location = new System.Drawing.Point(0, 27);
+            this.modelViewerControl.Location = new System.Drawing.Point(0, 24);
             this.modelViewerControl.Name = "modelViewerControl";
             this.modelViewerControl.PauseInput = true;
             this.modelViewerControl.ReverseLighting = true;
@@ -660,13 +667,6 @@ namespace Engine
             this.modelViewerControl.TabIndex = 1;
             this.modelViewerControl.Text = "modelViewerControl";
             this.modelViewerControl.ViewUp = 1;
-            // 
-            // mergeToClipsMenuItem
-            // 
-            this.mergeToClipsMenuItem.Name = "mergeToClipsMenuItem";
-            this.mergeToClipsMenuItem.Size = new System.Drawing.Size(230, 22);
-            this.mergeToClipsMenuItem.Text = "&Merge Animations To Clips...";
-            this.mergeToClipsMenuItem.Click += new System.EventHandler(this.mergeToClipsMenuItem_Click);
             // 
             // MainForm
             // 
