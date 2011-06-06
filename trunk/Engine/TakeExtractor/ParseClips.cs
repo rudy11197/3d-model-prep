@@ -52,7 +52,7 @@ namespace Engine
             return ProcessData(result, fileName);
         }
 
-        private AnimationClip ProcessData(string[] input, string fullFile)
+        public AnimationClip ProcessData(string[] input, string fullFile)
         {
             // If there is nothing do not process anything
             if (input.Length < 1)

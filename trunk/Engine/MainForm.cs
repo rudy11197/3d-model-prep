@@ -910,21 +910,6 @@ namespace Engine
             return (SkinningData)modelViewerControl.Model.Tag;
         }
 
-        public IDictionary<string, int> GetBoneMap()
-        {
-            if (modelViewerControl.Model == null)
-            {
-                return null;
-            }
-
-            SkinningData skinData = (SkinningData)modelViewerControl.Model.Tag;
-            if (skinData == null)
-            {
-                return null;
-            }
-            return skinData.BoneMap;
-        }
-
         private void SplitFBX(string fileName)
         {
             Cursor = Cursors.WaitCursor;
@@ -1137,12 +1122,13 @@ namespace Engine
 
         }
 
-        private void ClipSaveDialogue(List<string> data)
+        // Returns the name of the saved file
+        private string ClipSaveDialogue(List<string> data)
         {
             if (data == null || data.Count < 1)
             {
                 AddMessageLine("No clip data!");
-                return;
+                return "";
             }
             // Path to default location
             string pathToSaveFolder = defaultFileFolder;
@@ -1172,8 +1158,9 @@ namespace Engine
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
                 SaveTextFile(fileDialog.FileName, data);
+                return fileDialog.FileName;
             }
-
+            return "";
         }
 
         /// <summary>
@@ -1193,6 +1180,22 @@ namespace Engine
 
             Cursor = Cursors.Arrow;
 
+        }
+
+        public IDictionary<string, int> GetBoneMap()
+        {
+            if (modelViewerControl.Model == null)
+            {
+                AddMessageLine("No model loaded!");
+                return null;
+            }
+            SkinningData skinData = (SkinningData)modelViewerControl.Model.Tag;
+            if (skinData == null)
+            {
+                AddMessageLine("Not an animated model!");
+                return null;
+            }
+            return skinData.BoneMap;
         }
 
         public List<string> GetBoneMapList(SkinningData skinData)
@@ -1353,6 +1356,66 @@ namespace Engine
         //
         //////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////
+        // == Tools Menu ==
+        //
+        private void mergeToClipsMenuItem_Click(object sender, EventArgs e)
+        {
+            DisplayMergeClipForm();
+        }
+
+        private List<string> upperBodyBones = new List<string>();
+
+        private void DisplayMergeClipForm()
+        {
+            MergeClipForm aForm = new MergeClipForm();
+            // Properties
+            aForm.BoneMap = GetBoneMap();
+            aForm.UpperBodyBones = upperBodyBones;
+            aForm.ClipNames = clipNames;
+
+            DialogResult diagResult = aForm.ShowDialog();
+            if (diagResult == DialogResult.OK)
+            {
+                // Results
+                upperBodyBones = aForm.UpperBodyBones;
+                string upperClip = aForm.UpperBodyClip;
+                string lowerClip = aForm.LowerBodyClip;
+                MergeAnimations(upperClip, lowerClip);
+            }
+        }
+
+        private void MergeAnimations(string upperClip, string lowerClip)
+        {
+            Cursor = Cursors.WaitCursor;
+            List<string> data = new List<string>();
+
+            ParseClips clips = new ParseClips(this);
+            // TODO:
+            // Merge clips
+
+            Cursor = Cursors.Arrow;
+
+            string name = ClipSaveDialogue(data);
+            if (name == "")
+            {
+                AddMessageLine("Clip not saved!");
+                return;
+            }
+
+            Cursor = Cursors.WaitCursor;
+
+            AnimationClip clip = null;
+            clip = clips.ProcessData(data.ToArray(), name);
+            name = Path.GetFileNameWithoutExtension(name);
+            AddToClipList(clip, name);
+
+            AddMessageLine("== Finished ==");
+            Cursor = Cursors.Arrow;
+        }
+
+        //
+        //////////////////////////////////////////////////////////////////////
 
         private void ClipNamesComboBox_Changed(object sender, EventArgs e)
         {

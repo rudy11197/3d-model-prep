@@ -325,6 +325,23 @@ namespace Engine
             return null;
         }
 
+        public AnimationClip GetClipWithName(string name)
+        {
+            if (isAnimated && model != null && animationPlayer != null)
+            {
+                // Look up our custom skinning information.
+                SkinningData skinningData = model.Tag as SkinningData;
+                // Make sure the animation exists in the model
+                if (skinningData == null ||
+                    !skinningData.AnimationClips.ContainsKey(name))
+                {
+                    return null;
+                }
+                return skinningData.AnimationClips[name];
+            }
+            return null;
+        }
+
         public void SetClipName(string name)
         {
             if (isAnimated && model != null && animationPlayer != null)

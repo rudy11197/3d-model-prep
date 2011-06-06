@@ -149,6 +149,12 @@
       <DependentUpon>RotationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="TakeExtractor\AnimationPlayer.cs" />
+    <Compile Include="TakeExtractor\MergeClipForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TakeExtractor\MergeClipForm.Designer.cs">
+      <DependentUpon>MergeClipForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="TakeExtractor\ParseBlenderAction.cs" />
     <Compile Include="TakeExtractor\ParseClips.cs" />
     <Compile Include="TakeExtractor\ParseFBX.cs" />
@@ -196,6 +202,9 @@
     </Compile>
     <EmbeddedResource Include="RotationForm.resx">
       <DependentUpon>RotationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TakeExtractor\MergeClipForm.resx">
+      <DependentUpon>MergeClipForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
