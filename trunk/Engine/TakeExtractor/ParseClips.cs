@@ -69,7 +69,7 @@ namespace Engine
             List<TimeSpan> steps = new List<TimeSpan>();
             if (data.Length > 2)
             {
-                // The rest of the first line are the frames for the sounds of foot steps
+                // The rest of the first line are the frame times for the sounds of foot steps
                 for (int d = 2; d < data.Length; d++)
                 {
                     steps.Add(ParseData.TimeFromString(data[d]));
@@ -113,9 +113,13 @@ namespace Engine
             {
                 // CLIP
                 // Add the details from the AnimationClip
-                data.Add(String.Format("{0} {1}",
-                    ParseData.IntToString(clip.BoneCount),
-                    ParseData.TimeToString(clip.Duration)));
+                string output = ParseData.IntToString(clip.BoneCount) + " " + ParseData.TimeToString(clip.Duration);
+                // Add the sound times
+                for (int s = 0; s < clip.SoundFrameTimes.Count; s++)
+                {
+                    output += " " + ParseData.TimeToString(clip.SoundFrameTimes[s]);
+                }
+                data.Add(output);
             }
             else
             {
@@ -159,7 +163,7 @@ namespace Engine
             return data;
         }
 
-        public static List<string> MergeClips(AnimationClip upper, AnimationClip lower, IDictionary<string, int> BoneMap, List<string> upperBonesFilter)
+        public static AnimationClip MergeClips(AnimationClip upper, AnimationClip lower, IDictionary<string, int> BoneMap, List<string> upperBonesFilter)
         {
             // Only valid if both clips are for the same skeleton
             int boneCount = upper.BoneCount;
@@ -214,8 +218,7 @@ namespace Engine
                 }
             }
 
-            AnimationClip result = new AnimationClip(boneCount, duration, keyframes, steps);
-            return GetAnimationClipData(result, null, null);
+            return new AnimationClip(boneCount, duration, keyframes, steps);
         }
 
     }

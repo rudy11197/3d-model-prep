@@ -1388,12 +1388,6 @@ namespace Engine
         private void MergeAnimations(string upperClip, string lowerClip)
         {
             Cursor = Cursors.WaitCursor;
-            List<string> data = new List<string>();
-
-            ParseClips clips = new ParseClips(this);
-            // TODO:
-            // Merge clips
-
             if (modelViewerControl.Model == null)
             {
                 AddMessageLine("No loaded model!");
@@ -1401,11 +1395,15 @@ namespace Engine
             }
             AnimationClip upper = modelViewerControl.GetClipWithName(upperClip);
             AnimationClip lower = modelViewerControl.GetClipWithName(lowerClip);
-
-            //ParseClips.MergeClips(
-
+            AnimationClip result = ParseClips.MergeClips(upper, lower, GetBoneMap(), upperBodyBones);
+            if (result == null)
+            {
+                AddMessageLine("Animation clip merge FAILED!");
+                return;
+            }
+            List<string> data = ParseClips.GetAnimationClipData(result, null, null);
+            
             Cursor = Cursors.Arrow;
-
             string name = ClipSaveDialogue(data);
             if (name == "")
             {
@@ -1414,28 +1412,12 @@ namespace Engine
             }
 
             Cursor = Cursors.WaitCursor;
-
-            AnimationClip clip = null;
-            clip = clips.ProcessData(data.ToArray(), name);
             name = Path.GetFileNameWithoutExtension(name);
-            AddToClipList(clip, name);
+            AddToClipList(result, name);
 
             AddMessageLine("== Finished ==");
             Cursor = Cursors.Arrow;
         }
-
-        private List<int> ConvertBoneNamesToIDs(List<string> source)
-        {
-            List<int> result = new List<int>();
-            IDictionary<string, int> boneMap = GetBoneMap();
-
-            for (int i = 0; i < source.Count; i++)
-            {
-                result.Add(boneMap[source[i]]);
-            }
-            return result;
-        }
-
         //
         //////////////////////////////////////////////////////////////////////
 
