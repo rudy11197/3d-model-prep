@@ -840,7 +840,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Loads an animation and add to the clips
+        /// Loads an animation (FBX) and add to the clips
         /// </summary>
         public void LoadAnimationTakes(string fileName, string rotateXdeg, string rotateYdeg, string rotateZdeg)
         {
@@ -972,7 +972,7 @@ namespace Engine
         }
 
         // Add a clip to the list and diplays it
-        private void AddToClipList(AnimationClip clip, string name)
+        public void AddToClipList(AnimationClip clip, string name)
         {
             if (clip != null)
             {
@@ -1393,8 +1393,8 @@ namespace Engine
                 AddMessageLine("No loaded model!");
                 return;
             }
-            AnimationClip upper = modelViewerControl.GetClipWithName(upperClip);
-            AnimationClip lower = modelViewerControl.GetClipWithName(lowerClip);
+            AnimationClip upper = loadedClips[upperClip];
+            AnimationClip lower = loadedClips[lowerClip];
             AnimationClip result = ParseClips.MergeClips(upper, lower, GetBoneMap(), upperBodyBones);
             if (result == null)
             {

@@ -316,28 +316,12 @@ namespace Engine
             return result;
         }
 
+        // All other clips are stored in the MainForm as loadedClips[]
         public AnimationClip GetCurrentClip()
         {
             if (isAnimated && animationPlayer != null)
             {
                 return animationPlayer.CurrentClip;
-            }
-            return null;
-        }
-
-        public AnimationClip GetClipWithName(string name)
-        {
-            if (isAnimated && model != null && animationPlayer != null)
-            {
-                // Look up our custom skinning information.
-                SkinningData skinningData = model.Tag as SkinningData;
-                // Make sure the animation exists in the model
-                if (skinningData == null ||
-                    !skinningData.AnimationClips.ContainsKey(name))
-                {
-                    return null;
-                }
-                return skinningData.AnimationClips[name];
             }
             return null;
         }
