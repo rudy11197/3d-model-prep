@@ -40,6 +40,7 @@ namespace Engine
         public const string itemClipTake = "clip";
         public const string itemHeadTake = "head";
         public const string itemArmsTake = "arms";
+        public const string itemMergeClips = "merge";
 
         // Names
         public const string listRestPoseName = "* Rest or bind pose";

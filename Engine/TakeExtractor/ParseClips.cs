@@ -196,7 +196,7 @@ namespace Engine
                 {
                     if (UpperBoneTest.IsBoneWeWant(upperframes[nextUpper].Bone))
                     {
-                        keyframes.Add(upperframes[nextLower]);
+                        keyframes.Add(upperframes[nextUpper]);
                     }
                     nextUpper++;
                 }

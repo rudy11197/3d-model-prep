@@ -80,6 +80,8 @@
 // type|SourceAnimationFileName|OutputTakeName
 // type|SourceAnimationFileName|OutputTakeName
 // ...
+// merge|SourceFileUpperBody.fbx|SourceFileLowerBody.fbx|OutputTakeName
+// ...
 //
 // Format Type
 //  2
@@ -149,16 +151,16 @@ using System.Windows.Forms;
 // - Delete the smaller and larger bounds
 // - Select bounds by their index number
 // - Display a set of axes to show which way the camera is facing
+// - Merge animations
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 // TODO:
 //-----------------------------------------------------------------------------
-// test - Form to merge animations to create run, walk and jog variants.
-// - File to merge animations 
+// test - File to merge animations 
 //      have a .takes file format type 3 the same as format type 2 with the addition 
 //      of merging animations.
-//      Merge|SourceFileUpperBody|SourceFileLowerBody|OutputTakeName
+//      merge|SourceFileUpperBody.fbx|SourceFileLowerBody.fbx|OutputTakeName
 
 // - Undo the last delete bounds
 // - The weapon and gear dialogue will need a +/- rotation in all three 

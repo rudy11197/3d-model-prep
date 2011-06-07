@@ -211,6 +211,18 @@ namespace Engine
                             clipParts.Add(part);
                         }
                         break;
+                    case GlobalSettings.itemMergeClips:
+                        if (items.Length > 3)
+                        {
+                            string upperfile = fbx.GetFullPath(items[1]);
+                            string lowerfile = fbx.GetFullPath(items[2]);
+                            string mergefile = fbx.GetKeyframeFileName(rigType, items[3], GlobalSettings.itemClipTake);
+                            MergeAnimationsFromFiles(
+                                upperfile, lowerfile, mergefile, 
+                                rotateXdeg, rotateYdeg, rotateZdeg, 
+                                headFilter, armsFilter);
+                        }
+                        break;
                 }
             }
 
@@ -263,6 +275,32 @@ namespace Engine
                 File.WriteAllLines(fileName, exportData);
             }
 
+        }
+
+        private void MergeAnimationsFromFiles(
+            string upperFilePath, string lowerFilePath, string mergeFilePath, 
+            string rotateXdeg, string rotateYdeg, string rotateZdeg,
+            List<string> headFilter, List<string> armsFilter)
+        {
+            form.AddMessageLine("Merging: " + upperFilePath + " with " + lowerFilePath);
+            List<string> upperBoneFilter = new List<string>();
+            upperBoneFilter.AddRange(headFilter);
+            upperBoneFilter.AddRange(armsFilter);
+            form.LoadAnimationTakes(upperFilePath, rotateXdeg, rotateYdeg, rotateZdeg);
+            AnimationClip upperClip = form.GetCurrentClip();
+            form.LoadAnimationTakes(lowerFilePath, rotateXdeg, rotateYdeg, rotateZdeg);
+            AnimationClip lowerClip = form.GetCurrentClip();
+            MergeAnimations(upperClip, lowerClip, mergeFilePath, upperBoneFilter);
+        }
+
+        private void MergeAnimations(AnimationClip upper, AnimationClip lower, string mergeFilePath, List<string> upperBodyBones)
+        {
+            AnimationClip result = ParseClips.MergeClips(upper, lower, form.GetBoneMap(), upperBodyBones);
+            List<string> data = ParseClips.GetAnimationClipData(result, null, null);
+            form.AddMessageLine("Saving: " + mergeFilePath);
+            File.WriteAllLines(mergeFilePath, data);
+            string name = Path.GetFileNameWithoutExtension(mergeFilePath);
+            form.AddToClipList(result, name);
         }
 
         // Convert each clip to a string array for saving
