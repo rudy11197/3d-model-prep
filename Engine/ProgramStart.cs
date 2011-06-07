@@ -154,13 +154,11 @@ using System.Windows.Forms;
 //-----------------------------------------------------------------------------
 // TODO:
 //-----------------------------------------------------------------------------
-// - Merge animations to form run, walk and jog variants.
-//      Have a form to select from already loaded animations but also have a 
-//      .takes file format type 3 the same as format type 2 with the addition 
+// test - Form to merge animations to create run, walk and jog variants.
+// - File to merge animations 
+//      have a .takes file format type 3 the same as format type 2 with the addition 
 //      of merging animations.
 //      Merge|SourceFileUpperBody|SourceFileLowerBody|OutputTakeName
-//      Use the head and arm bones names for the upper body and everything else 
-//          the lower body parts.
 
 // - Undo the last delete bounds
 // - The weapon and gear dialogue will need a +/- rotation in all three 
