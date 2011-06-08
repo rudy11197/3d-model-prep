@@ -157,6 +157,10 @@ using System.Windows.Forms;
 //-----------------------------------------------------------------------------
 // TODO:
 //-----------------------------------------------------------------------------
+// - It might be necessary to sort the keyframes in to bone order.
+//      I think that is necessary to move correctly.
+//      It might be reverse bone order working back through the bones parents.
+
 // test - File to merge animations 
 //      have a .takes file format type 3 the same as format type 2 with the addition 
 //      of merging animations.
