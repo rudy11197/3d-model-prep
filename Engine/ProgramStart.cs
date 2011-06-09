@@ -157,9 +157,10 @@ using System.Windows.Forms;
 //-----------------------------------------------------------------------------
 // TODO:
 //-----------------------------------------------------------------------------
-// - It might be necessary to sort the keyframes in to bone order.
-//      I think that is necessary to move correctly.
-//      It might be reverse bone order working back through the bones parents.
+// - My initial test of merging had a distorted result where the
+//      shoulders joined the run.  
+//      Ideas.  Missing bones in one or other animation, different lengths or the 
+//              timings are not the same for each frame.
 
 // test - File to merge animations 
 //      have a .takes file format type 3 the same as format type 2 with the addition 
