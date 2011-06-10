@@ -22,12 +22,12 @@ namespace Engine
     /// </summary>
     class DiabolicalManager
     {
-        MainForm form;
-        Shapes debugShapes;
-        string lastLoadedSettingsFile = "";
-        string lastLoaded3DModelFile = "";
+        private MainForm form;
+        private Shapes debugShapes;
+        private string lastLoadedSettingsFile = "";
+        private string lastLoaded3DModelFile = "";
 
-        DiabolicalModel modelAsset;
+        private DiabolicalModel modelAsset;
 
 
         public DiabolicalManager(MainForm parent, Shapes sharedShapes)
@@ -169,6 +169,26 @@ namespace Engine
                 return true;
             }
             return false;
+        }
+
+        public List<AttachedSphere> AttachedBounds
+        {
+            get { return modelAsset.AttachedBounds; }
+        }
+
+        public float CylinderRadius
+        {
+            get { return modelAsset.CylinderRadius; }
+        }
+
+        public float HeightStanding
+        {
+            get { return modelAsset.HeightStanding; }
+        }
+
+        public float HeightCrouched
+        {
+            get { return modelAsset.HeightCrouched; }
         }
 
         /// <summary>

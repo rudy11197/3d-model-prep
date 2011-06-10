@@ -30,6 +30,41 @@ namespace Engine
     /// </summary>
     class ModelViewerControl : GraphicsDeviceControl
     {
+        /////////////////////////////////////////////////////////////////////
+        // == Draw Options ==
+        //
+        public enum DrawOptions
+        {
+            None,
+            CharacterCylinder,
+            AttachedBounds
+        }
+
+        private DrawOptions options = DrawOptions.None;
+        public DrawOptions Options
+        {
+            get { return options; }
+            set { options = value; }
+        }
+
+        public List<AttachedSphere> AttachedBounds = new List<AttachedSphere>();
+
+        private int selectedBound = 0;
+        public int SelectedBound
+        {
+            get { return selectedBound; }
+            set { selectedBound = value; }
+        }
+
+        private float cylinderHeight = 0;
+        private float cylinderRadius = 0;
+        public void SetCylinderSizes(float height, float radius)
+        {
+            cylinderHeight = height;
+            cylinderRadius = radius;
+        }
+        //
+        /////////////////////////////////////////////////////////////////////
 
         /// <summary>
         /// Gets or sets the current model.
@@ -519,6 +554,36 @@ namespace Engine
             if (isAnimated && model != null && animationPlayer != null)
             {
                 animationPlayer.Update(elapsedGameTime, true, Matrix.Identity);
+                UpdateAttachedSpheres();
+            }
+        }
+
+        /// <summary>
+        /// Updates the attachedSpheres boundingSpheres to match the current animation position
+        /// and moves in to world space.
+        /// Call this before doing a detailed collision detection.
+        /// </summary>
+        private void UpdateAttachedSpheres()
+        {
+            if (options != DrawOptions.AttachedBounds || AttachedBounds == null || AttachedBounds.Count < 1)
+            {
+                return;
+            }
+
+            // Look up the current world space bone positions.
+            Matrix[] worldTransforms = animationPlayer.GetWorldTransforms();
+
+            for (int i = 0; i < AttachedBounds.Count; i++)
+            {
+                // Reset the centre
+                AttachedBounds[i].Sphere.Center = new Vector3(0, AttachedBounds[i].Offset, 0);
+                // Calculate where the armature has moved to
+                AttachedBounds[i].Sphere = AttachedBounds[i].Sphere.Transform(
+                    worldTransforms[AttachedBounds[i].BoneIndex]);
+                // Move to world space
+                AttachedBounds[i].Sphere.Center =
+                    Vector3.Transform(AttachedBounds[i].Sphere.Center, world);
+
             }
         }
 
@@ -830,6 +895,36 @@ namespace Engine
             debugShapes.DrawStoredShapes(view, projection);
         }
 
+        private void DrawCylinder(Vector3 location, Matrix aView, Matrix aProjection)
+        {
+            if (options == DrawOptions.CharacterCylinder && cylinderHeight > 0 && cylinderRadius > 0)
+            {
+                debugShapes.DrawScalableCylinder(location, cylinderRadius, cylinderHeight, aView, aProjection);
+            }
+        }
+
+        private void DrawAttachedBounds(Matrix aView, Matrix aProjection)
+        {
+            if (options != DrawOptions.AttachedBounds || AttachedBounds == null || AttachedBounds.Count < 1)
+            {
+                return;
+            }
+
+            for (int j = 0; j < AttachedBounds.Count; j++)
+            {
+                if (j == selectedBound)
+                {
+                    debugShapes.DrawGreenSphere(AttachedBounds[j].Sphere.Center,
+                        AttachedBounds[j].Sphere.Radius, aView, aProjection);
+                }
+                else
+                {
+                    debugShapes.DrawRedSphere(AttachedBounds[j].Sphere.Center,
+                        AttachedBounds[j].Sphere.Radius, aView, aProjection);
+                }
+            }
+        }
+
         private void DrawAnimated(Matrix aWorld, Matrix aView, Matrix aProjection)
         {
             Matrix[] bones = animationPlayer.GetSkinTransforms();
@@ -866,6 +961,9 @@ namespace Engine
 
                 mesh.Draw();
             }
+            // Options
+            DrawCylinder(aWorld.Translation, aView, aProjection);
+            DrawAttachedBounds(aView, aProjection);
         }
 
         private void DrawRigid(Matrix aWorld, Matrix aView, Matrix aProjection, Model aModel)

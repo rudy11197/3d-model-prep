@@ -55,8 +55,8 @@ namespace Engine
             this.allLargeBoundsItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allSmallBoundsItem = new System.Windows.Forms.ToolStripMenuItem();
             this.smallBoundsInTheSelectedBoundItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.boundsWhileStandingItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.boundsWhileCrouchedItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.boundingCylinderStanding = new System.Windows.Forms.ToolStripMenuItem();
+            this.boundingCylinderCrouched = new System.Windows.Forms.ToolStripMenuItem();
             this.boundsAttachedToBonesItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.light1EnabledToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -220,8 +220,8 @@ namespace Engine
             this.allLargeBoundsItem,
             this.allSmallBoundsItem,
             this.smallBoundsInTheSelectedBoundItem,
-            this.boundsWhileStandingItem,
-            this.boundsWhileCrouchedItem,
+            this.boundingCylinderStanding,
+            this.boundingCylinderCrouched,
             this.boundsAttachedToBonesItem,
             this.toolStripSeparator10,
             this.light1EnabledToolStripMenuItem,
@@ -334,23 +334,26 @@ namespace Engine
             this.smallBoundsInTheSelectedBoundItem.Text = "Small Bounds &In The Selected Bound";
             this.smallBoundsInTheSelectedBoundItem.Click += new System.EventHandler(this.smallBoundsInTheSelectedBoundItem_Click);
             // 
-            // boundsWhileStandingItem
+            // boundingCylinderStanding
             // 
-            this.boundsWhileStandingItem.Name = "boundsWhileStandingItem";
-            this.boundsWhileStandingItem.Size = new System.Drawing.Size(267, 22);
-            this.boundsWhileStandingItem.Text = "Bounds While &Standing";
+            this.boundingCylinderStanding.Name = "boundingCylinderStanding";
+            this.boundingCylinderStanding.Size = new System.Drawing.Size(267, 22);
+            this.boundingCylinderStanding.Text = "Bounding Cylinder Standing";
+            this.boundingCylinderStanding.Click += new System.EventHandler(this.boundingCylinderStanding_Click);
             // 
-            // boundsWhileCrouchedItem
+            // boundingCylinderCrouched
             // 
-            this.boundsWhileCrouchedItem.Name = "boundsWhileCrouchedItem";
-            this.boundsWhileCrouchedItem.Size = new System.Drawing.Size(267, 22);
-            this.boundsWhileCrouchedItem.Text = "Bounds While &Crouched";
+            this.boundingCylinderCrouched.Name = "boundingCylinderCrouched";
+            this.boundingCylinderCrouched.Size = new System.Drawing.Size(267, 22);
+            this.boundingCylinderCrouched.Text = "Bounding Cylinder Crouched";
+            this.boundingCylinderCrouched.Click += new System.EventHandler(this.boundingCylinderCrouched_Click);
             // 
             // boundsAttachedToBonesItem
             // 
             this.boundsAttachedToBonesItem.Name = "boundsAttachedToBonesItem";
             this.boundsAttachedToBonesItem.Size = new System.Drawing.Size(267, 22);
             this.boundsAttachedToBonesItem.Text = "Bounds Attached To &Bones";
+            this.boundsAttachedToBonesItem.Click += new System.EventHandler(this.boundsAttachedToBonesItem_Click);
             // 
             // toolStripSeparator10
             // 
@@ -745,8 +748,7 @@ namespace Engine
         private System.Windows.Forms.ToolStripMenuItem windowToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem changeModelTypeItem;
-        private System.Windows.Forms.ToolStripMenuItem boundsWhileStandingItem;
-        private System.Windows.Forms.ToolStripMenuItem boundsWhileCrouchedItem;
+        private System.Windows.Forms.ToolStripMenuItem boundingCylinderStanding;
         private System.Windows.Forms.ToolStripMenuItem boundsAttachedToBonesItem;
         private System.Windows.Forms.ToolStripMenuItem wireframeItem;
         private System.Windows.Forms.ToolStripMenuItem invertYControlsItem;
@@ -767,6 +769,7 @@ namespace Engine
         private System.Windows.Forms.ToolStripMenuItem light2EnabledToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reverseLightingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mergeToClipsMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem boundingCylinderCrouched;
 
     }
 }
