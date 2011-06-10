@@ -157,6 +157,19 @@ using System.Windows.Forms;
 //-----------------------------------------------------------------------------
 // TODO:
 //-----------------------------------------------------------------------------
+
+// - Add options for the sizes of the character
+// - Add options for the setup of the attached bounding spheres
+// test - Display the attched bounds
+// test - Display Cylinder
+// - Pick which bound to edit
+// - Change the colour of the selected bound
+// - Be able to change the bone
+// - Transforn, X, Y and Z axis in real time.
+// - Add a new bound
+// - Remove and existing bound
+
+
 // - My initial test of merging had a distorted result where the
 //      shoulders joined the run.  
 //      Ideas.  Missing bones in one or other animation, different lengths or the 
@@ -170,7 +183,6 @@ using System.Windows.Forms;
 // - Undo the last delete bounds
 // - The weapon and gear dialogue will need a +/- rotation in all three 
 //      directions instead of the absolutes currently set in the older files.
-// - Add a character options form to setup the attached bounding spheres
 
 //-----------------------------------------------------------------------------
 // TODO (Extras):

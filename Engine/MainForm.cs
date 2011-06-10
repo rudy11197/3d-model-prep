@@ -621,15 +621,15 @@ namespace Engine
             allLargeBoundsItem.Enabled = false;
             allSmallBoundsItem.Enabled = false;
             smallBoundsInTheSelectedBoundItem.Enabled = false;
-            boundsWhileStandingItem.Enabled = false;
-            boundsWhileCrouchedItem.Enabled = false;
+            boundingCylinderStanding.Enabled = false;
+            boundingCylinderCrouched.Enabled = false;
             boundsAttachedToBonesItem.Enabled = false;
 
             allLargeBoundsItem.Visible = false;
             allSmallBoundsItem.Visible = false;
             smallBoundsInTheSelectedBoundItem.Visible = false;
-            boundsWhileStandingItem.Visible = false;
-            boundsWhileCrouchedItem.Visible = false;
+            boundingCylinderStanding.Visible = false;
+            boundingCylinderCrouched.Visible = false;
             boundsAttachedToBonesItem.Visible = false;
 
             if (diabolical != null && modelViewerControl.Model != null)
@@ -668,12 +668,12 @@ namespace Engine
                 {
                     noBoundsItem.Enabled = true;
 
-                    boundsWhileStandingItem.Visible = true;
-                    boundsWhileCrouchedItem.Visible = true;
+                    boundingCylinderStanding.Visible = true;
+                    boundingCylinderCrouched.Visible = true;
                     boundsAttachedToBonesItem.Visible = true;
 
-                    boundsWhileStandingItem.Enabled = true;
-                    boundsWhileCrouchedItem.Enabled = true;
+                    boundingCylinderStanding.Enabled = true;
+                    boundingCylinderCrouched.Enabled = true;
                     boundsAttachedToBonesItem.Enabled = true;
                 }
 
@@ -1634,12 +1634,42 @@ namespace Engine
             diabolical.ChangeSmallerInLargerShowInLarger(0);
         }
 
+        private void boundsAttachedToBonesItem_Click(object sender, EventArgs e)
+        {
+            ClearAllBoundTicks();
+            boundsAttachedToBonesItem.Checked = true;
+            modelViewerControl.AttachedBounds = diabolical.AttachedBounds;
+            modelViewerControl.Options = ModelViewerControl.DrawOptions.AttachedBounds;
+        }
+
+        private void boundingCylinderStanding_Click(object sender, EventArgs e)
+        {
+            ClearAllBoundTicks();
+            boundingCylinderStanding.Checked = true;
+            modelViewerControl.SetCylinderSizes(diabolical.HeightStanding, diabolical.CylinderRadius);
+            modelViewerControl.Options = ModelViewerControl.DrawOptions.CharacterCylinder;
+        }
+
+        private void boundingCylinderCrouched_Click(object sender, EventArgs e)
+        {
+            ClearAllBoundTicks();
+            boundingCylinderCrouched.Checked = true;
+            modelViewerControl.SetCylinderSizes(diabolical.HeightCrouched, diabolical.CylinderRadius);
+            modelViewerControl.Options = ModelViewerControl.DrawOptions.CharacterCylinder;
+        }
+
         private void ClearAllBoundTicks()
         {
             noBoundsItem.Checked = false;
+            // Structure
             allLargeBoundsItem.Checked = false;
             allSmallBoundsItem.Checked = false;
             smallBoundsInTheSelectedBoundItem.Checked = false;
+            // Character
+            boundsAttachedToBonesItem.Checked = false;
+            boundingCylinderStanding.Checked = false;
+            boundingCylinderCrouched.Checked = false;
+            modelViewerControl.Options = ModelViewerControl.DrawOptions.None;
         }
         //
         //////////////////////////////////////////////////////////////////////
