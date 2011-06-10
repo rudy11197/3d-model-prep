@@ -661,8 +661,10 @@ namespace Engine
             this.modelViewerControl.Light2Enabled = true;
             this.modelViewerControl.Location = new System.Drawing.Point(0, 27);
             this.modelViewerControl.Name = "modelViewerControl";
+            this.modelViewerControl.Options = Engine.ModelViewerControl.DrawOptions.None;
             this.modelViewerControl.PauseInput = true;
             this.modelViewerControl.ReverseLighting = true;
+            this.modelViewerControl.SelectedBound = -1;
             this.modelViewerControl.ShowAxes = true;
             this.modelViewerControl.Size = new System.Drawing.Size(1008, 648);
             this.modelViewerControl.SpecularColour = new Microsoft.Xna.Framework.Vector3(0.25F, 0.25F, 0.25F);
