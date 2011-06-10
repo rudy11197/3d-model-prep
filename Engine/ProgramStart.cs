@@ -153,15 +153,16 @@ using System.Windows.Forms;
 // - Display a set of axes to show which way the camera is facing
 // - Merge animations
 // - Display a cylinder round characters
+// - Display bounds attached to the bones
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 // TODO:
 //-----------------------------------------------------------------------------
 
+// - Change draw sphere to have 3 loops instead of two
 // - Add options for the sizes of the character
 // - Add options for the setup of the attached bounding spheres
-// fix - Display the attached bounds
 // - Pick which bound to edit
 // - Change the colour of the selected bound
 // - Be able to change the bone

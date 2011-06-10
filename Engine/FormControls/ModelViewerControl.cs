@@ -565,10 +565,12 @@ namespace Engine
         /// </summary>
         private void UpdateAttachedSpheres()
         {
+
             if (options != DrawOptions.AttachedBounds || AttachedBounds == null || AttachedBounds.Count < 1)
             {
                 return;
             }
+            world = Matrix.Identity;
 
             // Look up the current world space bone positions.
             Matrix[] worldTransforms = animationPlayer.GetWorldTransforms();
