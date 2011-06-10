@@ -152,6 +152,7 @@ using System.Windows.Forms;
 // - Select bounds by their index number
 // - Display a set of axes to show which way the camera is facing
 // - Merge animations
+// - Display a cylinder round characters
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
@@ -160,8 +161,7 @@ using System.Windows.Forms;
 
 // - Add options for the sizes of the character
 // - Add options for the setup of the attached bounding spheres
-// test - Display the attched bounds
-// test - Display Cylinder
+// fix - Display the attached bounds
 // - Pick which bound to edit
 // - Change the colour of the selected bound
 // - Be able to change the bone

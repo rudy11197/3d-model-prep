@@ -49,7 +49,7 @@ namespace Engine
 
         public List<AttachedSphere> AttachedBounds = new List<AttachedSphere>();
 
-        private int selectedBound = 0;
+        private int selectedBound = -1;
         public int SelectedBound
         {
             get { return selectedBound; }
