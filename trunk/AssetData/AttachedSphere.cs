@@ -26,15 +26,15 @@ namespace AssetData
         // Bounding sphere (usually only the +Y value is set as an offset from the end of the bone)
         [ContentSerializer]
         public BoundingSphere Sphere;
-        // Distance along the bone from the head of the bone (+Y)
+        // Offset from the head of the bone
         [ContentSerializer]
-        public float Offset;
+        public Vector3 Offset;
 
         public AttachedSphere()
         {
         }
 
-        public AttachedSphere(int bone, Vector3 centre, float radius, float offset)
+        public AttachedSphere(int bone, Vector3 centre, float radius, Vector3 offset)
         {
             BoneIndex = bone;
             Sphere = new BoundingSphere(centre, radius);

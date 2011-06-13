@@ -459,14 +459,13 @@ namespace Engine
         private void AddAttachedSphere(string boneName, string radius, string offset)
         {
             float fRadius = ParseData.FloatFromString(radius);
-            float fOffset = ParseData.FloatFromString(offset);
+            Vector3 fOffset = ParseData.StringToVector3(offset);
 
             // The model must have been loaded first so the bonemap works
             int boneID = GetBoneID(boneName);
             if (boneID >= 0)
             {
-                AttachedBounds.Add(new AttachedSphere(boneID, new Vector3(0, fOffset, 0),
-                    fRadius, fOffset));
+                AttachedBounds.Add(new AttachedSphere(boneID, fOffset, fRadius, fOffset));
             }
             else
             {

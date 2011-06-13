@@ -578,7 +578,7 @@ namespace Engine
             for (int i = 0; i < AttachedBounds.Count; i++)
             {
                 // Reset the centre
-                AttachedBounds[i].Sphere.Center = new Vector3(0, AttachedBounds[i].Offset, 0);
+                AttachedBounds[i].Sphere.Center = AttachedBounds[i].Offset;
                 // Calculate where the armature has moved to
                 AttachedBounds[i].Sphere = AttachedBounds[i].Sphere.Transform(
                     worldTransforms[AttachedBounds[i].BoneIndex]);
