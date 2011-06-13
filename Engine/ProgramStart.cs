@@ -162,11 +162,11 @@ using System.Windows.Forms;
 
 // - Change draw sphere to have 3 loops instead of two
 // - Add options for the sizes of the character
-// - Add options for the setup of the attached bounding spheres
-// - Pick which bound to edit
+// test - Add options for the setup of the attached bounding spheres
+// test - Pick which bound to edit
 // - Change the colour of the selected bound
-// - Be able to change the bone
-// - Transforn, X, Y and Z axis in real time.
+// test - Be able to change the bone
+// test - Transforn, X, Y and Z axis in real time.
 // - Add a new bound
 // - Remove and existing bound
 

@@ -20,7 +20,7 @@ namespace Engine
     /// <summary>
     /// For editing the properties and bounds of models used in Diabolical:The Shooter
     /// </summary>
-    class DiabolicalManager
+    public class DiabolicalManager
     {
         private MainForm form;
         private Shapes debugShapes;
@@ -174,6 +174,7 @@ namespace Engine
         public List<AttachedSphere> AttachedBounds
         {
             get { return modelAsset.AttachedBounds; }
+            set { modelAsset.AttachedBounds = value; }
         }
 
         public float CylinderRadius
@@ -1143,6 +1144,27 @@ namespace Engine
             {
                 // Reload the model
                 form.LoadModel(false, lastLoaded3DModelFile, ModelRotation.X, ModelRotation.Y, ModelRotation.Z);
+            }
+        }
+
+        public void DisplayAttachedBoundsForm()
+        {
+            if (modelAsset.ModelType != GlobalSettings.modelTypeCharacter)
+            {
+                return;
+            }
+
+            AttachedBoundsForm aForm = new AttachedBoundsForm();
+
+            aForm.DiabolicalForm = this;
+            aForm.BoneMap = form.GetBoneMap();
+            aForm.AttachedBounds = AttachedBounds;
+
+            DialogResult diagResult = aForm.ShowDialog();
+            if (diagResult == DialogResult.Cancel)
+            {
+                // Reset Results
+                AttachedBounds = aForm.PreviousBounds;
             }
         }
         //

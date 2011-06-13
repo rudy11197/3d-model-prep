@@ -78,6 +78,12 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Diabolical\AttachedBoundsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Diabolical\AttachedBoundsForm.Designer.cs">
+      <DependentUpon>AttachedBoundsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Diabolical\CreateBoundsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -165,6 +171,9 @@
     <Compile Include="Utilities\Shapes.cs" />
     <Compile Include="Utilities\Triangle.cs" />
     <Compile Include="Utilities\VertexHelper.cs" />
+    <EmbeddedResource Include="Diabolical\AttachedBoundsForm.resx">
+      <DependentUpon>AttachedBoundsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Diabolical\CreateBoundsForm.resx">
       <DependentUpon>CreateBoundsForm.cs</DependentUpon>
     </EmbeddedResource>

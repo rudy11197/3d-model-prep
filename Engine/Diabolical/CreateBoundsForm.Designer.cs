@@ -49,7 +49,7 @@
             this.label1.Size = new System.Drawing.Size(357, 66);
             this.label1.TabIndex = 0;
             this.label1.Text = "This will remove any existing bounds and calculate new bounds!\r\nAre you sure you " +
-                "want to continue?";
+    "want to continue?";
             // 
             // buttonYes
             // 
@@ -87,8 +87,8 @@
             this.label3.Size = new System.Drawing.Size(357, 48);
             this.label3.TabIndex = 4;
             this.label3.Text = "The number of times the smaller bound fits in to the larger bound.\r\nIf this is to" +
-                "o high the number of collision tests will be too many for the Xbox to handle eac" +
-                "h frame.\r\n";
+    "o high the number of collision tests will be too many for the Xbox to handle eac" +
+    "h frame.\r\n";
             // 
             // label4
             // 
@@ -173,6 +173,7 @@
             this.Controls.Add(this.buttonNo);
             this.Controls.Add(this.buttonYes);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "CreateBoundsForm";
