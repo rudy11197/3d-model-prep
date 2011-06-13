@@ -169,6 +169,7 @@ using System.Windows.Forms;
 // test - Transforn, X, Y and Z axis in real time.
 // - Add a new bound
 // - Remove and existing bound
+// - Orbit round the centre of the bound while editing
 
 
 // - My initial test of merging had a distorted result where the
