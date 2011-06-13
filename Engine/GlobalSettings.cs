@@ -45,6 +45,8 @@ namespace Engine
         // Names
         public const string listRestPoseName = "* Rest or bind pose";
 
+        // Model Files
+        public const string modelSaveFormatType = "2";
         // Effects
         public const string effectTypeNormalMap = "NormalMap";
         public const string effectTypeAnimated = "Animated";

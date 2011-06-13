@@ -770,7 +770,7 @@ namespace Engine
             // == Common parameters
             string output = "";
             // - File format version
-            data.Add("2");
+            data.Add(GlobalSettings.modelSaveFormatType);
             // - Effect Type
             data.Add(modelAsset.EffectType);
             // - Model type
@@ -953,7 +953,7 @@ namespace Engine
                 output = GlobalSettings.typeAttachedSpheres +
                     ParseData.div + modelAsset.GetBoneName(modelAsset.AttachedBounds[d].BoneIndex) + 
                     ParseData.div + ParseData.FloatToString(modelAsset.AttachedBounds[d].Sphere.Radius) +
-                    ParseData.div + ParseData.FloatToString(modelAsset.AttachedBounds[d].Offset);
+                    ParseData.div + ParseData.VectorToString(modelAsset.AttachedBounds[d].Offset);
                 data.Add(output);
             }
 
