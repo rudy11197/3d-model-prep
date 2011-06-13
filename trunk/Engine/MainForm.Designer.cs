@@ -94,6 +94,8 @@ namespace Engine
             this.buttonLarge = new System.Windows.Forms.Button();
             this.buttonSmall = new System.Windows.Forms.Button();
             this.modelViewerControl = new Engine.ModelViewerControl();
+            this.createOrEditCharacterBoundsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericLarge)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericSmall)).BeginInit();
@@ -112,7 +114,7 @@ namespace Engine
             this.ClipNamesComboBox});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1008, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1008, 27);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -398,9 +400,11 @@ namespace Engine
             this.modelTypePropertiesItem,
             this.toolStripSeparator9,
             this.createStructureBoundsItem,
-            this.optimiseBoundsItem});
+            this.optimiseBoundsItem,
+            this.toolStripSeparator11,
+            this.createOrEditCharacterBoundsToolStripMenuItem});
             this.diabolicalToolStripMenuItem.Name = "diabolicalToolStripMenuItem";
-            this.diabolicalToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
+            this.diabolicalToolStripMenuItem.Size = new System.Drawing.Size(71, 23);
             this.diabolicalToolStripMenuItem.Text = "&Diabolical";
             // 
             // loadmodelItem
@@ -440,7 +444,7 @@ namespace Engine
             // 
             this.modelTypePropertiesItem.Name = "modelTypePropertiesItem";
             this.modelTypePropertiesItem.Size = new System.Drawing.Size(237, 22);
-            this.modelTypePropertiesItem.Text = "Model &Type Specific Properties";
+            this.modelTypePropertiesItem.Text = "Model Type Specific &Properties";
             this.modelTypePropertiesItem.Click += new System.EventHandler(this.modelTypePropertiesItem_Click);
             // 
             // toolStripSeparator9
@@ -458,8 +462,8 @@ namespace Engine
             // optimiseBoundsItem
             // 
             this.optimiseBoundsItem.Name = "optimiseBoundsItem";
-            this.optimiseBoundsItem.Size = new System.Drawing.Size(237, 22);
-            this.optimiseBoundsItem.Text = "Optimise Bounds (&Essential)";
+            this.optimiseBoundsItem.Size = new System.Drawing.Size(242, 22);
+            this.optimiseBoundsItem.Text = "&Optimise Bounds (Essential)";
             this.optimiseBoundsItem.Click += new System.EventHandler(this.optimiseBoundsItem_Click);
             // 
             // ToolsMenuItem
@@ -556,7 +560,7 @@ namespace Engine
             // PoseHeading
             // 
             this.PoseHeading.Name = "PoseHeading";
-            this.PoseHeading.Size = new System.Drawing.Size(141, 23);
+            this.PoseHeading.Size = new System.Drawing.Size(141, 20);
             this.PoseHeading.Text = "|      &Animation or Pose:";
             this.PoseHeading.Visible = false;
             // 
@@ -659,7 +663,7 @@ namespace Engine
             this.modelViewerControl.IsAnimated = false;
             this.modelViewerControl.Light1Enabled = true;
             this.modelViewerControl.Light2Enabled = true;
-            this.modelViewerControl.Location = new System.Drawing.Point(0, 24);
+            this.modelViewerControl.Location = new System.Drawing.Point(0, 27);
             this.modelViewerControl.Name = "modelViewerControl";
             this.modelViewerControl.Options = Engine.ModelViewerControl.DrawOptions.None;
             this.modelViewerControl.PauseInput = true;
@@ -672,6 +676,18 @@ namespace Engine
             this.modelViewerControl.TabIndex = 1;
             this.modelViewerControl.Text = "modelViewerControl";
             this.modelViewerControl.ViewUp = 1;
+            // 
+            // createOrEditCharacterBoundsToolStripMenuItem
+            // 
+            this.createOrEditCharacterBoundsToolStripMenuItem.Name = "createOrEditCharacterBoundsToolStripMenuItem";
+            this.createOrEditCharacterBoundsToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.createOrEditCharacterBoundsToolStripMenuItem.Text = "Create or &Edit Character Bounds";
+            this.createOrEditCharacterBoundsToolStripMenuItem.Click += new System.EventHandler(this.createOrEditCharacterBoundsToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator11
+            // 
+            this.toolStripSeparator11.Name = "toolStripSeparator11";
+            this.toolStripSeparator11.Size = new System.Drawing.Size(239, 6);
             // 
             // MainForm
             // 
@@ -772,6 +788,8 @@ namespace Engine
         private System.Windows.Forms.ToolStripMenuItem reverseLightingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mergeToClipsMenuItem;
         private System.Windows.Forms.ToolStripMenuItem boundingCylinderCrouched;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
+        private System.Windows.Forms.ToolStripMenuItem createOrEditCharacterBoundsToolStripMenuItem;
 
     }
 }

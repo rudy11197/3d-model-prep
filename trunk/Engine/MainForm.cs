@@ -1595,6 +1595,18 @@ namespace Engine
                 diabolical.OptimiseModelBounds();
             }
         }
+
+        private void createOrEditCharacterBoundsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (diabolical == null)
+            {
+                return;
+            }
+            PauseGameInput(true);
+            ShowBoundsAttachedToBones();
+            diabolical.DisplayAttachedBoundsForm();
+            PauseGameInput(false);
+        }
         //
         //////////////////////////////////////////////////////////////////////
 
@@ -1635,6 +1647,11 @@ namespace Engine
         }
 
         private void boundsAttachedToBonesItem_Click(object sender, EventArgs e)
+        {
+            ShowBoundsAttachedToBones();
+        }
+
+        private void ShowBoundsAttachedToBones()
         {
             ClearAllBoundTicks();
             boundsAttachedToBonesItem.Checked = true;
