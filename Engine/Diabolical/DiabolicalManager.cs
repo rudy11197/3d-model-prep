@@ -619,6 +619,14 @@ namespace Engine
             }
             return false;
         }
+
+        public void SetSelectedBound(int boundIndex)
+        {
+            if (form != null)
+            {
+                form.SetSelectedBound(boundIndex);
+            }
+        }
         //
         //////////////////////////////////////////////////////////////////////
 

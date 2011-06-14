@@ -1688,6 +1688,14 @@ namespace Engine
             boundingCylinderCrouched.Checked = false;
             modelViewerControl.Options = ModelViewerControl.DrawOptions.None;
         }
+
+        public void SetSelectedBound(int boundIndex)
+        {
+            if (modelViewerControl != null)
+            {
+                modelViewerControl.SelectedBound = boundIndex;
+            }
+        }
         //
         //////////////////////////////////////////////////////////////////////
 

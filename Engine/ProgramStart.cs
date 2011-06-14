@@ -164,12 +164,13 @@ using System.Windows.Forms;
 // - Add options for the sizes of the character
 // test - Add options for the setup of the attached bounding spheres
 // test - Pick which bound to edit
-// - Change the colour of the selected bound
+// test - Change the colour of the selected bound
 // test - Be able to change the bone
 // test - Transforn, X, Y and Z axis in real time.
 // - Add a new bound
-// - Remove and existing bound
+// - Remove an existing bound
 // - Orbit round the centre of the bound while editing
+// test - Start with the first selected ID
 
 
 // - My initial test of merging had a distorted result where the
