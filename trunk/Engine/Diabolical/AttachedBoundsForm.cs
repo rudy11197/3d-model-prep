@@ -102,6 +102,10 @@ namespace Engine
             {
                 comboIDs.SelectedIndex = currentID;
             }
+            else if (comboIDs.Items.Count > 0)
+            {
+                comboIDs.SelectedIndex = 0;
+            }
             GetCurrentData();
         }
 
@@ -185,6 +189,10 @@ namespace Engine
             AttachedSphere item = attachedCurrent[comboIDs.SelectedIndex];
             positionOffset.Value = item.Offset;
             numericRadius.Value = (decimal)item.Sphere.Radius;
+            if (diabolicalForm != null)
+            {
+                diabolicalForm.SetSelectedBound(comboIDs.SelectedIndex);
+            }
         }
 
         private void buttonUpdate_Click(object sender, EventArgs e)
