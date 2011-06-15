@@ -39,15 +39,15 @@
             this.comboBones = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.positionOffset = new Engine.PositionControl();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.positionOffset = new Engine.PositionControl();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.buttonStop = new System.Windows.Forms.Button();
-            this.buttonPlay = new System.Windows.Forms.Button();
-            this.buttonForward = new System.Windows.Forms.Button();
-            this.buttonRewind = new System.Windows.Forms.Button();
             this.buttonReverse = new System.Windows.Forms.Button();
+            this.buttonRewind = new System.Windows.Forms.Button();
+            this.buttonForward = new System.Windows.Forms.Button();
+            this.buttonPlay = new System.Windows.Forms.Button();
+            this.buttonStop = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericRadius)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -146,6 +146,7 @@
             this.buttonAdd.TabIndex = 9;
             this.buttonAdd.Text = "Add";
             this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
             // comboBones
             // 
@@ -174,6 +175,22 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Offset relative to the head of the bone:";
             // 
+            // positionOffset
+            // 
+            this.positionOffset.DecimalPlaces = 2;
+            this.positionOffset.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.positionOffset.Location = new System.Drawing.Point(9, 109);
+            this.positionOffset.Maximum = new Microsoft.Xna.Framework.Vector3(30000F, 30000F, 30000F);
+            this.positionOffset.Minimum = new Microsoft.Xna.Framework.Vector3(-30000F, -30000F, -30000F);
+            this.positionOffset.Name = "positionOffset";
+            this.positionOffset.Size = new System.Drawing.Size(359, 26);
+            this.positionOffset.TabIndex = 15;
+            this.positionOffset.Value = new Microsoft.Xna.Framework.Vector3(0F, 0F, 0F);
+            // 
             // buttonOK
             // 
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
@@ -194,22 +211,6 @@
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
-            // positionOffset
-            // 
-            this.positionOffset.DecimalPlaces = 2;
-            this.positionOffset.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.positionOffset.Location = new System.Drawing.Point(9, 109);
-            this.positionOffset.Maximum = new Microsoft.Xna.Framework.Vector3(30000F, 30000F, 30000F);
-            this.positionOffset.Minimum = new Microsoft.Xna.Framework.Vector3(-30000F, -30000F, -30000F);
-            this.positionOffset.Name = "positionOffset";
-            this.positionOffset.Size = new System.Drawing.Size(359, 26);
-            this.positionOffset.TabIndex = 12;
-            this.positionOffset.Value = new Microsoft.Xna.Framework.Vector3(0F, 0F, 0F);
-            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.buttonReverse);
@@ -224,33 +225,14 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Orbit Selected";
             // 
-            // buttonStop
+            // buttonReverse
             // 
-            this.buttonStop.Location = new System.Drawing.Point(91, 20);
-            this.buttonStop.Name = "buttonStop";
-            this.buttonStop.Size = new System.Drawing.Size(28, 23);
-            this.buttonStop.TabIndex = 0;
-            this.buttonStop.Text = "[X]";
-            this.buttonStop.UseVisualStyleBackColor = true;
-            this.buttonStop.Click += new System.EventHandler(this.buttonStop_Click);
-            // 
-            // buttonPlay
-            // 
-            this.buttonPlay.Location = new System.Drawing.Point(125, 20);
-            this.buttonPlay.Name = "buttonPlay";
-            this.buttonPlay.Size = new System.Drawing.Size(28, 23);
-            this.buttonPlay.TabIndex = 1;
-            this.buttonPlay.Text = ">";
-            this.buttonPlay.UseVisualStyleBackColor = true;
-            // 
-            // buttonForward
-            // 
-            this.buttonForward.Location = new System.Drawing.Point(159, 20);
-            this.buttonForward.Name = "buttonForward";
-            this.buttonForward.Size = new System.Drawing.Size(28, 23);
-            this.buttonForward.TabIndex = 2;
-            this.buttonForward.Text = ">|";
-            this.buttonForward.UseVisualStyleBackColor = true;
+            this.buttonReverse.Location = new System.Drawing.Point(23, 20);
+            this.buttonReverse.Name = "buttonReverse";
+            this.buttonReverse.Size = new System.Drawing.Size(28, 23);
+            this.buttonReverse.TabIndex = 4;
+            this.buttonReverse.Text = "|<";
+            this.buttonReverse.UseVisualStyleBackColor = true;
             // 
             // buttonRewind
             // 
@@ -261,14 +243,32 @@
             this.buttonRewind.Text = "<";
             this.buttonRewind.UseVisualStyleBackColor = true;
             // 
-            // buttonReverse
+            // buttonForward
             // 
-            this.buttonReverse.Location = new System.Drawing.Point(23, 20);
-            this.buttonReverse.Name = "buttonReverse";
-            this.buttonReverse.Size = new System.Drawing.Size(28, 23);
-            this.buttonReverse.TabIndex = 4;
-            this.buttonReverse.Text = "|<";
-            this.buttonReverse.UseVisualStyleBackColor = true;
+            this.buttonForward.Location = new System.Drawing.Point(159, 20);
+            this.buttonForward.Name = "buttonForward";
+            this.buttonForward.Size = new System.Drawing.Size(28, 23);
+            this.buttonForward.TabIndex = 2;
+            this.buttonForward.Text = ">|";
+            this.buttonForward.UseVisualStyleBackColor = true;
+            // 
+            // buttonPlay
+            // 
+            this.buttonPlay.Location = new System.Drawing.Point(125, 20);
+            this.buttonPlay.Name = "buttonPlay";
+            this.buttonPlay.Size = new System.Drawing.Size(28, 23);
+            this.buttonPlay.TabIndex = 1;
+            this.buttonPlay.Text = ">";
+            this.buttonPlay.UseVisualStyleBackColor = true;
+            // 
+            // buttonStop
+            // 
+            this.buttonStop.Location = new System.Drawing.Point(91, 20);
+            this.buttonStop.Name = "buttonStop";
+            this.buttonStop.Size = new System.Drawing.Size(28, 23);
+            this.buttonStop.TabIndex = 0;
+            this.buttonStop.Text = "[X]";
+            this.buttonStop.UseVisualStyleBackColor = true;
             // 
             // AttachedBoundsForm
             // 

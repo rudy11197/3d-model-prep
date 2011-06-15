@@ -81,13 +81,14 @@ namespace Engine
         //
         private void checkOrbit_Click(object sender, EventArgs e)
         {
-            Orbit(!checkOrbit.Checked, 0);
+            bool enable = !modelViewerControl.OrbitMode;
+            Orbit(enable, 0);
         }
 
         public void Orbit(bool enable, float turnSpeed)
         {
             checkOrbit.Checked = enable;
-            modelViewerControl.OrbitMode = checkOrbit.Checked;
+            modelViewerControl.OrbitMode = enable;
             modelViewerControl.AutoRotateSpeed = turnSpeed;
         }
 

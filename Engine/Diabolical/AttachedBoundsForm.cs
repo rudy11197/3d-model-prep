@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Microsoft.Xna.Framework;
 using AssetData;
 
 namespace Engine
@@ -17,6 +18,16 @@ namespace Engine
             InitializeComponent();
             comboBones.SelectedIndexChanged += new EventHandler(comboBones_SelectedIndexChanged);
             comboIDs.SelectedIndexChanged += new EventHandler(comboIDs_SelectedIndexChanged);
+            // Orbit buttons
+            buttonStop.Click += new System.EventHandler(this.buttonStop_Click);
+            buttonPlay.Click += new EventHandler(buttonPlay_Click);
+            buttonRewind.Click += new EventHandler(buttonRewind_Click);
+            buttonForward.LostFocus += new EventHandler(buttonForward_LostFocus);
+            buttonReverse.LostFocus += new EventHandler(buttonReverse_LostFocus);
+            buttonForward.MouseDown += new MouseEventHandler(buttonForward_MouseDown);
+            buttonReverse.MouseDown += new MouseEventHandler(buttonReverse_MouseDown);
+            buttonForward.MouseUp += new MouseEventHandler(buttonForward_MouseUp);
+            buttonReverse.MouseUp += new MouseEventHandler(buttonReverse_MouseUp);
         }
 
         /////////////////////////////////////////////////////////////////////
@@ -55,7 +66,7 @@ namespace Engine
                     attachedCurrent.AddRange(value);
                     attachedPrevious.AddRange(value);
                 }
-                PopulateIDs();
+                PopulateIDs(false);
             }
         }
         // Used to reset the originals if the form is cancelled
@@ -80,10 +91,10 @@ namespace Engine
             {
                 comboBones.SelectedIndex = 0;
             }
-            PopulateIDs();
+            PopulateIDs(false);
         }
 
-        private void PopulateIDs()
+        private void PopulateIDs(bool selectHighest)
         {
             if (comboBones.Items.Count < 1 ||
                 attachedCurrent.Count < 1)
@@ -98,13 +109,13 @@ namespace Engine
                 string output = a.ToString() + " " + GetBoneName(item.BoneIndex);
                 comboIDs.Items.Add(output);
             }
-            if (currentID >= 0 && currentID < comboIDs.Items.Count)
+            if (!selectHighest && currentID >= 0 && currentID < comboIDs.Items.Count)
             {
                 comboIDs.SelectedIndex = currentID;
             }
             else if (comboIDs.Items.Count > 0)
             {
-                comboIDs.SelectedIndex = 0;
+                comboIDs.SelectedIndex = comboIDs.Items.Count - 1;
             }
             GetCurrentData();
         }
@@ -215,15 +226,15 @@ namespace Engine
             item.Offset = positionOffset.Value;
             item.Sphere.Radius = (float)numericRadius.Value;
             attachedCurrent[comboIDs.SelectedIndex] = item;
-            UpdateModelAndFormLists();
+            UpdateModelAndFormLists(false);
         }
 
-        private void UpdateModelAndFormLists()
+        private void UpdateModelAndFormLists(bool selectHighest)
         {
             // Update the model
             diabolicalForm.AttachedBounds = attachedCurrent;
             // Reload all the data
-            PopulateIDs();
+            PopulateIDs(selectHighest);
         }
 
         private void WarnBeforeDeleteBound()
@@ -240,13 +251,29 @@ namespace Engine
             if (attachedCurrent != null && boundID >= 0 && boundID < attachedCurrent.Count)
             {
                 attachedCurrent.RemoveAt(boundID);
-                UpdateModelAndFormLists();
+                UpdateModelAndFormLists(false);
             }
         }
 
         private void buttonRemove_Click(object sender, EventArgs e)
         {
             WarnBeforeDeleteBound();
+        }
+
+        private void buttonAdd_Click(object sender, EventArgs e)
+        {
+            AddBound();
+        }
+
+        private void AddBound()
+        {
+            if (attachedCurrent != null && comboBones.Items.Count > 1)
+            {
+                AttachedSphere sphere = 
+                    new AttachedSphere(0, Vector3.Zero, GlobalSettings.boundAttachedRadius, Vector3.Zero);
+                attachedCurrent.Add(sphere);
+                UpdateModelAndFormLists(true);
+            }
         }
         //
         /////////////////////////////////////////////////////////////////////
@@ -257,6 +284,54 @@ namespace Engine
         private void buttonStop_Click(object sender, EventArgs e)
         {
             StopOrbit();
+        }
+
+        private void buttonReverse_MouseUp(object sender, MouseEventArgs e)
+        {
+            StopOrbit();
+        }
+
+        private void buttonForward_MouseUp(object sender, MouseEventArgs e)
+        {
+            StopOrbit();
+        }
+
+        private void buttonReverse_MouseDown(object sender, MouseEventArgs e)
+        {
+            PlayOrbit(-1);
+        }
+
+        private void buttonForward_MouseDown(object sender, MouseEventArgs e)
+        {
+            PlayOrbit(1);
+        }
+
+        private void buttonReverse_LostFocus(object sender, EventArgs e)
+        {
+            StopOrbit();
+        }
+
+        private void buttonForward_LostFocus(object sender, EventArgs e)
+        {
+            StopOrbit();
+        }
+
+        private void buttonRewind_Click(object sender, EventArgs e)
+        {
+            PlayOrbit(-1);
+        }
+
+        private void buttonPlay_Click(object sender, EventArgs e)
+        {
+            PlayOrbit(1);
+        }
+
+        private void PlayOrbit(float amount)
+        {
+            if (diabolicalForm != null)
+            {
+                diabolicalForm.SetOrbit(true, amount);
+            }
         }
 
         private void StopOrbit()

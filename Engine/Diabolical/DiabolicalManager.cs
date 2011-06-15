@@ -1174,6 +1174,7 @@ namespace Engine
                 // Reset Results
                 AttachedBounds = aForm.PreviousBounds;
             }
+            
         }
 
         /// <summary>
