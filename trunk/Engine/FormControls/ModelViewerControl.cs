@@ -288,17 +288,46 @@ namespace Engine
         private RasterizerState RasterWireFrame = new RasterizerState();
         private RasterizerState RasterSolid = new RasterizerState();
 
+        //////////////////////////////////////////////////////////////////////
+        // == Change ==
+        //
         // Pass control back to the form
         public event EventHandler<EventArgs> StepUp;
         public event EventHandler<EventArgs> StepDown;
         public event EventHandler<EventArgs> DeleteBound;
         public event EventHandler<EventArgs> IsMoving;
+        public event EventHandler<EventArgs> ChangedOrbit;
 
+        private bool isOrbit = false;
+        public bool OrbitMode
+        {
+            get { return isOrbit; }
+            set 
+            {
+                if (!isOrbit && value)
+                {
+                    // Calculate the point we are looking at whenever the mode is enabled
+                    float distance = Vector3.Distance(modelCentre, cameraPosition);
+                    orbitCentre = cameraPosition + (cameraForward * distance);
+                }
+                isOrbit = value;
+                if (ChangedOrbit != null)
+                {
+                    ChangedOrbit(this, EventArgs.Empty);
+                }
+            }
+        }
 
+        // Typically -1.0 to + 1.0
+        private float autoRotateSpeed = 0;
+        public float AutoRotateSpeed
+        {
+            set
+            {
+                autoRotateSpeed = value;
+            }
+        }
 
-        //////////////////////////////////////////////////////////////////////
-        // == Change ==
-        //
         /// <summary>
         /// Set the model and return any error messages
         /// </summary>
@@ -706,18 +735,20 @@ namespace Engine
                 cameraForward = modelCentre - cameraPosition;
                 // Keep the turn speed unchanged
             }
-            if (currentKeyboardState.IsKeyDown(Keys.O) && model != null)
+            // Orbit mode toggle
+            if (currentKeyboardState.IsKeyDown(Keys.O) && previousKeyboardState.IsKeyUp(Keys.O))
+            {
+                OrbitMode = !isOrbit;
+            }
+
+            if (isOrbit && model != null)
             {
                 isMoving = true;
-                // Orbit mode
-                if (previousKeyboardState.IsKeyUp(Keys.O))
-                {
-                    // Calculate the point we are looking at
-                    float distance = Vector3.Distance(modelCentre, cameraPosition);
-                    orbitCentre = cameraPosition + (cameraForward * distance);
-                }
                 cameraForward = orbitCentre - cameraPosition;
-                // Keep the turn speed unchanged
+                if (!MoreMaths.NearZero(autoRotateSpeed))
+                {
+                    cameraPosition += cameraRight * time * speed * autoRotateSpeed;
+                }
             }
             else
             {

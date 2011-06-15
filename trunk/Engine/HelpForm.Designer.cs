@@ -117,7 +117,7 @@
             this.labelDiabolicalDescription.Size = new System.Drawing.Size(693, 25);
             this.labelDiabolicalDescription.TabIndex = 0;
             this.labelDiabolicalDescription.Text = "\'Diabolical: The Shooter\' is a SciFi first person controlled game which will be a" +
-                "vailable on the Xbox 360 Indie Channel.";
+    "vailable on the Xbox 360 Indie Channel.";
             // 
             // buttonClose
             // 

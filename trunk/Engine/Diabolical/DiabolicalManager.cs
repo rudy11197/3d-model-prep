@@ -1175,6 +1175,19 @@ namespace Engine
                 AttachedBounds = aForm.PreviousBounds;
             }
         }
+
+        /// <summary>
+        /// turnSpeed range typically -1.0 to +1.0
+        /// </summary>
+        /// <param name="enable"></param>
+        /// <param name="turnSpeed"></param>
+        public void SetOrbit(bool enable, float turnSpeed)
+        {
+            if (form != null)
+            {
+                form.Orbit(enable, turnSpeed);
+            }
+        }
         //
         //////////////////////////////////////////////////////////////////////
     }
