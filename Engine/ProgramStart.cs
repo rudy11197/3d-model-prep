@@ -168,7 +168,7 @@ using System.Windows.Forms;
 // test - Be able to change the bone
 // test - Transforn, X, Y and Z axis in real time.
 // - Add a new bound
-// - Remove an existing bound
+// test - Remove an existing bound
 // - Orbit round the centre of the bound while editing
 // test - Start with the first selected ID
 

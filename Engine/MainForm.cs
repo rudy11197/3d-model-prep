@@ -71,7 +71,29 @@ namespace Engine
             modelViewerControl.DeleteBound += new EventHandler<EventArgs>(modelViewerControl_DeleteBound);
             modelViewerControl.IsMoving += new EventHandler<EventArgs>(modelViewerControl_IsMoving);
             modelViewerControl.Click += new EventHandler(modelViewerControl_Click);
-            
+            modelViewerControl.ChangedOrbit += new EventHandler<EventArgs>(modelViewerControl_ChangedOrbit);
+
+            checkOrbit.Click += new EventHandler(checkOrbit_Click);
+        }
+
+        /////////////////////////////////////////////////////////////////////
+        // == Changes ==
+        //
+        private void checkOrbit_Click(object sender, EventArgs e)
+        {
+            Orbit(!checkOrbit.Checked, 0);
+        }
+
+        public void Orbit(bool enable, float turnSpeed)
+        {
+            checkOrbit.Checked = enable;
+            modelViewerControl.OrbitMode = checkOrbit.Checked;
+            modelViewerControl.AutoRotateSpeed = turnSpeed;
+        }
+
+        private void modelViewerControl_ChangedOrbit(object sender, EventArgs e)
+        {
+            checkOrbit.Checked = modelViewerControl.OrbitMode;
         }
 
         private void buttonLarge_Click(object sender, EventArgs e)
@@ -159,6 +181,8 @@ namespace Engine
                 ChangeSelectedBound(-1);
             }
         }
+        //
+        /////////////////////////////////////////////////////////////////////
 
         /// <summary>
         /// See also DefaultFileFolder
@@ -1291,7 +1315,7 @@ namespace Engine
         //////////////////////////////////////////////////////////////////////
 
         //////////////////////////////////////////////////////////////////////
-        // == Rotations ==
+        // == Rotations At Load Time ==
         //
         public void SetRotation(Vector3 rotateDegrees)
         {

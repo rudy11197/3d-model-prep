@@ -215,10 +215,56 @@ namespace Engine
             item.Offset = positionOffset.Value;
             item.Sphere.Radius = (float)numericRadius.Value;
             attachedCurrent[comboIDs.SelectedIndex] = item;
+            UpdateModelAndFormLists();
+        }
+
+        private void UpdateModelAndFormLists()
+        {
             // Update the model
             diabolicalForm.AttachedBounds = attachedCurrent;
             // Reload all the data
             PopulateIDs();
+        }
+
+        private void WarnBeforeDeleteBound()
+        {
+            if (MessageBox.Show("Are you sure you want to delete this attached bound?", "Delete Bounds", 
+                MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                DeleteBound(comboIDs.SelectedIndex);
+            }
+        }
+
+        private void DeleteBound(int boundID)
+        {
+            if (attachedCurrent != null && boundID >= 0 && boundID < attachedCurrent.Count)
+            {
+                attachedCurrent.RemoveAt(boundID);
+                UpdateModelAndFormLists();
+            }
+        }
+
+        private void buttonRemove_Click(object sender, EventArgs e)
+        {
+            WarnBeforeDeleteBound();
+        }
+        //
+        /////////////////////////////////////////////////////////////////////
+
+        /////////////////////////////////////////////////////////////////////
+        // == Orbit ==
+        //
+        private void buttonStop_Click(object sender, EventArgs e)
+        {
+            StopOrbit();
+        }
+
+        private void StopOrbit()
+        {
+            if (diabolicalForm != null)
+            {
+                diabolicalForm.SetOrbit(false, 0);
+            }
         }
         //
         /////////////////////////////////////////////////////////////////////
