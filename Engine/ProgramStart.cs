@@ -172,6 +172,7 @@ using System.Windows.Forms;
 // test - Start with the last selected ID
 // test - Orbit round the centre of the bound while editing
 // - Find out why after having displayed the AttachedBoundsForm it is not possible to disable orbit mode!
+//      possibly always set the orbit by calling the main form.
 
 // - My initial test of merging had a distorted result where the
 //      shoulders joined the run.  
