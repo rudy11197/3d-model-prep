@@ -621,8 +621,15 @@ namespace Engine
         // Support English, German and French keyboards
         private void HandleInput()
         {
+            float time = (float)elapsedGameTime.TotalMilliseconds;
+
+            float pitch = 0;
+            float turn = 0;
+            float speed = 0.0005f * turnPerSec;
+
             if (pauseInput)
             {
+                HandleOrbitOnly(time, speed);
                 return;
             }
             // Used to set the dialogue box to prevent the cursor causing problems
@@ -631,13 +638,7 @@ namespace Engine
             currentKeyboardState = Keyboard.GetState();
             currentMouseState = Mouse.GetState();
 
-            float time = (float)elapsedGameTime.TotalMilliseconds;
-
             // == Rotate ==
-
-            float pitch = 0;
-            float turn = 0;
-            float speed = 0.0005f * turnPerSec;
 
             // Mouse look
             // The first time we select the mouse move just position the mouse
@@ -855,6 +856,23 @@ namespace Engine
 
             previousKeyboardState = currentKeyboardState;
             previousMouseState = currentMouseState;
+        }
+
+        private void HandleOrbitOnly(float time, float speed)
+        {
+            if (!isOrbit || model == null || MoreMaths.NearZero(autoRotateSpeed))
+            {
+                return;
+            }
+            Vector3 cameraRight = Vector3.Cross(cameraUp, cameraForward);
+            cameraForward = orbitCentre - cameraPosition;
+            cameraPosition += cameraRight * time * speed * autoRotateSpeed;
+            // Create the new view matrix
+            view = Matrix.CreateLookAt(cameraPosition, cameraPosition + cameraForward, cameraUp);
+            if (IsMoving != null)
+            {
+                IsMoving(this, EventArgs.Empty);
+            }
         }
         //
         //////////////////////////////////////////////////////////////////////

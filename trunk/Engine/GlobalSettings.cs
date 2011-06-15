@@ -136,7 +136,8 @@ namespace Engine
         // If their width multiple is too large there will be too many ray intersections
         // for the xbox to test quickly.
         public const float boundLargerMultiple = 3.0f;
-
+        // Character bounds
+        public const float boundAttachedRadius = 0.5f;
 
     }
 }

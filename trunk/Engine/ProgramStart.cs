@@ -167,11 +167,11 @@ using System.Windows.Forms;
 // test - Change the colour of the selected bound
 // test - Be able to change the bone
 // test - Transforn, X, Y and Z axis in real time.
-// - Add a new bound
+// test - Add a new bound
 // test - Remove an existing bound
-// - Orbit round the centre of the bound while editing
-// test - Start with the first selected ID
-
+// test - Start with the last selected ID
+// test - Orbit round the centre of the bound while editing
+// - Find out why after having displayed the AttachedBoundsForm it is not possible to disable orbit mode!
 
 // - My initial test of merging had a distorted result where the
 //      shoulders joined the run.  
