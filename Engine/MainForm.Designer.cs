@@ -40,6 +40,8 @@ namespace Engine
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.orbitTheModelMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
             this.yUpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zUpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zDownMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -96,7 +98,7 @@ namespace Engine
             this.buttonLarge = new System.Windows.Forms.Button();
             this.buttonSmall = new System.Windows.Forms.Button();
             this.modelViewerControl = new Engine.ModelViewerControl();
-            this.checkOrbit = new System.Windows.Forms.CheckBox();
+            this.statusOrbit = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericLarge)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericSmall)).BeginInit();
@@ -134,7 +136,7 @@ namespace Engine
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 23);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // LoadRigidModelMenu
@@ -208,6 +210,8 @@ namespace Engine
             // viewToolStripMenuItem
             // 
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.orbitTheModelMenu,
+            this.toolStripSeparator12,
             this.yUpMenuItem,
             this.zUpMenuItem,
             this.zDownMenuItem,
@@ -231,8 +235,20 @@ namespace Engine
             this.light2EnabledToolStripMenuItem,
             this.reverseLightingToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 23);
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem.Text = "&View";
+            // 
+            // orbitTheModelMenu
+            // 
+            this.orbitTheModelMenu.Name = "orbitTheModelMenu";
+            this.orbitTheModelMenu.Size = new System.Drawing.Size(267, 22);
+            this.orbitTheModelMenu.Text = "&Orbit The Model                        Key O";
+            this.orbitTheModelMenu.Click += new System.EventHandler(this.orbitTheModelMenu_Click);
+            // 
+            // toolStripSeparator12
+            // 
+            this.toolStripSeparator12.Name = "toolStripSeparator12";
+            this.toolStripSeparator12.Size = new System.Drawing.Size(264, 6);
             // 
             // yUpMenuItem
             // 
@@ -275,7 +291,7 @@ namespace Engine
             this.showAxesMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.showAxesMenuItem.Name = "showAxesMenuItem";
             this.showAxesMenuItem.Size = new System.Drawing.Size(267, 22);
-            this.showAxesMenuItem.Text = "Show Axes";
+            this.showAxesMenuItem.Text = "S&how Axes";
             this.showAxesMenuItem.Click += new System.EventHandler(this.showAxesMenuItem_Click);
             // 
             // wireframeItem
@@ -294,7 +310,7 @@ namespace Engine
             // 
             this.resetViewingPointMenu.Name = "resetViewingPointMenu";
             this.resetViewingPointMenu.Size = new System.Drawing.Size(267, 22);
-            this.resetViewingPointMenu.Text = "&Reset Viewing Point";
+            this.resetViewingPointMenu.Text = "&Reset Viewing Point                   Key R";
             this.resetViewingPointMenu.Click += new System.EventHandler(this.resetViewingPoint_Click);
             // 
             // invertYControlsItem
@@ -341,14 +357,14 @@ namespace Engine
             // 
             this.boundingCylinderStanding.Name = "boundingCylinderStanding";
             this.boundingCylinderStanding.Size = new System.Drawing.Size(267, 22);
-            this.boundingCylinderStanding.Text = "Bounding Cylinder Standing";
+            this.boundingCylinderStanding.Text = "Bo&unding Cylinder Standing";
             this.boundingCylinderStanding.Click += new System.EventHandler(this.boundingCylinderStanding_Click);
             // 
             // boundingCylinderCrouched
             // 
             this.boundingCylinderCrouched.Name = "boundingCylinderCrouched";
             this.boundingCylinderCrouched.Size = new System.Drawing.Size(267, 22);
-            this.boundingCylinderCrouched.Text = "Bounding Cylinder Crouched";
+            this.boundingCylinderCrouched.Text = "Bounding &Cylinder Crouched";
             this.boundingCylinderCrouched.Click += new System.EventHandler(this.boundingCylinderCrouched_Click);
             // 
             // boundsAttachedToBonesItem
@@ -369,7 +385,7 @@ namespace Engine
             this.light1EnabledToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.light1EnabledToolStripMenuItem.Name = "light1EnabledToolStripMenuItem";
             this.light1EnabledToolStripMenuItem.Size = new System.Drawing.Size(267, 22);
-            this.light1EnabledToolStripMenuItem.Text = "Light 1 Enabled";
+            this.light1EnabledToolStripMenuItem.Text = "Light &1 Enabled";
             this.light1EnabledToolStripMenuItem.Click += new System.EventHandler(this.light1EnabledToolStripMenuItem_Click);
             // 
             // light2EnabledToolStripMenuItem
@@ -378,7 +394,7 @@ namespace Engine
             this.light2EnabledToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.light2EnabledToolStripMenuItem.Name = "light2EnabledToolStripMenuItem";
             this.light2EnabledToolStripMenuItem.Size = new System.Drawing.Size(267, 22);
-            this.light2EnabledToolStripMenuItem.Text = "Light 2 Enabled";
+            this.light2EnabledToolStripMenuItem.Text = "Light &2 Enabled";
             this.light2EnabledToolStripMenuItem.Click += new System.EventHandler(this.light2EnabledToolStripMenuItem_Click);
             // 
             // reverseLightingToolStripMenuItem
@@ -387,7 +403,7 @@ namespace Engine
             this.reverseLightingToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.reverseLightingToolStripMenuItem.Name = "reverseLightingToolStripMenuItem";
             this.reverseLightingToolStripMenuItem.Size = new System.Drawing.Size(267, 22);
-            this.reverseLightingToolStripMenuItem.Text = "Reverse Lighting";
+            this.reverseLightingToolStripMenuItem.Text = "&Reverse Lighting";
             this.reverseLightingToolStripMenuItem.Click += new System.EventHandler(this.reverseLightingToolStripMenuItem_Click);
             // 
             // diabolicalToolStripMenuItem
@@ -405,7 +421,7 @@ namespace Engine
             this.toolStripSeparator11,
             this.createOrEditCharacterBoundsToolStripMenuItem});
             this.diabolicalToolStripMenuItem.Name = "diabolicalToolStripMenuItem";
-            this.diabolicalToolStripMenuItem.Size = new System.Drawing.Size(71, 23);
+            this.diabolicalToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
             this.diabolicalToolStripMenuItem.Text = "&Diabolical";
             // 
             // loadmodelItem
@@ -491,7 +507,7 @@ namespace Engine
             this.toolStripSeparator8,
             this.optionsToolStripMenuItem});
             this.ToolsMenuItem.Name = "ToolsMenuItem";
-            this.ToolsMenuItem.Size = new System.Drawing.Size(48, 23);
+            this.ToolsMenuItem.Size = new System.Drawing.Size(48, 20);
             this.ToolsMenuItem.Text = "&Tools";
             // 
             // splitFBXMenuItem
@@ -560,7 +576,7 @@ namespace Engine
             this.windowToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.helpToolStripMenuItem1});
             this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
-            this.windowToolStripMenuItem.Size = new System.Drawing.Size(63, 23);
+            this.windowToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
             this.windowToolStripMenuItem.Text = "&Window";
             // 
             // helpToolStripMenuItem1
@@ -668,6 +684,7 @@ namespace Engine
             // 
             // modelViewerControl
             // 
+            this.modelViewerControl.AutoRotateSpeed = 0F;
             this.modelViewerControl.CurrentMoveSpeed = 0.6F;
             this.modelViewerControl.CurrentTurnSpeed = 1F;
             this.modelViewerControl.DiffuseColour = new Microsoft.Xna.Framework.Vector3(1F, 1F, 1F);
@@ -691,16 +708,14 @@ namespace Engine
             this.modelViewerControl.Text = "modelViewerControl";
             this.modelViewerControl.ViewUp = 1;
             // 
-            // checkOrbit
+            // statusOrbit
             // 
-            this.checkOrbit.AutoCheck = false;
-            this.checkOrbit.AutoSize = true;
-            this.checkOrbit.Location = new System.Drawing.Point(792, 734);
-            this.checkOrbit.Name = "checkOrbit";
-            this.checkOrbit.Size = new System.Drawing.Size(145, 17);
-            this.checkOrbit.TabIndex = 44;
-            this.checkOrbit.Text = "Orbit centred on the view";
-            this.checkOrbit.UseVisualStyleBackColor = true;
+            this.statusOrbit.AutoSize = true;
+            this.statusOrbit.Location = new System.Drawing.Point(792, 758);
+            this.statusOrbit.Name = "statusOrbit";
+            this.statusOrbit.Size = new System.Drawing.Size(59, 13);
+            this.statusOrbit.TabIndex = 45;
+            this.statusOrbit.Text = "Orbit Mode";
             // 
             // MainForm
             // 
@@ -708,7 +723,7 @@ namespace Engine
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(1008, 793);
-            this.Controls.Add(this.checkOrbit);
+            this.Controls.Add(this.statusOrbit);
             this.Controls.Add(this.buttonSmall);
             this.Controls.Add(this.buttonLarge);
             this.Controls.Add(this.labelSmall);
@@ -804,7 +819,9 @@ namespace Engine
         private System.Windows.Forms.ToolStripMenuItem boundingCylinderCrouched;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
         private System.Windows.Forms.ToolStripMenuItem createOrEditCharacterBoundsToolStripMenuItem;
-        private System.Windows.Forms.CheckBox checkOrbit;
+        private System.Windows.Forms.ToolStripMenuItem orbitTheModelMenu;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
+        private System.Windows.Forms.Label statusOrbit;
 
     }
 }

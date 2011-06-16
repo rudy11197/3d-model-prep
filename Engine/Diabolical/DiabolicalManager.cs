@@ -1182,11 +1182,11 @@ namespace Engine
         /// </summary>
         /// <param name="enable"></param>
         /// <param name="turnSpeed"></param>
-        public void SetOrbit(bool enable, float turnSpeed)
+        public void SetOrbit(bool enable, float turnSpeed, bool centreAttached)
         {
             if (form != null)
             {
-                form.Orbit(enable, turnSpeed);
+                form.Orbit(enable, turnSpeed, centreAttached);
             }
         }
         //

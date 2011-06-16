@@ -72,29 +72,31 @@ namespace Engine
             modelViewerControl.IsMoving += new EventHandler<EventArgs>(modelViewerControl_IsMoving);
             modelViewerControl.Click += new EventHandler(modelViewerControl_Click);
             modelViewerControl.ChangedOrbit += new EventHandler<EventArgs>(modelViewerControl_ChangedOrbit);
-
-            checkOrbit.Click += new EventHandler(checkOrbit_Click);
         }
 
         /////////////////////////////////////////////////////////////////////
         // == Changes ==
         //
-        private void checkOrbit_Click(object sender, EventArgs e)
+        public void Orbit(bool change, float turnSpeed, bool centreAttached)
         {
-            bool enable = !modelViewerControl.OrbitMode;
-            Orbit(enable, 0);
+            orbitTheModelMenu.Checked = change;
+            statusOrbit.Visible = change;
+            modelViewerControl.OrbitMode = change;
+            modelViewerControl.AutoRotateSpeed = turnSpeed;
+            if (centreAttached)
+            {
+                modelViewerControl.CentreOrbitOnSelectedBound();
+            }
         }
 
-        public void Orbit(bool enable, float turnSpeed)
+        private void orbitTheModelMenu_Click(object sender, EventArgs e)
         {
-            checkOrbit.Checked = enable;
-            modelViewerControl.OrbitMode = enable;
-            modelViewerControl.AutoRotateSpeed = turnSpeed;
+            Orbit(!orbitTheModelMenu.Checked, 0, false);
         }
 
         private void modelViewerControl_ChangedOrbit(object sender, EventArgs e)
         {
-            checkOrbit.Checked = modelViewerControl.OrbitMode;
+            UpdateOrbitStatus();
         }
 
         private void buttonLarge_Click(object sender, EventArgs e)
@@ -582,7 +584,19 @@ namespace Engine
             WhatModelType();
             ShowBoundSelections();
             RotateLegend();
+            UpdateOrbitStatus();
         }
+
+        private void UpdateOrbitStatus()
+        {
+            statusOrbit.Visible = false;
+            if (modelViewerControl != null)
+            {
+                orbitTheModelMenu.Checked = modelViewerControl.OrbitMode;
+                statusOrbit.Visible = orbitTheModelMenu.Checked;
+            }
+        }
+
         private void RotateLegend()
         {
             RotationMenuItem.Text = "Rotation:  X " + rotateX + ",  Y " + rotateY + ",  Z " + rotateZ;

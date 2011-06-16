@@ -298,6 +298,7 @@ namespace Engine
         public event EventHandler<EventArgs> IsMoving;
         public event EventHandler<EventArgs> ChangedOrbit;
 
+
         private bool isOrbit = false;
         public bool OrbitMode
         {
@@ -318,14 +319,20 @@ namespace Engine
             }
         }
 
+        public void CentreOrbitOnSelectedBound()
+        {
+            if (AttachedBounds != null && selectedBound >= 0 && selectedBound < AttachedBounds.Count)
+            {
+                orbitCentre = AttachedBounds[selectedBound].Sphere.Center;
+            }
+        }
+
         // Typically -1.0 to + 1.0
         private float autoRotateSpeed = 0;
         public float AutoRotateSpeed
         {
-            set
-            {
-                autoRotateSpeed = value;
-            }
+            get { return autoRotateSpeed; }
+            set { autoRotateSpeed = value; }
         }
 
         /// <summary>
