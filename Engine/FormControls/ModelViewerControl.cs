@@ -518,6 +518,9 @@ namespace Engine
                 cameraPosition.Z -= away;
                 cameraPosition.Y += up;
             }
+            // Stop the orbit
+            OrbitMode = false;
+            AutoRotateSpeed = 0;
             CalculateProjection();
             InitialiseLookAt();
         }

@@ -180,16 +180,30 @@ namespace Engine
         public float CylinderRadius
         {
             get { return modelAsset.CylinderRadius; }
+            set { modelAsset.CylinderRadius = value; }
         }
 
         public float HeightStanding
         {
             get { return modelAsset.HeightStanding; }
+            set { modelAsset.HeightStanding = value; }
         }
 
         public float HeightCrouched
         {
             get { return modelAsset.HeightCrouched; }
+            set { modelAsset.HeightCrouched = value; }
+        }
+
+        /// <summary>
+        /// Call this after any changes to update the model view
+        /// </summary>
+        public void UpdateModelChanges()
+        {
+            if (form != null)
+            {
+                form.UpdateModelChanges();
+            }
         }
 
         /// <summary>
@@ -626,6 +640,15 @@ namespace Engine
             {
                 form.SetSelectedBound(boundIndex);
             }
+        }
+
+        public int GetSelectedBound()
+        {
+            if (form != null)
+            {
+                return form.GetCurrentSelectedBound();
+            }
+            return -1;
         }
         //
         //////////////////////////////////////////////////////////////////////
@@ -1173,6 +1196,7 @@ namespace Engine
             {
                 // Reset Results
                 AttachedBounds = aForm.PreviousBounds;
+                form.UpdateModelChanges();
             }
             
         }

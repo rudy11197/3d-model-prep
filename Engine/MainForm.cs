@@ -663,6 +663,7 @@ namespace Engine
             boundingCylinderStanding.Enabled = false;
             boundingCylinderCrouched.Enabled = false;
             boundsAttachedToBonesItem.Enabled = false;
+            editCharacterBoundsMenu.Enabled = false;
 
             allLargeBoundsItem.Visible = false;
             allSmallBoundsItem.Visible = false;
@@ -688,6 +689,11 @@ namespace Engine
                 {
                     createStructureBoundsItem.Enabled = true;
                 }
+                else if (diabolical.IsCharacter)
+                {
+                    editCharacterBoundsMenu.Enabled = true;
+                }
+
 
                 if (diabolical.HasStructureBounds())
                 {
@@ -1690,7 +1696,7 @@ namespace Engine
             ShowBoundsAttachedToBones();
         }
 
-        private void ShowBoundsAttachedToBones()
+        public void ShowBoundsAttachedToBones()
         {
             ClearAllBoundTicks();
             boundsAttachedToBonesItem.Checked = true;
@@ -1733,6 +1739,24 @@ namespace Engine
             if (modelViewerControl != null)
             {
                 modelViewerControl.SelectedBound = boundIndex;
+            }
+        }
+
+        public int GetCurrentSelectedBound()
+        {
+            return modelViewerControl.SelectedBound;
+        }
+
+        public void UpdateModelChanges()
+        {
+            modelViewerControl.AttachedBounds = diabolical.AttachedBounds;
+            if (boundingCylinderStanding.Checked)
+            {
+                modelViewerControl.SetCylinderSizes(diabolical.HeightStanding, diabolical.CylinderRadius);
+            }
+            else if (boundingCylinderCrouched.Checked)
+            {
+                modelViewerControl.SetCylinderSizes(diabolical.HeightCrouched, diabolical.CylinderRadius);
             }
         }
         //

@@ -75,7 +75,7 @@ namespace Engine
             this.createStructureBoundsItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optimiseBoundsItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
-            this.createOrEditCharacterBoundsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editCharacterBoundsMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitFBXMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openTakesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -117,7 +117,7 @@ namespace Engine
             this.ClipNamesComboBox});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1008, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1008, 27);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -136,7 +136,7 @@ namespace Engine
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 23);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // LoadRigidModelMenu
@@ -235,7 +235,7 @@ namespace Engine
             this.light2EnabledToolStripMenuItem,
             this.reverseLightingToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 23);
             this.viewToolStripMenuItem.Text = "&View";
             // 
             // orbitTheModelMenu
@@ -419,81 +419,81 @@ namespace Engine
             this.createStructureBoundsItem,
             this.optimiseBoundsItem,
             this.toolStripSeparator11,
-            this.createOrEditCharacterBoundsToolStripMenuItem});
+            this.editCharacterBoundsMenu});
             this.diabolicalToolStripMenuItem.Name = "diabolicalToolStripMenuItem";
-            this.diabolicalToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
+            this.diabolicalToolStripMenuItem.Size = new System.Drawing.Size(71, 23);
             this.diabolicalToolStripMenuItem.Text = "&Diabolical";
             // 
             // loadmodelItem
             // 
             this.loadmodelItem.Name = "loadmodelItem";
-            this.loadmodelItem.Size = new System.Drawing.Size(242, 22);
+            this.loadmodelItem.Size = new System.Drawing.Size(237, 22);
             this.loadmodelItem.Text = "&Load .model File...";
             this.loadmodelItem.Click += new System.EventHandler(this.loadmodelFileToolStripMenuItem_Click);
             // 
             // savemodelItem
             // 
             this.savemodelItem.Name = "savemodelItem";
-            this.savemodelItem.Size = new System.Drawing.Size(242, 22);
+            this.savemodelItem.Size = new System.Drawing.Size(237, 22);
             this.savemodelItem.Text = "&Save .model File...";
             this.savemodelItem.Click += new System.EventHandler(this.savemodelSettingsItem_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(239, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(234, 6);
             // 
             // modelCommonPropertiesItem
             // 
             this.modelCommonPropertiesItem.Name = "modelCommonPropertiesItem";
-            this.modelCommonPropertiesItem.Size = new System.Drawing.Size(242, 22);
+            this.modelCommonPropertiesItem.Size = new System.Drawing.Size(237, 22);
             this.modelCommonPropertiesItem.Text = "Model &Common Properties";
             this.modelCommonPropertiesItem.Click += new System.EventHandler(this.modelCommonPropertiesItem_Click);
             // 
             // changeModelTypeItem
             // 
             this.changeModelTypeItem.Name = "changeModelTypeItem";
-            this.changeModelTypeItem.Size = new System.Drawing.Size(242, 22);
+            this.changeModelTypeItem.Size = new System.Drawing.Size(237, 22);
             this.changeModelTypeItem.Text = "Change Model &Type";
             this.changeModelTypeItem.Click += new System.EventHandler(this.changeModelTypeItem_Click);
             // 
             // modelTypePropertiesItem
             // 
             this.modelTypePropertiesItem.Name = "modelTypePropertiesItem";
-            this.modelTypePropertiesItem.Size = new System.Drawing.Size(242, 22);
+            this.modelTypePropertiesItem.Size = new System.Drawing.Size(237, 22);
             this.modelTypePropertiesItem.Text = "Model Type Specific &Properties";
             this.modelTypePropertiesItem.Click += new System.EventHandler(this.modelTypePropertiesItem_Click);
             // 
             // toolStripSeparator9
             // 
             this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(239, 6);
+            this.toolStripSeparator9.Size = new System.Drawing.Size(234, 6);
             // 
             // createStructureBoundsItem
             // 
             this.createStructureBoundsItem.Name = "createStructureBoundsItem";
-            this.createStructureBoundsItem.Size = new System.Drawing.Size(242, 22);
+            this.createStructureBoundsItem.Size = new System.Drawing.Size(237, 22);
             this.createStructureBoundsItem.Text = "Create Structure &Bounds";
             this.createStructureBoundsItem.Click += new System.EventHandler(this.createStructureBoundsItem_Click);
             // 
             // optimiseBoundsItem
             // 
             this.optimiseBoundsItem.Name = "optimiseBoundsItem";
-            this.optimiseBoundsItem.Size = new System.Drawing.Size(242, 22);
+            this.optimiseBoundsItem.Size = new System.Drawing.Size(237, 22);
             this.optimiseBoundsItem.Text = "&Optimise Bounds (Essential)";
             this.optimiseBoundsItem.Click += new System.EventHandler(this.optimiseBoundsItem_Click);
             // 
             // toolStripSeparator11
             // 
             this.toolStripSeparator11.Name = "toolStripSeparator11";
-            this.toolStripSeparator11.Size = new System.Drawing.Size(239, 6);
+            this.toolStripSeparator11.Size = new System.Drawing.Size(234, 6);
             // 
-            // createOrEditCharacterBoundsToolStripMenuItem
+            // editCharacterBoundsMenu
             // 
-            this.createOrEditCharacterBoundsToolStripMenuItem.Name = "createOrEditCharacterBoundsToolStripMenuItem";
-            this.createOrEditCharacterBoundsToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
-            this.createOrEditCharacterBoundsToolStripMenuItem.Text = "Create or &Edit Character Bounds";
-            this.createOrEditCharacterBoundsToolStripMenuItem.Click += new System.EventHandler(this.createOrEditCharacterBoundsToolStripMenuItem_Click);
+            this.editCharacterBoundsMenu.Name = "editCharacterBoundsMenu";
+            this.editCharacterBoundsMenu.Size = new System.Drawing.Size(237, 22);
+            this.editCharacterBoundsMenu.Text = "&Edit Character Bounds";
+            this.editCharacterBoundsMenu.Click += new System.EventHandler(this.createOrEditCharacterBoundsToolStripMenuItem_Click);
             // 
             // ToolsMenuItem
             // 
@@ -507,7 +507,7 @@ namespace Engine
             this.toolStripSeparator8,
             this.optionsToolStripMenuItem});
             this.ToolsMenuItem.Name = "ToolsMenuItem";
-            this.ToolsMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.ToolsMenuItem.Size = new System.Drawing.Size(48, 23);
             this.ToolsMenuItem.Text = "&Tools";
             // 
             // splitFBXMenuItem
@@ -576,7 +576,7 @@ namespace Engine
             this.windowToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.helpToolStripMenuItem1});
             this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
-            this.windowToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
+            this.windowToolStripMenuItem.Size = new System.Drawing.Size(63, 23);
             this.windowToolStripMenuItem.Text = "&Window";
             // 
             // helpToolStripMenuItem1
@@ -693,7 +693,7 @@ namespace Engine
             this.modelViewerControl.IsAnimated = false;
             this.modelViewerControl.Light1Enabled = true;
             this.modelViewerControl.Light2Enabled = true;
-            this.modelViewerControl.Location = new System.Drawing.Point(0, 24);
+            this.modelViewerControl.Location = new System.Drawing.Point(0, 27);
             this.modelViewerControl.Name = "modelViewerControl";
             this.modelViewerControl.Options = Engine.ModelViewerControl.DrawOptions.None;
             this.modelViewerControl.OrbitMode = false;
@@ -818,7 +818,7 @@ namespace Engine
         private System.Windows.Forms.ToolStripMenuItem mergeToClipsMenuItem;
         private System.Windows.Forms.ToolStripMenuItem boundingCylinderCrouched;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
-        private System.Windows.Forms.ToolStripMenuItem createOrEditCharacterBoundsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editCharacterBoundsMenu;
         private System.Windows.Forms.ToolStripMenuItem orbitTheModelMenu;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
         private System.Windows.Forms.Label statusOrbit;

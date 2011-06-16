@@ -160,22 +160,8 @@ using System.Windows.Forms;
 // TODO:
 //-----------------------------------------------------------------------------
 
-// - Change draw sphere to have 3 loops instead of two
 // - Add options for the sizes of the character
-// test - Add options for the setup of the attached bounding spheres
-// test - Pick which bound to edit
-// test - Change the colour of the selected bound
-// test - Be able to change the bone
-// test - Transforn, X, Y and Z axis in real time.
-// test - Add a new bound
-// test - Remove an existing bound
-// test - Start with the last selected ID
-// test - Orbit round the centre of the bound while editing
-// test - Orbit menu item
-// test - orbit status line
-// test - Centre the view on the selected bound
-
-// - Disable create or edit character bounds when no character is loaded
+// test - open the attached form with the previously selected bound
 
 // - My initial test of merging had a distorted result where the
 //      shoulders joined the run.  
@@ -188,8 +174,6 @@ using System.Windows.Forms;
 //      merge|SourceFileUpperBody.fbx|SourceFileLowerBody.fbx|OutputTakeName
 
 // - Undo the last delete bounds
-// - The weapon and gear dialogue will need a +/- rotation in all three 
-//      directions instead of the absolutes currently set in the older files.
 
 //-----------------------------------------------------------------------------
 // TODO (Extras):

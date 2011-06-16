@@ -39,13 +39,16 @@ namespace Engine
         private GraphicsDevice graphicsDevice;
         private BasicEffect basicEffect;
         // Built in shapes
-        public VertexPositionColor[] scalableRedLoopH;
-        public VertexPositionColor[] scalableRedLoopV;
-        public VertexPositionColor[] scalableGreenLoopH;
-        public VertexPositionColor[] scalableGreenLoopV;
+        public VertexPositionColor[] scalableRedLoopZ;
+        public VertexPositionColor[] scalableRedLoopY;
+        public VertexPositionColor[] scalableRedLoopX;
+        public VertexPositionColor[] scalableGreenLoopZ;
+        public VertexPositionColor[] scalableGreenLoopY;
+        public VertexPositionColor[] scalableGreenLoopX;
         public VertexPositionColor[] scalableLine;
         public VertexPositionColor[] scalableCylinder;
-        private int loopQuality = 14;
+        private const int loopHigherQuality = 14;
+        private const int loopLowerQuality = 9;
         // Saved shapes
         public List<ShapeList> savedShapes = new List<ShapeList>();
 
@@ -62,11 +65,13 @@ namespace Engine
 
             // Setup built in shapes
             scalableLine = GetVerticalLine(1.0f, Color.Red);
-            scalableRedLoopH = GetHorizontalCircle(1.0f, loopQuality, Color.Red, Vector3.Zero);
-            scalableRedLoopV = GetVerticalCircle(1.0f, loopQuality, Color.Red, Vector3.Zero);
-            scalableGreenLoopH = GetHorizontalCircle(1.0f, loopQuality, Color.Green, Vector3.Zero);
-            scalableGreenLoopV = GetVerticalCircle(1.0f, loopQuality, Color.Green, Vector3.Zero);
-            scalableCylinder = GetCylinder(1.0f, 1.0f, loopQuality, Color.Red);
+            scalableRedLoopZ = GetCircle(1.0f, loopHigherQuality, Color.Red, Vector3.Zero, "Z");
+            scalableRedLoopY = GetCircle(1.0f, loopHigherQuality, Color.Red, Vector3.Zero, "Y");
+            scalableRedLoopX = GetCircle(1.0f, loopHigherQuality, Color.Red, Vector3.Zero, "X");
+            scalableGreenLoopZ = GetCircle(1.0f, loopHigherQuality, Color.Green, Vector3.Zero, "Z");
+            scalableGreenLoopY = GetCircle(1.0f, loopHigherQuality, Color.Green, Vector3.Zero, "Y");
+            scalableGreenLoopX = GetCircle(1.0f, loopHigherQuality, Color.Green, Vector3.Zero, "X");
+            scalableCylinder = GetCylinder(1.0f, 1.0f, loopHigherQuality, Color.Red);
 
         }
 
@@ -136,25 +141,10 @@ namespace Engine
             }
         }
 
-        // horizontal or vertical circle
-        public void StoreNewCircle(Vector3 centre, float radius, Color colour, bool horizontal)
-        {
-            ShapeList vertexList = new ShapeList();
-            if (horizontal)
-            {
-                vertexList.shape = GetHorizontalCircle(radius, 9, colour, centre);
-            }
-            else
-            {
-                vertexList.shape = GetVerticalCircle(radius, 9, colour, centre);
-            }
-            savedShapes.Add(vertexList);
-        }
-
         public void StoreNewCircle(Vector3 centre, float radius, Color colour, string onPlane)
         {
             ShapeList vertexList = new ShapeList();
-            vertexList.shape = GetCircle(radius, 9, colour, centre, onPlane);
+            vertexList.shape = GetCircle(radius, loopLowerQuality, colour, centre, onPlane);
             savedShapes.Add(vertexList);
         }
 
@@ -186,7 +176,7 @@ namespace Engine
             // 2 circles and a line down one side
             int points = (sides + 1) * 2;
             VertexPositionColor[] pointList = new VertexPositionColor[points];
-            VertexPositionColor[] circleList = GetHorizontalCircle(1.0f, sides, Color.Red, Vector3.Zero);
+            VertexPositionColor[] circleList = GetCircle(1.0f, sides, Color.Red, Vector3.Zero, "Y");
 
             for (int i = 0; i < circleList.Length; i++)
             {
@@ -200,71 +190,9 @@ namespace Engine
         }
 
         /// <summary>
-        /// Return a list of points forming a circle
+        /// Return a list of points forming a circle.
+        /// onPlane, X = Vertical, Y = Horizontal, Z = the other
         /// </summary>
-        /// <param name="radius">Radius</param>
-        /// <param name="sides">The more sides the smoother the circle will appear</param>
-        /// <param name="colour">The colour e.g. Color.White or Color.Red</param>
-        public VertexPositionColor[] GetHorizontalCircle(float radius, int sides, Color colour, Vector3 centre)
-        {
-            int points = sides + 1;
-            VertexPositionColor[] pointList = new VertexPositionColor[points];
-
-            // This function creates a circle so the maxArc is always 2PI (360 degrees)
-            float maxArc = 2 * (float)Math.PI;   // in Radians
-            float fStep = maxArc / (float)sides;
-
-            float fAngle = 0;
-            for (int i = 0; i < sides; i++)
-            {
-                pointList[i] = new VertexPositionColor(
-                    new Vector3(((float)Math.Sin(fAngle) * radius) + centre.X,
-                        centre.Y, 
-                        ((float)Math.Cos(fAngle) * radius) + centre.Z), 
-                        colour);
-                // Move the point round by a segment of the circle
-                fAngle += fStep;
-            }
-            // Make sure the circle is complete the last point is the same as the first
-            pointList[sides] = pointList[0];
-            return pointList;
-        }
-
-        /// <summary>
-        /// Return a list of points forming a circle
-        /// </summary>
-        /// <param name="radius">Radius</param>
-        /// <param name="sides">The more sides the smoother the circle will appear</param>
-        /// <param name="colour">The colour e.g. Color.White or Color.Red</param>
-        public VertexPositionColor[] GetVerticalCircle(float radius, int sides, Color colour, Vector3 centre)
-        {
-            int points = sides + 1;
-            VertexPositionColor[] pointList = new VertexPositionColor[points];
-
-            // This function creates a circle so the maxArc is always 2PI (360 degrees)
-            float maxArc = 2 * (float)Math.PI;   // in Radians
-            float fStep = maxArc / (float)sides;
-
-            float fAngle = 0;
-            for (int i = 0; i < sides; i++)
-            {
-                pointList[i] = new VertexPositionColor(
-                    new Vector3(centre.X,
-                        ((float)Math.Sin(fAngle) * radius) + centre.Y,
-                        ((float)Math.Cos(fAngle) * radius) + centre.Z),
-                        colour);
-                // Move the point round by a segment of the circle
-                fAngle += fStep;
-            }
-            // Make sure the circle is complete the last point is the same as the first
-            pointList[sides] = pointList[0];
-            return pointList;
-        }
-
-        /// <summary>
-        /// Return a list of points forming a circle
-        /// </summary>
-        /// <param name="radius">Radius</param>
         /// <param name="sides">The more sides the smoother the circle will appear</param>
         /// <param name="colour">The colour e.g. Color.White or Color.Red</param>
         public VertexPositionColor[] GetCircle(float radius, int sides, Color colour, Vector3 centre, string onPlane)
@@ -379,7 +307,7 @@ namespace Engine
             basicEffect.View = mtxView;
             basicEffect.Projection = mtxProjection;
 
-            DrawLines(ref scalableRedLoopH);
+            DrawLines(ref scalableRedLoopY);
         }
 
         /// <summary>
@@ -397,8 +325,9 @@ namespace Engine
             basicEffect.View = mtxView;
             basicEffect.Projection = mtxProjection;
 
-            DrawLines(ref scalableRedLoopH);
-            DrawLines(ref scalableRedLoopV);
+            DrawLines(ref scalableRedLoopZ);
+            DrawLines(ref scalableRedLoopY);
+            DrawLines(ref scalableRedLoopX);
         }
 
         public void DrawGreenSphere(Vector3 vLocation, float fRadius, Matrix mtxView, Matrix mtxProjection)
@@ -408,8 +337,9 @@ namespace Engine
             basicEffect.View = mtxView;
             basicEffect.Projection = mtxProjection;
 
-            DrawLines(ref scalableGreenLoopH);
-            DrawLines(ref scalableGreenLoopV);
+            DrawLines(ref scalableGreenLoopZ);
+            DrawLines(ref scalableGreenLoopY);
+            DrawLines(ref scalableGreenLoopX);
         }
 
         /// <summary>
@@ -510,9 +440,9 @@ namespace Engine
         public void DrawDot(Vector3 centre, Color colour, Matrix mtxView, Matrix mtxProjection)
         {
             float radius = 0.1f;
-            VertexPositionColor[] pointList = GetVerticalCircle(radius, 4, colour, centre);
+            VertexPositionColor[] pointList = GetCircle(radius, 4, colour, centre, "X");
             DrawShapeAtOrigin(pointList, mtxView, mtxProjection);
-            pointList = GetHorizontalCircle(radius, 4, colour, centre);
+            pointList = GetCircle(radius, 4, colour, centre, "Y");
             DrawShapeAtOrigin(pointList, mtxView, mtxProjection);
         }
 
