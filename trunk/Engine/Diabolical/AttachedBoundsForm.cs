@@ -202,7 +202,23 @@ namespace Engine
             numericRadius.Value = (decimal)item.Sphere.Radius;
             if (diabolicalForm != null)
             {
-                diabolicalForm.SetSelectedBound(comboIDs.SelectedIndex);
+                int toID = diabolicalForm.GetSelectedBound();
+                if (toID < 0)
+                {
+                    diabolicalForm.SetSelectedBound(comboIDs.SelectedIndex);
+                }
+                else
+                {
+                    ChangeSelectedID(toID);
+                }
+            }
+        }
+
+        private void ChangeSelectedID(int toID)
+        {
+            if (toID >= 0 && toID < comboIDs.Items.Count)
+            {
+                comboIDs.SelectedIndex = toID;
             }
         }
 
@@ -233,6 +249,7 @@ namespace Engine
         {
             // Update the model
             diabolicalForm.AttachedBounds = attachedCurrent;
+            diabolicalForm.UpdateModelChanges();
             // Reload all the data
             PopulateIDs(selectHighest);
         }
