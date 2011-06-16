@@ -330,7 +330,7 @@ namespace Engine
         {
             if (diabolicalForm != null)
             {
-                diabolicalForm.SetOrbit(true, amount);
+                diabolicalForm.SetOrbit(true, amount, true);
             }
         }
 
@@ -338,7 +338,7 @@ namespace Engine
         {
             if (diabolicalForm != null)
             {
-                diabolicalForm.SetOrbit(false, 0);
+                diabolicalForm.SetOrbit(false, 0, false);
             }
         }
         //
