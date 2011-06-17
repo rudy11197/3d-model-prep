@@ -117,7 +117,7 @@ namespace Engine
             {
                 comboIDs.SelectedIndex = comboIDs.Items.Count - 1;
             }
-            GetCurrentData();
+            GetCurrentData(diabolicalForm.GetSelectedBound());
         }
 
         private void UpdateEnabled()
@@ -141,7 +141,7 @@ namespace Engine
         //
         private void comboIDs_SelectedIndexChanged(object sender, EventArgs e)
         {
-            GetCurrentData();
+            GetCurrentData(comboIDs.SelectedIndex);
         }
 
         private void comboBones_SelectedIndexChanged(object sender, EventArgs e)
@@ -189,25 +189,21 @@ namespace Engine
             return unknownBoneName;
         }
 
-        private void GetCurrentData()
+        private void GetCurrentData(int toID)
         {
-            if (comboIDs.SelectedIndex < 0 || 
-                comboIDs.SelectedIndex >= attachedCurrent.Count)
+            if (toID < 0 || 
+                toID >= attachedCurrent.Count)
             {
                 return;
             }
             ShowBoneNameFromAttached();
-            AttachedSphere item = attachedCurrent[comboIDs.SelectedIndex];
+            AttachedSphere item = attachedCurrent[toID];
             positionOffset.Value = item.Offset;
             numericRadius.Value = (decimal)item.Sphere.Radius;
             if (diabolicalForm != null)
             {
-                int toID = diabolicalForm.GetSelectedBound();
-                if (toID < 0)
-                {
-                    diabolicalForm.SetSelectedBound(comboIDs.SelectedIndex);
-                }
-                else
+                diabolicalForm.SetSelectedBound(toID);
+                if (comboIDs.SelectedIndex != toID)
                 {
                     ChangeSelectedID(toID);
                 }
