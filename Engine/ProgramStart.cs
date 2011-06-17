@@ -152,17 +152,13 @@ using System.Windows.Forms;
 // - Select bounds by their index number
 // - Display a set of axes to show which way the camera is facing
 // - Merge animations
-// - Display a cylinder round characters
-// - Display bounds attached to the bones
+// - Display and edit bounding cylinders round characters
+// - Display and edit bounds attached to the bones
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 // TODO:
 //-----------------------------------------------------------------------------
-
-// test - Character form to add options for the sizes of the character
-// test - open the attached form with the previously selected bound
-// test - save changed character
 
 // - My initial test of merging had a distorted result where the
 //      shoulders joined the run.  
