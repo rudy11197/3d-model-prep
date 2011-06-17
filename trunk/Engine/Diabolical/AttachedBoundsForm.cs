@@ -109,15 +109,22 @@ namespace Engine
                 string output = a.ToString() + " " + GetBoneName(item.BoneIndex);
                 comboIDs.Items.Add(output);
             }
-            if (!selectHighest && currentID >= 0 && currentID < comboIDs.Items.Count)
+            /*if (!selectHighest && currentID >= 0 && currentID < comboIDs.Items.Count)
             {
                 comboIDs.SelectedIndex = currentID;
             }
             else if (comboIDs.Items.Count > 0)
             {
                 comboIDs.SelectedIndex = comboIDs.Items.Count - 1;
+            }*/
+            if (selectHighest)
+            {
+                GetCurrentData(attachedCurrent.Count - 1);
             }
-            GetCurrentData(diabolicalForm.GetSelectedBound());
+            else
+            {
+                GetCurrentData(diabolicalForm.GetSelectedBound());
+            }
         }
 
         private void UpdateEnabled()
@@ -191,10 +198,14 @@ namespace Engine
 
         private void GetCurrentData(int toID)
         {
+            if (attachedCurrent.Count < 1)
+            {
+                return;
+            }
             if (toID < 0 || 
                 toID >= attachedCurrent.Count)
             {
-                return;
+                toID = 0;
             }
             ShowBoneNameFromAttached();
             AttachedSphere item = attachedCurrent[toID];
