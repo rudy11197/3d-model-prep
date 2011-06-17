@@ -15,5 +15,29 @@ namespace Engine
         {
             InitializeComponent();
         }
+
+        /////////////////////////////////////////////////////////////////////
+        // == Properties ==
+        //
+        public float CylinderRadius
+        {
+            get { return (float)numericRadius.Value; }
+            set { numericRadius.Value = (decimal)value; }
+        }
+
+        public float HeightStanding
+        {
+            get { return (float)numericStanding.Value; }
+            set { numericStanding.Value = (decimal)value; }
+        }
+
+        public float HeightCrouched
+        {
+            get { return (float)numericCrouched.Value; }
+            set { numericCrouched.Value = (decimal)value; }
+        }
+        //
+        /////////////////////////////////////////////////////////////////////
+
     }
 }

@@ -1120,6 +1120,9 @@ namespace Engine
                 case GlobalSettings.modelTypeStructure:
                     DisplayStructureForm();
                     break;
+                case GlobalSettings.modelTypeCharacter:
+                    DisplayCharacterForm();
+                    break;
             }
         }
 
@@ -1213,6 +1216,27 @@ namespace Engine
                 form.Orbit(enable, turnSpeed, centreAttached);
             }
         }
+
+        private void DisplayCharacterForm()
+        {
+            ModelCharacterForm aForm = new ModelCharacterForm();
+
+            aForm.CylinderRadius = CylinderRadius;
+            aForm.HeightStanding = HeightStanding;
+            aForm.HeightCrouched = HeightCrouched;
+
+            DialogResult diagResult = aForm.ShowDialog();
+            if (diagResult == DialogResult.OK)
+            {
+                // Results
+                CylinderRadius = aForm.CylinderRadius;
+                HeightStanding = aForm.HeightStanding;
+                HeightCrouched = aForm.HeightCrouched;
+                UpdateModelChanges();
+            }
+        }
+
+
         //
         //////////////////////////////////////////////////////////////////////
     }

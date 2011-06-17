@@ -160,9 +160,9 @@ using System.Windows.Forms;
 // TODO:
 //-----------------------------------------------------------------------------
 
-// - Add options for the sizes of the character
+// test - Character form to add options for the sizes of the character
 // test - open the attached form with the previously selected bound
-// test - Can't select anything at the moment!
+// test - save changed character
 
 // - My initial test of merging had a distorted result where the
 //      shoulders joined the run.  
