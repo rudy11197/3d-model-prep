@@ -385,6 +385,13 @@ namespace Engine
 
         private void SplitFBXMenu_Click(object sender, EventArgs e)
         {
+            // Check if we want to rotate the model
+            if (!DisplayRotationForm())
+            {
+                AddMessageLine("== Aborted ==");
+                return;
+            }
+
             OpenFileDialog fileDialog = new OpenFileDialog();
 
             fileDialog.InitialDirectory = defaultFileFolder;

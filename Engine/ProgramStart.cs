@@ -160,6 +160,10 @@ using System.Windows.Forms;
 // TODO:
 //-----------------------------------------------------------------------------
 
+// - In Batch process .takes file if no animations exist then an error is 
+//      thrown.  Check that the animation files exist before starting.
+//      Sometimes there is an out of range error first time but not the next!
+
 // - My initial test of merging had a distorted result where the
 //      shoulders joined the run.  
 //      Ideas.  Missing bones in one or other animation, different lengths or the 
