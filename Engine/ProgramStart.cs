@@ -163,6 +163,16 @@ using System.Windows.Forms;
 // - In Batch process .takes file if no animations exist then an error is 
 //      thrown.  Check that the animation files exist before starting.
 //      Sometimes there is an out of range error first time but not the next!
+//   Following an error it attempts to complete but the results are incorrect.
+
+// - Have a method to set the arm and head bones from within the app.
+//      See the merge form for one method.
+// - Have a method to load the head and arm bones from a .takes file.
+
+// - The first time a model is loaded it often throws an error but the second
+//      time the same model loads fine.
+//      Try to find out why and fix.
+//      This also prevents the .takes batches working.
 
 // - My initial test of merging had a distorted result where the
 //      shoulders joined the run.  
