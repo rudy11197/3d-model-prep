@@ -33,6 +33,9 @@ namespace Engine
         public const string settingsFileExtension = ".model";   // The extension for model settings files
 
         // Save keyframes
+        // Arm movement limits
+        public const float armAnimateAngleUp = 60.0f;
+        public const float armAnimateAngleDown = -60.0f;
         // All lowercase
         public const string itemRigType = "rigtype";
         public const string itemHeadBones = "headbones";

@@ -128,8 +128,8 @@ namespace Engine
                 // Add the extra header information for, max, min and defaultFrame
                 data.Add(String.Format("{0} {1} {2} {3}",
                     ParseData.IntToString(clip.BoneCount),
-                    ParseData.FloatToString(60.0f),
-                    ParseData.FloatToString(-60.0f),
+                    ParseData.FloatToString(GlobalSettings.armAnimateAngleUp),
+                    ParseData.FloatToString(GlobalSettings.armAnimateAngleDown),
                     ParseData.FloatToString(((
                                 (float)clip.Keyframes.Count /
                                 (float)clip.BoneCount) + 1)
