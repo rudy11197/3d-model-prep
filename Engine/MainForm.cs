@@ -849,6 +849,10 @@ namespace Engine
                         diabolical.LastLoaded3DModelFile = fileName;
                         diabolical.Model = modelViewerControl.Model;
                         diabolical.ModelRotation = GetRotation(rotateXdeg, rotateYdeg, rotateZdeg);
+                        if (isAnimated)
+                        {
+                            ChangeModelType(GlobalSettings.modelTypeCharacter);
+                        }
                     }
                     // Scale
                     AddMessageLine("The width of each grid square is: " + modelViewerControl.GridSquareWidth + " unit(s)");
@@ -1600,15 +1604,20 @@ namespace Engine
             DialogResult diagResult = aForm.ShowDialog();
             if (diagResult == DialogResult.OK)
             {
-                diabolical.ModelType = aForm.ModelType;
-                if (diabolical.IsWeapon)
-                {
-                    // Weapons are drawn with the trigger at the origin so are half in the floor
-                    ShowFloor(false);
-                }
+                ChangeModelType(aForm.ModelType);
             }
             PauseGameInput(false);
             UpdateMenuItemVisibility();
+        }
+
+        public void ChangeModelType(string changeTo)
+        {
+            diabolical.ModelType = changeTo;
+            if (diabolical.IsWeapon)
+            {
+                // Weapons are drawn with the trigger at the origin so are half in the floor
+                ShowFloor(false);
+            }
         }
 
         private void createStructureBoundsItem_Click(object sender, EventArgs e)
