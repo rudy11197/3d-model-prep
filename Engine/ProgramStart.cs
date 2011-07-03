@@ -169,10 +169,11 @@ using System.Windows.Forms;
 //      See the merge form for one method.
 // - Have a method to load the head and arm bones from a .takes file.
 
-// - The first time a model is loaded it often throws an error but the second
-//      time the same model loads fine.
-//      Try to find out why and fix.
+// - Find out what causes the initial error 'Bone is not a child'
+//      This only happens the fire time the model is built not the second and
+//      subsequent times!
 //      This also prevents the .takes batches working.
+//      The same hapopens in the game build!
 
 // - My initial test of merging had a distorted result where the
 //      shoulders joined the run.  
