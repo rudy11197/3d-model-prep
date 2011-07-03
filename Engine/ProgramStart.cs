@@ -160,6 +160,8 @@ using System.Windows.Forms;
 // TODO:
 //-----------------------------------------------------------------------------
 
+// - When loading an animated model default the model type to character instead of structure.
+
 // - My initial test of merging had a distorted result where the
 //      shoulders joined the run.  
 //      Ideas.  Missing bones in one or other animation, different lengths or the 
