@@ -134,6 +134,8 @@ namespace Engine
                                 (float)clip.Keyframes.Count /
                                 (float)clip.BoneCount) + 1)
                                 * 0.5f)));  // The middle frame if the first frame is zero
+
+                
             }
 
             IList<Keyframe> frames = clip.Keyframes;

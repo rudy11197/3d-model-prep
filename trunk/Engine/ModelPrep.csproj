@@ -161,6 +161,12 @@
       <DependentUpon>RotationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="TakeExtractor\AnimationPlayer.cs" />
+    <Compile Include="TakeExtractor\BoneFilterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TakeExtractor\BoneFilterForm.Designer.cs">
+      <DependentUpon>BoneFilterForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="TakeExtractor\MergeClipForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -220,6 +226,9 @@
     </Compile>
     <EmbeddedResource Include="RotationForm.resx">
       <DependentUpon>RotationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TakeExtractor\BoneFilterForm.resx">
+      <DependentUpon>BoneFilterForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TakeExtractor\MergeClipForm.resx">
       <DependentUpon>MergeClipForm.cs</DependentUpon>
