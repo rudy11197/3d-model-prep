@@ -462,6 +462,8 @@ namespace Engine
             AddMessageLine("== Finished ==");
         }
 
+        private List<string> currentBoneFilter;
+
         private void SaveClip_Click(object sender, EventArgs e)
         {
             if (modelViewerControl.Model == null || currentClipName == GlobalSettings.listRestPoseName)
@@ -475,8 +477,11 @@ namespace Engine
                 AddMessageLine("Not an animated model!");
                 return;
             }
+            // Null bone list keeps all bones
+            currentBoneFilter = null;
+
             ClipSaveDialogue(ParseClips.GetAnimationClipData(modelViewerControl.GetCurrentClip(), 
-                                skinData.BoneMap, null));
+                                skinData.BoneMap, currentBoneFilter));
             AddMessageLine("== Finished ==");
         }
 
@@ -1207,8 +1212,9 @@ namespace Engine
 
             fileDialog.FileName = fileName;
 
-            fileDialog.Filter = "Clip Files (*.clip)|*.clip|" +
-                                "Head and Arms Files (*.head;*.arms)|*.head;*.arms|" +
+            fileDialog.Filter = "Clip File (*.clip)|*.clip|" +
+                                "Head File (*.head)|*.head|" +
+                                "Arms File (*.arms)|*.arms|" +
                                 "All Files (*.*)|*.*";
 
             if (fileDialog.ShowDialog() == DialogResult.OK)
