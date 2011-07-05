@@ -169,12 +169,6 @@ using System.Windows.Forms;
 //      Sometimes there is an out of range error first time but not the next!
 //   Following an error it attempts to complete but the results are incorrect.
 
-// - Find out what causes the initial error 'Bone is not a child'
-//      This only happens the fire time the model is built not the second and
-//      subsequent times!
-//      This also prevents the .takes batches working.
-//      The same hapopens in the game build!
-
 // - My initial test of merging had a distorted result where the
 //      shoulders joined the run.  
 //      Ideas.  Missing bones in one or other animation, different lengths or the 
