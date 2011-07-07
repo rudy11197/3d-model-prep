@@ -20,15 +20,30 @@ namespace Engine
         /////////////////////////////////////////////////////////////////////
         // == Properties ==
         //
-        private List<string> boneFilter = new List<string>();
         public List<string> BoneFilter
         {
-            get { return boneFilter; }
-            set
+            get { return GetBoneFilter(); }
+            set{ SetBoneFilter(value); }
+        }
+
+        private void SetBoneFilter(List<string> bones)
+        {
+            listBoneFilter.Items.Clear();
+            if (bones != null)
             {
-                boneFilter = value;
-                PopulateBoneFilterList();
+                listBoneFilter.Items.AddRange(bones.ToArray());
+                ValidateBoneFilterList();
             }
+        }
+
+        private List<string> GetBoneFilter()
+        {
+            List<string> bones = new List<string>();
+            for (int i = 0; i < listBoneFilter.Items.Count; i++)
+            {
+                bones.Add((string)listBoneFilter.Items[i]);
+            }
+            return bones;
         }
 
         private IDictionary<string, int> boneMap;
@@ -38,7 +53,7 @@ namespace Engine
             {
                 boneMap = value;
                 PopulateBoneMapList();
-                PopulateBoneFilterList();
+                ValidateBoneFilterList();
             }
         }
         //
@@ -60,36 +75,25 @@ namespace Engine
                 return;
             }
             // Remove any bones that don't exist in the bone map and de-duplicate
-            for (int i = boneFilter.Count - 1; i >= 0; i--)
+            for (int i = listBoneFilter.Items.Count - 1; i >= 0; i--)
             {
-                if (!boneMap.ContainsKey(boneFilter[i]))
+                if (!boneMap.ContainsKey((string)listBoneFilter.Items[i]))
                 {
-                    boneFilter.RemoveAt(i);
+                    listBoneFilter.Items.RemoveAt(i);
                 }
                 else
                 {
                     // De-duplicate
                     for (int j = 0; j < i; j++)
                     {
-                        if (boneFilter[j] == boneFilter[i])
+                        if (listBoneFilter.Items[j] == listBoneFilter.Items[i])
                         {
-                            boneFilter.RemoveAt(i);
+                            listBoneFilter.Items.RemoveAt(i);
                             break;
                         }
                     }
                 }
             }
-        }
-
-        private void PopulateBoneFilterList()
-        {
-            ValidateBoneFilterList();
-            string result = "";
-            for (int i = 0; i < boneFilter.Count; i++)
-            {
-                result += boneFilter[i] + ParseData.div;
-            }
-            textListBones.Text = result;
         }
         //
         /////////////////////////////////////////////////////////////////////
@@ -175,22 +179,44 @@ namespace Engine
 
         private void buttonAllBones_Click(object sender, EventArgs e)
         {
-            boneFilter.Clear();
-            PopulateBoneFilterList();
+            SetBoneFilter(null);
         }
 
         private void buttonHeadBones_Click(object sender, EventArgs e)
         {
-            boneFilter.Clear();
-            boneFilter.AddRange(GetTypicalBoneNamesFromBoneMap(TypicalHeadBoneNames()));
-            PopulateBoneFilterList();
+            SetBoneFilter(GetTypicalBoneNamesFromBoneMap(TypicalHeadBoneNames()));
         }
 
         private void buttonArmBones_Click(object sender, EventArgs e)
         {
-            boneFilter.Clear();
-            boneFilter.AddRange(GetTypicalBoneNamesFromBoneMap(TypicalArmBoneNames()));
-            PopulateBoneFilterList();
+            SetBoneFilter(GetTypicalBoneNamesFromBoneMap(TypicalArmBoneNames()));
+        }
+
+        private void buttonAdd_Click(object sender, EventArgs e)
+        {
+            AddItem();
+        }
+
+        private void buttonRemove_Click(object sender, EventArgs e)
+        {
+            RemoveItem();
+        }
+
+        private void RemoveItem()
+        {
+            if (listBoneFilter.SelectedIndex >= 0)
+            {
+                listBoneFilter.Items.RemoveAt(listBoneFilter.SelectedIndex);
+            }
+        }
+
+        private void AddItem()
+        {
+            if (listBoneMap.SelectedIndex >= 0)
+            {
+                listBoneFilter.Items.Add(listBoneMap.SelectedValue);
+                ValidateBoneFilterList();
+            }
         }
         //
         /////////////////////////////////////////////////////////////////////
