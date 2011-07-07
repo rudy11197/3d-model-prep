@@ -58,7 +58,7 @@
             this.listBoneMap.Location = new System.Drawing.Point(333, 84);
             this.listBoneMap.Name = "listBoneMap";
             this.listBoneMap.ScrollAlwaysVisible = true;
-            this.listBoneMap.Size = new System.Drawing.Size(171, 381);
+            this.listBoneMap.Size = new System.Drawing.Size(171, 459);
             this.listBoneMap.TabIndex = 2;
             // 
             // label2
@@ -82,7 +82,7 @@
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(429, 512);
+            this.buttonCancel.Location = new System.Drawing.Point(433, 550);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 51;
@@ -92,7 +92,7 @@
             // buttonOK
             // 
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(348, 512);
+            this.buttonOK.Location = new System.Drawing.Point(352, 550);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 50;
@@ -144,7 +144,7 @@
             this.listBoneFilter.Location = new System.Drawing.Point(15, 84);
             this.listBoneFilter.Name = "listBoneFilter";
             this.listBoneFilter.ScrollAlwaysVisible = true;
-            this.listBoneFilter.Size = new System.Drawing.Size(171, 381);
+            this.listBoneFilter.Size = new System.Drawing.Size(171, 459);
             this.listBoneFilter.TabIndex = 56;
             // 
             // buttonAdd
@@ -171,7 +171,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(520, 547);
+            this.ClientSize = new System.Drawing.Size(520, 585);
             this.Controls.Add(this.buttonRemove);
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.listBoneFilter);

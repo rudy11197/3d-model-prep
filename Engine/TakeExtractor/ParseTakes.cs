@@ -113,11 +113,14 @@ namespace Engine
             fbx.LoadAsText(fileFullPathToModel);
             // Load the model as a model
             form.LoadModel(true, fileFullPathToModel, rotateXdeg, rotateYdeg, rotateZdeg);
-            // Must save the takes to individual files and
-            // the file names must be consistent
-            fbx.SaveIndividualFBXtakes();
-            // Now we can load each in turn to get the keyframe data
-            ExportTakesToKeyframes(1, fbx, rotateXdeg, rotateYdeg, rotateZdeg);
+            if (form.IsAnimatedModel())
+            {
+                // Must save the takes to individual files and
+                // the file names must be consistent
+                fbx.SaveIndividualFBXtakes();
+                // Now we can load each in turn to get the keyframe data
+                ExportTakesToKeyframes(1, fbx, rotateXdeg, rotateYdeg, rotateZdeg);
+            }
         }
 
         private void ProcessTypeTwo(string rotateXdeg, string rotateYdeg, string rotateZdeg)
@@ -127,11 +130,13 @@ namespace Engine
             fbx.ExtractFileNames(fileFullPathToModel);
             // Load the model as a model
             form.LoadModel(true, fileFullPathToModel, rotateXdeg, rotateYdeg, rotateZdeg);
-            // Animation files (FBX) must already exist
-            // Now we can load each in turn to get the keyframe data
-            ExportTakesToKeyframes(2, fbx, rotateXdeg, rotateYdeg, rotateZdeg);
+            if (form.IsAnimatedModel())
+            {
+                // Animation files (FBX) must already exist
+                // Now we can load each in turn to get the keyframe data
+                ExportTakesToKeyframes(2, fbx, rotateXdeg, rotateYdeg, rotateZdeg);
+            }
         }
-
 
         private struct Parts
         {
@@ -247,32 +252,39 @@ namespace Engine
                     // Error but we should never get this far anyway
                     return;
                 }
-                // Add each animation in to the form
-                form.LoadAnimationTakes(fileName, rotateXdeg, rotateYdeg, rotateZdeg);
-                // The animation loaded must have been selected as the current animation for this to work
-                List<string> exportData;
-                if (clipParts[c].partType == GlobalSettings.itemHeadTake)
+                if (File.Exists(fileName))
                 {
-                    exportData = GetSaveClipData(form.GetCurrentClip(), form.GetBoneMap(), clipParts[c].takeName, headFilter);
-                }
-                else if (clipParts[c].partType == GlobalSettings.itemArmsTake)
-                {
-                    exportData = GetSaveClipData(form.GetCurrentClip(), form.GetBoneMap(), clipParts[c].takeName, armsFilter);
+                    // Add each animation in to the form
+                    form.LoadAnimationTakes(fileName, rotateXdeg, rotateYdeg, rotateZdeg);
+                    // The animation loaded must have been selected as the current animation for this to work
+                    List<string> exportData;
+                    if (clipParts[c].partType == GlobalSettings.itemHeadTake)
+                    {
+                        exportData = GetSaveClipData(form.GetCurrentClip(), form.GetBoneMap(), clipParts[c].takeName, headFilter);
+                    }
+                    else if (clipParts[c].partType == GlobalSettings.itemArmsTake)
+                    {
+                        exportData = GetSaveClipData(form.GetCurrentClip(), form.GetBoneMap(), clipParts[c].takeName, armsFilter);
+                    }
+                    else
+                    {
+                        exportData = GetSaveClipData(form.GetCurrentClip(), form.GetBoneMap(), clipParts[c].takeName, null);
+                    }
+
+                    if (exportData == null || exportData.Count < 1)
+                    {
+                        // Nothing to save go to the next one
+                        continue;
+                    }
+                    // Save the file
+                    fileName = fbx.GetKeyframeFileName(rigType, clipParts[c].partName, clipParts[c].partType);
+                    form.AddMessageLine("Saving: " + fileName);
+                    File.WriteAllLines(fileName, exportData);
                 }
                 else
                 {
-                    exportData = GetSaveClipData(form.GetCurrentClip(), form.GetBoneMap(), clipParts[c].takeName, null);
+                    form.AddMessageLine("Animation does not exist: " + fileName);
                 }
-
-                if (exportData == null || exportData.Count < 1)
-                {
-                    // Nothing to save go to the next one
-                    continue;
-                }
-                // Save the file
-                fileName = fbx.GetKeyframeFileName(rigType, clipParts[c].partName, clipParts[c].partType);
-                form.AddMessageLine("Saving: " + fileName);
-                File.WriteAllLines(fileName, exportData);
             }
 
         }
