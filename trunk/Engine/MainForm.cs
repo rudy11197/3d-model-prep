@@ -462,7 +462,22 @@ namespace Engine
             AddMessageLine("== Finished ==");
         }
 
+        // Null bone list keeps all bones
         private List<string> currentBoneFilter;
+
+        private void DisplayBoneFilterList()
+        {
+            BoneFilterForm aForm = new BoneFilterForm();
+            aForm.BoneMap = GetBoneMap();
+            aForm.BoneFilter = currentBoneFilter;
+
+            DialogResult diagResult = aForm.ShowDialog();
+            if (diagResult == DialogResult.OK)
+            {
+                // Results
+                currentBoneFilter = aForm.BoneFilter;
+            }
+        }
 
         private void SaveClip_Click(object sender, EventArgs e)
         {
@@ -477,9 +492,7 @@ namespace Engine
                 AddMessageLine("Not an animated model!");
                 return;
             }
-            // Null bone list keeps all bones
-            currentBoneFilter = null;
-
+            DisplayBoneFilterList();
             ClipSaveDialogue(ParseClips.GetAnimationClipData(modelViewerControl.GetCurrentClip(), 
                                 skinData.BoneMap, currentBoneFilter));
             AddMessageLine("== Finished ==");
@@ -625,7 +638,7 @@ namespace Engine
         /// </summary>
         private void HasModelLoaded()
         {
-            if (modelViewerControl.Model == null || !modelViewerControl.IsAnimated)
+            if (!IsAnimatedModel())
             {
                 PoseHeading.Visible = false;
                 ClipNamesComboBox.Visible = false;
@@ -907,11 +920,10 @@ namespace Engine
         {
             Cursor = Cursors.WaitCursor;
 
-            // Clear the content builder as each item must have a unique content name
-            //contentBuilder.Clear();
-            // Tell the ContentBuilder what to build.
+            // Each item must have a unique content name
             string uniqueName = DateTime.Now.ToString(GlobalSettings.timeFormat);
             AddMessageLine("Loading animation: " + fileName);
+            // Tell the ContentBuilder what to build.
             contentBuilder.AddAnimated(fileName, uniqueName, rotateXdeg, rotateYdeg, rotateZdeg);
             AddMessageLine("Rotating animation: X " + rotateXdeg + ", Y " + rotateYdeg + ", Z " + rotateZdeg);
 
@@ -1215,6 +1227,7 @@ namespace Engine
             fileDialog.Filter = "Clip File (*.clip)|*.clip|" +
                                 "Head File (*.head)|*.head|" +
                                 "Arms File (*.arms)|*.arms|" +
+                                "Animation File Types (*.clip;*.arms;*.head)|*.clip;*.arms;*.head|" +
                                 "All Files (*.*)|*.*";
 
             if (fileDialog.ShowDialog() == DialogResult.OK)
@@ -1290,6 +1303,7 @@ namespace Engine
             }
             return results;
         }
+
 
         public List<string> GetBindPoseList()
         {
@@ -1479,6 +1493,24 @@ namespace Engine
 
             AddMessageLine("== Finished ==");
             Cursor = Cursors.Arrow;
+        }
+
+        public bool IsModelExist()
+        {
+            if (modelViewerControl != null && modelViewerControl.Model != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool IsAnimatedModel()
+        {
+            if (IsModelExist() && modelViewerControl.IsAnimated)
+            {
+                return true;
+            }
+            return false;
         }
         //
         //////////////////////////////////////////////////////////////////////

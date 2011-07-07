@@ -15,6 +15,9 @@ namespace Engine
         public BoneFilterForm()
         {
             InitializeComponent();
+
+            listBoneFilter.DoubleClick += new EventHandler(listBoneFilter_DoubleClick);
+            listBoneMap.DoubleClick += new EventHandler(listBoneMap_DoubleClick);
         }
 
         /////////////////////////////////////////////////////////////////////
@@ -202,6 +205,16 @@ namespace Engine
             RemoveItem();
         }
 
+        private void listBoneMap_DoubleClick(object sender, EventArgs e)
+        {
+            AddItem();
+        }
+
+        private void listBoneFilter_DoubleClick(object sender, EventArgs e)
+        {
+            RemoveItem();
+        }
+
         private void RemoveItem()
         {
             if (listBoneFilter.SelectedIndex >= 0)
@@ -214,7 +227,7 @@ namespace Engine
         {
             if (listBoneMap.SelectedIndex >= 0)
             {
-                listBoneFilter.Items.Add(listBoneMap.SelectedValue);
+                listBoneFilter.Items.Add(listBoneMap.Items[listBoneMap.SelectedIndex]);
                 ValidateBoneFilterList();
             }
         }

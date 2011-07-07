@@ -143,6 +143,7 @@ using System.Windows.Forms;
 // - Load animations from FBX files
 // - Load animations from AnimationClips
 // - Save animationClips in the format used by the Microsoft Skinning Sample
+// - Save the clips with only some of the bones included
 // - Use a config file to convert multiple animations in to animationClip format
 // - Show a floor
 // - Load and save models with the Diabolical custom structure format
@@ -160,24 +161,8 @@ using System.Windows.Forms;
 // TODO:
 //-----------------------------------------------------------------------------
 
-// BoneFilterForm
-// - Have a method to set the arm and head bones from within the app.
-// - Have a method to load the head and arm bones from a .takes file.
-
-// - In Batch process .takes file if no animations exist then an error is 
-//      thrown.  Check that the animation files exist before starting.
-//      Sometimes there is an out of range error first time but not the next!
-//   Following an error it attempts to complete but the results are incorrect.
-
-// - My initial test of merging had a distorted result where the
-//      shoulders joined the run.  
-//      Ideas.  Missing bones in one or other animation, different lengths or the 
-//              timings are not the same for each frame.
-
-// test - File to merge animations 
-//      have a .takes file format type 3 the same as format type 2 with the addition 
-//      of merging animations.
-//      merge|SourceFileUpperBody.fbx|SourceFileLowerBody.fbx|OutputTakeName
+// done - Have a method to set the arm and head bones from within the app.
+// done - Check that the animation files exist before starting in batch takes mode
 
 // - Undo the last delete bounds
 
@@ -197,6 +182,8 @@ using System.Windows.Forms;
 //     Merge animations:
 //      http://blogs.msdn.com/b/shawnhar/archive/2010/06/18/merging-animation-files.aspx
 
+// - Merging animations is not used so has not been tested
+//      Therefore it might not work as intended!
 //-----------------------------------------------------------------------------
 
 #region Source Control
