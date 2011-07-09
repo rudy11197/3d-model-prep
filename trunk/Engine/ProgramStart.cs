@@ -164,6 +164,12 @@ using System.Windows.Forms;
 // done - Have a method to set the arm and head bones from within the app.
 // done - Check that the animation files exist before starting in batch takes mode
 
+// - Aim and hold weapon positions face up!
+//          Therefore they don't point to the middle of the screen.
+//          The calculation of the centre position is wrong.
+//          Half of 8 produces 4.46 instead of 4
+//          Perhaps simply fix it at frame 4.
+
 // - Undo the last delete bounds
 
 //-----------------------------------------------------------------------------
