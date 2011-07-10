@@ -907,6 +907,13 @@ namespace Engine
                         "the vertices have not been included in any of the bone vertex groups.");
                     AddMessageLine("Errors with bone weights must be fixed in the modelling application.");
                 }
+                if (buildError.Contains("ArgumentNullException"))
+                {
+                    AddMessageLine("Null arguments are most likely to be caused by one or more of the  " +
+                        "uv mapped textures being missing or in the wrong folder.");
+                    AddMessageLine("View the model FBX or X file in a text editor and search for all the 'materials' then " +
+                        "copy texture files with the same names as those shown in the model file in to the correct folder. ");
+                }
                 MessageBox.Show(buildError, "Error");
             }
 
