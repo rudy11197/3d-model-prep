@@ -76,7 +76,7 @@
 // RigType|Armature Rig Prefix
 // HeadBones|Neck|Head
 // ArmBones|L-Upper|L-Hand|R-Hand|...
-// type|SourceAnimationFileName|OutputTakeName
+// type|SourceAnimationFileName|OutputTakeName|CentreFrame
 // type|SourceAnimationFileName|OutputTakeName
 // type|SourceAnimationFileName|OutputTakeName
 // ...
@@ -95,6 +95,10 @@
 // SourceAnimationFileName = the relative path to the file containing the animation.  Only the 
 //  first animation in an FBX file is used.
 //  All paths have to be relative to the folder that the 'takes' file is loaded from.
+//
+// CentreFrame = optional float to indicate which frame is the centre
+//  Only applicable to Head and Arms animations.
+//
 //
 //-----------------------------------------------------------------------------
 // The output clip format is simply the Keyframes saved from the SkinningData
@@ -161,14 +165,8 @@ using System.Windows.Forms;
 // TODO:
 //-----------------------------------------------------------------------------
 
-// done - Have a method to set the arm and head bones from within the app.
-// done - Check that the animation files exist before starting in batch takes mode
-
-// - Aim and hold weapon positions face up!
-//          Therefore they don't point to the middle of the screen.
-//          The calculation of the centre position is wrong.
-//          Half of 8 produces 4.46 instead of 4
-//          Perhaps simply fix it at frame 4.
+// - Have a third bone filter type for merge clips
+//      They are still saved as type clip but use a bone filter
 
 // - Undo the last delete bounds
 

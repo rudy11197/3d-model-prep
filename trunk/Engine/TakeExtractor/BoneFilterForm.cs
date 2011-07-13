@@ -29,6 +29,12 @@ namespace Engine
             set{ SetBoneFilter(value); }
         }
 
+        public float CentreFrame
+        {
+            get { return (float)numericCentreFrame.Value; }
+            set { numericCentreFrame.Value = (decimal)value; }
+        }
+
         private void SetBoneFilter(List<string> bones)
         {
             listBoneFilter.Items.Clear();

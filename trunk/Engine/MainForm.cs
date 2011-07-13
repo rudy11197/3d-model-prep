@@ -464,18 +464,22 @@ namespace Engine
 
         // Null bone list keeps all bones
         private List<string> currentBoneFilter;
+        // Centre position for the Head and Arms clips
+        private float currentCentreFrame = 4;
 
         private void DisplayBoneFilterList()
         {
             BoneFilterForm aForm = new BoneFilterForm();
             aForm.BoneMap = GetBoneMap();
             aForm.BoneFilter = currentBoneFilter;
+            aForm.CentreFrame = currentCentreFrame;
 
             DialogResult diagResult = aForm.ShowDialog();
             if (diagResult == DialogResult.OK)
             {
                 // Results
                 currentBoneFilter = aForm.BoneFilter;
+                currentCentreFrame = aForm.CentreFrame;
             }
         }
 
@@ -494,7 +498,7 @@ namespace Engine
             }
             DisplayBoneFilterList();
             ClipSaveDialogue(ParseClips.GetAnimationClipData(modelViewerControl.GetCurrentClip(), 
-                                skinData.BoneMap, currentBoneFilter));
+                                skinData.BoneMap, currentBoneFilter, currentCentreFrame));
             AddMessageLine("== Finished ==");
         }
 
@@ -1484,7 +1488,7 @@ namespace Engine
                 AddMessageLine("Animation clip merge FAILED!");
                 return;
             }
-            List<string> data = ParseClips.GetAnimationClipData(result, null, null);
+            List<string> data = ParseClips.GetAnimationClipData(result, null, null, 0);
             
             Cursor = Cursors.Arrow;
             string name = ClipSaveDialogue(data);

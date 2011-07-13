@@ -98,7 +98,7 @@ namespace Engine
         /// boneFilter is a list of bones to match that will be saved all other discarded
         /// leave null or empty to select all bones
         /// </summary>
-        public static List<string> GetAnimationClipData(AnimationClip clip, IDictionary<string, int> BoneMap, List<string> bonesFilter)
+        public static List<string> GetAnimationClipData(AnimationClip clip, IDictionary<string, int> BoneMap, List<string> bonesFilter, float centreFrame)
         {
             bool IsClip = false;
             if (bonesFilter == null || bonesFilter.Count < 1 || BoneMap == null)
@@ -130,11 +130,7 @@ namespace Engine
                     ParseData.IntToString(clip.BoneCount),
                     ParseData.FloatToString(GlobalSettings.armAnimateAngleUp),
                     ParseData.FloatToString(GlobalSettings.armAnimateAngleDown),
-                    ParseData.FloatToString(((
-                                (float)clip.Keyframes.Count /
-                                (float)clip.BoneCount) + 1)
-                                * 0.5f)));  // The middle frame if the first frame is zero
-
+                    ParseData.FloatToString(centreFrame)));
                 
             }
 

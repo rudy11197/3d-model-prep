@@ -41,6 +41,11 @@
             this.listBoneFilter = new System.Windows.Forms.ListBox();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.buttonRemove = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.numericCentreFrame = new System.Windows.Forms.NumericUpDown();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericCentreFrame)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -58,8 +63,8 @@
             this.listBoneMap.Location = new System.Drawing.Point(333, 84);
             this.listBoneMap.Name = "listBoneMap";
             this.listBoneMap.ScrollAlwaysVisible = true;
-            this.listBoneMap.Size = new System.Drawing.Size(171, 459);
-            this.listBoneMap.TabIndex = 2;
+            this.listBoneMap.Size = new System.Drawing.Size(171, 394);
+            this.listBoneMap.TabIndex = 3;
             // 
             // label2
             // 
@@ -113,7 +118,7 @@
             this.buttonHeadBones.Location = new System.Drawing.Point(223, 383);
             this.buttonHeadBones.Name = "buttonHeadBones";
             this.buttonHeadBones.Size = new System.Drawing.Size(75, 23);
-            this.buttonHeadBones.TabIndex = 53;
+            this.buttonHeadBones.TabIndex = 20;
             this.buttonHeadBones.Text = "Head Bones";
             this.buttonHeadBones.UseVisualStyleBackColor = true;
             this.buttonHeadBones.Click += new System.EventHandler(this.buttonHeadBones_Click);
@@ -123,7 +128,7 @@
             this.buttonArmBones.Location = new System.Drawing.Point(223, 412);
             this.buttonArmBones.Name = "buttonArmBones";
             this.buttonArmBones.Size = new System.Drawing.Size(75, 23);
-            this.buttonArmBones.TabIndex = 54;
+            this.buttonArmBones.TabIndex = 21;
             this.buttonArmBones.Text = "Arm Bones";
             this.buttonArmBones.UseVisualStyleBackColor = true;
             this.buttonArmBones.Click += new System.EventHandler(this.buttonArmBones_Click);
@@ -133,7 +138,7 @@
             this.buttonAllBones.Location = new System.Drawing.Point(223, 441);
             this.buttonAllBones.Name = "buttonAllBones";
             this.buttonAllBones.Size = new System.Drawing.Size(75, 23);
-            this.buttonAllBones.TabIndex = 55;
+            this.buttonAllBones.TabIndex = 22;
             this.buttonAllBones.Text = "All Bones";
             this.buttonAllBones.UseVisualStyleBackColor = true;
             this.buttonAllBones.Click += new System.EventHandler(this.buttonAllBones_Click);
@@ -144,15 +149,15 @@
             this.listBoneFilter.Location = new System.Drawing.Point(15, 84);
             this.listBoneFilter.Name = "listBoneFilter";
             this.listBoneFilter.ScrollAlwaysVisible = true;
-            this.listBoneFilter.Size = new System.Drawing.Size(171, 459);
-            this.listBoneFilter.TabIndex = 56;
+            this.listBoneFilter.Size = new System.Drawing.Size(171, 394);
+            this.listBoneFilter.TabIndex = 1;
             // 
             // buttonAdd
             // 
             this.buttonAdd.Location = new System.Drawing.Point(223, 144);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(75, 23);
-            this.buttonAdd.TabIndex = 57;
+            this.buttonAdd.TabIndex = 2;
             this.buttonAdd.Text = "<-- Add";
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
@@ -162,16 +167,55 @@
             this.buttonRemove.Location = new System.Drawing.Point(223, 188);
             this.buttonRemove.Name = "buttonRemove";
             this.buttonRemove.Size = new System.Drawing.Size(75, 23);
-            this.buttonRemove.TabIndex = 58;
+            this.buttonRemove.TabIndex = 4;
             this.buttonRemove.Text = "Remove -->";
             this.buttonRemove.UseVisualStyleBackColor = true;
             this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.numericCentreFrame);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Location = new System.Drawing.Point(15, 484);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(493, 59);
+            this.groupBox1.TabIndex = 40;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Header Information";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(7, 20);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(73, 13);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Centre Frame:";
+            // 
+            // numericCentreFrame
+            // 
+            this.numericCentreFrame.DecimalPlaces = 2;
+            this.numericCentreFrame.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            this.numericCentreFrame.Location = new System.Drawing.Point(105, 20);
+            this.numericCentreFrame.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericCentreFrame.Name = "numericCentreFrame";
+            this.numericCentreFrame.Size = new System.Drawing.Size(120, 20);
+            this.numericCentreFrame.TabIndex = 41;
             // 
             // BoneFilterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(520, 585);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.buttonRemove);
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.listBoneFilter);
@@ -190,6 +234,9 @@
             this.MinimizeBox = false;
             this.Name = "BoneFilterForm";
             this.Text = "Bone Filters";
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericCentreFrame)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -210,5 +257,8 @@
         private System.Windows.Forms.ListBox listBoneFilter;
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.Button buttonRemove;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.NumericUpDown numericCentreFrame;
+        private System.Windows.Forms.Label label5;
     }
 }
