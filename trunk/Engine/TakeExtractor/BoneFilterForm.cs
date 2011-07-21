@@ -194,11 +194,13 @@ namespace Engine
         private void buttonHeadBones_Click(object sender, EventArgs e)
         {
             SetBoneFilter(GetTypicalBoneNamesFromBoneMap(TypicalHeadBoneNames()));
+            CentreFrame = 2.5f;
         }
 
         private void buttonArmBones_Click(object sender, EventArgs e)
         {
             SetBoneFilter(GetTypicalBoneNamesFromBoneMap(TypicalArmBoneNames()));
+            CentreFrame = 4.0f;
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
