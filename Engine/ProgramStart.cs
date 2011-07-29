@@ -165,6 +165,9 @@ using System.Windows.Forms;
 // TODO:
 //-----------------------------------------------------------------------------
 
+// - Put the elapsed time in to the GraphicsDeviceControl
+// - Restrict the draw calls to 60fps.
+
 // - When selecting an animation automatically disable orbit mode and re-enable
 
 // - Add Weight to the Character Properties form.
