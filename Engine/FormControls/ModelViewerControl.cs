@@ -193,13 +193,6 @@ namespace Engine
             }
         }
 
-        // Timer controls the movement speed.
-        Stopwatch timer;
-        // Keep track of elapsed time
-        TimeSpan previousTime;
-        TimeSpan currentTime;
-        TimeSpan elapsedGameTime;
-
         // For clearing the screen in the game
         // This is changed to match the control colour
         private Color gameBackColor = Color.CornflowerBlue;
@@ -579,16 +572,18 @@ namespace Engine
         //////////////////////////////////////////////////////////////////////
         // == Game ==
         //
+        // Keep track of elapsed time for the animations
+        private TimeSpan previousTime;
         /// <summary>
         /// Simulated update called prior to the draw method
         /// </summary>
-        protected override void UpdateGameLoop()
+        protected override void UpdateGameLoop(TimeSpan gameTime)
         {
-            currentTime = timer.Elapsed;
-            elapsedGameTime = currentTime - previousTime;
+            TimeSpan currentTime = gameTime;
+            TimeSpan elapsedGameTime = currentTime - previousTime;
             previousTime = currentTime;
 
-            HandleInput();
+            HandleInput(elapsedGameTime);
 
             if (isAnimated && model != null && animationPlayer != null)
             {
@@ -629,7 +624,7 @@ namespace Engine
         }
 
         // Support English, German and French keyboards
-        private void HandleInput()
+        private void HandleInput(TimeSpan elapsedGameTime)
         {
             float time = (float)elapsedGameTime.TotalMilliseconds;
 
@@ -893,7 +888,7 @@ namespace Engine
         /// <summary>
         /// Draws the control.
         /// </summary>
-        protected override void Draw()
+        protected override void Draw(TimeSpan gameTime)
         {
             GraphicsDevice.Clear(gameBackColor);
 
@@ -1092,11 +1087,6 @@ namespace Engine
         /// </summary>
         protected override void Initialize()
         {
-            // Start the animation timer.
-            timer = Stopwatch.StartNew();
-            currentTime = timer.Elapsed;
-            previousTime = currentTime;
-
             // Hook the idle event to constantly redraw our animation.
             Application.Idle += delegate { Invalidate(); };
 

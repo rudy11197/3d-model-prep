@@ -72,8 +72,10 @@ namespace Engine
             modelViewerControl.IsMoving += new EventHandler<EventArgs>(modelViewerControl_IsMoving);
             modelViewerControl.Click += new EventHandler(modelViewerControl_Click);
             modelViewerControl.ChangedOrbit += new EventHandler<EventArgs>(modelViewerControl_ChangedOrbit);
+            ClipNamesComboBox.GotFocus += new EventHandler(ClipNamesComboBox_GotFocus);
         }
 
+        
         /////////////////////////////////////////////////////////////////////
         // == Changes ==
         //
@@ -97,6 +99,12 @@ namespace Engine
         private void modelViewerControl_ChangedOrbit(object sender, EventArgs e)
         {
             UpdateOrbitStatus();
+        }
+
+        private void ClipNamesComboBox_GotFocus(object sender, EventArgs e)
+        {
+            // The orbit mode causes problems with the drop down so has to be disabled
+            Orbit(false, 0, false);
         }
 
         private void buttonLarge_Click(object sender, EventArgs e)
@@ -1552,6 +1560,8 @@ namespace Engine
                     DisplayTheBindPose();
                 }
             }
+            // Give focus back to the model viewer as that is the most likely thing people are going to want to do
+            modelViewerControl.Focus();
         }
 
         public AnimationClip GetCurrentClip()

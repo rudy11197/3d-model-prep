@@ -159,16 +159,12 @@ using System.Windows.Forms;
 // - Merge animations
 // - Display and edit bounding cylinders round characters
 // - Display and edit bounds attached to the bones
+// - Restricted to 60 frames per second to avoid an annoying noise from some monitors
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 // TODO:
 //-----------------------------------------------------------------------------
-
-// - Put the elapsed time in to the GraphicsDeviceControl
-// - Restrict the draw calls to 60fps.
-
-// - When selecting an animation automatically disable orbit mode and re-enable
 
 // - Add Weight to the Character Properties form.
 
