@@ -5,11 +5,18 @@
 // Microsoft XNA Community Game Platform
 // Copyright (C) Microsoft Corporation. All rights reserved.
 //-----------------------------------------------------------------------------
+// Features
+// - GameTime for use in draw and update loops
+// - Update loop to simulate the XNA game loop
+// - Restricted to no more than 60 FPS.  
+//      This is to avoid an annoying whining noise from some monitors!
+//-----------------------------------------------------------------------------
 #endregion
 
 #region Using Statements
 using System;
 using System.Drawing;
+using System.Diagnostics;
 using System.Windows.Forms;
 using Microsoft.Xna.Framework.Graphics;
 #endregion
@@ -36,6 +43,9 @@ namespace Engine
         // the same underlying GraphicsDevice, managed by this helper service.
         GraphicsDeviceService graphicsDeviceService;
 
+        // Timer to control the frame rate.
+        private Stopwatch gameTime;
+        private TimeSpan previousGameTime;
 
         #endregion
 
@@ -84,6 +94,9 @@ namespace Engine
                 // Register the service, so components like ContentManager can find it.
                 services.AddService<IGraphicsDeviceService>(graphicsDeviceService);
 
+                // Start the game timer.
+                gameTime = Stopwatch.StartNew();
+                previousGameTime = gameTime.Elapsed;
                 // Give derived classes a chance to initialize themselves.
                 Initialize();
             }
@@ -122,11 +135,19 @@ namespace Engine
 
             if (string.IsNullOrEmpty(beginDrawError))
             {
-                // Simulate the update loop in an XNA game
-                UpdateGameLoop();
-                // Draw the control using the GraphicsDevice.
-                Draw();
-                EndDraw();
+                // Slow the game down to no more than 60 fps (16.667ms per frame)
+                TimeSpan currentGameTime = gameTime.Elapsed;
+                TimeSpan elapsedTime = currentGameTime - previousGameTime;
+                // Restrict the draw to 60 fps.
+                if (elapsedTime > TimeSpan.FromMilliseconds(16))
+                {
+                    previousGameTime = currentGameTime;
+                    // Simulate the update loop in an XNA game
+                    UpdateGameLoop(currentGameTime);
+                    // Draw the control using the GraphicsDevice.
+                    Draw(currentGameTime);
+                    EndDraw();
+                }
             }
             else
             {
@@ -298,12 +319,12 @@ namespace Engine
         /// <summary>
         /// Derived classes override this to simulate the Update loop in a Game.
         /// </summary>
-        protected abstract void UpdateGameLoop();
+        protected abstract void UpdateGameLoop(TimeSpan gameTime);
 
         /// <summary>
         /// Derived classes override this to draw themselves using the GraphicsDevice.
         /// </summary>
-        protected abstract void Draw();
+        protected abstract void Draw(TimeSpan gameTime);
 
 
         #endregion
