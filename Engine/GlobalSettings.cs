@@ -98,6 +98,9 @@ namespace Engine
         public const string typeAttachAdornment = "AttachAdorn";
         // Can be individual rotations and transformations or a single matrix
         public const string typeWeaponHoldBone = "AttachHold";
+        // The angles to adjust the animations to look in the right direction
+        public const string typeBotAnimationAngles = "BotLookAngles";
+        public const string typeCameraAnimationAngles = "CameraLookAngles";
         // Bone that the gear is usually attached to
         public const string typeBone = "Bone";
         // The equipment manufacturer Human or Alien stored as an integer, 0 or 1

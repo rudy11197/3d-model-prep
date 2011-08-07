@@ -145,6 +145,19 @@ namespace Engine
         public List<AttachmentPoint> AttachAdorn;
         // The hand to hold the weapon
         public AttachmentPoint AttachHold;
+        // Angles to adjust the weapon position to face forwards
+        public float BotDegreesStand = 0f;
+        public float BotDegreesWalk = 0f;
+        public float BotDegreesRun = -24.0f;
+        public float BotDegreesCrouch = -13.0f;
+        public float BotDegreesShuffle = -24.0f;
+        // Angles to adjust the weapon position to line up with the cross hairs
+        public float CameraDegreesStand = 9.0f;
+        public float CameraDegreesWalk = 9.0f;
+        public float CameraDegreesRun = -15.0f;
+        public float CameraDegreesCrouch = -4.0f;
+        public float CameraDegreesShuffle = -15.0f;
+
 
         // == Weapon
         // The source Human or Alien
@@ -336,6 +349,18 @@ namespace Engine
                     {
                         // Matrix
                         AddWeaponHold(item[1], item[2]);
+                    }
+                    break;
+                case GlobalSettings.typeBotAnimationAngles:
+                    if (item.Length > 5)
+                    {
+                        SetBotLookAngles(item[1], item[2], item[3], item[4], item[5]);
+                    }
+                    break;
+                case GlobalSettings.typeCameraAnimationAngles:
+                    if (item.Length > 5)
+                    {
+                        SetCameraLookAngles(item[1], item[2], item[3], item[4], item[5]);
                     }
                     break;
                 case GlobalSettings.typeAimAdjustment:
@@ -546,6 +571,34 @@ namespace Engine
             // The model must have been loaded first so the bonemap works
             int boneID = GetBoneID(boneName);
             AttachHold = new AttachmentPoint(boneID, mtx);
+        }
+
+        private void SetBotLookAngles(string stand, string walk, string run, string crouch, string shuffle)
+        {
+            float degStand = ParseData.FloatFromString(stand);
+            float degWalk = ParseData.FloatFromString(walk);
+            float degRun = ParseData.FloatFromString(run);
+            float degCrouch = ParseData.FloatFromString(crouch);
+            float degShuffle = ParseData.FloatFromString(shuffle);
+            BotDegreesStand = degStand;
+            BotDegreesWalk = degWalk;
+            BotDegreesRun = degRun;
+            BotDegreesCrouch = degCrouch;
+            BotDegreesShuffle = degShuffle;
+        }
+
+        private void SetCameraLookAngles(string stand, string walk, string run, string crouch, string shuffle)
+        {
+            float degStand = ParseData.FloatFromString(stand);
+            float degWalk = ParseData.FloatFromString(walk);
+            float degRun = ParseData.FloatFromString(run);
+            float degCrouch = ParseData.FloatFromString(crouch);
+            float degShuffle = ParseData.FloatFromString(shuffle);
+            CameraDegreesStand = degStand;
+            CameraDegreesWalk = degWalk;
+            CameraDegreesRun = degRun;
+            CameraDegreesCrouch = degCrouch;
+            CameraDegreesShuffle = degShuffle;
         }
 
         // Return the bone number from the bone name

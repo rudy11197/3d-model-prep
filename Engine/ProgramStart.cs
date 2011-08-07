@@ -166,8 +166,6 @@ using System.Windows.Forms;
 // TODO:
 //-----------------------------------------------------------------------------
 
-// - Add Weight to the Character Properties form.
-
 // - Have a third bone filter type for merge clips (Head, neck and all arm bones)
 //      They are still saved as type clip but use a bone filter
 
