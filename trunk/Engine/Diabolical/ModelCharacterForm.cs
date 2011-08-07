@@ -36,6 +36,72 @@ namespace Engine
             get { return (float)numericCrouched.Value; }
             set { numericCrouched.Value = (decimal)value; }
         }
+
+        public float Mass
+        {
+            get { return (float)numericMass.Value; }
+            set { numericMass.Value = (decimal)value; }
+        }
+
+        public float BotAngleStand
+        {
+            get { return (float)numericBotStand.Value; }
+            set { numericBotStand.Value = (decimal)value; }
+        }
+
+        public float BotAngleWalk
+        {
+            get { return (float)numericBotWalk.Value; }
+            set { numericBotWalk.Value = (decimal)value; }
+        }
+
+        public float BotAngleRun
+        {
+            get { return (float)numericBotRun.Value; }
+            set { numericBotRun.Value = (decimal)value; }
+        }
+
+        public float BotAngleCrouch
+        {
+            get { return (float)numericBotCrouch.Value; }
+            set { numericBotCrouch.Value = (decimal)value; }
+        }
+
+        public float BotAngleShuffle
+        {
+            get { return (float)numericBotShuffle.Value; }
+            set { numericBotShuffle.Value = (decimal)value; }
+        }
+
+        public float CameraAngleStand
+        {
+            get { return (float)numericCameraStand.Value; }
+            set { numericCameraStand.Value = (decimal)value; }
+        }
+
+        public float CameraAngleWalk
+        {
+            get { return (float)numericCameraWalk.Value; }
+            set { numericCameraWalk.Value = (decimal)value; }
+        }
+
+        public float CameraAngleRun
+        {
+            get { return (float)numericCameraRun.Value; }
+            set { numericCameraRun.Value = (decimal)value; }
+        }
+
+        public float CameraAngleCrouch
+        {
+            get { return (float)numericCameraCrouch.Value; }
+            set { numericCameraCrouch.Value = (decimal)value; }
+        }
+
+        public float CameraAngleShuffle
+        {
+            get { return (float)numericCameraShuffle.Value; }
+            set { numericCameraShuffle.Value = (decimal)value; }
+        }
         //
         /////////////////////////////////////////////////////////////////////
 

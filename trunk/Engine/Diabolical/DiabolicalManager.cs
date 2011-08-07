@@ -195,6 +195,73 @@ namespace Engine
             set { modelAsset.HeightCrouched = value; }
         }
 
+        public float Mass
+        {
+            get { return modelAsset.Mass; }
+            set { modelAsset.Mass = value; }
+        }
+
+        public float BotDegreesStand
+        {
+            get { return modelAsset.BotDegreesStand; }
+            set { modelAsset.BotDegreesStand = value; }
+        }
+
+        public float BotDegreesWalk
+        {
+            get { return modelAsset.BotDegreesWalk; }
+            set { modelAsset.BotDegreesWalk = value; }
+        }
+
+        public float BotDegreesRun
+        {
+            get { return modelAsset.BotDegreesRun; }
+            set { modelAsset.BotDegreesRun = value; }
+        }
+
+        public float BotDegreesCrouch
+        {
+            get { return modelAsset.BotDegreesCrouch; }
+            set { modelAsset.BotDegreesCrouch = value; }
+        }
+
+        public float BotDegreesShuffle
+        {
+            get { return modelAsset.BotDegreesShuffle; }
+            set { modelAsset.BotDegreesShuffle = value; }
+        }
+
+        public float CameraDegreesStand
+        {
+            get { return modelAsset.CameraDegreesStand; }
+            set { modelAsset.CameraDegreesStand = value; }
+        }
+
+        public float CameraDegreesWalk
+        {
+            get { return modelAsset.CameraDegreesWalk; }
+            set { modelAsset.CameraDegreesWalk = value; }
+        }
+
+        public float CameraDegreesRun
+        {
+            get { return modelAsset.CameraDegreesRun; }
+            set { modelAsset.CameraDegreesRun = value; }
+        }
+
+        public float CameraDegreesCrouch
+        {
+            get { return modelAsset.CameraDegreesCrouch; }
+            set { modelAsset.CameraDegreesCrouch = value; }
+        }
+
+        public float CameraDegreesShuffle
+        {
+            get { return modelAsset.CameraDegreesShuffle; }
+            set { modelAsset.CameraDegreesShuffle = value; }
+        }
+
+
         /// <summary>
         /// Call this after any changes to update the model view
         /// </summary>
@@ -978,6 +1045,21 @@ namespace Engine
                 ParseData.div + modelAsset.GetBoneName(modelAsset.AttachHold.idBone) +
                 ParseData.div + ParseData.MatrixToString(modelAsset.AttachHold.mtxTransform);
             data.Add(output);
+            // - Animation Angle Adjustments
+            output = GlobalSettings.typeBotAnimationAngles +
+                ParseData.div + ParseData.FloatToString(modelAsset.BotDegreesStand) +
+                ParseData.div + ParseData.FloatToString(modelAsset.BotDegreesWalk) +
+                ParseData.div + ParseData.FloatToString(modelAsset.BotDegreesRun) +
+                ParseData.div + ParseData.FloatToString(modelAsset.BotDegreesCrouch) +
+                ParseData.div + ParseData.FloatToString(modelAsset.BotDegreesShuffle);
+            data.Add(output);
+            output = GlobalSettings.typeCameraAnimationAngles +
+                ParseData.div + ParseData.FloatToString(modelAsset.CameraDegreesStand) +
+                ParseData.div + ParseData.FloatToString(modelAsset.CameraDegreesWalk) +
+                ParseData.div + ParseData.FloatToString(modelAsset.CameraDegreesRun) +
+                ParseData.div + ParseData.FloatToString(modelAsset.CameraDegreesCrouch) +
+                ParseData.div + ParseData.FloatToString(modelAsset.CameraDegreesShuffle);
+            data.Add(output);
             // - Smaller bone attached spheres
             // Bone name, radius and offset
             for (int d = 0; d < modelAsset.AttachedBounds.Count; d++)
@@ -1224,6 +1306,17 @@ namespace Engine
             aForm.CylinderRadius = CylinderRadius;
             aForm.HeightStanding = HeightStanding;
             aForm.HeightCrouched = HeightCrouched;
+            aForm.Mass = Mass;
+            aForm.BotAngleStand = BotDegreesStand;
+            aForm.BotAngleWalk = BotDegreesWalk;
+            aForm.BotAngleRun = BotDegreesRun;
+            aForm.BotAngleCrouch = BotDegreesCrouch;
+            aForm.BotAngleShuffle = BotDegreesShuffle;
+            aForm.CameraAngleStand = CameraDegreesStand;
+            aForm.CameraAngleWalk = CameraDegreesWalk;
+            aForm.CameraAngleRun = CameraDegreesRun;
+            aForm.CameraAngleCrouch = CameraDegreesCrouch;
+            aForm.CameraAngleShuffle = CameraDegreesShuffle;
 
             DialogResult diagResult = aForm.ShowDialog();
             if (diagResult == DialogResult.OK)
@@ -1232,6 +1325,17 @@ namespace Engine
                 CylinderRadius = aForm.CylinderRadius;
                 HeightStanding = aForm.HeightStanding;
                 HeightCrouched = aForm.HeightCrouched;
+                Mass = aForm.Mass;
+                BotDegreesStand = aForm.BotAngleStand;
+                BotDegreesWalk = aForm.BotAngleWalk;
+                BotDegreesRun = aForm.BotAngleRun;
+                BotDegreesCrouch = aForm.BotAngleCrouch;
+                BotDegreesShuffle = aForm.BotAngleShuffle;
+                CameraDegreesStand = aForm.CameraAngleStand;
+                CameraDegreesWalk = aForm.CameraAngleWalk;
+                CameraDegreesRun = aForm.CameraAngleRun;
+                CameraDegreesCrouch = aForm.CameraAngleCrouch;
+                CameraDegreesShuffle = aForm.CameraAngleShuffle;
                 UpdateModelChanges();
             }
         }
