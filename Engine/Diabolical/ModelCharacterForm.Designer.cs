@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.numericMass = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -40,48 +43,48 @@
             this.label1 = new System.Windows.Forms.Label();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
-            this.numericMass = new System.Windows.Forms.NumericUpDown();
-            this.label8 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.numericBotStand = new System.Windows.Forms.NumericUpDown();
-            this.numericCameraStand = new System.Windows.Forms.NumericUpDown();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.numericCameraWalk = new System.Windows.Forms.NumericUpDown();
-            this.numericBotWalk = new System.Windows.Forms.NumericUpDown();
-            this.label18 = new System.Windows.Forms.Label();
-            this.numericCameraRun = new System.Windows.Forms.NumericUpDown();
-            this.numericBotRun = new System.Windows.Forms.NumericUpDown();
-            this.label19 = new System.Windows.Forms.Label();
-            this.numericCameraCrouch = new System.Windows.Forms.NumericUpDown();
-            this.numericBotCrouch = new System.Windows.Forms.NumericUpDown();
             this.label20 = new System.Windows.Forms.Label();
             this.numericCameraShuffle = new System.Windows.Forms.NumericUpDown();
             this.numericBotShuffle = new System.Windows.Forms.NumericUpDown();
+            this.label19 = new System.Windows.Forms.Label();
+            this.numericCameraCrouch = new System.Windows.Forms.NumericUpDown();
+            this.numericBotCrouch = new System.Windows.Forms.NumericUpDown();
+            this.label18 = new System.Windows.Forms.Label();
+            this.numericCameraRun = new System.Windows.Forms.NumericUpDown();
+            this.numericBotRun = new System.Windows.Forms.NumericUpDown();
+            this.label17 = new System.Windows.Forms.Label();
+            this.numericCameraWalk = new System.Windows.Forms.NumericUpDown();
+            this.numericBotWalk = new System.Windows.Forms.NumericUpDown();
+            this.label16 = new System.Windows.Forms.Label();
+            this.numericCameraStand = new System.Windows.Forms.NumericUpDown();
+            this.numericBotStand = new System.Windows.Forms.NumericUpDown();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.checkUseAsPlayer = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericMass)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericCrouched)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericStanding)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericRadius)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericMass)).BeginInit();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericBotStand)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericCameraStand)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericCameraWalk)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericBotWalk)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericCameraRun)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericBotRun)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericCameraCrouch)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericBotCrouch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericCameraShuffle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericBotShuffle)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericCameraCrouch)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericBotCrouch)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericCameraRun)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericBotRun)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericCameraWalk)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericBotWalk)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericCameraStand)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericBotStand)).BeginInit();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -104,6 +107,51 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Sizes";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(247, 140);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(20, 13);
+            this.label8.TabIndex = 11;
+            this.label8.Text = "Kg";
+            // 
+            // numericMass
+            // 
+            this.numericMass.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numericMass.Location = new System.Drawing.Point(117, 138);
+            this.numericMass.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericMass.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericMass.Name = "numericMass";
+            this.numericMass.Size = new System.Drawing.Size(120, 20);
+            this.numericMass.TabIndex = 10;
+            this.numericMass.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 140);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(75, 13);
+            this.label7.TabIndex = 9;
+            this.label7.Text = "Mass, Weight:";
             // 
             // label6
             // 
@@ -246,7 +294,7 @@
             // buttonOK
             // 
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(281, 398);
+            this.buttonOK.Location = new System.Drawing.Point(281, 460);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 50;
@@ -256,57 +304,12 @@
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(362, 398);
+            this.buttonCancel.Location = new System.Drawing.Point(362, 460);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 51;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 140);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(75, 13);
-            this.label7.TabIndex = 9;
-            this.label7.Text = "Mass, Weight:";
-            // 
-            // numericMass
-            // 
-            this.numericMass.Increment = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.numericMass.Location = new System.Drawing.Point(117, 138);
-            this.numericMass.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numericMass.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.numericMass.Name = "numericMass";
-            this.numericMass.Size = new System.Drawing.Size(120, 20);
-            this.numericMass.TabIndex = 10;
-            this.numericMass.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(247, 140);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(20, 13);
-            this.label8.TabIndex = 11;
-            this.label8.Text = "Kg";
             // 
             // groupBox2
             // 
@@ -332,255 +335,12 @@
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.label9);
-            this.groupBox2.Location = new System.Drawing.Point(12, 190);
+            this.groupBox2.Location = new System.Drawing.Point(12, 252);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(425, 202);
             this.groupBox2.TabIndex = 52;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Animation Angle Adjustments";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 52);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(38, 13);
-            this.label9.TabIndex = 0;
-            this.label9.Text = "Stand:";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 83);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(35, 13);
-            this.label10.TabIndex = 1;
-            this.label10.Text = "Walk:";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 113);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(30, 13);
-            this.label11.TabIndex = 2;
-            this.label11.Text = "Run:";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 139);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(44, 13);
-            this.label12.TabIndex = 3;
-            this.label12.Text = "Crouch:";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(7, 168);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(43, 13);
-            this.label13.TabIndex = 4;
-            this.label13.Text = "Shuffle:";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(172, 22);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(23, 13);
-            this.label14.TabIndex = 5;
-            this.label14.Text = "Bot";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(274, 22);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(43, 13);
-            this.label15.TabIndex = 6;
-            this.label15.Text = "Camera";
-            // 
-            // numericBotStand
-            // 
-            this.numericBotStand.DecimalPlaces = 1;
-            this.numericBotStand.Location = new System.Drawing.Point(141, 50);
-            this.numericBotStand.Maximum = new decimal(new int[] {
-            180,
-            0,
-            0,
-            0});
-            this.numericBotStand.Minimum = new decimal(new int[] {
-            180,
-            0,
-            0,
-            -2147483648});
-            this.numericBotStand.Name = "numericBotStand";
-            this.numericBotStand.Size = new System.Drawing.Size(96, 20);
-            this.numericBotStand.TabIndex = 11;
-            // 
-            // numericCameraStand
-            // 
-            this.numericCameraStand.DecimalPlaces = 1;
-            this.numericCameraStand.Location = new System.Drawing.Point(250, 50);
-            this.numericCameraStand.Maximum = new decimal(new int[] {
-            180,
-            0,
-            0,
-            0});
-            this.numericCameraStand.Minimum = new decimal(new int[] {
-            180,
-            0,
-            0,
-            -2147483648});
-            this.numericCameraStand.Name = "numericCameraStand";
-            this.numericCameraStand.Size = new System.Drawing.Size(96, 20);
-            this.numericCameraStand.TabIndex = 12;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(352, 52);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(47, 13);
-            this.label16.TabIndex = 13;
-            this.label16.Text = "Degrees";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(352, 83);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(47, 13);
-            this.label17.TabIndex = 16;
-            this.label17.Text = "Degrees";
-            // 
-            // numericCameraWalk
-            // 
-            this.numericCameraWalk.DecimalPlaces = 1;
-            this.numericCameraWalk.Location = new System.Drawing.Point(250, 81);
-            this.numericCameraWalk.Maximum = new decimal(new int[] {
-            180,
-            0,
-            0,
-            0});
-            this.numericCameraWalk.Minimum = new decimal(new int[] {
-            180,
-            0,
-            0,
-            -2147483648});
-            this.numericCameraWalk.Name = "numericCameraWalk";
-            this.numericCameraWalk.Size = new System.Drawing.Size(96, 20);
-            this.numericCameraWalk.TabIndex = 15;
-            // 
-            // numericBotWalk
-            // 
-            this.numericBotWalk.DecimalPlaces = 1;
-            this.numericBotWalk.Location = new System.Drawing.Point(141, 81);
-            this.numericBotWalk.Maximum = new decimal(new int[] {
-            180,
-            0,
-            0,
-            0});
-            this.numericBotWalk.Minimum = new decimal(new int[] {
-            180,
-            0,
-            0,
-            -2147483648});
-            this.numericBotWalk.Name = "numericBotWalk";
-            this.numericBotWalk.Size = new System.Drawing.Size(96, 20);
-            this.numericBotWalk.TabIndex = 14;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(352, 113);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(47, 13);
-            this.label18.TabIndex = 19;
-            this.label18.Text = "Degrees";
-            // 
-            // numericCameraRun
-            // 
-            this.numericCameraRun.DecimalPlaces = 1;
-            this.numericCameraRun.Location = new System.Drawing.Point(250, 111);
-            this.numericCameraRun.Maximum = new decimal(new int[] {
-            180,
-            0,
-            0,
-            0});
-            this.numericCameraRun.Minimum = new decimal(new int[] {
-            180,
-            0,
-            0,
-            -2147483648});
-            this.numericCameraRun.Name = "numericCameraRun";
-            this.numericCameraRun.Size = new System.Drawing.Size(96, 20);
-            this.numericCameraRun.TabIndex = 18;
-            // 
-            // numericBotRun
-            // 
-            this.numericBotRun.DecimalPlaces = 1;
-            this.numericBotRun.Location = new System.Drawing.Point(141, 111);
-            this.numericBotRun.Maximum = new decimal(new int[] {
-            180,
-            0,
-            0,
-            0});
-            this.numericBotRun.Minimum = new decimal(new int[] {
-            180,
-            0,
-            0,
-            -2147483648});
-            this.numericBotRun.Name = "numericBotRun";
-            this.numericBotRun.Size = new System.Drawing.Size(96, 20);
-            this.numericBotRun.TabIndex = 17;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(352, 139);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(47, 13);
-            this.label19.TabIndex = 22;
-            this.label19.Text = "Degrees";
-            // 
-            // numericCameraCrouch
-            // 
-            this.numericCameraCrouch.DecimalPlaces = 1;
-            this.numericCameraCrouch.Location = new System.Drawing.Point(250, 137);
-            this.numericCameraCrouch.Maximum = new decimal(new int[] {
-            180,
-            0,
-            0,
-            0});
-            this.numericCameraCrouch.Minimum = new decimal(new int[] {
-            180,
-            0,
-            0,
-            -2147483648});
-            this.numericCameraCrouch.Name = "numericCameraCrouch";
-            this.numericCameraCrouch.Size = new System.Drawing.Size(96, 20);
-            this.numericCameraCrouch.TabIndex = 21;
-            // 
-            // numericBotCrouch
-            // 
-            this.numericBotCrouch.DecimalPlaces = 1;
-            this.numericBotCrouch.Location = new System.Drawing.Point(141, 137);
-            this.numericBotCrouch.Maximum = new decimal(new int[] {
-            180,
-            0,
-            0,
-            0});
-            this.numericBotCrouch.Minimum = new decimal(new int[] {
-            180,
-            0,
-            0,
-            -2147483648});
-            this.numericBotCrouch.Name = "numericBotCrouch";
-            this.numericBotCrouch.Size = new System.Drawing.Size(96, 20);
-            this.numericBotCrouch.TabIndex = 20;
             // 
             // label20
             // 
@@ -627,11 +387,275 @@
             this.numericBotShuffle.Size = new System.Drawing.Size(96, 20);
             this.numericBotShuffle.TabIndex = 23;
             // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(352, 139);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(47, 13);
+            this.label19.TabIndex = 22;
+            this.label19.Text = "Degrees";
+            // 
+            // numericCameraCrouch
+            // 
+            this.numericCameraCrouch.DecimalPlaces = 1;
+            this.numericCameraCrouch.Location = new System.Drawing.Point(250, 137);
+            this.numericCameraCrouch.Maximum = new decimal(new int[] {
+            180,
+            0,
+            0,
+            0});
+            this.numericCameraCrouch.Minimum = new decimal(new int[] {
+            180,
+            0,
+            0,
+            -2147483648});
+            this.numericCameraCrouch.Name = "numericCameraCrouch";
+            this.numericCameraCrouch.Size = new System.Drawing.Size(96, 20);
+            this.numericCameraCrouch.TabIndex = 21;
+            // 
+            // numericBotCrouch
+            // 
+            this.numericBotCrouch.DecimalPlaces = 1;
+            this.numericBotCrouch.Location = new System.Drawing.Point(141, 137);
+            this.numericBotCrouch.Maximum = new decimal(new int[] {
+            180,
+            0,
+            0,
+            0});
+            this.numericBotCrouch.Minimum = new decimal(new int[] {
+            180,
+            0,
+            0,
+            -2147483648});
+            this.numericBotCrouch.Name = "numericBotCrouch";
+            this.numericBotCrouch.Size = new System.Drawing.Size(96, 20);
+            this.numericBotCrouch.TabIndex = 20;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(352, 113);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(47, 13);
+            this.label18.TabIndex = 19;
+            this.label18.Text = "Degrees";
+            // 
+            // numericCameraRun
+            // 
+            this.numericCameraRun.DecimalPlaces = 1;
+            this.numericCameraRun.Location = new System.Drawing.Point(250, 111);
+            this.numericCameraRun.Maximum = new decimal(new int[] {
+            180,
+            0,
+            0,
+            0});
+            this.numericCameraRun.Minimum = new decimal(new int[] {
+            180,
+            0,
+            0,
+            -2147483648});
+            this.numericCameraRun.Name = "numericCameraRun";
+            this.numericCameraRun.Size = new System.Drawing.Size(96, 20);
+            this.numericCameraRun.TabIndex = 18;
+            // 
+            // numericBotRun
+            // 
+            this.numericBotRun.DecimalPlaces = 1;
+            this.numericBotRun.Location = new System.Drawing.Point(141, 111);
+            this.numericBotRun.Maximum = new decimal(new int[] {
+            180,
+            0,
+            0,
+            0});
+            this.numericBotRun.Minimum = new decimal(new int[] {
+            180,
+            0,
+            0,
+            -2147483648});
+            this.numericBotRun.Name = "numericBotRun";
+            this.numericBotRun.Size = new System.Drawing.Size(96, 20);
+            this.numericBotRun.TabIndex = 17;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(352, 83);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(47, 13);
+            this.label17.TabIndex = 16;
+            this.label17.Text = "Degrees";
+            // 
+            // numericCameraWalk
+            // 
+            this.numericCameraWalk.DecimalPlaces = 1;
+            this.numericCameraWalk.Location = new System.Drawing.Point(250, 81);
+            this.numericCameraWalk.Maximum = new decimal(new int[] {
+            180,
+            0,
+            0,
+            0});
+            this.numericCameraWalk.Minimum = new decimal(new int[] {
+            180,
+            0,
+            0,
+            -2147483648});
+            this.numericCameraWalk.Name = "numericCameraWalk";
+            this.numericCameraWalk.Size = new System.Drawing.Size(96, 20);
+            this.numericCameraWalk.TabIndex = 15;
+            // 
+            // numericBotWalk
+            // 
+            this.numericBotWalk.DecimalPlaces = 1;
+            this.numericBotWalk.Location = new System.Drawing.Point(141, 81);
+            this.numericBotWalk.Maximum = new decimal(new int[] {
+            180,
+            0,
+            0,
+            0});
+            this.numericBotWalk.Minimum = new decimal(new int[] {
+            180,
+            0,
+            0,
+            -2147483648});
+            this.numericBotWalk.Name = "numericBotWalk";
+            this.numericBotWalk.Size = new System.Drawing.Size(96, 20);
+            this.numericBotWalk.TabIndex = 14;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(352, 52);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(47, 13);
+            this.label16.TabIndex = 13;
+            this.label16.Text = "Degrees";
+            // 
+            // numericCameraStand
+            // 
+            this.numericCameraStand.DecimalPlaces = 1;
+            this.numericCameraStand.Location = new System.Drawing.Point(250, 50);
+            this.numericCameraStand.Maximum = new decimal(new int[] {
+            180,
+            0,
+            0,
+            0});
+            this.numericCameraStand.Minimum = new decimal(new int[] {
+            180,
+            0,
+            0,
+            -2147483648});
+            this.numericCameraStand.Name = "numericCameraStand";
+            this.numericCameraStand.Size = new System.Drawing.Size(96, 20);
+            this.numericCameraStand.TabIndex = 12;
+            // 
+            // numericBotStand
+            // 
+            this.numericBotStand.DecimalPlaces = 1;
+            this.numericBotStand.Location = new System.Drawing.Point(141, 50);
+            this.numericBotStand.Maximum = new decimal(new int[] {
+            180,
+            0,
+            0,
+            0});
+            this.numericBotStand.Minimum = new decimal(new int[] {
+            180,
+            0,
+            0,
+            -2147483648});
+            this.numericBotStand.Name = "numericBotStand";
+            this.numericBotStand.Size = new System.Drawing.Size(96, 20);
+            this.numericBotStand.TabIndex = 11;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(274, 22);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(43, 13);
+            this.label15.TabIndex = 6;
+            this.label15.Text = "Camera";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(172, 22);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(23, 13);
+            this.label14.TabIndex = 5;
+            this.label14.Text = "Bot";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(7, 168);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(43, 13);
+            this.label13.TabIndex = 4;
+            this.label13.Text = "Shuffle:";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(6, 139);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(44, 13);
+            this.label12.TabIndex = 3;
+            this.label12.Text = "Crouch:";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 113);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(30, 13);
+            this.label11.TabIndex = 2;
+            this.label11.Text = "Run:";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(6, 83);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(35, 13);
+            this.label10.TabIndex = 1;
+            this.label10.Text = "Walk:";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(6, 52);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(38, 13);
+            this.label9.TabIndex = 0;
+            this.label9.Text = "Stand:";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.checkUseAsPlayer);
+            this.groupBox3.Location = new System.Drawing.Point(12, 190);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(425, 56);
+            this.groupBox3.TabIndex = 53;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Options";
+            // 
+            // checkUseAsPlayer
+            // 
+            this.checkUseAsPlayer.AutoSize = true;
+            this.checkUseAsPlayer.Location = new System.Drawing.Point(10, 25);
+            this.checkUseAsPlayer.Name = "checkUseAsPlayer";
+            this.checkUseAsPlayer.Size = new System.Drawing.Size(237, 17);
+            this.checkUseAsPlayer.TabIndex = 0;
+            this.checkUseAsPlayer.Text = "Can be used as a player controlled character";
+            this.checkUseAsPlayer.UseVisualStyleBackColor = true;
+            // 
             // ModelCharacterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(449, 433);
+            this.ClientSize = new System.Drawing.Size(449, 492);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
@@ -643,22 +667,24 @@
             this.Text = "Character Properties";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericMass)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericCrouched)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericStanding)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericRadius)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericMass)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericBotStand)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericCameraStand)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericCameraWalk)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericBotWalk)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericCameraRun)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericBotRun)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericCameraCrouch)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericBotCrouch)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericCameraShuffle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericBotShuffle)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericCameraCrouch)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericBotCrouch)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericCameraRun)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericBotRun)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericCameraWalk)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericBotWalk)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericCameraStand)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericBotStand)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -703,5 +729,7 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.CheckBox checkUseAsPlayer;
     }
 }
