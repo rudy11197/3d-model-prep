@@ -43,6 +43,12 @@ namespace Engine
             set { numericMass.Value = (decimal)value; }
         }
 
+        public bool UseAsPlayer
+        {
+            get { return checkUseAsPlayer.Checked; }
+            set { checkUseAsPlayer.Checked = value; }
+        }
+
         public float BotAngleStand
         {
             get { return (float)numericBotStand.Value; }

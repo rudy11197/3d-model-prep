@@ -127,6 +127,8 @@ namespace Engine
         }
 
         // == Character
+        // The character is suitable to be used as a player character
+        public bool CanBeUsedAsPlayer = false;
         // Armature Rig type (Skeleton) used to calculate which animations to use  e.g. 'human'
         public string RigTypeName = "";
         // The weight of the character in kilograms (kg) used for physics simulations
@@ -361,6 +363,12 @@ namespace Engine
                     if (item.Length > 5)
                     {
                         SetCameraLookAngles(item[1], item[2], item[3], item[4], item[5]);
+                    }
+                    break;
+                case GlobalSettings.typePlayerUse:
+                    if (item.Length > 1)
+                    {
+                        SetForPlayerUse(item[1]);
                     }
                     break;
                 case GlobalSettings.typeAimAdjustment:
@@ -599,6 +607,11 @@ namespace Engine
             CameraDegreesRun = degRun;
             CameraDegreesCrouch = degCrouch;
             CameraDegreesShuffle = degShuffle;
+        }
+
+        private void SetForPlayerUse(string enable)
+        {
+            CanBeUsedAsPlayer = ParseData.ShortStringToBool(enable);
         }
 
         // Return the bone number from the bone name

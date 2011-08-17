@@ -201,6 +201,12 @@ namespace Engine
             set { modelAsset.Mass = value; }
         }
 
+        public bool UseAsPlayer
+        {
+            get { return modelAsset.CanBeUsedAsPlayer; }
+            set { modelAsset.CanBeUsedAsPlayer = value; }
+        }
+
         public float BotDegreesStand
         {
             get { return modelAsset.BotDegreesStand; }
@@ -1013,6 +1019,12 @@ namespace Engine
             data.AddRange(GetCommonSaveData());
             // == Type specific options
             string output = "";
+            // - Can be used as a player character
+            if (modelAsset.CanBeUsedAsPlayer)
+            {
+                output = GlobalSettings.typePlayerUse +
+                    ParseData.div + ParseData.shortTrue;
+            }
             // - Rig type
             output = GlobalSettings.typeRig +
                 ParseData.div + modelAsset.RigTypeName;
@@ -1307,6 +1319,7 @@ namespace Engine
             aForm.HeightStanding = HeightStanding;
             aForm.HeightCrouched = HeightCrouched;
             aForm.Mass = Mass;
+            aForm.UseAsPlayer = UseAsPlayer;
             aForm.BotAngleStand = BotDegreesStand;
             aForm.BotAngleWalk = BotDegreesWalk;
             aForm.BotAngleRun = BotDegreesRun;
@@ -1326,6 +1339,7 @@ namespace Engine
                 HeightStanding = aForm.HeightStanding;
                 HeightCrouched = aForm.HeightCrouched;
                 Mass = aForm.Mass;
+                UseAsPlayer = aForm.UseAsPlayer;
                 BotDegreesStand = aForm.BotAngleStand;
                 BotDegreesWalk = aForm.BotAngleWalk;
                 BotDegreesRun = aForm.BotAngleRun;
