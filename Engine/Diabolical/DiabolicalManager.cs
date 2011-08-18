@@ -119,6 +119,7 @@ namespace Engine
                 if (modelAsset != null &&
                     (modelAsset.ModelType == GlobalSettings.modelTypeEquipLight ||
                     modelAsset.ModelType == GlobalSettings.modelTypeEquipSupport ||
+                    modelAsset.ModelType == GlobalSettings.modelTypeEquipGrenade ||
                     modelAsset.ModelType == GlobalSettings.modelTypeEquipSmallArms))
                 {
                     return true;
@@ -171,6 +172,9 @@ namespace Engine
             return false;
         }
 
+        //////////////////////////////////////////////////////////////////////
+        // == Character Properties ==
+        //
         public List<AttachedSphere> AttachedBounds
         {
             get { return modelAsset.AttachedBounds; }
@@ -266,8 +270,6 @@ namespace Engine
             get { return modelAsset.CameraDegreesShuffle; }
             set { modelAsset.CameraDegreesShuffle = value; }
         }
-
-
         /// <summary>
         /// Call this after any changes to update the model view
         /// </summary>
@@ -278,6 +280,99 @@ namespace Engine
                 form.UpdateModelChanges();
             }
         }
+        //
+        //////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        // == Weapon Properties ==
+        //
+        public Vector3 MuzzleOffset
+        {
+            get { return modelAsset.MuzzleOffset; }
+            set { modelAsset.MuzzleOffset = value; }
+        }
+
+        public float HalfWidth
+        {
+            get { return modelAsset.HalfWidth; }
+            set { modelAsset.HalfWidth = value; }
+        }
+
+        public string AmmoType
+        {
+            get { return modelAsset.AmmoType; }
+            set { modelAsset.AmmoType = value; }
+        }
+
+        public int MagazineCapacity
+        {
+            get { return modelAsset.AmmoClipCapacity; }
+            set { modelAsset.AmmoClipCapacity = value; }
+        }
+
+        public int MaximumRoundsCarried
+        {
+            get { return modelAsset.AmmoMaxCarried; }
+            set { modelAsset.AmmoMaxCarried = value; }
+        }
+
+        public bool AutoFire
+        {
+            get { return modelAsset.IsAutoFire; }
+            set { modelAsset.IsAutoFire = value; }
+        }
+
+        public float RateOfFire
+        {
+            get { return modelAsset.AmmoRateOfFire; }
+            set { modelAsset.AmmoRateOfFire = value; }
+        }
+
+        public float ReloadSeconds
+        {
+            get { return modelAsset.AmmoSecondsToReload; }
+            set { modelAsset.AmmoSecondsToReload = value; }
+        }
+
+        public string ReloadSound
+        {
+            get { return modelAsset.FxReload; }
+            set { modelAsset.FxReload = value; }
+        }
+
+        public string EmptySound
+        {
+            get { return modelAsset.FxEmpty; }
+            set { modelAsset.FxEmpty = value; }
+        }
+
+        public float RangeClosest
+        {
+            get { return modelAsset.OptimumClosest; }
+            set { modelAsset.OptimumClosest = value; }
+        }
+
+        public float RangeFarthest
+        {
+            get { return modelAsset.OptimumFarthest; }
+            set { modelAsset.OptimumFarthest = value; }
+        }
+
+        public List<float> ZoomMultipliers
+        {
+            get { return modelAsset.ZoomMultipliers; }
+            set { modelAsset.ZoomMultipliers = value; }
+        }
+
+        public List<int> Crosshairs
+        {
+            get { return modelAsset.CrossHairs; }
+            set { modelAsset.CrossHairs = value; }
+        }
+        //
+        //////////////////////////////////////////////////////////////////////
+
+
 
         /// <summary>
         /// Changing the model type also resets the effect type back to the typical 
@@ -1217,6 +1312,18 @@ namespace Engine
                 case GlobalSettings.modelTypeCharacter:
                     DisplayCharacterForm();
                     break;
+                case GlobalSettings.modelTypeEquipLight:
+                    DisplayWeaponForm();
+                    break;
+                case GlobalSettings.modelTypeEquipSupport:
+                    DisplayWeaponForm();
+                    break;
+                case GlobalSettings.modelTypeEquipSmallArms:
+                    DisplayWeaponForm();
+                    break;
+                case GlobalSettings.modelTypeEquipGrenade:
+                    DisplayWeaponForm();
+                    break;
             }
         }
 
@@ -1354,7 +1461,45 @@ namespace Engine
             }
         }
 
+        private void DisplayWeaponForm()
+        {
+            ModelWeaponForm aForm = new ModelWeaponForm();
 
+            aForm.MuzzleOffset = MuzzleOffset;
+            aForm.HalfWidth = HalfWidth;
+            aForm.AmmoType = AmmoType;
+            aForm.MagazineCapacity = MagazineCapacity;
+            aForm.MaximumRoundsCarried = MaximumRoundsCarried;
+            aForm.AutoFire = AutoFire;
+            aForm.RateOfFire = RateOfFire;
+            aForm.ReloadSeconds = ReloadSeconds;
+            aForm.ReloadSound = ReloadSound;
+            aForm.EmptySound = EmptySound;
+            aForm.RangeClosest = RangeClosest;
+            aForm.RangeFarthest = RangeFarthest;
+            aForm.ZoomMultipliers = ZoomMultipliers;
+            aForm.Crosshairs = Crosshairs;
+
+            DialogResult diagResult = aForm.ShowDialog();
+            if (diagResult == DialogResult.OK)
+            {
+                // Results
+                MuzzleOffset = aForm.MuzzleOffset;
+                HalfWidth = aForm.HalfWidth;
+                AmmoType = aForm.AmmoType;
+                MagazineCapacity = aForm.MagazineCapacity;
+                MaximumRoundsCarried = aForm.MaximumRoundsCarried;
+                AutoFire = aForm.AutoFire;
+                RateOfFire = aForm.RateOfFire;
+                ReloadSeconds = aForm.ReloadSeconds;
+                ReloadSound = aForm.ReloadSound;
+                EmptySound = aForm.EmptySound;
+                RangeClosest = aForm.RangeClosest;
+                RangeFarthest = aForm.RangeFarthest;
+                ZoomMultipliers = aForm.ZoomMultipliers;
+                Crosshairs = aForm.Crosshairs;
+            }
+        }
         //
         //////////////////////////////////////////////////////////////////////
     }
