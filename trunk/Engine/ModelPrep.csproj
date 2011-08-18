@@ -117,6 +117,12 @@
     <Compile Include="Diabolical\ModelTypeForm.designer.cs">
       <DependentUpon>ModelTypeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Diabolical\ModelWeaponForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Diabolical\ModelWeaponForm.Designer.cs">
+      <DependentUpon>ModelWeaponForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Diabolical\StructureBounds.cs" />
     <Compile Include="FormControls\Axes3D.cs" />
     <Compile Include="FormControls\GraphicsDeviceControl.cs">
@@ -200,6 +206,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Diabolical\ModelTypeForm.resx">
       <DependentUpon>ModelTypeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Diabolical\ModelWeaponForm.resx">
+      <DependentUpon>ModelWeaponForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormControls\PositionControl.resx">
       <DependentUpon>PositionControl.cs</DependentUpon>
