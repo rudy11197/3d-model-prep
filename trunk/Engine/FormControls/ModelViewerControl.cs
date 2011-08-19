@@ -533,8 +533,8 @@ namespace Engine
 
         private void CalculateProjection()
         {
-            // Near is close so we can draw the axes
-            float nearClip = 0.5f;
+            // Near is close so we can draw the axes and small models
+            float nearClip = 0.05f;
             float farClip = 100;
 
             if (model != null)
