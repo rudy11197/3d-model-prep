@@ -32,28 +32,27 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.positionMuzzle = new Engine.PositionControl();
             this.numericHalfWidth = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.comboAmmoType = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.numericClipCapacity = new System.Windows.Forms.NumericUpDown();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.numericMaximum = new System.Windows.Forms.NumericUpDown();
-            this.checkAutoFire = new System.Windows.Forms.CheckBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.numericRateOfFire = new System.Windows.Forms.NumericUpDown();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.numericReloadTime = new System.Windows.Forms.NumericUpDown();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.comboSoundReload = new System.Windows.Forms.ComboBox();
-            this.comboSoundEmpty = new System.Windows.Forms.ComboBox();
-            this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.comboSoundEmpty = new System.Windows.Forms.ComboBox();
+            this.comboSoundReload = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.numericReloadTime = new System.Windows.Forms.NumericUpDown();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.numericRateOfFire = new System.Windows.Forms.NumericUpDown();
+            this.label8 = new System.Windows.Forms.Label();
+            this.checkAutoFire = new System.Windows.Forms.CheckBox();
+            this.numericMaximum = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.numericClipCapacity = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.comboAmmoType = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
             this.numericRangeClosest = new System.Windows.Forms.NumericUpDown();
             this.numericRangeFarthest = new System.Windows.Forms.NumericUpDown();
@@ -64,26 +63,35 @@
             this.numericRecoil = new System.Windows.Forms.NumericUpDown();
             this.label19 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.listZoom = new System.Windows.Forms.ListBox();
-            this.listCrosshairs = new System.Windows.Forms.ListBox();
             this.label22 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
+            this.listCrosshairs = new System.Windows.Forms.ListBox();
+            this.listZoom = new System.Windows.Forms.ListBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.numericEditZoom = new System.Windows.Forms.NumericUpDown();
+            this.numericEditCrosshair = new System.Windows.Forms.NumericUpDown();
+            this.buttonAddZoom = new System.Windows.Forms.Button();
+            this.buttonChangeCrosshair = new System.Windows.Forms.Button();
+            this.buttonRemoveZoom = new System.Windows.Forms.Button();
+            this.buttonChangeZoom = new System.Windows.Forms.Button();
+            this.positionMuzzle = new Engine.PositionControl();
             ((System.ComponentModel.ISupportInitialize)(this.numericHalfWidth)).BeginInit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericClipCapacity)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericMaximum)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericRateOfFire)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericReloadTime)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericRateOfFire)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericMaximum)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericClipCapacity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericRangeClosest)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericRangeFarthest)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericRecoil)).BeginInit();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericEditZoom)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericEditCrosshair)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOK
             // 
+            this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOK.Location = new System.Drawing.Point(413, 620);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
@@ -93,6 +101,7 @@
             // 
             // buttonCancel
             // 
+            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Location = new System.Drawing.Point(494, 620);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
@@ -117,22 +126,6 @@
             this.label2.Size = new System.Drawing.Size(60, 13);
             this.label2.TabIndex = 53;
             this.label2.Text = "Half Width:";
-            // 
-            // positionMuzzle
-            // 
-            this.positionMuzzle.DecimalPlaces = 2;
-            this.positionMuzzle.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.positionMuzzle.Location = new System.Drawing.Point(107, 24);
-            this.positionMuzzle.Maximum = new Microsoft.Xna.Framework.Vector3(30000F, 30000F, 30000F);
-            this.positionMuzzle.Minimum = new Microsoft.Xna.Framework.Vector3(-30000F, -30000F, -30000F);
-            this.positionMuzzle.Name = "positionMuzzle";
-            this.positionMuzzle.Size = new System.Drawing.Size(359, 26);
-            this.positionMuzzle.TabIndex = 4;
-            this.positionMuzzle.Value = new Microsoft.Xna.Framework.Vector3(0F, 0F, 0F);
             // 
             // numericHalfWidth
             // 
@@ -175,61 +168,116 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Ammunition";
             // 
-            // comboAmmoType
+            // label13
             // 
-            this.comboAmmoType.FormattingEnabled = true;
-            this.comboAmmoType.Location = new System.Drawing.Point(117, 35);
-            this.comboAmmoType.Name = "comboAmmoType";
-            this.comboAmmoType.Size = new System.Drawing.Size(183, 21);
-            this.comboAmmoType.TabIndex = 12;
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(393, 205);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(36, 13);
+            this.label13.TabIndex = 19;
+            this.label13.Text = "Empty";
             // 
-            // label3
+            // label12
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 38);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(66, 13);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Ammo Type:";
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(181, 205);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(41, 13);
+            this.label12.TabIndex = 18;
+            this.label12.Text = "Reload";
             // 
-            // label4
+            // comboSoundEmpty
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(114, 68);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(97, 13);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "Magazine Capacity";
+            this.comboSoundEmpty.FormattingEnabled = true;
+            this.comboSoundEmpty.Location = new System.Drawing.Point(325, 221);
+            this.comboSoundEmpty.Name = "comboSoundEmpty";
+            this.comboSoundEmpty.Size = new System.Drawing.Size(183, 21);
+            this.comboSoundEmpty.TabIndex = 26;
             // 
-            // numericClipCapacity
+            // comboSoundReload
             // 
-            this.numericClipCapacity.Location = new System.Drawing.Point(117, 84);
-            this.numericClipCapacity.Maximum = new decimal(new int[] {
-            10000,
+            this.comboSoundReload.FormattingEnabled = true;
+            this.comboSoundReload.Location = new System.Drawing.Point(117, 221);
+            this.comboSoundReload.Name = "comboSoundReload";
+            this.comboSoundReload.Size = new System.Drawing.Size(183, 21);
+            this.comboSoundReload.TabIndex = 25;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 224);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(46, 13);
+            this.label7.TabIndex = 15;
+            this.label7.Text = "Sounds:";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(256, 172);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(49, 13);
+            this.label11.TabIndex = 14;
+            this.label11.Text = "Seconds";
+            // 
+            // numericReloadTime
+            // 
+            this.numericReloadTime.DecimalPlaces = 2;
+            this.numericReloadTime.Increment = new decimal(new int[] {
+            1,
             0,
             0,
-            0});
-            this.numericClipCapacity.Name = "numericClipCapacity";
-            this.numericClipCapacity.Size = new System.Drawing.Size(83, 20);
-            this.numericClipCapacity.TabIndex = 14;
+            65536});
+            this.numericReloadTime.Location = new System.Drawing.Point(117, 170);
+            this.numericReloadTime.Name = "numericReloadTime";
+            this.numericReloadTime.Size = new System.Drawing.Size(120, 20);
+            this.numericReloadTime.TabIndex = 22;
             // 
-            // label5
+            // label10
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(228, 68);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(87, 13);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "Maximum Carried";
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(6, 172);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(86, 13);
+            this.label10.TabIndex = 12;
+            this.label10.Text = "Time To Reload:";
             // 
-            // label6
+            // label9
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 86);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(47, 13);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "Rounds:";
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(256, 146);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(90, 13);
+            this.label9.TabIndex = 11;
+            this.label9.Text = "Shots per second";
+            // 
+            // numericRateOfFire
+            // 
+            this.numericRateOfFire.DecimalPlaces = 2;
+            this.numericRateOfFire.Location = new System.Drawing.Point(117, 144);
+            this.numericRateOfFire.Name = "numericRateOfFire";
+            this.numericRateOfFire.Size = new System.Drawing.Size(120, 20);
+            this.numericRateOfFire.TabIndex = 20;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 146);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(67, 13);
+            this.label8.TabIndex = 9;
+            this.label8.Text = "Rate Of Fire:";
+            // 
+            // checkAutoFire
+            // 
+            this.checkAutoFire.AutoSize = true;
+            this.checkAutoFire.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkAutoFire.Location = new System.Drawing.Point(6, 117);
+            this.checkAutoFire.Name = "checkAutoFire";
+            this.checkAutoFire.Size = new System.Drawing.Size(71, 17);
+            this.checkAutoFire.TabIndex = 18;
+            this.checkAutoFire.Text = "Auto Fire:";
+            this.checkAutoFire.UseVisualStyleBackColor = true;
             // 
             // numericMaximum
             // 
@@ -248,116 +296,61 @@
             this.numericMaximum.Size = new System.Drawing.Size(83, 20);
             this.numericMaximum.TabIndex = 15;
             // 
-            // checkAutoFire
+            // label6
             // 
-            this.checkAutoFire.AutoSize = true;
-            this.checkAutoFire.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkAutoFire.Location = new System.Drawing.Point(6, 117);
-            this.checkAutoFire.Name = "checkAutoFire";
-            this.checkAutoFire.Size = new System.Drawing.Size(71, 17);
-            this.checkAutoFire.TabIndex = 18;
-            this.checkAutoFire.Text = "Auto Fire:";
-            this.checkAutoFire.UseVisualStyleBackColor = true;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 86);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(47, 13);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "Rounds:";
             // 
-            // label8
+            // label5
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 146);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(67, 13);
-            this.label8.TabIndex = 9;
-            this.label8.Text = "Rate Of Fire:";
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(228, 68);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(87, 13);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "Maximum Carried";
             // 
-            // numericRateOfFire
+            // numericClipCapacity
             // 
-            this.numericRateOfFire.DecimalPlaces = 2;
-            this.numericRateOfFire.Location = new System.Drawing.Point(117, 144);
-            this.numericRateOfFire.Name = "numericRateOfFire";
-            this.numericRateOfFire.Size = new System.Drawing.Size(120, 20);
-            this.numericRateOfFire.TabIndex = 20;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(256, 146);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(90, 13);
-            this.label9.TabIndex = 11;
-            this.label9.Text = "Shots per second";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 172);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(86, 13);
-            this.label10.TabIndex = 12;
-            this.label10.Text = "Time To Reload:";
-            // 
-            // numericReloadTime
-            // 
-            this.numericReloadTime.DecimalPlaces = 2;
-            this.numericReloadTime.Increment = new decimal(new int[] {
-            1,
+            this.numericClipCapacity.Location = new System.Drawing.Point(117, 84);
+            this.numericClipCapacity.Maximum = new decimal(new int[] {
+            10000,
             0,
             0,
-            65536});
-            this.numericReloadTime.Location = new System.Drawing.Point(117, 170);
-            this.numericReloadTime.Name = "numericReloadTime";
-            this.numericReloadTime.Size = new System.Drawing.Size(120, 20);
-            this.numericReloadTime.TabIndex = 22;
+            0});
+            this.numericClipCapacity.Name = "numericClipCapacity";
+            this.numericClipCapacity.Size = new System.Drawing.Size(83, 20);
+            this.numericClipCapacity.TabIndex = 14;
             // 
-            // label11
+            // label4
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(256, 172);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(49, 13);
-            this.label11.TabIndex = 14;
-            this.label11.Text = "Seconds";
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(114, 68);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(97, 13);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "Magazine Capacity";
             // 
-            // label7
+            // label3
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 224);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(46, 13);
-            this.label7.TabIndex = 15;
-            this.label7.Text = "Sounds:";
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 38);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(66, 13);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Ammo Type:";
             // 
-            // comboSoundReload
+            // comboAmmoType
             // 
-            this.comboSoundReload.FormattingEnabled = true;
-            this.comboSoundReload.Location = new System.Drawing.Point(117, 221);
-            this.comboSoundReload.Name = "comboSoundReload";
-            this.comboSoundReload.Size = new System.Drawing.Size(183, 21);
-            this.comboSoundReload.TabIndex = 25;
-            // 
-            // comboSoundEmpty
-            // 
-            this.comboSoundEmpty.FormattingEnabled = true;
-            this.comboSoundEmpty.Location = new System.Drawing.Point(325, 221);
-            this.comboSoundEmpty.Name = "comboSoundEmpty";
-            this.comboSoundEmpty.Size = new System.Drawing.Size(183, 21);
-            this.comboSoundEmpty.TabIndex = 26;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(181, 205);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(41, 13);
-            this.label12.TabIndex = 18;
-            this.label12.Text = "Reload";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(393, 205);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(36, 13);
-            this.label13.TabIndex = 19;
-            this.label13.Text = "Empty";
+            this.comboAmmoType.FormattingEnabled = true;
+            this.comboAmmoType.Location = new System.Drawing.Point(117, 35);
+            this.comboAmmoType.Name = "comboAmmoType";
+            this.comboAmmoType.Size = new System.Drawing.Size(183, 21);
+            this.comboAmmoType.TabIndex = 12;
             // 
             // label14
             // 
@@ -454,7 +447,12 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.label23);
+            this.groupBox2.Controls.Add(this.buttonChangeZoom);
+            this.groupBox2.Controls.Add(this.buttonRemoveZoom);
+            this.groupBox2.Controls.Add(this.buttonChangeCrosshair);
+            this.groupBox2.Controls.Add(this.buttonAddZoom);
+            this.groupBox2.Controls.Add(this.numericEditCrosshair);
+            this.groupBox2.Controls.Add(this.numericEditZoom);
             this.groupBox2.Controls.Add(this.label22);
             this.groupBox2.Controls.Add(this.listCrosshairs);
             this.groupBox2.Controls.Add(this.listZoom);
@@ -467,6 +465,43 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Sights";
             // 
+            // label22
+            // 
+            this.label22.Location = new System.Drawing.Point(383, 19);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(150, 119);
+            this.label22.TabIndex = 4;
+            this.label22.Text = "Crosshairs are pre-defined types.  Enter an integer to correspond with the type t" +
+    "o use at each zoom level.\r\n\r\nZoom multipliers should normally be in the range be" +
+    "tween 1 and 5.\r\n";
+            // 
+            // listCrosshairs
+            // 
+            this.listCrosshairs.FormatString = "N0";
+            this.listCrosshairs.FormattingEnabled = true;
+            this.listCrosshairs.Location = new System.Drawing.Point(312, 19);
+            this.listCrosshairs.Name = "listCrosshairs";
+            this.listCrosshairs.Size = new System.Drawing.Size(59, 95);
+            this.listCrosshairs.TabIndex = 54;
+            // 
+            // listZoom
+            // 
+            this.listZoom.FormatString = "N2";
+            this.listZoom.FormattingEnabled = true;
+            this.listZoom.Location = new System.Drawing.Point(101, 19);
+            this.listZoom.Name = "listZoom";
+            this.listZoom.Size = new System.Drawing.Size(73, 95);
+            this.listZoom.TabIndex = 52;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(232, 19);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(58, 13);
+            this.label21.TabIndex = 1;
+            this.label21.Text = "Crosshairs:";
+            // 
             // label20
             // 
             this.label20.AutoSize = true;
@@ -476,49 +511,100 @@
             this.label20.TabIndex = 0;
             this.label20.Text = "Zoom Multipliers:";
             // 
-            // label21
+            // numericEditZoom
             // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(226, 19);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(58, 13);
-            this.label21.TabIndex = 1;
-            this.label21.Text = "Crosshairs:";
+            this.numericEditZoom.DecimalPlaces = 2;
+            this.numericEditZoom.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            this.numericEditZoom.Location = new System.Drawing.Point(9, 52);
+            this.numericEditZoom.Maximum = new decimal(new int[] {
+            999,
+            0,
+            0,
+            131072});
+            this.numericEditZoom.Name = "numericEditZoom";
+            this.numericEditZoom.Size = new System.Drawing.Size(79, 20);
+            this.numericEditZoom.TabIndex = 55;
+            this.numericEditZoom.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
-            // listZoom
+            // numericEditCrosshair
             // 
-            this.listZoom.FormatString = "N2";
-            this.listZoom.FormattingEnabled = true;
-            this.listZoom.Location = new System.Drawing.Point(117, 19);
-            this.listZoom.Name = "listZoom";
-            this.listZoom.Size = new System.Drawing.Size(73, 95);
-            this.listZoom.TabIndex = 52;
+            this.numericEditCrosshair.Location = new System.Drawing.Point(235, 52);
+            this.numericEditCrosshair.Name = "numericEditCrosshair";
+            this.numericEditCrosshair.Size = new System.Drawing.Size(69, 20);
+            this.numericEditCrosshair.TabIndex = 56;
+            this.numericEditCrosshair.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
-            // listCrosshairs
+            // buttonAddZoom
             // 
-            this.listCrosshairs.FormatString = "N0";
-            this.listCrosshairs.FormattingEnabled = true;
-            this.listCrosshairs.Location = new System.Drawing.Point(304, 19);
-            this.listCrosshairs.Name = "listCrosshairs";
-            this.listCrosshairs.Size = new System.Drawing.Size(59, 95);
-            this.listCrosshairs.TabIndex = 54;
+            this.buttonAddZoom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonAddZoom.Location = new System.Drawing.Point(190, 46);
+            this.buttonAddZoom.Name = "buttonAddZoom";
+            this.buttonAddZoom.Size = new System.Drawing.Size(28, 27);
+            this.buttonAddZoom.TabIndex = 57;
+            this.buttonAddZoom.Text = "+";
+            this.buttonAddZoom.UseVisualStyleBackColor = true;
+            this.buttonAddZoom.Click += new System.EventHandler(this.buttonAddZoom_Click);
             // 
-            // label22
+            // buttonChangeCrosshair
             // 
-            this.label22.Location = new System.Drawing.Point(383, 19);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(150, 95);
-            this.label22.TabIndex = 4;
-            this.label22.Text = "Crosshairs are pre-defined types.  Enter an integer to correspond with the type t" +
-    "o use at each zoom level.\r\n";
+            this.buttonChangeCrosshair.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonChangeCrosshair.Location = new System.Drawing.Point(235, 78);
+            this.buttonChangeCrosshair.Name = "buttonChangeCrosshair";
+            this.buttonChangeCrosshair.Size = new System.Drawing.Size(69, 27);
+            this.buttonChangeCrosshair.TabIndex = 58;
+            this.buttonChangeCrosshair.Text = "Change";
+            this.buttonChangeCrosshair.UseVisualStyleBackColor = true;
+            this.buttonChangeCrosshair.Click += new System.EventHandler(this.buttonChangeCrosshair_Click);
             // 
-            // label23
+            // buttonRemoveZoom
             // 
-            this.label23.Location = new System.Drawing.Point(6, 52);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(93, 62);
-            this.label23.TabIndex = 55;
-            this.label23.Text = "Multiplier should be between 1 and about 5.\r\n";
+            this.buttonRemoveZoom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonRemoveZoom.Location = new System.Drawing.Point(190, 78);
+            this.buttonRemoveZoom.Name = "buttonRemoveZoom";
+            this.buttonRemoveZoom.Size = new System.Drawing.Size(28, 27);
+            this.buttonRemoveZoom.TabIndex = 59;
+            this.buttonRemoveZoom.Text = "-";
+            this.buttonRemoveZoom.UseVisualStyleBackColor = true;
+            this.buttonRemoveZoom.Click += new System.EventHandler(this.buttonRemoveZoom_Click);
+            // 
+            // buttonChangeZoom
+            // 
+            this.buttonChangeZoom.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonChangeZoom.Location = new System.Drawing.Point(9, 79);
+            this.buttonChangeZoom.Name = "buttonChangeZoom";
+            this.buttonChangeZoom.Size = new System.Drawing.Size(69, 27);
+            this.buttonChangeZoom.TabIndex = 60;
+            this.buttonChangeZoom.Text = "Change";
+            this.buttonChangeZoom.UseVisualStyleBackColor = true;
+            this.buttonChangeZoom.Click += new System.EventHandler(this.buttonChangeZoom_Click);
+            // 
+            // positionMuzzle
+            // 
+            this.positionMuzzle.DecimalPlaces = 2;
+            this.positionMuzzle.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.positionMuzzle.Location = new System.Drawing.Point(107, 24);
+            this.positionMuzzle.Maximum = new Microsoft.Xna.Framework.Vector3(30000F, 30000F, 30000F);
+            this.positionMuzzle.Minimum = new Microsoft.Xna.Framework.Vector3(-30000F, -30000F, -30000F);
+            this.positionMuzzle.Name = "positionMuzzle";
+            this.positionMuzzle.Size = new System.Drawing.Size(359, 26);
+            this.positionMuzzle.TabIndex = 10;
+            this.positionMuzzle.Value = new Microsoft.Xna.Framework.Vector3(0F, 0F, 0F);
             // 
             // ModelWeaponForm
             // 
@@ -547,15 +633,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericHalfWidth)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericClipCapacity)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericMaximum)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericRateOfFire)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericReloadTime)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericRateOfFire)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericMaximum)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericClipCapacity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericRangeClosest)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericRangeFarthest)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericRecoil)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericEditZoom)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericEditCrosshair)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -604,6 +692,11 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Button buttonRemoveZoom;
+        private System.Windows.Forms.Button buttonChangeCrosshair;
+        private System.Windows.Forms.Button buttonAddZoom;
+        private System.Windows.Forms.NumericUpDown numericEditCrosshair;
+        private System.Windows.Forms.NumericUpDown numericEditZoom;
+        private System.Windows.Forms.Button buttonChangeZoom;
     }
 }

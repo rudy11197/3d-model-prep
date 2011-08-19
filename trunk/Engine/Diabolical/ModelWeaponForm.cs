@@ -20,6 +20,9 @@ namespace Engine
             PopulateAmmo();
             PopulateReloadSound();
             PopulateEmptySound();
+
+            listZoom.SelectedIndexChanged += new EventHandler(listZoom_SelectedIndexChanged);
+            listCrosshairs.SelectedIndexChanged += new EventHandler(listCrosshairs_SelectedIndexChanged);
         }
 
         /////////////////////////////////////////////////////////////////////
@@ -118,6 +121,12 @@ namespace Engine
             set { numericRangeFarthest.Value = (decimal)value; }
         }
 
+        public float RecoilDegrees
+        {
+            get { return (float)numericRecoil.Value; }
+            set { numericRecoil.Value = (decimal)value; }
+        }
+
         public List<float> ZoomMultipliers
         {
             get
@@ -183,6 +192,95 @@ namespace Engine
                     listCrosshairs.Items.Add("1");
                 }
             }
+            // Only reduce if the zoom multipliers have been loaded
+            if (listZoom.Items.Count > 0 && listCrosshairs.Items.Count > listZoom.Items.Count)
+            {
+                ReduceCrosshairsToMatchZoom();
+            }
+        }
+
+        private void ReduceCrosshairsToMatchZoom()
+        {
+            while (listCrosshairs.Items.Count > listZoom.Items.Count)
+            {
+                listCrosshairs.Items.RemoveAt(listCrosshairs.Items.Count - 1);
+            }
+        }
+
+        private void listCrosshairs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listCrosshairs.SelectedIndex >= 0)
+            {
+                numericEditCrosshair.Value = (decimal)ParseData.IntFromString((string)listCrosshairs.SelectedItem);
+            }
+            if (listCrosshairs.SelectedIndex != listZoom.SelectedIndex)
+            {
+                listZoom.SelectedIndex = listCrosshairs.SelectedIndex;
+            }
+        }
+
+        private void listZoom_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listZoom.SelectedIndex >= 0)
+            {
+                numericEditZoom.Value = (decimal)ParseData.IntFromString((string)listZoom.SelectedItem);
+            }
+            if (listCrosshairs.SelectedIndex != listZoom.SelectedIndex)
+            {
+                listCrosshairs.SelectedIndex = listZoom.SelectedIndex;
+            }
+        }
+
+        private void buttonChangeCrosshair_Click(object sender, EventArgs e)
+        {
+            if (listCrosshairs.SelectedIndex >= 0)
+            {
+                listCrosshairs.Items[listCrosshairs.SelectedIndex] = ParseData.IntToString((int)numericEditCrosshair.Value);
+            }
+        }
+
+        private void buttonChangeZoom_Click(object sender, EventArgs e)
+        {
+            if (listZoom.SelectedIndex >= 0)
+            {
+                listZoom.Items[listZoom.SelectedIndex] = ParseData.FloatToString((float)numericEditZoom.Value);
+            }
+        }
+
+        /// <summary>
+        /// Always adds to the end of the list
+        /// </summary>
+        private void buttonAddZoom_Click(object sender, EventArgs e)
+        {
+            listZoom.Items.Add(ParseData.FloatToString((float)numericEditZoom.Value));
+            listCrosshairs.Items.Add(ParseData.IntToString((int)numericEditCrosshair.Value));
+            ValidateCrosshairs();
+        }
+
+        private void buttonRemoveZoom_Click(object sender, EventArgs e)
+        {
+            int index = -1;
+            if (listZoom.SelectedIndex >= 0)
+            {
+                index = listZoom.SelectedIndex;
+            }
+            else if (listCrosshairs.SelectedIndex >= 0)
+            {
+                index = listCrosshairs.SelectedIndex;
+            }
+            if (index < 0)
+            {
+                return;
+            }
+            if (index < listZoom.Items.Count)
+            {
+                listZoom.Items.RemoveAt(index);
+            }
+            if (index < listCrosshairs.Items.Count)
+            {
+                listCrosshairs.Items.RemoveAt(index);
+            }
+            ValidateCrosshairs();
         }
         //
         /////////////////////////////////////////////////////////////////////
