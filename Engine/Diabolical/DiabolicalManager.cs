@@ -358,6 +358,12 @@ namespace Engine
             set { modelAsset.OptimumFarthest = value; }
         }
 
+        public float RecoilDegrees
+        {
+            get { return modelAsset.RecoilDegrees; }
+            set { modelAsset.RecoilDegrees = value; }
+        }
+
         public List<float> ZoomMultipliers
         {
             get { return modelAsset.ZoomMultipliers; }
@@ -1477,6 +1483,7 @@ namespace Engine
             aForm.EmptySound = EmptySound;
             aForm.RangeClosest = RangeClosest;
             aForm.RangeFarthest = RangeFarthest;
+            aForm.RecoilDegrees = RecoilDegrees;
             aForm.ZoomMultipliers = ZoomMultipliers;
             aForm.Crosshairs = Crosshairs;
 
@@ -1496,6 +1503,7 @@ namespace Engine
                 EmptySound = aForm.EmptySound;
                 RangeClosest = aForm.RangeClosest;
                 RangeFarthest = aForm.RangeFarthest;
+                RecoilDegrees = aForm.RecoilDegrees;
                 ZoomMultipliers = aForm.ZoomMultipliers;
                 Crosshairs = aForm.Crosshairs;
             }
