@@ -35,6 +35,9 @@ namespace Engine
             this.LoadFBXAnimationMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.RotationMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.loadDiabolicalmodelMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveDiabolicalmodelMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
             this.LoadIndividualClipMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.SaveClipMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -65,9 +68,6 @@ namespace Engine
             this.light2EnabledToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reverseLightingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.diabolicalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loadmodelItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.savemodelItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.modelCommonPropertiesItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changeModelTypeItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modelTypePropertiesItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -130,6 +130,9 @@ namespace Engine
             this.LoadFBXAnimationMenu,
             this.RotationMenuItem,
             this.toolStripSeparator4,
+            this.loadDiabolicalmodelMenuItem,
+            this.saveDiabolicalmodelMenuItem,
+            this.toolStripSeparator13,
             this.LoadIndividualClipMenu,
             this.SaveClipMenu,
             this.toolStripSeparator2,
@@ -161,20 +164,39 @@ namespace Engine
             this.LoadFBXAnimationMenu.Enabled = false;
             this.LoadFBXAnimationMenu.Name = "LoadFBXAnimationMenu";
             this.LoadFBXAnimationMenu.Size = new System.Drawing.Size(230, 22);
-            this.LoadFBXAnimationMenu.Text = "&Load Animation...";
+            this.LoadFBXAnimationMenu.Text = "Loa&d Animation...";
             this.LoadFBXAnimationMenu.Click += new System.EventHandler(this.LoadFBXAnimationMenu_Click);
             // 
             // RotationMenuItem
             // 
             this.RotationMenuItem.Name = "RotationMenuItem";
             this.RotationMenuItem.Size = new System.Drawing.Size(230, 22);
-            this.RotationMenuItem.Text = "Rotation: X 0.00, Y 0.00, Z 0.00";
+            this.RotationMenuItem.Text = "&Rotation: X 0.00, Y 0.00, Z 0.00";
             this.RotationMenuItem.Click += new System.EventHandler(this.RotationMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(227, 6);
+            // 
+            // loadDiabolicalmodelMenuItem
+            // 
+            this.loadDiabolicalmodelMenuItem.Name = "loadDiabolicalmodelMenuItem";
+            this.loadDiabolicalmodelMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.loadDiabolicalmodelMenuItem.Text = "&Load Diabolical .model File...";
+            this.loadDiabolicalmodelMenuItem.Click += new System.EventHandler(this.loadDiabolicalmodelMenuItem_Click);
+            // 
+            // saveDiabolicalmodelMenuItem
+            // 
+            this.saveDiabolicalmodelMenuItem.Name = "saveDiabolicalmodelMenuItem";
+            this.saveDiabolicalmodelMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.saveDiabolicalmodelMenuItem.Text = "&Save Diabolical .model File...";
+            this.saveDiabolicalmodelMenuItem.Click += new System.EventHandler(this.saveDiabolicalmodelMenuItem_Click);
+            // 
+            // toolStripSeparator13
+            // 
+            this.toolStripSeparator13.Name = "toolStripSeparator13";
+            this.toolStripSeparator13.Size = new System.Drawing.Size(227, 6);
             // 
             // LoadIndividualClipMenu
             // 
@@ -189,7 +211,7 @@ namespace Engine
             this.SaveClipMenu.Enabled = false;
             this.SaveClipMenu.Name = "SaveClipMenu";
             this.SaveClipMenu.Size = new System.Drawing.Size(230, 22);
-            this.SaveClipMenu.Text = "&Save Animation Clip...";
+            this.SaveClipMenu.Text = "Save Animation Cli&p...";
             this.SaveClipMenu.ToolTipText = "Save the currently playing animation in AnimationClip format";
             this.SaveClipMenu.Click += new System.EventHandler(this.SaveClip_Click);
             // 
@@ -409,9 +431,6 @@ namespace Engine
             // diabolicalToolStripMenuItem
             // 
             this.diabolicalToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.loadmodelItem,
-            this.savemodelItem,
-            this.toolStripSeparator7,
             this.modelCommonPropertiesItem,
             this.changeModelTypeItem,
             this.modelTypePropertiesItem,
@@ -423,25 +442,6 @@ namespace Engine
             this.diabolicalToolStripMenuItem.Name = "diabolicalToolStripMenuItem";
             this.diabolicalToolStripMenuItem.Size = new System.Drawing.Size(71, 23);
             this.diabolicalToolStripMenuItem.Text = "&Diabolical";
-            // 
-            // loadmodelItem
-            // 
-            this.loadmodelItem.Name = "loadmodelItem";
-            this.loadmodelItem.Size = new System.Drawing.Size(237, 22);
-            this.loadmodelItem.Text = "&Load .model File...";
-            this.loadmodelItem.Click += new System.EventHandler(this.loadmodelFileToolStripMenuItem_Click);
-            // 
-            // savemodelItem
-            // 
-            this.savemodelItem.Name = "savemodelItem";
-            this.savemodelItem.Size = new System.Drawing.Size(237, 22);
-            this.savemodelItem.Text = "&Save .model File...";
-            this.savemodelItem.Click += new System.EventHandler(this.savemodelSettingsItem_Click);
-            // 
-            // toolStripSeparator7
-            // 
-            this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(234, 6);
             // 
             // modelCommonPropertiesItem
             // 
@@ -782,9 +782,6 @@ namespace Engine
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripMenuItem resetViewingPointMenu;
         private System.Windows.Forms.ToolStripMenuItem diabolicalToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem loadmodelItem;
-        private System.Windows.Forms.ToolStripMenuItem savemodelItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.ToolStripMenuItem modelCommonPropertiesItem;
         private System.Windows.Forms.ToolStripMenuItem noBoundsItem;
         private System.Windows.Forms.ToolStripMenuItem allLargeBoundsItem;
@@ -822,6 +819,9 @@ namespace Engine
         private System.Windows.Forms.ToolStripMenuItem orbitTheModelMenu;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
         private System.Windows.Forms.Label statusOrbit;
+        private System.Windows.Forms.ToolStripMenuItem loadDiabolicalmodelMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveDiabolicalmodelMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
 
     }
 }

@@ -686,7 +686,7 @@ namespace Engine
         private void WhatModelType()
         {
             // Diabolical model properties
-            savemodelItem.Enabled = false;
+            saveDiabolicalmodelMenuItem.Enabled = false;
             modelCommonPropertiesItem.Enabled = false;
             modelTypePropertiesItem.Enabled = false;
             changeModelTypeItem.Enabled = false;
@@ -714,7 +714,7 @@ namespace Engine
                 changeModelTypeItem.Enabled = true;
                 if (diabolical.CanSave())
                 {
-                    savemodelItem.Enabled = true;
+                    saveDiabolicalmodelMenuItem.Enabled = true;
                 }
                 if (diabolical.CanEdit())
                 {
@@ -1612,12 +1612,12 @@ namespace Engine
         //////////////////////////////////////////////////////////////////////
         // == Diabolical Menu Actions ==
         //
-        private void loadmodelFileToolStripMenuItem_Click(object sender, EventArgs e)
+        private void loadDiabolicalmodelMenuItem_Click(object sender, EventArgs e)
         {
             diabolical.LoadDialogue();
         }
 
-        private void savemodelSettingsItem_Click(object sender, EventArgs e)
+        private void saveDiabolicalmodelMenuItem_Click(object sender, EventArgs e)
         {
             diabolical.SaveDialogue();
         }

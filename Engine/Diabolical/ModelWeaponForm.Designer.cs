@@ -63,17 +63,17 @@
             this.numericRecoil = new System.Windows.Forms.NumericUpDown();
             this.label19 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.buttonChangeZoom = new System.Windows.Forms.Button();
+            this.buttonRemoveZoom = new System.Windows.Forms.Button();
+            this.buttonChangeCrosshair = new System.Windows.Forms.Button();
+            this.buttonAddZoom = new System.Windows.Forms.Button();
+            this.numericEditCrosshair = new System.Windows.Forms.NumericUpDown();
+            this.numericEditZoom = new System.Windows.Forms.NumericUpDown();
             this.label22 = new System.Windows.Forms.Label();
             this.listCrosshairs = new System.Windows.Forms.ListBox();
             this.listZoom = new System.Windows.Forms.ListBox();
             this.label21 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
-            this.numericEditZoom = new System.Windows.Forms.NumericUpDown();
-            this.numericEditCrosshair = new System.Windows.Forms.NumericUpDown();
-            this.buttonAddZoom = new System.Windows.Forms.Button();
-            this.buttonChangeCrosshair = new System.Windows.Forms.Button();
-            this.buttonRemoveZoom = new System.Windows.Forms.Button();
-            this.buttonChangeZoom = new System.Windows.Forms.Button();
             this.positionMuzzle = new Engine.PositionControl();
             ((System.ComponentModel.ISupportInitialize)(this.numericHalfWidth)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -85,8 +85,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericRangeFarthest)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericRecoil)).BeginInit();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericEditZoom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericEditCrosshair)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericEditZoom)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOK
@@ -465,51 +465,61 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Sights";
             // 
-            // label22
+            // buttonChangeZoom
             // 
-            this.label22.Location = new System.Drawing.Point(383, 19);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(150, 119);
-            this.label22.TabIndex = 4;
-            this.label22.Text = "Crosshairs are pre-defined types.  Enter an integer to correspond with the type t" +
-    "o use at each zoom level.\r\n\r\nZoom multipliers should normally be in the range be" +
-    "tween 1 and 5.\r\n";
+            this.buttonChangeZoom.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonChangeZoom.Location = new System.Drawing.Point(9, 79);
+            this.buttonChangeZoom.Name = "buttonChangeZoom";
+            this.buttonChangeZoom.Size = new System.Drawing.Size(69, 27);
+            this.buttonChangeZoom.TabIndex = 60;
+            this.buttonChangeZoom.Text = "Change";
+            this.buttonChangeZoom.UseVisualStyleBackColor = true;
+            this.buttonChangeZoom.Click += new System.EventHandler(this.buttonChangeZoom_Click);
             // 
-            // listCrosshairs
+            // buttonRemoveZoom
             // 
-            this.listCrosshairs.FormatString = "N0";
-            this.listCrosshairs.FormattingEnabled = true;
-            this.listCrosshairs.Location = new System.Drawing.Point(312, 19);
-            this.listCrosshairs.Name = "listCrosshairs";
-            this.listCrosshairs.Size = new System.Drawing.Size(59, 95);
-            this.listCrosshairs.TabIndex = 54;
+            this.buttonRemoveZoom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonRemoveZoom.Location = new System.Drawing.Point(344, 79);
+            this.buttonRemoveZoom.Name = "buttonRemoveZoom";
+            this.buttonRemoveZoom.Size = new System.Drawing.Size(28, 27);
+            this.buttonRemoveZoom.TabIndex = 59;
+            this.buttonRemoveZoom.Text = "-";
+            this.buttonRemoveZoom.UseVisualStyleBackColor = true;
+            this.buttonRemoveZoom.Click += new System.EventHandler(this.buttonRemoveZoom_Click);
             // 
-            // listZoom
+            // buttonChangeCrosshair
             // 
-            this.listZoom.FormatString = "N2";
-            this.listZoom.FormattingEnabled = true;
-            this.listZoom.Location = new System.Drawing.Point(101, 19);
-            this.listZoom.Name = "listZoom";
-            this.listZoom.Size = new System.Drawing.Size(73, 95);
-            this.listZoom.TabIndex = 52;
+            this.buttonChangeCrosshair.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonChangeCrosshair.Location = new System.Drawing.Point(194, 78);
+            this.buttonChangeCrosshair.Name = "buttonChangeCrosshair";
+            this.buttonChangeCrosshair.Size = new System.Drawing.Size(69, 27);
+            this.buttonChangeCrosshair.TabIndex = 58;
+            this.buttonChangeCrosshair.Text = "Change";
+            this.buttonChangeCrosshair.UseVisualStyleBackColor = true;
+            this.buttonChangeCrosshair.Click += new System.EventHandler(this.buttonChangeCrosshair_Click);
             // 
-            // label21
+            // buttonAddZoom
             // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(232, 19);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(58, 13);
-            this.label21.TabIndex = 1;
-            this.label21.Text = "Crosshairs:";
+            this.buttonAddZoom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonAddZoom.Location = new System.Drawing.Point(344, 47);
+            this.buttonAddZoom.Name = "buttonAddZoom";
+            this.buttonAddZoom.Size = new System.Drawing.Size(28, 27);
+            this.buttonAddZoom.TabIndex = 57;
+            this.buttonAddZoom.Text = "+";
+            this.buttonAddZoom.UseVisualStyleBackColor = true;
+            this.buttonAddZoom.Click += new System.EventHandler(this.buttonAddZoom_Click);
             // 
-            // label20
+            // numericEditCrosshair
             // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(6, 19);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(86, 13);
-            this.label20.TabIndex = 0;
-            this.label20.Text = "Zoom Multipliers:";
+            this.numericEditCrosshair.Location = new System.Drawing.Point(194, 52);
+            this.numericEditCrosshair.Name = "numericEditCrosshair";
+            this.numericEditCrosshair.Size = new System.Drawing.Size(69, 20);
+            this.numericEditCrosshair.TabIndex = 56;
+            this.numericEditCrosshair.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // numericEditZoom
             // 
@@ -534,61 +544,51 @@
             0,
             0});
             // 
-            // numericEditCrosshair
+            // label22
             // 
-            this.numericEditCrosshair.Location = new System.Drawing.Point(235, 52);
-            this.numericEditCrosshair.Name = "numericEditCrosshair";
-            this.numericEditCrosshair.Size = new System.Drawing.Size(69, 20);
-            this.numericEditCrosshair.TabIndex = 56;
-            this.numericEditCrosshair.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.label22.Location = new System.Drawing.Point(383, 19);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(150, 119);
+            this.label22.TabIndex = 4;
+            this.label22.Text = "Crosshairs are pre-defined types.  Enter an integer to correspond with the type t" +
+    "o use at each zoom level.\r\n\r\nZoom multipliers should normally be in the range be" +
+    "tween 1 and 5.\r\n";
             // 
-            // buttonAddZoom
+            // listCrosshairs
             // 
-            this.buttonAddZoom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonAddZoom.Location = new System.Drawing.Point(190, 46);
-            this.buttonAddZoom.Name = "buttonAddZoom";
-            this.buttonAddZoom.Size = new System.Drawing.Size(28, 27);
-            this.buttonAddZoom.TabIndex = 57;
-            this.buttonAddZoom.Text = "+";
-            this.buttonAddZoom.UseVisualStyleBackColor = true;
-            this.buttonAddZoom.Click += new System.EventHandler(this.buttonAddZoom_Click);
+            this.listCrosshairs.FormatString = "N0";
+            this.listCrosshairs.FormattingEnabled = true;
+            this.listCrosshairs.Location = new System.Drawing.Point(271, 19);
+            this.listCrosshairs.Name = "listCrosshairs";
+            this.listCrosshairs.Size = new System.Drawing.Size(59, 95);
+            this.listCrosshairs.TabIndex = 54;
             // 
-            // buttonChangeCrosshair
+            // listZoom
             // 
-            this.buttonChangeCrosshair.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonChangeCrosshair.Location = new System.Drawing.Point(235, 78);
-            this.buttonChangeCrosshair.Name = "buttonChangeCrosshair";
-            this.buttonChangeCrosshair.Size = new System.Drawing.Size(69, 27);
-            this.buttonChangeCrosshair.TabIndex = 58;
-            this.buttonChangeCrosshair.Text = "Change";
-            this.buttonChangeCrosshair.UseVisualStyleBackColor = true;
-            this.buttonChangeCrosshair.Click += new System.EventHandler(this.buttonChangeCrosshair_Click);
+            this.listZoom.FormatString = "N2";
+            this.listZoom.FormattingEnabled = true;
+            this.listZoom.Location = new System.Drawing.Point(101, 19);
+            this.listZoom.Name = "listZoom";
+            this.listZoom.Size = new System.Drawing.Size(73, 95);
+            this.listZoom.TabIndex = 52;
             // 
-            // buttonRemoveZoom
+            // label21
             // 
-            this.buttonRemoveZoom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonRemoveZoom.Location = new System.Drawing.Point(190, 78);
-            this.buttonRemoveZoom.Name = "buttonRemoveZoom";
-            this.buttonRemoveZoom.Size = new System.Drawing.Size(28, 27);
-            this.buttonRemoveZoom.TabIndex = 59;
-            this.buttonRemoveZoom.Text = "-";
-            this.buttonRemoveZoom.UseVisualStyleBackColor = true;
-            this.buttonRemoveZoom.Click += new System.EventHandler(this.buttonRemoveZoom_Click);
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(191, 19);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(58, 13);
+            this.label21.TabIndex = 1;
+            this.label21.Text = "Crosshairs:";
             // 
-            // buttonChangeZoom
+            // label20
             // 
-            this.buttonChangeZoom.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonChangeZoom.Location = new System.Drawing.Point(9, 79);
-            this.buttonChangeZoom.Name = "buttonChangeZoom";
-            this.buttonChangeZoom.Size = new System.Drawing.Size(69, 27);
-            this.buttonChangeZoom.TabIndex = 60;
-            this.buttonChangeZoom.Text = "Change";
-            this.buttonChangeZoom.UseVisualStyleBackColor = true;
-            this.buttonChangeZoom.Click += new System.EventHandler(this.buttonChangeZoom_Click);
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(6, 19);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(86, 13);
+            this.label20.TabIndex = 0;
+            this.label20.Text = "Zoom Multipliers:";
             // 
             // positionMuzzle
             // 
@@ -603,7 +603,7 @@
             this.positionMuzzle.Minimum = new Microsoft.Xna.Framework.Vector3(-30000F, -30000F, -30000F);
             this.positionMuzzle.Name = "positionMuzzle";
             this.positionMuzzle.Size = new System.Drawing.Size(359, 26);
-            this.positionMuzzle.TabIndex = 10;
+            this.positionMuzzle.TabIndex = 13;
             this.positionMuzzle.Value = new Microsoft.Xna.Framework.Vector3(0F, 0F, 0F);
             // 
             // ModelWeaponForm
@@ -642,8 +642,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericRecoil)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericEditZoom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericEditCrosshair)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericEditZoom)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

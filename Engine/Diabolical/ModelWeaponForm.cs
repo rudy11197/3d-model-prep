@@ -223,7 +223,7 @@ namespace Engine
         {
             if (listZoom.SelectedIndex >= 0)
             {
-                numericEditZoom.Value = (decimal)ParseData.IntFromString((string)listZoom.SelectedItem);
+                numericEditZoom.Value = (decimal)ParseData.FloatFromString((string)listZoom.SelectedItem);
             }
             if (listCrosshairs.SelectedIndex != listZoom.SelectedIndex)
             {
