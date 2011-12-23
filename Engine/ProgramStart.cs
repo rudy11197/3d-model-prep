@@ -134,35 +134,6 @@ using System.Windows.Forms;
 #endregion
 
 //-----------------------------------------------------------------------------
-// FEATURES
-//-----------------------------------------------------------------------------
-// - Rotate models and animations during load using the content pipeline processor
-//      Select from a list of right angle rotations or preset selections.
-//      The AnimatedModelProcessor.cs can also scale models and animations but this
-//      scale feature has not been added to the user menus.
-// - Change the model material colours and specular lighting
-// - Load and view models, zoom in and out and rotate round
-// - Look and zoom using the mouse and keyboard
-// - Split FBX files in to one file per animation
-// - Load animations from FBX files
-// - Load animations from AnimationClips
-// - Save animationClips in the format used by the Microsoft Skinning Sample
-// - Save the clips with only some of the bones included
-// - Use a config file to convert multiple animations in to animationClip format
-// - Show a floor
-// - Load and save models with the Diabolical custom structure format
-// - View models in wireframe
-// - Calculate bounding spheres for use in Diabolical: The Shooter
-// - Delete the smaller and larger bounds
-// - Select bounds by their index number
-// - Display a set of axes to show which way the camera is facing
-// - Merge animations
-// - Display and edit bounding cylinders round characters
-// - Display and edit bounds attached to the bones
-// - Restricted to 60 frames per second to avoid an annoying noise from some monitors
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
 // TODO:
 //-----------------------------------------------------------------------------
 
