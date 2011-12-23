@@ -608,6 +608,14 @@ namespace Engine
             aForm.ShowDialog();
             PauseGameInput(false);
         }
+
+        private void featuresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PauseGameInput(true);
+            FeaturesForm aForm = new FeaturesForm();
+            aForm.ShowDialog();
+            PauseGameInput(false);
+        }
         //
         //////////////////////////////////////////////////////////////////////
 

@@ -99,6 +99,7 @@ namespace Engine
             this.buttonSmall = new System.Windows.Forms.Button();
             this.modelViewerControl = new Engine.ModelViewerControl();
             this.statusOrbit = new System.Windows.Forms.Label();
+            this.featuresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericLarge)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericSmall)).BeginInit();
@@ -574,6 +575,7 @@ namespace Engine
             // windowToolStripMenuItem
             // 
             this.windowToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.featuresToolStripMenuItem,
             this.helpToolStripMenuItem1});
             this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
             this.windowToolStripMenuItem.Size = new System.Drawing.Size(63, 23);
@@ -582,7 +584,7 @@ namespace Engine
             // helpToolStripMenuItem1
             // 
             this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
-            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(99, 22);
+            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.helpToolStripMenuItem1.Text = "&Help";
             this.helpToolStripMenuItem1.Click += new System.EventHandler(this.helpToolStripMenuItem1_Click);
             // 
@@ -717,6 +719,13 @@ namespace Engine
             this.statusOrbit.TabIndex = 45;
             this.statusOrbit.Text = "Orbit Mode";
             // 
+            // featuresToolStripMenuItem
+            // 
+            this.featuresToolStripMenuItem.Name = "featuresToolStripMenuItem";
+            this.featuresToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.featuresToolStripMenuItem.Text = "&Features";
+            this.featuresToolStripMenuItem.Click += new System.EventHandler(this.featuresToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -822,6 +831,7 @@ namespace Engine
         private System.Windows.Forms.ToolStripMenuItem loadDiabolicalmodelMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveDiabolicalmodelMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
+        private System.Windows.Forms.ToolStripMenuItem featuresToolStripMenuItem;
 
     }
 }
