@@ -340,7 +340,7 @@
             this.groupBox2.Size = new System.Drawing.Size(425, 202);
             this.groupBox2.TabIndex = 52;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Animation Angle Adjustments";
+            this.groupBox2.Text = "Animation Angle Adjustments (No Longer Used)";
             // 
             // label20
             // 

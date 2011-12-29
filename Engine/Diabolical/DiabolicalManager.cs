@@ -1126,6 +1126,7 @@ namespace Engine
                 output = GlobalSettings.typePlayerUse +
                     ParseData.div + ParseData.shortTrue;
             }
+            data.Add(output);
             // - Rig type
             output = GlobalSettings.typeRig +
                 ParseData.div + modelAsset.RigTypeName;
