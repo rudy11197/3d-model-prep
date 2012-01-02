@@ -68,6 +68,14 @@
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.checkUseAsPlayer = new System.Windows.Forms.CheckBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.numericMinimumCover = new System.Windows.Forms.NumericUpDown();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.buttonTypicalCover = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericMass)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericCrouched)).BeginInit();
@@ -85,10 +93,19 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericCameraStand)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericBotStand)).BeginInit();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericMinimumCover)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.buttonTypicalCover);
+            this.groupBox1.Controls.Add(this.label26);
+            this.groupBox1.Controls.Add(this.label25);
+            this.groupBox1.Controls.Add(this.label24);
+            this.groupBox1.Controls.Add(this.label23);
+            this.groupBox1.Controls.Add(this.label21);
+            this.groupBox1.Controls.Add(this.numericMinimumCover);
+            this.groupBox1.Controls.Add(this.label22);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.numericMass);
             this.groupBox1.Controls.Add(this.label7);
@@ -103,7 +120,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(425, 172);
+            this.groupBox1.Size = new System.Drawing.Size(889, 191);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Sizes";
@@ -111,7 +128,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(247, 140);
+            this.label8.Location = new System.Drawing.Point(288, 156);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(20, 13);
             this.label8.TabIndex = 11;
@@ -124,7 +141,7 @@
             0,
             0,
             0});
-            this.numericMass.Location = new System.Drawing.Point(117, 138);
+            this.numericMass.Location = new System.Drawing.Point(158, 154);
             this.numericMass.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -147,7 +164,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 140);
+            this.label7.Location = new System.Drawing.Point(6, 156);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(75, 13);
             this.label7.TabIndex = 9;
@@ -156,7 +173,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(244, 87);
+            this.label6.Location = new System.Drawing.Point(285, 87);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(31, 13);
             this.label6.TabIndex = 8;
@@ -165,7 +182,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(244, 57);
+            this.label5.Location = new System.Drawing.Point(285, 57);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(31, 13);
             this.label5.TabIndex = 7;
@@ -174,7 +191,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(244, 26);
+            this.label4.Location = new System.Drawing.Point(285, 26);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(31, 13);
             this.label4.TabIndex = 6;
@@ -188,7 +205,7 @@
             0,
             0,
             65536});
-            this.numericCrouched.Location = new System.Drawing.Point(117, 85);
+            this.numericCrouched.Location = new System.Drawing.Point(158, 85);
             this.numericCrouched.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -216,7 +233,7 @@
             0,
             0,
             65536});
-            this.numericStanding.Location = new System.Drawing.Point(117, 55);
+            this.numericStanding.Location = new System.Drawing.Point(158, 55);
             this.numericStanding.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -244,7 +261,7 @@
             0,
             0,
             65536});
-            this.numericRadius.Location = new System.Drawing.Point(117, 24);
+            this.numericRadius.Location = new System.Drawing.Point(158, 24);
             this.numericRadius.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -294,7 +311,7 @@
             // buttonOK
             // 
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(281, 460);
+            this.buttonOK.Location = new System.Drawing.Point(745, 479);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 50;
@@ -304,7 +321,7 @@
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(362, 460);
+            this.buttonCancel.Location = new System.Drawing.Point(826, 479);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 51;
@@ -335,9 +352,9 @@
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.label9);
-            this.groupBox2.Location = new System.Drawing.Point(12, 252);
+            this.groupBox2.Location = new System.Drawing.Point(12, 271);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(425, 202);
+            this.groupBox2.Size = new System.Drawing.Size(889, 202);
             this.groupBox2.TabIndex = 52;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Animation Angle Adjustments (No Longer Used)";
@@ -633,9 +650,9 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.checkUseAsPlayer);
-            this.groupBox3.Location = new System.Drawing.Point(12, 190);
+            this.groupBox3.Location = new System.Drawing.Point(12, 209);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(425, 56);
+            this.groupBox3.Size = new System.Drawing.Size(889, 56);
             this.groupBox3.TabIndex = 53;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Options";
@@ -650,11 +667,103 @@
             this.checkUseAsPlayer.Text = "Can be used as a player controlled character";
             this.checkUseAsPlayer.UseVisualStyleBackColor = true;
             // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(285, 123);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(31, 13);
+            this.label21.TabIndex = 14;
+            this.label21.Text = "Units";
+            // 
+            // numericMinimumCover
+            // 
+            this.numericMinimumCover.DecimalPlaces = 2;
+            this.numericMinimumCover.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericMinimumCover.Location = new System.Drawing.Point(158, 121);
+            this.numericMinimumCover.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericMinimumCover.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericMinimumCover.Name = "numericMinimumCover";
+            this.numericMinimumCover.Size = new System.Drawing.Size(120, 20);
+            this.numericMinimumCover.TabIndex = 13;
+            this.numericMinimumCover.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(6, 123);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(116, 13);
+            this.label22.TabIndex = 12;
+            this.label22.Text = "Minimum Cover Height:";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(444, 123);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(384, 13);
+            this.label23.TabIndex = 15;
+            this.label23.Text = "Must be able to shoot over while hiding.  Ideally the height when ducked lowest.";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(340, 87);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(243, 13);
+            this.label24.TabIndex = 16;
+            this.label24.Text = "Top of the head when crouched but sat up aiming";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(340, 26);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(228, 13);
+            this.label25.TabIndex = 17;
+            this.label25.Text = "Slightly larger than needed to encircle the body";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(340, 55);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(155, 13);
+            this.label26.TabIndex = 18;
+            this.label26.Text = "Top of the head when standing";
+            // 
+            // buttonTypicalCover
+            // 
+            this.buttonTypicalCover.Location = new System.Drawing.Point(343, 118);
+            this.buttonTypicalCover.Name = "buttonTypicalCover";
+            this.buttonTypicalCover.Size = new System.Drawing.Size(75, 23);
+            this.buttonTypicalCover.TabIndex = 19;
+            this.buttonTypicalCover.Text = "Typical";
+            this.buttonTypicalCover.UseVisualStyleBackColor = true;
+            this.buttonTypicalCover.Click += new System.EventHandler(this.buttonTypicalCover_Click);
+            // 
             // ModelCharacterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(449, 492);
+            this.ClientSize = new System.Drawing.Size(913, 514);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.buttonCancel);
@@ -685,6 +794,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericBotStand)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericMinimumCover)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -731,5 +841,13 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.CheckBox checkUseAsPlayer;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.NumericUpDown numericMinimumCover;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Button buttonTypicalCover;
     }
 }

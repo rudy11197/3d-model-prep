@@ -199,6 +199,12 @@ namespace Engine
             set { modelAsset.HeightCrouched = value; }
         }
 
+        public float HeightMinimumCover
+        {
+            get { return modelAsset.MinimumCoverHeight; }
+            set { modelAsset.MinimumCoverHeight = value; }
+        }
+
         public float Mass
         {
             get { return modelAsset.Mass; }
@@ -1126,6 +1132,11 @@ namespace Engine
                 output = GlobalSettings.typePlayerUse +
                     ParseData.div + ParseData.shortTrue;
             }
+            else
+            {
+                output = GlobalSettings.typePlayerUse +
+                    ParseData.div + ParseData.shortFalse;
+            }
             data.Add(output);
             // - Rig type
             output = GlobalSettings.typeRig +
@@ -1133,10 +1144,11 @@ namespace Engine
             data.Add(output);
             // - Body sizes
             output = GlobalSettings.typeBodySizes + 
-                ParseData.div + modelAsset.Mass +
-                ParseData.div + modelAsset.HeightStanding +
-                ParseData.div + modelAsset.HeightCrouched +
-                ParseData.div + modelAsset.CylinderRadius;
+                ParseData.div + ParseData.FloatToString(modelAsset.Mass) +
+                ParseData.div + ParseData.FloatToString(modelAsset.HeightStanding) +
+                ParseData.div + ParseData.FloatToString(modelAsset.HeightCrouched) +
+                ParseData.div + ParseData.FloatToString(modelAsset.CylinderRadius) +
+                ParseData.div + ParseData.FloatToString(modelAsset.MinimumCoverHeight);
             data.Add(output);
             // - Attach equipment positions
             for (int a = 0; a < modelAsset.AttachEquip.Count; a++)
@@ -1432,6 +1444,7 @@ namespace Engine
             aForm.CylinderRadius = CylinderRadius;
             aForm.HeightStanding = HeightStanding;
             aForm.HeightCrouched = HeightCrouched;
+            aForm.HeightMinimumCover = HeightMinimumCover;
             aForm.Mass = Mass;
             aForm.UseAsPlayer = UseAsPlayer;
             aForm.BotAngleStand = BotDegreesStand;
@@ -1452,6 +1465,7 @@ namespace Engine
                 CylinderRadius = aForm.CylinderRadius;
                 HeightStanding = aForm.HeightStanding;
                 HeightCrouched = aForm.HeightCrouched;
+                HeightMinimumCover = aForm.HeightMinimumCover;
                 Mass = aForm.Mass;
                 UseAsPlayer = aForm.UseAsPlayer;
                 BotDegreesStand = aForm.BotAngleStand;

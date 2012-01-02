@@ -37,6 +37,12 @@ namespace Engine
             set { numericCrouched.Value = (decimal)value; }
         }
 
+        public float HeightMinimumCover
+        {
+            get { return (float)numericMinimumCover.Value; }
+            set { numericMinimumCover.Value = (decimal)value; }
+        }
+
         public float Mass
         {
             get { return (float)numericMass.Value; }
@@ -107,6 +113,16 @@ namespace Engine
         {
             get { return (float)numericCameraShuffle.Value; }
             set { numericCameraShuffle.Value = (decimal)value; }
+        }
+        //
+        /////////////////////////////////////////////////////////////////////
+
+        /////////////////////////////////////////////////////////////////////
+        // == Buttons ==
+        //
+        private void buttonTypicalCover_Click(object sender, EventArgs e)
+        {
+            HeightMinimumCover = HeightCrouched * 0.75f;
         }
         //
         /////////////////////////////////////////////////////////////////////
