@@ -58,10 +58,12 @@ namespace Engine
 
         private float cylinderHeight = 0;
         private float cylinderRadius = 0;
-        public void SetCylinderSizes(float height, float radius)
+        private float coverHeight = 0;
+        public void SetCylinderAndCoverSizes(float height, float radius, float cover)
         {
             cylinderHeight = height;
             cylinderRadius = radius;
+            coverHeight = cover;
         }
         //
         /////////////////////////////////////////////////////////////////////
@@ -956,6 +958,9 @@ namespace Engine
             if (options == DrawOptions.CharacterCylinder && cylinderHeight > 0 && cylinderRadius > 0)
             {
                 debugShapes.DrawScalableCylinder(location, cylinderRadius, cylinderHeight, aView, aProjection);
+                Vector3 loop = location;
+                loop.Y += coverHeight;
+                debugShapes.DrawHorizontalLoop(loop, cylinderRadius, aView, aProjection);
             }
         }
 

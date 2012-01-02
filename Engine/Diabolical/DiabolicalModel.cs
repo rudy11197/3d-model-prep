@@ -139,6 +139,8 @@ namespace Engine
         public float HeightCrouched = 1.0f;
         // The radius of the collision cylinder that closely fits the character
         public float CylinderRadius = 0.5f;
+        // The height over which a character can shoot while crouched but can duck behind
+        public float MinimumCoverHeight = 0.75f;
         // The list of bounding spheres attached to bones used for more detailed collision with projectiles
         public List<AttachedSphere> AttachedBounds;
         // The list of equipment attachment points
@@ -309,9 +311,13 @@ namespace Engine
                     }
                     break;
                 case GlobalSettings.typeBodySizes:
-                    if (item.Length > 4)
+                    if (item.Length > 5)
                     {
-                        SetBodySizes(item[1], item[2], item[3], item[4]);
+                        SetBodySizes(item[1], item[2], item[3], item[4], item[5]);
+                    }
+                    else if (item.Length > 4)
+                    {
+                        SetBodySizes(item[1], item[2], item[3], item[4], "0.5");
                     }
                     break;
                 case GlobalSettings.typeAttachedSpheres:
@@ -481,12 +487,13 @@ namespace Engine
 
         // == Characters
 
-        private void SetBodySizes(string mass, string standing, string crouched, string radius)
+        private void SetBodySizes(string mass, string standing, string crouched, string radius, string cover)
         {
             Mass = ParseData.FloatFromString(mass);
             HeightStanding = ParseData.FloatFromString(standing);
             HeightCrouched = ParseData.FloatFromString(crouched);
             CylinderRadius = ParseData.FloatFromString(radius);
+            MinimumCoverHeight = ParseData.FloatFromString(cover);
         }
 
         private void AddAttachedSphere(string boneName, string radius, string offset)

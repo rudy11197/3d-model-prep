@@ -1791,7 +1791,7 @@ namespace Engine
         {
             ClearAllBoundTicks();
             boundingCylinderStanding.Checked = true;
-            modelViewerControl.SetCylinderSizes(diabolical.HeightStanding, diabolical.CylinderRadius);
+            modelViewerControl.SetCylinderAndCoverSizes(diabolical.HeightStanding, diabolical.CylinderRadius, diabolical.HeightMinimumCover);
             modelViewerControl.Options = ModelViewerControl.DrawOptions.CharacterCylinder;
         }
 
@@ -1799,7 +1799,7 @@ namespace Engine
         {
             ClearAllBoundTicks();
             boundingCylinderCrouched.Checked = true;
-            modelViewerControl.SetCylinderSizes(diabolical.HeightCrouched, diabolical.CylinderRadius);
+            modelViewerControl.SetCylinderAndCoverSizes(diabolical.HeightCrouched, diabolical.CylinderRadius, diabolical.HeightMinimumCover);
             modelViewerControl.Options = ModelViewerControl.DrawOptions.CharacterCylinder;
         }
 
@@ -1835,11 +1835,11 @@ namespace Engine
             modelViewerControl.AttachedBounds = diabolical.AttachedBounds;
             if (boundingCylinderStanding.Checked)
             {
-                modelViewerControl.SetCylinderSizes(diabolical.HeightStanding, diabolical.CylinderRadius);
+                modelViewerControl.SetCylinderAndCoverSizes(diabolical.HeightStanding, diabolical.CylinderRadius, diabolical.HeightMinimumCover);
             }
             else if (boundingCylinderCrouched.Checked)
             {
-                modelViewerControl.SetCylinderSizes(diabolical.HeightCrouched, diabolical.CylinderRadius);
+                modelViewerControl.SetCylinderAndCoverSizes(diabolical.HeightCrouched, diabolical.CylinderRadius, diabolical.HeightMinimumCover);
             }
         }
         //
