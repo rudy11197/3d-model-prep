@@ -1791,7 +1791,7 @@ namespace Engine
         {
             ClearAllBoundTicks();
             boundingCylinderStanding.Checked = true;
-            modelViewerControl.SetCylinderAndCoverSizes(diabolical.HeightStanding, diabolical.CylinderRadius, diabolical.HeightMinimumCover);
+            modelViewerControl.SetCylinderAndCharacterSizes(diabolical.HeightStanding, diabolical.CylinderRadius, diabolical.HeightMinimumCover, diabolical.HeightDownToEyes);
             modelViewerControl.Options = ModelViewerControl.DrawOptions.CharacterCylinder;
         }
 
@@ -1799,7 +1799,7 @@ namespace Engine
         {
             ClearAllBoundTicks();
             boundingCylinderCrouched.Checked = true;
-            modelViewerControl.SetCylinderAndCoverSizes(diabolical.HeightCrouched, diabolical.CylinderRadius, diabolical.HeightMinimumCover);
+            modelViewerControl.SetCylinderAndCharacterSizes(diabolical.HeightCrouched, diabolical.CylinderRadius, diabolical.HeightMinimumCover, diabolical.HeightDownToEyes);
             modelViewerControl.Options = ModelViewerControl.DrawOptions.CharacterCylinder;
         }
 
@@ -1835,11 +1835,11 @@ namespace Engine
             modelViewerControl.AttachedBounds = diabolical.AttachedBounds;
             if (boundingCylinderStanding.Checked)
             {
-                modelViewerControl.SetCylinderAndCoverSizes(diabolical.HeightStanding, diabolical.CylinderRadius, diabolical.HeightMinimumCover);
+                modelViewerControl.SetCylinderAndCharacterSizes(diabolical.HeightStanding, diabolical.CylinderRadius, diabolical.HeightMinimumCover, diabolical.HeightDownToEyes);
             }
             else if (boundingCylinderCrouched.Checked)
             {
-                modelViewerControl.SetCylinderAndCoverSizes(diabolical.HeightCrouched, diabolical.CylinderRadius, diabolical.HeightMinimumCover);
+                modelViewerControl.SetCylinderAndCharacterSizes(diabolical.HeightCrouched, diabolical.CylinderRadius, diabolical.HeightMinimumCover, diabolical.HeightDownToEyes);
             }
         }
         //

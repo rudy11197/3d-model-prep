@@ -137,6 +137,8 @@ namespace Engine
         public float HeightStanding = 1.8f;
         // The crouched height of the character (m)
         public float HeightCrouched = 1.0f;
+        // Distance from  the top of the character to the eyes (m)
+        public float HeightDownToEyes = 0.1f;
         // The radius of the collision cylinder that closely fits the character
         public float CylinderRadius = 0.5f;
         // The height over which a character can shoot while crouched but can duck behind
@@ -311,13 +313,13 @@ namespace Engine
                     }
                     break;
                 case GlobalSettings.typeBodySizes:
-                    if (item.Length > 5)
+                    if (item.Length > 6)
                     {
-                        SetBodySizes(item[1], item[2], item[3], item[4], item[5]);
+                        SetBodySizes(item[1], item[2], item[3], item[4], item[5], item[6]);
                     }
                     else if (item.Length > 4)
                     {
-                        SetBodySizes(item[1], item[2], item[3], item[4], "0.5");
+                        SetBodySizes(item[1], item[2], item[3], item[4], "0.5", "0.1");
                     }
                     break;
                 case GlobalSettings.typeAttachedSpheres:
@@ -487,13 +489,14 @@ namespace Engine
 
         // == Characters
 
-        private void SetBodySizes(string mass, string standing, string crouched, string radius, string cover)
+        private void SetBodySizes(string mass, string standing, string crouched, string radius, string cover, string eyes)
         {
             Mass = ParseData.FloatFromString(mass);
             HeightStanding = ParseData.FloatFromString(standing);
             HeightCrouched = ParseData.FloatFromString(crouched);
             CylinderRadius = ParseData.FloatFromString(radius);
             MinimumCoverHeight = ParseData.FloatFromString(cover);
+            HeightDownToEyes = ParseData.FloatFromString(eyes);
         }
 
         private void AddAttachedSphere(string boneName, string radius, string offset)

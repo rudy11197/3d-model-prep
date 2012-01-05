@@ -199,6 +199,12 @@ namespace Engine
             set { modelAsset.HeightCrouched = value; }
         }
 
+        public float HeightDownToEyes
+        {
+            get { return modelAsset.HeightDownToEyes; }
+            set { modelAsset.HeightDownToEyes = value; }
+        }
+
         public float HeightMinimumCover
         {
             get { return modelAsset.MinimumCoverHeight; }
@@ -1143,12 +1149,13 @@ namespace Engine
                 ParseData.div + modelAsset.RigTypeName;
             data.Add(output);
             // - Body sizes
-            output = GlobalSettings.typeBodySizes + 
+            output = GlobalSettings.typeBodySizes +
                 ParseData.div + ParseData.FloatToString(modelAsset.Mass) +
                 ParseData.div + ParseData.FloatToString(modelAsset.HeightStanding) +
                 ParseData.div + ParseData.FloatToString(modelAsset.HeightCrouched) +
                 ParseData.div + ParseData.FloatToString(modelAsset.CylinderRadius) +
-                ParseData.div + ParseData.FloatToString(modelAsset.MinimumCoverHeight);
+                ParseData.div + ParseData.FloatToString(modelAsset.MinimumCoverHeight) +
+                ParseData.div + ParseData.FloatToString(modelAsset.HeightDownToEyes);
             data.Add(output);
             // - Attach equipment positions
             for (int a = 0; a < modelAsset.AttachEquip.Count; a++)
@@ -1444,6 +1451,7 @@ namespace Engine
             aForm.CylinderRadius = CylinderRadius;
             aForm.HeightStanding = HeightStanding;
             aForm.HeightCrouched = HeightCrouched;
+            aForm.HeightDownToEyes = HeightDownToEyes;
             aForm.HeightMinimumCover = HeightMinimumCover;
             aForm.Mass = Mass;
             aForm.UseAsPlayer = UseAsPlayer;
@@ -1465,6 +1473,7 @@ namespace Engine
                 CylinderRadius = aForm.CylinderRadius;
                 HeightStanding = aForm.HeightStanding;
                 HeightCrouched = aForm.HeightCrouched;
+                HeightDownToEyes = aForm.HeightDownToEyes;
                 HeightMinimumCover = aForm.HeightMinimumCover;
                 Mass = aForm.Mass;
                 UseAsPlayer = aForm.UseAsPlayer;
