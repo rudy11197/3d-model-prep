@@ -37,6 +37,12 @@ namespace Engine
             set { numericCrouched.Value = (decimal)value; }
         }
 
+        public float HeightDownToEyes
+        {
+            get { return (float)numericEyesDown.Value; }
+            set { numericEyesDown.Value = (decimal)value; }
+        }
+
         public float HeightMinimumCover
         {
             get { return (float)numericMinimumCover.Value; }
