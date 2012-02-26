@@ -304,6 +304,12 @@ namespace Engine
             set { modelAsset.MuzzleOffset = value; }
         }
 
+        public int MuzzleFlashID
+        {
+            get { return modelAsset.MuzzleFlashID; }
+            set { modelAsset.MuzzleFlashID = value; }
+        }
+
         public float HalfWidth
         {
             get { return modelAsset.HalfWidth; }
@@ -1079,9 +1085,10 @@ namespace Engine
             output = GlobalSettings.typeAimAdjustment +
                 ParseData.div + ParseData.MatrixToString(modelAsset.BoneAlignment);
             data.Add(output);
-            // - Muzzle position relative to the start of the aim bone
+            // - Muzzle position relative to the start of the aim bone and the flash type
             output = GlobalSettings.typeWeaponMuzzle +
-                ParseData.div + ParseData.VectorToString(modelAsset.MuzzleOffset);
+                ParseData.div + ParseData.VectorToString(modelAsset.MuzzleOffset) +
+                ParseData.div + ParseData.IntToString(modelAsset.MuzzleFlashID);
             data.Add(output);
             // Half the width so the weapon can be positioned lying on the ground
             output = GlobalSettings.typeWeaponHalfWidth +
@@ -1496,6 +1503,7 @@ namespace Engine
             ModelWeaponForm aForm = new ModelWeaponForm();
 
             aForm.MuzzleOffset = MuzzleOffset;
+            aForm.MuzzleFlashID = MuzzleFlashID;
             aForm.HalfWidth = HalfWidth;
             aForm.AmmoType = AmmoType;
             aForm.MagazineCapacity = MagazineCapacity;
@@ -1516,6 +1524,7 @@ namespace Engine
             {
                 // Results
                 MuzzleOffset = aForm.MuzzleOffset;
+                MuzzleFlashID = aForm.MuzzleFlashID;
                 HalfWidth = aForm.HalfWidth;
                 AmmoType = aForm.AmmoType;
                 MagazineCapacity = aForm.MagazineCapacity;

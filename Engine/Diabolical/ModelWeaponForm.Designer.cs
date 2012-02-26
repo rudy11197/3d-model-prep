@@ -75,6 +75,10 @@
             this.label21 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.positionMuzzle = new Engine.PositionControl();
+            this.label23 = new System.Windows.Forms.Label();
+            this.numericMuzzleFlash = new System.Windows.Forms.NumericUpDown();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericHalfWidth)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericReloadTime)).BeginInit();
@@ -87,12 +91,13 @@
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericEditCrosshair)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericEditZoom)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericMuzzleFlash)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOK
             // 
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(413, 620);
+            this.buttonOK.Location = new System.Drawing.Point(413, 659);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 60;
@@ -102,7 +107,7 @@
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(494, 620);
+            this.buttonCancel.Location = new System.Drawing.Point(494, 659);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 61;
@@ -121,7 +126,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 66);
+            this.label2.Location = new System.Drawing.Point(12, 104);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(60, 13);
             this.label2.TabIndex = 53;
@@ -135,7 +140,7 @@
             0,
             0,
             131072});
-            this.numericHalfWidth.Location = new System.Drawing.Point(107, 64);
+            this.numericHalfWidth.Location = new System.Drawing.Point(132, 102);
             this.numericHalfWidth.Name = "numericHalfWidth";
             this.numericHalfWidth.Size = new System.Drawing.Size(120, 20);
             this.numericHalfWidth.TabIndex = 8;
@@ -161,7 +166,7 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.comboAmmoType);
-            this.groupBox1.Location = new System.Drawing.Point(15, 107);
+            this.groupBox1.Location = new System.Drawing.Point(15, 146);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(550, 264);
             this.groupBox1.TabIndex = 10;
@@ -355,7 +360,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(12, 405);
+            this.label14.Location = new System.Drawing.Point(12, 444);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(91, 13);
             this.label14.TabIndex = 57;
@@ -364,7 +369,7 @@
             // numericRangeClosest
             // 
             this.numericRangeClosest.DecimalPlaces = 2;
-            this.numericRangeClosest.Location = new System.Drawing.Point(117, 403);
+            this.numericRangeClosest.Location = new System.Drawing.Point(117, 442);
             this.numericRangeClosest.Maximum = new decimal(new int[] {
             5000,
             0,
@@ -377,7 +382,7 @@
             // numericRangeFarthest
             // 
             this.numericRangeFarthest.DecimalPlaces = 2;
-            this.numericRangeFarthest.Location = new System.Drawing.Point(274, 403);
+            this.numericRangeFarthest.Location = new System.Drawing.Point(274, 442);
             this.numericRangeFarthest.Maximum = new decimal(new int[] {
             5000,
             0,
@@ -390,7 +395,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(156, 387);
+            this.label15.Location = new System.Drawing.Point(156, 426);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(41, 13);
             this.label15.TabIndex = 60;
@@ -399,7 +404,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(316, 387);
+            this.label16.Location = new System.Drawing.Point(316, 426);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(45, 13);
             this.label16.TabIndex = 61;
@@ -408,7 +413,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(12, 440);
+            this.label17.Location = new System.Drawing.Point(12, 479);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(40, 13);
             this.label17.TabIndex = 62;
@@ -417,7 +422,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(408, 405);
+            this.label18.Location = new System.Drawing.Point(408, 444);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(39, 13);
             this.label18.TabIndex = 63;
@@ -426,7 +431,7 @@
             // numericRecoil
             // 
             this.numericRecoil.DecimalPlaces = 2;
-            this.numericRecoil.Location = new System.Drawing.Point(117, 438);
+            this.numericRecoil.Location = new System.Drawing.Point(117, 477);
             this.numericRecoil.Minimum = new decimal(new int[] {
             100,
             0,
@@ -439,7 +444,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(243, 440);
+            this.label19.Location = new System.Drawing.Point(243, 479);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(47, 13);
             this.label19.TabIndex = 65;
@@ -458,7 +463,7 @@
             this.groupBox2.Controls.Add(this.listZoom);
             this.groupBox2.Controls.Add(this.label21);
             this.groupBox2.Controls.Add(this.label20);
-            this.groupBox2.Location = new System.Drawing.Point(15, 473);
+            this.groupBox2.Location = new System.Drawing.Point(15, 512);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(550, 141);
             this.groupBox2.TabIndex = 50;
@@ -598,19 +603,57 @@
             0,
             0,
             0});
-            this.positionMuzzle.Location = new System.Drawing.Point(107, 24);
+            this.positionMuzzle.Location = new System.Drawing.Point(112, 24);
             this.positionMuzzle.Maximum = new Microsoft.Xna.Framework.Vector3(30000F, 30000F, 30000F);
             this.positionMuzzle.Minimum = new Microsoft.Xna.Framework.Vector3(-30000F, -30000F, -30000F);
             this.positionMuzzle.Name = "positionMuzzle";
             this.positionMuzzle.Size = new System.Drawing.Size(359, 26);
-            this.positionMuzzle.TabIndex = 13;
+            this.positionMuzzle.TabIndex = 7;
             this.positionMuzzle.Value = new Microsoft.Xna.Framework.Vector3(0F, 0F, 0F);
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(12, 66);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(98, 13);
+            this.label23.TabIndex = 66;
+            this.label23.Text = "Muzzle Flash Type:";
+            // 
+            // numericMuzzleFlash
+            // 
+            this.numericMuzzleFlash.Location = new System.Drawing.Point(132, 64);
+            this.numericMuzzleFlash.Name = "numericMuzzleFlash";
+            this.numericMuzzleFlash.Size = new System.Drawing.Size(120, 20);
+            this.numericMuzzleFlash.TabIndex = 6;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(274, 104);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(234, 13);
+            this.label24.TabIndex = 68;
+            this.label24.Text = "Used to lay the weapon correctly on the ground.";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(277, 66);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(260, 13);
+            this.label25.TabIndex = 69;
+            this.label25.Text = "The flash type.  Use zero to indicates no muzzle flash.";
             // 
             // ModelWeaponForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(581, 654);
+            this.ClientSize = new System.Drawing.Size(581, 694);
+            this.Controls.Add(this.label25);
+            this.Controls.Add(this.label24);
+            this.Controls.Add(this.numericMuzzleFlash);
+            this.Controls.Add(this.label23);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.numericRecoil);
@@ -644,6 +687,7 @@
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericEditCrosshair)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericEditZoom)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericMuzzleFlash)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -698,5 +742,9 @@
         private System.Windows.Forms.NumericUpDown numericEditCrosshair;
         private System.Windows.Forms.NumericUpDown numericEditZoom;
         private System.Windows.Forms.Button buttonChangeZoom;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.NumericUpDown numericMuzzleFlash;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label25;
     }
 }

@@ -170,6 +170,8 @@ namespace Engine
         public int Manufacturer = 0;
         // The position of the muzzle in relation to the origin of the model
         public Vector3 MuzzleOffset;
+        // The type of muzzle flash effect
+        public int MuzzleFlashID = 0;
         // Half the width of the weapon used to position the model lying on the ground
         public float HalfWidth = 0;
         // Ammo
@@ -402,9 +404,13 @@ namespace Engine
                     }
                     break;
                 case GlobalSettings.typeWeaponMuzzle:
-                    if (item.Length > 1)
+                    if (item.Length > 2)
                     {
-                        SetMuzzleOffset(item[1]);
+                        SetMuzzleOptions(item[1], item[2]);
+                    }
+                    else if (item.Length > 1)
+                    {
+                        SetMuzzleOptions(item[1], "1");
                     }
                     break;
                 case GlobalSettings.typeWeaponHalfWidth:
@@ -694,9 +700,10 @@ namespace Engine
             }
         }
 
-        private void SetMuzzleOffset(string sOffset)
+        private void SetMuzzleOptions(string sOffset, string flashID)
         {
             MuzzleOffset = ParseData.StringToVector3(sOffset);
+            MuzzleFlashID = ParseData.IntFromString(flashID);
         }
 
         private void SetHalfWidth(string sWidth)

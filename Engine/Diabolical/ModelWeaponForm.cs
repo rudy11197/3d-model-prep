@@ -34,6 +34,12 @@ namespace Engine
             set { positionMuzzle.Value = value; }
         }
 
+        public int MuzzleFlashID
+        {
+            get { return (int)numericMuzzleFlash.Value; }
+            set {numericMuzzleFlash.Value = (decimal)value; }
+        }
+
         public float HalfWidth
         {
             get { return (float)numericHalfWidth.Value; }
