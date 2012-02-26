@@ -293,18 +293,21 @@ namespace Engine
             comboAmmoType.Items.Clear();
             comboAmmoType.Items.Add("Bullet");
             comboAmmoType.Items.Add("Rocket");
+            comboAmmoType.Items.Add("GrenadeFragOne");
             comboAmmoType.Items.Add("Explosive");
         }
 
         private void PopulateReloadSound()
         {
             comboSoundReload.Items.Clear();
+            comboSoundReload.Items.Add("Silent");
             comboSoundReload.Items.Add("GunReload1");
         }
 
         private void PopulateEmptySound()
         {
             comboSoundEmpty.Items.Clear();
+            comboSoundEmpty.Items.Add("Silent");
             comboSoundEmpty.Items.Add("GunEmpty1");
         }
         //
