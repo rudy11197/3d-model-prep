@@ -68,6 +68,9 @@ namespace Engine
         // == Types of object that can be loaded from the model file
         // These are used to parse the data from the file because not all models have 
         // all the types of data.
+        // A short description of the item mainly for use by gear and weapons
+        public const string typeDisplayName = "DisplayName";
+        public const string typeDescription = "Description";
         // Can be used as a player character, True or False
         public const string typePlayerUse = "UseAsPlayer";
         // Armature Rig type used to prefix animation filenames (Skeleton) e.g. human, insect, robot etc.
