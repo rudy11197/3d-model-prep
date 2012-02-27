@@ -21,6 +21,17 @@ namespace Engine
         //////////////////////////////////////////////////////////////////////
         // == Results and Properties ==
         //
+        public string ModelDisplayName
+        {
+            get { return textDisplayName.Text; }
+            set { textDisplayName.Text = value; }
+        }
+
+        public string ModelDescription
+        {
+            get { return textDescription.Text; }
+            set { textDescription.Text = value; }
+        }
         /// <summary>
         /// Set the path to the current model for use with the browse image dialogues.
         /// </summary>

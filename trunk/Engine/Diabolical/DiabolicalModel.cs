@@ -29,6 +29,9 @@ namespace Engine
         public string ModelFilename;
 
         // == All models
+        // A cosmetic name to describe the model (optional)
+        public string DisplayName = "";
+        public string Description = "";
         // Type, e.g. Character, Structure, Weapon, HeadGear etc.
         public string ModelType = GlobalSettings.modelTypeStructure;
         // Model and components
@@ -290,6 +293,18 @@ namespace Engine
             // What have we got
             switch (item[0])
             {
+                case GlobalSettings.typeDisplayName:
+                    if (item.Length > 1)
+                    {
+                        DisplayName = item[1];
+                    }
+                    break;
+                case GlobalSettings.typeDescription:
+                    if (item.Length > 1)
+                    {
+                        Description = item[1];
+                    }
+                    break;
                 case GlobalSettings.typeColour:
                     if (item.Length > 5)
                     {

@@ -422,6 +422,18 @@ namespace Engine
             }
         }
 
+        public string ModelDisplayName
+        {
+            get { return modelAsset.DisplayName; }
+            set { modelAsset.DisplayName = value; }
+        }
+
+        public string ModelDescription
+        {
+            get { return modelAsset.Description; }
+            set { modelAsset.Description = value; }
+        }
+
         public string RelativeFileName
         {
             get { return modelAsset.ModelFilename; }
@@ -1016,6 +1028,19 @@ namespace Engine
                 ParseData.div + ParseData.ColorToString(modelAsset.DiffuseColour) +
                 ParseData.div + ParseData.ColorToString(modelAsset.EmissiveColour);
             data.Add(output);
+            // - Name and Description
+            if (!string.IsNullOrEmpty(modelAsset.DisplayName))
+            {
+                output = GlobalSettings.typeDisplayName +
+                    ParseData.div + modelAsset.DisplayName;
+                data.Add(output);
+            }
+            if (!string.IsNullOrEmpty(modelAsset.Description))
+            {
+                output = GlobalSettings.typeDescription +
+                    ParseData.div + modelAsset.Description;
+                data.Add(output);
+            }
 
             return data;
         }
@@ -1364,6 +1389,8 @@ namespace Engine
         {
             ModelCommonForm aForm = new ModelCommonForm();
 
+            aForm.ModelDisplayName = ModelDisplayName;
+            aForm.ModelDescription = ModelDescription;
             aForm.ModelFullPath = LastLoaded3DModelFile;
             aForm.ModelRelativePath = RelativeFileName;
             aForm.ModelRotation = ModelRotation;
@@ -1373,12 +1400,13 @@ namespace Engine
             aForm.DiffuseColour = DiffuseColour;
             aForm.EmissiveColour = EmissiveColour;
 
-
             DialogResult diagResult = aForm.ShowDialog();
             if (diagResult == DialogResult.OK || diagResult == DialogResult.Yes)
             {
                 // Results
                 ChangedSomething();
+                ModelDisplayName = aForm.ModelDisplayName;
+                ModelDescription = aForm.ModelDescription;
                 ModelRotation = aForm.ModelRotation;
                 form.SetRotation(ModelRotation);
                 EffectType = aForm.EffectType;
