@@ -318,5 +318,117 @@ namespace Engine
         }
         //
         /////////////////////////////////////////////////////////////////////
+
+
+        /////////////////////////////////////////////////////////////////////
+        // == Typical ==
+        //
+        private void buttonRifle_Click(object sender, EventArgs e)
+        {
+            MuzzleOffset = new Vector3(0.65f, 0.05f, 0);
+            MuzzleFlashID = 1;
+            HalfWidth = 0.03f;
+            AmmoType = "Bullet";
+            MagazineCapacity = 30;
+            MaximumRoundsCarried = 200;
+            AutoFire = true;
+            RateOfFire = 4.5f;
+            ReloadSeconds = 1.6f;
+            ReloadSound = "GunReload1";
+            EmptySound = "GunEmpty1";
+            RangeClosest = 3f;
+            RangeFarthest = 35f;
+            RecoilDegrees = 9f;
+            List<float> range = new List<float>();
+            range.Add(1f);
+            range.Add(2.5f);
+            range.Add(4f);
+            List<int> cross = new List<int>();
+            cross.Add(1);
+            cross.Add(2);
+            cross.Add(2);
+            ZoomMultipliers = range;
+            Crosshairs = cross;
+        }
+
+        private void buttonPistol_Click(object sender, EventArgs e)
+        {
+            MuzzleOffset = new Vector3(0.15f, 0.05f, 0);
+            MuzzleFlashID = 1;
+            HalfWidth = 0.015f;
+            AmmoType = "Bullet";
+            MagazineCapacity = 18;
+            MaximumRoundsCarried = 126;
+            AutoFire = false;
+            RateOfFire = 4.5f;
+            ReloadSeconds = 1.6f;
+            ReloadSound = "GunReload1";
+            EmptySound = "GunEmpty1";
+            RangeClosest = 2f;
+            RangeFarthest = 12f;
+            RecoilDegrees = 4f;
+            List<float> range = new List<float>();
+            range.Add(1f);
+            List<int> cross = new List<int>();
+            cross.Add(1);
+            ZoomMultipliers = range;
+            Crosshairs = cross;
+        }
+
+        private void buttonGrenade_Click(object sender, EventArgs e)
+        {
+            MuzzleOffset = new Vector3(0.15f, 0, 0);
+            MuzzleFlashID = 0;
+            HalfWidth = 0.025f;
+            AmmoType = "GrenadeFragOne";
+            MagazineCapacity = 4;
+            MaximumRoundsCarried = 0;
+            AutoFire = false;
+            RateOfFire = 1.1f;
+            ReloadSeconds = 0.4f;
+            ReloadSound = "Silent";
+            EmptySound = "Silent";
+            RangeClosest = 3f;
+            RangeFarthest = 8f;
+            RecoilDegrees = 0f;
+            List<float> range = new List<float>();
+            range.Add(1f);
+            List<int> cross = new List<int>();
+            cross.Add(5);
+            ZoomMultipliers = range;
+            Crosshairs = cross;
+        }
+
+        private void buttonRocket_Click(object sender, EventArgs e)
+        {
+            MuzzleOffset = new Vector3(0.40f, 0.12f, 0);
+            MuzzleFlashID = 1;
+            HalfWidth = 0.07f;
+            AmmoType = "Rocket";
+            MagazineCapacity = 6;
+            MaximumRoundsCarried = 18;
+            AutoFire = false;
+            RateOfFire = 2f;
+            ReloadSeconds = 1.6f;
+            ReloadSound = "GunReload1";
+            EmptySound = "GunEmpty1";
+            RangeClosest = 6f;
+            RangeFarthest = 35f;
+            RecoilDegrees = 3f;
+            List<float> range = new List<float>();
+            range.Add(1f);
+            range.Add(2.5f);
+            range.Add(4f);
+            List<int> cross = new List<int>();
+            cross.Add(4);
+            cross.Add(3);
+            cross.Add(3);
+            ZoomMultipliers = range;
+            Crosshairs = cross;
+        }
+        //
+        /////////////////////////////////////////////////////////////////////
+
+    
     }
 }

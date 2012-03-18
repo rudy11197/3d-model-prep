@@ -216,23 +216,24 @@ namespace Engine
         }
 
         /// <summary>
-        /// Rotation suitable to change models produced using Z as the up axis to XNA which uses the Y as the up axis.
-        /// For some reason rigid model exported from Blender are a different way up to animated models.
-        /// Animated Blender to XNA.
+        /// Rotation suitable to change animated models produced using Z as the up axis in Blender 
+        /// to XNA which uses the Y as the up axis.
+        /// To work with Diabolical The Shooter the characters also have to face backwards!
         /// </summary>
         private void buttonBlenderAnimated_Click(object sender, EventArgs e)
         {
-            // 90 0 180
             positionRotation.Value = new Vector3(90, 0, 180);
         }
 
-        /// Rotation suitable to change models produced using Z as the up axis to XNA which uses the Y as the up axis.
-        /// For some reason rigid model exported from Blender are a different way up to animated models.
-        /// Rigid Blender to XNA.
+        /// <summary>
+        /// Rotation suitable to change models produced using Z as the up axis in Blender 
+        /// to XNA which uses the Y as the up axis.
+        /// This is typical for most models but is also specific to Diabolical The Shooter 
+        /// to align all weapons the same way.
+        /// </summary>
         private void buttonBlenderRigid_Click(object sender, EventArgs e)
         {
-            // -90 0 180
-            positionRotation.Value = new Vector3(-90, 0, 180);
+            positionRotation.Value = new Vector3(-90, 0, 0);
         }
 
         private void buttonZero_Click(object sender, EventArgs e)

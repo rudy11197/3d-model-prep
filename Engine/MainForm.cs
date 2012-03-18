@@ -716,6 +716,7 @@ namespace Engine
             boundingCylinderStanding.Visible = false;
             boundingCylinderCrouched.Visible = false;
             boundsAttachedToBonesItem.Visible = false;
+            weaponSizesMenuItem.Visible = false;
 
             if (diabolical != null && modelViewerControl.Model != null)
             {
@@ -738,7 +739,10 @@ namespace Engine
                 {
                     editCharacterBoundsMenu.Enabled = true;
                 }
-
+                else if (diabolical.IsWeapon)
+                {
+                    weaponSizesMenuItem.Visible = true;
+                }
 
                 if (diabolical.HasStructureBounds())
                 {
@@ -1791,7 +1795,8 @@ namespace Engine
         {
             ClearAllBoundTicks();
             boundingCylinderStanding.Checked = true;
-            modelViewerControl.SetCylinderAndCharacterSizes(diabolical.HeightStanding, diabolical.CylinderRadius, diabolical.HeightMinimumCover, diabolical.HeightDownToEyes);
+            //modelViewerControl.SetCylinderAndCharacterSizes(diabolical.HeightStanding, diabolical.CylinderRadius, diabolical.HeightMinimumCover, diabolical.HeightDownToEyes);
+            UpdateModelChanges();
             modelViewerControl.Options = ModelViewerControl.DrawOptions.CharacterCylinder;
         }
 
@@ -1799,8 +1804,18 @@ namespace Engine
         {
             ClearAllBoundTicks();
             boundingCylinderCrouched.Checked = true;
-            modelViewerControl.SetCylinderAndCharacterSizes(diabolical.HeightCrouched, diabolical.CylinderRadius, diabolical.HeightMinimumCover, diabolical.HeightDownToEyes);
+            //modelViewerControl.SetCylinderAndCharacterSizes(diabolical.HeightCrouched, diabolical.CylinderRadius, diabolical.HeightMinimumCover, diabolical.HeightDownToEyes);
+            UpdateModelChanges();
             modelViewerControl.Options = ModelViewerControl.DrawOptions.CharacterCylinder;
+        }
+
+
+        private void weaponSizesMenuItem_Click(object sender, EventArgs e)
+        {
+            ClearAllBoundTicks();
+            weaponSizesMenuItem.Checked = true;
+            UpdateModelChanges();
+            modelViewerControl.Options = ModelViewerControl.DrawOptions.WeaponSizes;
         }
 
         private void ClearAllBoundTicks()
@@ -1815,6 +1830,8 @@ namespace Engine
             boundingCylinderStanding.Checked = false;
             boundingCylinderCrouched.Checked = false;
             modelViewerControl.Options = ModelViewerControl.DrawOptions.None;
+            // Weapons
+            weaponSizesMenuItem.Checked = false;
         }
 
         public void SetSelectedBound(int boundIndex)
@@ -1840,6 +1857,10 @@ namespace Engine
             else if (boundingCylinderCrouched.Checked)
             {
                 modelViewerControl.SetCylinderAndCharacterSizes(diabolical.HeightCrouched, diabolical.CylinderRadius, diabolical.HeightMinimumCover, diabolical.HeightDownToEyes);
+            }
+            else if (weaponSizesMenuItem.Checked)
+            {
+                modelViewerControl.SetWeaponSizes(diabolical.MuzzleOffset, diabolical.HalfWidth);
             }
         }
         //

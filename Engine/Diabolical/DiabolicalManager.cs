@@ -1567,6 +1567,7 @@ namespace Engine
                 RecoilDegrees = aForm.RecoilDegrees;
                 ZoomMultipliers = aForm.ZoomMultipliers;
                 Crosshairs = aForm.Crosshairs;
+                UpdateModelChanges();
             }
         }
         //
