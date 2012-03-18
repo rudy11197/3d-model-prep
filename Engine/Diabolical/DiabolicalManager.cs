@@ -298,6 +298,22 @@ namespace Engine
         //////////////////////////////////////////////////////////////////////
         // == Weapon Properties ==
         //
+        public int Manufacturer
+        {
+            get { return modelAsset.Manufacturer; }
+            set 
+            {
+                if (value == 0)
+                {
+                    modelAsset.Manufacturer = 1;
+                }
+                else
+                {
+                    modelAsset.Manufacturer = value;
+                }
+            }
+        }
+
         public Vector3 MuzzleOffset
         {
             get { return modelAsset.MuzzleOffset; }
@@ -314,6 +330,18 @@ namespace Engine
         {
             get { return modelAsset.HalfWidth; }
             set { modelAsset.HalfWidth = value; }
+        }
+
+        public Matrix BoneAlignment
+        {
+            get { return modelAsset.BoneAlignment; }
+            set { modelAsset.BoneAlignment = value; }
+        }
+
+        public string WeaponAlignment
+        {
+            get { return ParseData.MatrixToString(modelAsset.BoneAlignment); }
+            set { modelAsset.BoneAlignment = ParseData.StringToMatrix(value); }
         }
 
         public string AmmoType
@@ -1530,9 +1558,11 @@ namespace Engine
         {
             ModelWeaponForm aForm = new ModelWeaponForm();
 
+            aForm.Manufacturer = Manufacturer;
             aForm.MuzzleOffset = MuzzleOffset;
             aForm.MuzzleFlashID = MuzzleFlashID;
             aForm.HalfWidth = HalfWidth;
+            aForm.Alignment = WeaponAlignment;
             aForm.AmmoType = AmmoType;
             aForm.MagazineCapacity = MagazineCapacity;
             aForm.MaximumRoundsCarried = MaximumRoundsCarried;
@@ -1551,9 +1581,11 @@ namespace Engine
             if (diagResult == DialogResult.OK)
             {
                 // Results
+                Manufacturer = aForm.Manufacturer;
                 MuzzleOffset = aForm.MuzzleOffset;
                 MuzzleFlashID = aForm.MuzzleFlashID;
                 HalfWidth = aForm.HalfWidth;
+                WeaponAlignment = aForm.Alignment;
                 AmmoType = aForm.AmmoType;
                 MagazineCapacity = aForm.MagazineCapacity;
                 MaximumRoundsCarried = aForm.MaximumRoundsCarried;

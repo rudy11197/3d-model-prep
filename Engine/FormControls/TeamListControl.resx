@@ -117,11 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="label27.Text" xml:space="preserve">
-    <value>The alignment is a matrix used to accurately position the weapon in the hand of the character facing in the correct direction.
-
-The 'Attachment Helper' form in the editor for Diabolical: The Shooter can be used to calculate the value which then needs to be copied and pasted in to the alignment field here.
-
-The field is 16 numbers each separated by a space.</value>
-  </data>
 </root>
