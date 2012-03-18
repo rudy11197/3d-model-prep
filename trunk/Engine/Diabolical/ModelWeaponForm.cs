@@ -28,6 +28,12 @@ namespace Engine
         /////////////////////////////////////////////////////////////////////
         // == Properties ==
         //
+        public int Manufacturer
+        {
+            get { return teamManufacturers.TeamNumber; }
+            set { teamManufacturers.TeamNumber = value; }
+        }
+
         public Vector3 MuzzleOffset
         {
             get { return positionMuzzle.Value; }
@@ -44,6 +50,12 @@ namespace Engine
         {
             get { return (float)numericHalfWidth.Value; }
             set { numericHalfWidth.Value = (decimal)value; }
+        }
+
+        public string Alignment
+        {
+            get { return textAlignment.Text; }
+            set { textAlignment.Text = value; }
         }
 
         public string AmmoType
@@ -328,6 +340,7 @@ namespace Engine
             MuzzleOffset = new Vector3(0.65f, 0.05f, 0);
             MuzzleFlashID = 1;
             HalfWidth = 0.03f;
+            TypicalAlignment();
             AmmoType = "Bullet";
             MagazineCapacity = 30;
             MaximumRoundsCarried = 200;
@@ -356,6 +369,7 @@ namespace Engine
             MuzzleOffset = new Vector3(0.15f, 0.05f, 0);
             MuzzleFlashID = 1;
             HalfWidth = 0.015f;
+            TypicalAlignment();
             AmmoType = "Bullet";
             MagazineCapacity = 18;
             MaximumRoundsCarried = 126;
@@ -380,6 +394,7 @@ namespace Engine
             MuzzleOffset = new Vector3(0.15f, 0, 0);
             MuzzleFlashID = 0;
             HalfWidth = 0.025f;
+            TypicalAlignment();
             AmmoType = "GrenadeFragOne";
             MagazineCapacity = 4;
             MaximumRoundsCarried = 0;
@@ -404,6 +419,7 @@ namespace Engine
             MuzzleOffset = new Vector3(0.40f, 0.12f, 0);
             MuzzleFlashID = 1;
             HalfWidth = 0.07f;
+            TypicalAlignment();
             AmmoType = "Rocket";
             MagazineCapacity = 6;
             MaximumRoundsCarried = 18;
@@ -425,6 +441,16 @@ namespace Engine
             cross.Add(3);
             ZoomMultipliers = range;
             Crosshairs = cross;
+        }
+
+        private void buttonAlignment_Click(object sender, EventArgs e)
+        {
+            TypicalAlignment();
+        }
+
+        private void TypicalAlignment()
+        {
+            Alignment = "-4.371139E-08 0 1 0 8.742278E-08 -1 3.821371E-15 0 1 8.742278E-08 4.371139E-08 0 0 0 0 1";
         }
         //
         /////////////////////////////////////////////////////////////////////

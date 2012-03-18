@@ -145,6 +145,12 @@
       <DependentUpon>PositionControl.cs</DependentUpon>
     </Compile>
     <Compile Include="FormControls\ServiceContainer.cs" />
+    <Compile Include="FormControls\TeamListControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FormControls\TeamListControl.designer.cs">
+      <DependentUpon>TeamListControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="GlobalSettings.cs" />
     <Compile Include="HelpForm.cs">
       <SubType>Form</SubType>
@@ -221,6 +227,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormControls\PositionControl.resx">
       <DependentUpon>PositionControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormControls\TeamListControl.resx">
+      <DependentUpon>TeamListControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HelpForm.resx">
       <DependentUpon>HelpForm.cs</DependentUpon>

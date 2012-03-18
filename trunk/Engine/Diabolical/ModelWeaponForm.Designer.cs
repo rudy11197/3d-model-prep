@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ModelWeaponForm));
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -74,7 +75,6 @@
             this.listZoom = new System.Windows.Forms.ListBox();
             this.label21 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
-            this.positionMuzzle = new Engine.PositionControl();
             this.label23 = new System.Windows.Forms.Label();
             this.numericMuzzleFlash = new System.Windows.Forms.NumericUpDown();
             this.label24 = new System.Windows.Forms.Label();
@@ -83,6 +83,13 @@
             this.buttonPistol = new System.Windows.Forms.Button();
             this.buttonGrenade = new System.Windows.Forms.Button();
             this.buttonRocket = new System.Windows.Forms.Button();
+            this.label26 = new System.Windows.Forms.Label();
+            this.textAlignment = new System.Windows.Forms.TextBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.buttonAlignment = new System.Windows.Forms.Button();
+            this.label28 = new System.Windows.Forms.Label();
+            this.teamManufacturers = new Engine.TeamListContol();
+            this.positionMuzzle = new Engine.PositionControl();
             ((System.ComponentModel.ISupportInitialize)(this.numericHalfWidth)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericReloadTime)).BeginInit();
@@ -101,7 +108,7 @@
             // buttonOK
             // 
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(413, 659);
+            this.buttonOK.Location = new System.Drawing.Point(414, 682);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 60;
@@ -111,7 +118,7 @@
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(494, 659);
+            this.buttonCancel.Location = new System.Drawing.Point(495, 682);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 61;
@@ -170,7 +177,7 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.comboAmmoType);
-            this.groupBox1.Location = new System.Drawing.Point(15, 146);
+            this.groupBox1.Location = new System.Drawing.Point(16, 169);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(550, 264);
             this.groupBox1.TabIndex = 10;
@@ -364,7 +371,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(12, 444);
+            this.label14.Location = new System.Drawing.Point(13, 467);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(91, 13);
             this.label14.TabIndex = 57;
@@ -373,7 +380,7 @@
             // numericRangeClosest
             // 
             this.numericRangeClosest.DecimalPlaces = 2;
-            this.numericRangeClosest.Location = new System.Drawing.Point(117, 442);
+            this.numericRangeClosest.Location = new System.Drawing.Point(118, 465);
             this.numericRangeClosest.Maximum = new decimal(new int[] {
             5000,
             0,
@@ -386,7 +393,7 @@
             // numericRangeFarthest
             // 
             this.numericRangeFarthest.DecimalPlaces = 2;
-            this.numericRangeFarthest.Location = new System.Drawing.Point(274, 442);
+            this.numericRangeFarthest.Location = new System.Drawing.Point(275, 465);
             this.numericRangeFarthest.Maximum = new decimal(new int[] {
             5000,
             0,
@@ -399,7 +406,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(156, 426);
+            this.label15.Location = new System.Drawing.Point(157, 449);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(41, 13);
             this.label15.TabIndex = 60;
@@ -408,7 +415,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(316, 426);
+            this.label16.Location = new System.Drawing.Point(317, 449);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(45, 13);
             this.label16.TabIndex = 61;
@@ -417,7 +424,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(12, 479);
+            this.label17.Location = new System.Drawing.Point(13, 502);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(40, 13);
             this.label17.TabIndex = 62;
@@ -426,7 +433,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(408, 444);
+            this.label18.Location = new System.Drawing.Point(409, 467);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(39, 13);
             this.label18.TabIndex = 63;
@@ -435,7 +442,7 @@
             // numericRecoil
             // 
             this.numericRecoil.DecimalPlaces = 2;
-            this.numericRecoil.Location = new System.Drawing.Point(117, 477);
+            this.numericRecoil.Location = new System.Drawing.Point(118, 500);
             this.numericRecoil.Minimum = new decimal(new int[] {
             100,
             0,
@@ -448,7 +455,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(243, 479);
+            this.label19.Location = new System.Drawing.Point(244, 502);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(47, 13);
             this.label19.TabIndex = 65;
@@ -467,7 +474,7 @@
             this.groupBox2.Controls.Add(this.listZoom);
             this.groupBox2.Controls.Add(this.label21);
             this.groupBox2.Controls.Add(this.label20);
-            this.groupBox2.Location = new System.Drawing.Point(15, 512);
+            this.groupBox2.Location = new System.Drawing.Point(16, 535);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(550, 141);
             this.groupBox2.TabIndex = 50;
@@ -599,22 +606,6 @@
             this.label20.TabIndex = 0;
             this.label20.Text = "Zoom Multipliers:";
             // 
-            // positionMuzzle
-            // 
-            this.positionMuzzle.DecimalPlaces = 2;
-            this.positionMuzzle.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.positionMuzzle.Location = new System.Drawing.Point(112, 24);
-            this.positionMuzzle.Maximum = new Microsoft.Xna.Framework.Vector3(30000F, 30000F, 30000F);
-            this.positionMuzzle.Minimum = new Microsoft.Xna.Framework.Vector3(-30000F, -30000F, -30000F);
-            this.positionMuzzle.Name = "positionMuzzle";
-            this.positionMuzzle.Size = new System.Drawing.Size(359, 26);
-            this.positionMuzzle.TabIndex = 10;
-            this.positionMuzzle.Value = new Microsoft.Xna.Framework.Vector3(0F, 0F, 0F);
-            // 
             // label23
             // 
             this.label23.AutoSize = true;
@@ -651,7 +642,7 @@
             // 
             // buttonRifle
             // 
-            this.buttonRifle.Location = new System.Drawing.Point(15, 659);
+            this.buttonRifle.Location = new System.Drawing.Point(16, 682);
             this.buttonRifle.Name = "buttonRifle";
             this.buttonRifle.Size = new System.Drawing.Size(75, 23);
             this.buttonRifle.TabIndex = 70;
@@ -661,7 +652,7 @@
             // 
             // buttonPistol
             // 
-            this.buttonPistol.Location = new System.Drawing.Point(96, 659);
+            this.buttonPistol.Location = new System.Drawing.Point(97, 682);
             this.buttonPistol.Name = "buttonPistol";
             this.buttonPistol.Size = new System.Drawing.Size(75, 23);
             this.buttonPistol.TabIndex = 71;
@@ -671,7 +662,7 @@
             // 
             // buttonGrenade
             // 
-            this.buttonGrenade.Location = new System.Drawing.Point(177, 659);
+            this.buttonGrenade.Location = new System.Drawing.Point(178, 682);
             this.buttonGrenade.Name = "buttonGrenade";
             this.buttonGrenade.Size = new System.Drawing.Size(75, 23);
             this.buttonGrenade.TabIndex = 72;
@@ -681,7 +672,7 @@
             // 
             // buttonRocket
             // 
-            this.buttonRocket.Location = new System.Drawing.Point(258, 659);
+            this.buttonRocket.Location = new System.Drawing.Point(259, 682);
             this.buttonRocket.Name = "buttonRocket";
             this.buttonRocket.Size = new System.Drawing.Size(75, 23);
             this.buttonRocket.TabIndex = 73;
@@ -689,11 +680,87 @@
             this.buttonRocket.UseVisualStyleBackColor = true;
             this.buttonRocket.Click += new System.EventHandler(this.buttonRocket_Click);
             // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(13, 137);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(56, 13);
+            this.label26.TabIndex = 74;
+            this.label26.Text = "Alignment:";
+            // 
+            // textAlignment
+            // 
+            this.textAlignment.Location = new System.Drawing.Point(90, 134);
+            this.textAlignment.Name = "textAlignment";
+            this.textAlignment.Size = new System.Drawing.Size(901, 20);
+            this.textAlignment.TabIndex = 75;
+            // 
+            // label27
+            // 
+            this.label27.Location = new System.Drawing.Point(632, 204);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(359, 124);
+            this.label27.TabIndex = 76;
+            this.label27.Text = resources.GetString("label27.Text");
+            // 
+            // buttonAlignment
+            // 
+            this.buttonAlignment.Location = new System.Drawing.Point(828, 169);
+            this.buttonAlignment.Name = "buttonAlignment";
+            this.buttonAlignment.Size = new System.Drawing.Size(163, 23);
+            this.buttonAlignment.TabIndex = 77;
+            this.buttonAlignment.Text = "Typical Alignment";
+            this.buttonAlignment.UseVisualStyleBackColor = true;
+            this.buttonAlignment.Click += new System.EventHandler(this.buttonAlignment_Click);
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(758, 29);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(73, 13);
+            this.label28.TabIndex = 79;
+            this.label28.Text = "Manufacturer:";
+            // 
+            // teamManufacturers
+            // 
+            this.teamManufacturers.Location = new System.Drawing.Point(863, 24);
+            this.teamManufacturers.MustSetRace = true;
+            this.teamManufacturers.Name = "teamManufacturers";
+            this.teamManufacturers.Size = new System.Drawing.Size(128, 29);
+            this.teamManufacturers.TabIndex = 78;
+            this.teamManufacturers.TeamNumber = 1;
+            this.teamManufacturers.WithManufacturers = false;
+            this.teamManufacturers.WithWaypoints = false;
+            // 
+            // positionMuzzle
+            // 
+            this.positionMuzzle.DecimalPlaces = 2;
+            this.positionMuzzle.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.positionMuzzle.Location = new System.Drawing.Point(112, 24);
+            this.positionMuzzle.Maximum = new Microsoft.Xna.Framework.Vector3(30000F, 30000F, 30000F);
+            this.positionMuzzle.Minimum = new Microsoft.Xna.Framework.Vector3(-30000F, -30000F, -30000F);
+            this.positionMuzzle.Name = "positionMuzzle";
+            this.positionMuzzle.Size = new System.Drawing.Size(359, 26);
+            this.positionMuzzle.TabIndex = 19;
+            this.positionMuzzle.Value = new Microsoft.Xna.Framework.Vector3(0F, 0F, 0F);
+            // 
             // ModelWeaponForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(581, 694);
+            this.ClientSize = new System.Drawing.Size(1014, 717);
+            this.Controls.Add(this.label28);
+            this.Controls.Add(this.teamManufacturers);
+            this.Controls.Add(this.buttonAlignment);
+            this.Controls.Add(this.label27);
+            this.Controls.Add(this.textAlignment);
+            this.Controls.Add(this.label26);
             this.Controls.Add(this.buttonRocket);
             this.Controls.Add(this.buttonGrenade);
             this.Controls.Add(this.buttonPistol);
@@ -798,5 +865,11 @@
         private System.Windows.Forms.Button buttonPistol;
         private System.Windows.Forms.Button buttonGrenade;
         private System.Windows.Forms.Button buttonRocket;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.TextBox textAlignment;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Button buttonAlignment;
+        private TeamListContol teamManufacturers;
+        private System.Windows.Forms.Label label28;
     }
 }
