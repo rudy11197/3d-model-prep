@@ -349,7 +349,7 @@ namespace Engine
         /// <param name="fLength">The line length</param>
         /// <param name="mtxView">View matrix</param>
         /// <param name="mtxProjection">Projection matrix</param>
-        public void DrawScalableLine(Vector3 vLocation, float fLength, Matrix mtxView, Matrix mtxProjection)
+        public void DrawVerticalLine(Vector3 vLocation, float fLength, Matrix mtxView, Matrix mtxProjection)
         {
             Matrix mtxWorld = Matrix.Identity * Matrix.CreateScale(fLength) * Matrix.CreateTranslation(vLocation);
             basicEffect.World = mtxWorld;

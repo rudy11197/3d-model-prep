@@ -63,6 +63,7 @@ namespace Engine
             this.boundingCylinderStanding = new System.Windows.Forms.ToolStripMenuItem();
             this.boundingCylinderCrouched = new System.Windows.Forms.ToolStripMenuItem();
             this.boundsAttachedToBonesItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.weaponSizesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.light1EnabledToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.light2EnabledToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -253,6 +254,7 @@ namespace Engine
             this.boundingCylinderStanding,
             this.boundingCylinderCrouched,
             this.boundsAttachedToBonesItem,
+            this.weaponSizesMenuItem,
             this.toolStripSeparator10,
             this.light1EnabledToolStripMenuItem,
             this.light2EnabledToolStripMenuItem,
@@ -352,7 +354,7 @@ namespace Engine
             // 
             this.noBoundsItem.Name = "noBoundsItem";
             this.noBoundsItem.Size = new System.Drawing.Size(267, 22);
-            this.noBoundsItem.Text = "&No Bounds";
+            this.noBoundsItem.Text = "&No Bounds or Sizes";
             this.noBoundsItem.Click += new System.EventHandler(this.noBoundsItem_Click);
             // 
             // allLargeBoundsItem
@@ -396,6 +398,13 @@ namespace Engine
             this.boundsAttachedToBonesItem.Size = new System.Drawing.Size(267, 22);
             this.boundsAttachedToBonesItem.Text = "Bounds Attached To &Bones";
             this.boundsAttachedToBonesItem.Click += new System.EventHandler(this.boundsAttachedToBonesItem_Click);
+            // 
+            // weaponSizesMenuItem
+            // 
+            this.weaponSizesMenuItem.Name = "weaponSizesMenuItem";
+            this.weaponSizesMenuItem.Size = new System.Drawing.Size(267, 22);
+            this.weaponSizesMenuItem.Text = "Weapon Sizes";
+            this.weaponSizesMenuItem.Click += new System.EventHandler(this.weaponSizesMenuItem_Click);
             // 
             // toolStripSeparator10
             // 
@@ -832,6 +841,7 @@ namespace Engine
         private System.Windows.Forms.ToolStripMenuItem saveDiabolicalmodelMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
         private System.Windows.Forms.ToolStripMenuItem featuresToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem weaponSizesMenuItem;
 
     }
 }

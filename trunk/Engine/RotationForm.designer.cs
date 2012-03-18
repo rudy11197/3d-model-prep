@@ -45,7 +45,7 @@
             // buttonOK
             // 
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(371, 250);
+            this.buttonOK.Location = new System.Drawing.Point(370, 300);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 50;
@@ -55,7 +55,7 @@
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(452, 250);
+            this.buttonCancel.Location = new System.Drawing.Point(451, 300);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 51;
@@ -73,7 +73,7 @@
             this.groupRotate.Controls.Add(this.positionRotation);
             this.groupRotate.Location = new System.Drawing.Point(12, 12);
             this.groupRotate.Name = "groupRotate";
-            this.groupRotate.Size = new System.Drawing.Size(514, 232);
+            this.groupRotate.Size = new System.Drawing.Size(514, 282);
             this.groupRotate.TabIndex = 0;
             this.groupRotate.TabStop = false;
             this.groupRotate.Text = "Rotate the model while loading";
@@ -102,7 +102,7 @@
             this.buttonBlenderRigid.Name = "buttonBlenderRigid";
             this.buttonBlenderRigid.Size = new System.Drawing.Size(140, 23);
             this.buttonBlenderRigid.TabIndex = 6;
-            this.buttonBlenderRigid.Text = "-Z To Y Up Backwards";
+            this.buttonBlenderRigid.Text = "Diabolical Rigid";
             this.buttonBlenderRigid.UseVisualStyleBackColor = true;
             this.buttonBlenderRigid.Click += new System.EventHandler(this.buttonBlenderRigid_Click);
             // 
@@ -118,7 +118,7 @@
             // 
             // labelCommonNote
             // 
-            this.labelCommonNote.Location = new System.Drawing.Point(6, 91);
+            this.labelCommonNote.Location = new System.Drawing.Point(6, 141);
             this.labelCommonNote.Name = "labelCommonNote";
             this.labelCommonNote.Size = new System.Drawing.Size(486, 138);
             this.labelCommonNote.TabIndex = 5;
@@ -130,7 +130,7 @@
             this.buttonBlenderAnimated.Name = "buttonBlenderAnimated";
             this.buttonBlenderAnimated.Size = new System.Drawing.Size(140, 23);
             this.buttonBlenderAnimated.TabIndex = 5;
-            this.buttonBlenderAnimated.Text = "+Z To Y Up Backwards";
+            this.buttonBlenderAnimated.Text = "Diabolical Animated";
             this.buttonBlenderAnimated.UseVisualStyleBackColor = true;
             this.buttonBlenderAnimated.Click += new System.EventHandler(this.buttonBlenderAnimated_Click);
             // 
@@ -147,14 +147,14 @@
             this.positionRotation.Minimum = new Microsoft.Xna.Framework.Vector3(-180F, -180F, -180F);
             this.positionRotation.Name = "positionRotation";
             this.positionRotation.Size = new System.Drawing.Size(359, 26);
-            this.positionRotation.TabIndex = 9;
+            this.positionRotation.TabIndex = 12;
             this.positionRotation.Value = new Microsoft.Xna.Framework.Vector3(0F, 0F, 0F);
             // 
             // RotationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(539, 285);
+            this.ClientSize = new System.Drawing.Size(539, 335);
             this.Controls.Add(this.groupRotate);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);

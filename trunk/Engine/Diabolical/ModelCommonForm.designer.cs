@@ -46,6 +46,8 @@
             this.textDisplayName = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textDescription = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.comboEffect = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -77,8 +79,6 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.groupMaterial = new System.Windows.Forms.GroupBox();
-            this.label20 = new System.Windows.Forms.Label();
-            this.textDescription = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericSpecularPower)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -118,7 +118,7 @@
             this.positionRotation.Minimum = new Microsoft.Xna.Framework.Vector3(-180F, -180F, -180F);
             this.positionRotation.Name = "positionRotation";
             this.positionRotation.Size = new System.Drawing.Size(359, 26);
-            this.positionRotation.TabIndex = 6;
+            this.positionRotation.TabIndex = 9;
             this.positionRotation.Value = new Microsoft.Xna.Framework.Vector3(0F, 0F, 0F);
             // 
             // label1
@@ -136,7 +136,7 @@
             this.buttonBlenderAnimated.Name = "buttonBlenderAnimated";
             this.buttonBlenderAnimated.Size = new System.Drawing.Size(140, 23);
             this.buttonBlenderAnimated.TabIndex = 8;
-            this.buttonBlenderAnimated.Text = "+Z To Y Up Backwards";
+            this.buttonBlenderAnimated.Text = "Diabolical Animated";
             this.buttonBlenderAnimated.UseVisualStyleBackColor = true;
             this.buttonBlenderAnimated.Click += new System.EventHandler(this.buttonBlenderAnimated_Click);
             // 
@@ -210,7 +210,7 @@
             this.buttonBlenderRigid.Name = "buttonBlenderRigid";
             this.buttonBlenderRigid.Size = new System.Drawing.Size(140, 23);
             this.buttonBlenderRigid.TabIndex = 9;
-            this.buttonBlenderRigid.Text = "-Z To Y Up Backwards";
+            this.buttonBlenderRigid.Text = "Diabolical Rigid";
             this.buttonBlenderRigid.UseVisualStyleBackColor = true;
             this.buttonBlenderRigid.Click += new System.EventHandler(this.buttonBlenderRigid_Click);
             // 
@@ -263,6 +263,22 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Common";
+            // 
+            // textDescription
+            // 
+            this.textDescription.Location = new System.Drawing.Point(162, 49);
+            this.textDescription.Name = "textDescription";
+            this.textDescription.Size = new System.Drawing.Size(697, 20);
+            this.textDescription.TabIndex = 1;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(7, 52);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(109, 13);
+            this.label20.TabIndex = 89;
+            this.label20.Text = "Description (optional):";
             // 
             // label2
             // 
@@ -583,22 +599,6 @@
             this.groupMaterial.TabIndex = 20;
             this.groupMaterial.TabStop = false;
             this.groupMaterial.Text = "Material";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(7, 52);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(109, 13);
-            this.label20.TabIndex = 89;
-            this.label20.Text = "Description (optional):";
-            // 
-            // textDescription
-            // 
-            this.textDescription.Location = new System.Drawing.Point(162, 49);
-            this.textDescription.Name = "textDescription";
-            this.textDescription.Size = new System.Drawing.Size(697, 20);
-            this.textDescription.TabIndex = 1;
             // 
             // ModelCommonForm
             // 

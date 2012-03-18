@@ -79,6 +79,10 @@
             this.numericMuzzleFlash = new System.Windows.Forms.NumericUpDown();
             this.label24 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
+            this.buttonRifle = new System.Windows.Forms.Button();
+            this.buttonPistol = new System.Windows.Forms.Button();
+            this.buttonGrenade = new System.Windows.Forms.Button();
+            this.buttonRocket = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericHalfWidth)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericReloadTime)).BeginInit();
@@ -608,7 +612,7 @@
             this.positionMuzzle.Minimum = new Microsoft.Xna.Framework.Vector3(-30000F, -30000F, -30000F);
             this.positionMuzzle.Name = "positionMuzzle";
             this.positionMuzzle.Size = new System.Drawing.Size(359, 26);
-            this.positionMuzzle.TabIndex = 7;
+            this.positionMuzzle.TabIndex = 10;
             this.positionMuzzle.Value = new Microsoft.Xna.Framework.Vector3(0F, 0F, 0F);
             // 
             // label23
@@ -645,11 +649,55 @@
             this.label25.TabIndex = 69;
             this.label25.Text = "The flash type.  Use zero to indicates no muzzle flash.";
             // 
+            // buttonRifle
+            // 
+            this.buttonRifle.Location = new System.Drawing.Point(15, 659);
+            this.buttonRifle.Name = "buttonRifle";
+            this.buttonRifle.Size = new System.Drawing.Size(75, 23);
+            this.buttonRifle.TabIndex = 70;
+            this.buttonRifle.Text = "Rifle";
+            this.buttonRifle.UseVisualStyleBackColor = true;
+            this.buttonRifle.Click += new System.EventHandler(this.buttonRifle_Click);
+            // 
+            // buttonPistol
+            // 
+            this.buttonPistol.Location = new System.Drawing.Point(96, 659);
+            this.buttonPistol.Name = "buttonPistol";
+            this.buttonPistol.Size = new System.Drawing.Size(75, 23);
+            this.buttonPistol.TabIndex = 71;
+            this.buttonPistol.Text = "Pistol";
+            this.buttonPistol.UseVisualStyleBackColor = true;
+            this.buttonPistol.Click += new System.EventHandler(this.buttonPistol_Click);
+            // 
+            // buttonGrenade
+            // 
+            this.buttonGrenade.Location = new System.Drawing.Point(177, 659);
+            this.buttonGrenade.Name = "buttonGrenade";
+            this.buttonGrenade.Size = new System.Drawing.Size(75, 23);
+            this.buttonGrenade.TabIndex = 72;
+            this.buttonGrenade.Text = "Grenade";
+            this.buttonGrenade.UseVisualStyleBackColor = true;
+            this.buttonGrenade.Click += new System.EventHandler(this.buttonGrenade_Click);
+            // 
+            // buttonRocket
+            // 
+            this.buttonRocket.Location = new System.Drawing.Point(258, 659);
+            this.buttonRocket.Name = "buttonRocket";
+            this.buttonRocket.Size = new System.Drawing.Size(75, 23);
+            this.buttonRocket.TabIndex = 73;
+            this.buttonRocket.Text = "Rocket";
+            this.buttonRocket.UseVisualStyleBackColor = true;
+            this.buttonRocket.Click += new System.EventHandler(this.buttonRocket_Click);
+            // 
             // ModelWeaponForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(581, 694);
+            this.Controls.Add(this.buttonRocket);
+            this.Controls.Add(this.buttonGrenade);
+            this.Controls.Add(this.buttonPistol);
+            this.Controls.Add(this.buttonRifle);
             this.Controls.Add(this.label25);
             this.Controls.Add(this.label24);
             this.Controls.Add(this.numericMuzzleFlash);
@@ -746,5 +794,9 @@
         private System.Windows.Forms.NumericUpDown numericMuzzleFlash;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Button buttonRifle;
+        private System.Windows.Forms.Button buttonPistol;
+        private System.Windows.Forms.Button buttonGrenade;
+        private System.Windows.Forms.Button buttonRocket;
     }
 }

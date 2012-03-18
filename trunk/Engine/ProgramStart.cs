@@ -142,6 +142,12 @@ using System.Windows.Forms;
 
 // - Undo the last delete bounds
 
+// - Preset view
+//      Level with origin horizontal facing in all 6 3D directions.
+//      Use the keypad to select.
+
+// - Mouse movement by holding the shift and middle mouse.
+
 //-----------------------------------------------------------------------------
 // TODO (Extras):
 //-----------------------------------------------------------------------------

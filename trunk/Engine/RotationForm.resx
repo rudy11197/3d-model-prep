@@ -120,8 +120,9 @@
   <data name="labelCommonNote.Text" xml:space="preserve">
     <value>The rotation is applied as the model is loaded.  This rotates all the vertices and animations.
 
-For use in Diabolical: The Shooter models created in Blender and animated usually require +Z to Y up.  Those models created without animation typically require -Z to Y up!
+The two Diabolical presets are specifically for Diabolical: The Shooter but may be useful for oithers.  They rotate models produced with +Z as the up direction to the typical XNA assignment with +Y as the up direction.
 
-The preset rotations end up with the model facing away from the XNA BasicEffect default lighting so the front of the model is in darkness and the back is lit by the key light!  This model viewer also defaults to have the lighting direction in the reverse of the directions used by BasicEffect but that can be changed from the View menu.</value>
+The animated characters in Diabolical: The Shooter face backwards in relation to the typical XNA vectors.  The lighting has options to be in reverse to take that in to account when viewing them.
+</value>
   </data>
 </root>

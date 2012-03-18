@@ -37,6 +37,7 @@ namespace Engine
         {
             None,
             CharacterCylinder,
+            WeaponSizes,
             AttachedBounds
         }
 
@@ -66,6 +67,14 @@ namespace Engine
             cylinderRadius = radius;
             coverHeight = cover;
             eyeHeight = height - eyesHeightDownFromTop;
+        }
+
+        private Vector3 muzzleOffset = Vector3.Zero;
+        private float halfWidth = 0;
+        public void SetWeaponSizes(Vector3 weaponMuzzleOffset, float weaponHalfWidth)
+        {
+            muzzleOffset = weaponMuzzleOffset;
+            halfWidth = weaponHalfWidth;
         }
         //
         /////////////////////////////////////////////////////////////////////
@@ -917,6 +926,7 @@ namespace Engine
                 else
                 {
                     DrawRigid(world, view, projection, model);
+                    DrawWeaponSizes(world, view, projection);
                 }
 
                 if (wireframeEnabled)
@@ -966,6 +976,17 @@ namespace Engine
                 loop = location;
                 loop.Y += eyeHeight;
                 debugShapes.DrawHorizontalLoop(loop, cylinderRadius, aView, aProjection);
+            }
+        }
+
+        private void DrawWeaponSizes(Matrix aModelWorldPosition, Matrix aView, Matrix aProjection)
+        {
+            if (options == DrawOptions.WeaponSizes && halfWidth > 0)
+            {
+                Vector3 muzzleLocation = Vector3.Transform(muzzleOffset, aModelWorldPosition);
+                debugShapes.DrawVerticalLine(muzzleLocation, halfWidth * 2f, aView, aProjection);
+                debugShapes.DrawRedSphere(muzzleLocation, 0.01f, aView, aProjection);
+                debugShapes.DrawGreenSphere(aModelWorldPosition.Translation, halfWidth, aView, aProjection);
             }
         }
 
