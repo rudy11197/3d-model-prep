@@ -272,15 +272,15 @@ namespace Engine
                     List<string> exportData;
                     if (clipParts[c].partType == GlobalSettings.itemHeadTake)
                     {
-                        exportData = GetSaveClipData(form.GetCurrentClip(), form.GetBoneMap(), clipParts[c].takeName, headFilter, clipParts[c].centreFrame);
+                        exportData = GetSaveClipData(form.GetCurrentClip(), false, form.GetBoneMap(), clipParts[c].takeName, headFilter, clipParts[c].centreFrame);
                     }
                     else if (clipParts[c].partType == GlobalSettings.itemArmsTake)
                     {
-                        exportData = GetSaveClipData(form.GetCurrentClip(), form.GetBoneMap(), clipParts[c].takeName, armsFilter, clipParts[c].centreFrame);
+                        exportData = GetSaveClipData(form.GetCurrentClip(), false, form.GetBoneMap(), clipParts[c].takeName, armsFilter, clipParts[c].centreFrame);
                     }
                     else
                     {
-                        exportData = GetSaveClipData(form.GetCurrentClip(), form.GetBoneMap(), clipParts[c].takeName, null, 0);
+                        exportData = GetSaveClipData(form.GetCurrentClip(), true, form.GetBoneMap(), clipParts[c].takeName, null, 0);
                     }
 
                     if (exportData == null || exportData.Count < 1)
@@ -320,7 +320,7 @@ namespace Engine
         private void MergeAnimations(AnimationClip upper, AnimationClip lower, string mergeFilePath, List<string> upperBodyBones)
         {
             AnimationClip result = ParseClips.MergeClips(upper, lower, form.GetBoneMap(), upperBodyBones);
-            List<string> data = ParseClips.GetAnimationClipData(result, null, null, 0);
+            List<string> data = ParseClips.GetAnimationClipData(result, true, null, null, 0);
             form.AddMessageLine("Saving: " + mergeFilePath);
             File.WriteAllLines(mergeFilePath, data);
             string name = Path.GetFileNameWithoutExtension(mergeFilePath);
@@ -330,7 +330,7 @@ namespace Engine
         // Convert each clip to a string array for saving
         // boneFilter is a list of bones to match that will be saved all other discarded
         // leave null or empty to select all bones
-        public List<string> GetSaveClipData(AnimationClip clip, IDictionary<string, int> boneMap, string clipName, List<string> bonesFilter, float centreFrame)
+        public List<string> GetSaveClipData(AnimationClip clip, bool isTypeClip, IDictionary<string, int> boneMap, string clipName, List<string> bonesFilter, float centreFrame)
         {
             if (clip == null || boneMap == null)
             {
@@ -338,7 +338,7 @@ namespace Engine
                 return null;
             }
 
-            return ParseClips.GetAnimationClipData(clip, boneMap, bonesFilter, centreFrame);
+            return ParseClips.GetAnimationClipData(clip, isTypeClip, boneMap, bonesFilter, centreFrame);
         }
 
         // Extracts the file names from the paths and validate that the file exists
