@@ -23,10 +23,17 @@ namespace Engine
         /////////////////////////////////////////////////////////////////////
         // == Properties ==
         //
+        /// <summary>
+        /// Get or set the list of bones.
+        /// </summary>
         public List<string> BoneFilter
         {
             get { return GetBoneFilter(); }
-            set{ SetBoneFilter(value); }
+            set
+            {
+                listBoneFilter.Items.Clear();
+                SetBoneFilter(value); 
+            }
         }
 
         public float CentreFrame
@@ -35,10 +42,17 @@ namespace Engine
             set { numericCentreFrame.Value = (decimal)value; }
         }
 
+        /// <summary>
+        /// Adds bones to the existing list.
+        /// Set the parameter to null to clear the list.
+        /// </summary>
         private void SetBoneFilter(List<string> bones)
         {
-            listBoneFilter.Items.Clear();
-            if (bones != null)
+            if (bones == null)
+            {
+                listBoneFilter.Items.Clear();
+            }
+            else
             {
                 listBoneFilter.Items.AddRange(bones.ToArray());
                 ValidateBoneFilterList();

@@ -505,8 +505,9 @@ namespace Engine
                 return;
             }
             DisplayBoneFilterList();
-            ClipSaveDialogue(ParseClips.GetAnimationClipData(modelViewerControl.GetCurrentClip(), 
-                                skinData.BoneMap, currentBoneFilter, currentCentreFrame));
+            //ClipSaveDialogue(ParseClips.GetAnimationClipData(modelViewerControl.GetCurrentClip(), 
+            //                    skinData.BoneMap, currentBoneFilter, currentCentreFrame));
+            ClipSaveDialogue(modelViewerControl.GetCurrentClip(), skinData.BoneMap);
             AddMessageLine("== Finished ==");
         }
 
@@ -1227,13 +1228,9 @@ namespace Engine
         }
 
         // Returns the name of the saved file
-        private string ClipSaveDialogue(List<string> data)
+        private string ClipSaveDialogue(AnimationClip clip, IDictionary<string, int> boneMap)
         {
-            if (data == null || data.Count < 1)
-            {
-                AddMessageLine("No clip data!");
-                return "";
-            }
+
             // Path to default location
             string pathToSaveFolder = defaultFileFolder;
             string assetName = "";
@@ -1263,6 +1260,20 @@ namespace Engine
 
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
+                string fileType = Path.GetExtension(fileDialog.FileName);
+                bool isClip = false;
+                if (fileType.ToLower() == "clip" || fileType.ToLower() == ".clip")
+                {
+                    isClip = true;
+                }
+
+                List<string> data = ParseClips.GetAnimationClipData(clip, isClip,
+                    boneMap, currentBoneFilter, currentCentreFrame);
+                if (data == null || data.Count < 1)
+                {
+                    AddMessageLine("No clip data!");
+                    return "";
+                }
                 SaveTextFile(fileDialog.FileName, data);
                 return fileDialog.FileName;
             }
@@ -1508,10 +1519,10 @@ namespace Engine
                 AddMessageLine("Animation clip merge FAILED!");
                 return;
             }
-            List<string> data = ParseClips.GetAnimationClipData(result, null, null, 0);
+            //List<string> data = ParseClips.GetAnimationClipData(result, true, null, null, 0);
             
             Cursor = Cursors.Arrow;
-            string name = ClipSaveDialogue(data);
+            string name = ClipSaveDialogue(result, null);
             if (name == "")
             {
                 AddMessageLine("Clip not saved!");
