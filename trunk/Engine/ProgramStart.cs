@@ -13,7 +13,7 @@
 // Blender can export multiple takes per file.
 //
 // In addition the takes are also converted and saved to the keyframe format used
-// by my game for individual animation clips.
+// by Diabolical:The Shooter for individual animation clips.
 //
 // The clips can be loaded back and viewed individually.
 //-----------------------------------------------------------------------------
@@ -56,13 +56,14 @@
 //  e.g. RigType|alien or RigType|human
 //
 // HeadBones and ArmBones: 
-//  The list of bones used in that animation part.
+//  The list of bones used in that animation pose.
 //  e.g. ArmBones|L-Collar|L-UpperArm|L-Forearm|L-Hand|R-Collar|R-UpperArm|R-Forearm|R-Hand|R-Aim
 //
-// Type is the name of the full or part animation and can be: clip, head or arms
-//  Clip = Full animation
-//  Head = Just the bones used to move the head to look round
-//  Arms = Just the bones used to move the arms to aim a weapon (this does not usually include the fingers)
+// Type is the name of the full or part animation or pose and can be: clip, head or arms
+//  Clip = Animation that runs for the full duration then loops or stops
+//  Head = Just the bones used to move the head to look round.  Each frame is a separate pose.
+//  Arms = Just the bones used to move the arms to aim a weapon.  Each frame is a separate pose.
+//          The arms may not include the fingers if the model is created with the hand already gripping the trigger.
 // SourceTakeName = the name of the animation take in the source file
 // OutputTakeName = the name used in game to reference the take.
 //      This does not include the rig armature name.
