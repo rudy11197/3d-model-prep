@@ -1,9 +1,7 @@
-#region File Description
 //-----------------------------------------------------------------------------
 // Author: JCBDigger
-// URL: http://Games.DiscoverThat.co.uk
+// URL: http://www.MistyManor.co.uk
 //-----------------------------------------------------------------------------
-#endregion
 
 #region Using Statements
 using System;
@@ -138,11 +136,11 @@ namespace Engine
             }
         }
 
-        private struct Parts
+        private struct Poses
         {
-            public string partType;
+            public string poseType;
             public string takeName;
-            public string partName;
+            public string poseName;
             public float centreFrame;
         }
 
@@ -151,7 +149,7 @@ namespace Engine
             string rigType = "unknown";
             List<string> headFilter = new List<string>();
             List<string> armsFilter = new List<string>();
-            List<Parts> clipParts = new List<Parts>();
+            List<Poses> clipPoses = new List<Poses>();
 
             // == Extract list of clips
 
@@ -190,42 +188,42 @@ namespace Engine
                     case GlobalSettings.itemHeadTake:
                         if (items.Length > 2)
                         {
-                            Parts part = new Parts();
-                            part.partType = GlobalSettings.itemHeadTake;
-                            part.takeName = items[1];
-                            part.partName = items[2];
-                            part.centreFrame = 0;
+                            Poses pose = new Poses();
+                            pose.poseType = GlobalSettings.itemHeadTake;
+                            pose.takeName = items[1];
+                            pose.poseName = items[2];
+                            pose.centreFrame = 0;
                             if (items.Length > 3)
                             {
-                                part.centreFrame = ParseData.FloatFromString(items[3]);
+                                pose.centreFrame = ParseData.FloatFromString(items[3]);
                             }
-                            clipParts.Add(part);
+                            clipPoses.Add(pose);
                         }
                         break;
                     case GlobalSettings.itemArmsTake:
                         if (items.Length > 2)
                         {
-                            Parts part = new Parts();
-                            part.partType = GlobalSettings.itemArmsTake;
-                            part.takeName = items[1];
-                            part.partName = items[2];
-                            part.centreFrame = 0;
+                            Poses pose = new Poses();
+                            pose.poseType = GlobalSettings.itemArmsTake;
+                            pose.takeName = items[1];
+                            pose.poseName = items[2];
+                            pose.centreFrame = 0;
                             if (items.Length > 3)
                             {
-                                part.centreFrame = ParseData.FloatFromString(items[3]);
+                                pose.centreFrame = ParseData.FloatFromString(items[3]);
                             }
-                            clipParts.Add(part);
+                            clipPoses.Add(pose);
                         }
                         break;
                     case GlobalSettings.itemClipTake:
                         if (items.Length > 2)
                         {
-                            Parts part = new Parts();
-                            part.partType = GlobalSettings.itemClipTake;
-                            part.takeName = items[1];
-                            part.partName = items[2];
-                            part.centreFrame = 0;
-                            clipParts.Add(part);
+                            Poses pose = new Poses();
+                            pose.poseType = GlobalSettings.itemClipTake;
+                            pose.takeName = items[1];
+                            pose.poseName = items[2];
+                            pose.centreFrame = 0;
+                            clipPoses.Add(pose);
                         }
                         break;
                     case GlobalSettings.itemMergeClips:
@@ -244,20 +242,20 @@ namespace Engine
             }
 
             // == Export each clip
-            for (int c = 0; c < clipParts.Count; c++)
+            for (int c = 0; c < clipPoses.Count; c++)
             {
                 // Get the filename to load each take from
                 string fileName = "";
                 if (formatType == 1)
                 {
                     // In type 1 only the animation (action, take) name is included in the config file
-                    fileName = fbx.GetTakeFileName(clipParts[c].takeName);
+                    fileName = fbx.GetTakeFileName(clipPoses[c].takeName);
                 }
                 else if (formatType == 2)
                 {
                     // In type 2 the file including extension that contains the 
                     // animation is included in the config file
-                    fileName = fbx.GetFullPath(clipParts[c].takeName);
+                    fileName = fbx.GetFullPath(clipPoses[c].takeName);
                 }
                 else
                 {
@@ -270,17 +268,17 @@ namespace Engine
                     form.LoadAnimationTakes(fileName, rotateXdeg, rotateYdeg, rotateZdeg);
                     // The animation loaded must have been selected as the current animation for this to work
                     List<string> exportData;
-                    if (clipParts[c].partType == GlobalSettings.itemHeadTake)
+                    if (clipPoses[c].poseType == GlobalSettings.itemHeadTake)
                     {
-                        exportData = GetSaveClipData(form.GetCurrentClip(), false, form.GetBoneMap(), clipParts[c].takeName, headFilter, clipParts[c].centreFrame);
+                        exportData = GetSaveClipData(form.GetCurrentClip(), false, form.GetBoneMap(), clipPoses[c].takeName, headFilter, clipPoses[c].centreFrame);
                     }
-                    else if (clipParts[c].partType == GlobalSettings.itemArmsTake)
+                    else if (clipPoses[c].poseType == GlobalSettings.itemArmsTake)
                     {
-                        exportData = GetSaveClipData(form.GetCurrentClip(), false, form.GetBoneMap(), clipParts[c].takeName, armsFilter, clipParts[c].centreFrame);
+                        exportData = GetSaveClipData(form.GetCurrentClip(), false, form.GetBoneMap(), clipPoses[c].takeName, armsFilter, clipPoses[c].centreFrame);
                     }
                     else
                     {
-                        exportData = GetSaveClipData(form.GetCurrentClip(), true, form.GetBoneMap(), clipParts[c].takeName, null, 0);
+                        exportData = GetSaveClipData(form.GetCurrentClip(), true, form.GetBoneMap(), clipPoses[c].takeName, null, 0);
                     }
 
                     if (exportData == null || exportData.Count < 1)
@@ -289,7 +287,7 @@ namespace Engine
                         continue;
                     }
                     // Save the file
-                    fileName = fbx.GetKeyframeFileName(rigType, clipParts[c].partName, clipParts[c].partType);
+                    fileName = fbx.GetKeyframeFileName(rigType, clipPoses[c].poseName, clipPoses[c].poseType);
                     form.AddMessageLine("Saving: " + fileName);
                     File.WriteAllLines(fileName, exportData);
                 }

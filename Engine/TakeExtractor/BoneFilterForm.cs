@@ -1,4 +1,9 @@
-﻿using System;
+﻿//-----------------------------------------------------------------------------
+// Author: JCBDigger
+// URL: http://www.MistyManor.co.uk
+//-----------------------------------------------------------------------------
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -144,6 +149,9 @@ namespace Engine
             return result;
         }
 
+        /// <summary>
+        /// This also includes the special aim bone used for aligning weapons to the hand.
+        /// </summary>
         private string[] TypicalArmBoneNames()
         {
             string[] result = new string[] 
@@ -158,7 +166,8 @@ namespace Engine
                 "Ulna",
                 "Radius",
                 "Humerus",
-                "Digit"
+                "Digit",
+                "Aim"
             };
             // Convert to lower
             for (int i = 0; i < result.Length; i++)
