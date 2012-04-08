@@ -1255,7 +1255,8 @@ namespace Engine
             fileDialog.Filter = "Clip File (*.clip)|*.clip|" +
                                 "Head File (*.head)|*.head|" +
                                 "Arms File (*.arms)|*.arms|" +
-                                "Animation File Types (*.clip;*.arms;*.head)|*.clip;*.arms;*.head|" +
+                                "Pose File (*.pose)|*.pose|" +
+                                "Animation File Types (*.clip;*.arms;*.head;*.pose)|*.clip;*.arms;*.head;*.pose|" +
                                 "All Files (*.*)|*.*";
 
             if (fileDialog.ShowDialog() == DialogResult.OK)
