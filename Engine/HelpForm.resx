@@ -129,6 +129,8 @@ Press F to face the model.  Press O to toggle orbiting round the point being loo
   <data name="labelDiabolicalHelp.Text" xml:space="preserve">
     <value>Many of the options in this utility are for creating output suitable for use in the development of that XNA game.
 
-When adding the bounding spheres to the structures it is essential to run the optimisation method prior to saving the model for the final time.  Failure to do this might result in smaller spheres overlapping the larger spheres which causes juddering effects while playing!</value>
+When adding the bounding spheres to the structures it is essential to run the optimisation method prior to saving the model for the final time.  Failure to do this might result in smaller spheres overlapping the larger spheres which causes juddering effects while playing!
+
+The .clip and .pose animation file types use the same file format but are treated differently when loaded in to Diabolical.  The .head and .arms file types have slightly different header information for use to calculate postions in Diabolical.</value>
   </data>
 </root>
