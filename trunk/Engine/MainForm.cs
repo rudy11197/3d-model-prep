@@ -1261,9 +1261,9 @@ namespace Engine
 
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
-                string fileType = Path.GetExtension(fileDialog.FileName);
+                string fileType = Path.GetExtension(fileDialog.FileName).ToLower();
                 bool isClip = false;
-                if (fileType.ToLower() == "clip" || fileType.ToLower() == ".clip")
+                if (fileType == "clip" || fileType == ".clip" || fileType == "pose" || fileType == ".pose")
                 {
                     isClip = true;
                 }
