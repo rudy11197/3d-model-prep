@@ -244,6 +244,25 @@ namespace Engine
             ProcessOptions(options);
         }
 
+        /*/// <summary>
+        /// Make sure any of the previous model settings are removed.
+        /// </summary>
+        public void ResetSettingsForNewModel()
+        {
+            
+            if (largerBounds == null || smallerBounds == null)
+            {
+                PreProcessSetup();
+            }
+            largerBounds.Clear();
+            smallerBounds.Clear();
+            AttachedBounds.Clear();
+            AttachAdorn.Clear();
+            AttachEquip.Clear();
+            ZoomMultipliers.Clear();
+            CrossHairs.Clear();
+        }*/
+
         private void PreProcessSetup()
         {
             largerBounds = new List<StructureSphere>();

@@ -850,9 +850,9 @@ namespace Engine
             // Clear away the previous stuff
             HideAllOutlines();
             modelViewerControl.UnloadModel();
-
             // Clear the content manager so that a new model is loaded otherwise the same name cannot be loaded again!
             contentManager.Unload();
+            diabolical.ResetForNewModel();
 
             // Tell the ContentBuilder what to build.
             contentBuilder.Clear();
