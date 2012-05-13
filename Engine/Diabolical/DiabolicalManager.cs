@@ -1367,6 +1367,15 @@ namespace Engine
             form.UpdateMenuItemVisibility();
         }
 
+        /// <summary>
+        /// Make sure any of the previous model settings are removed.
+        /// </summary>
+        public void ResetForNewModel()
+        {
+            modelAsset = new DiabolicalModel(debugShapes);
+        }
+
+
         // Calculate the overall bounding sphere
         public BoundingSphere CalculateBoundsFromModel(Model modelThis)
         {
