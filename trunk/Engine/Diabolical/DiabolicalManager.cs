@@ -1373,6 +1373,8 @@ namespace Engine
         public void ResetForNewModel()
         {
             modelAsset = new DiabolicalModel(debugShapes);
+            lastLargerBound = -1;
+            lastSmallerBound = -1;
         }
 
 
