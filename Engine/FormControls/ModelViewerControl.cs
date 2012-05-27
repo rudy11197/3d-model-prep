@@ -938,7 +938,7 @@ namespace Engine
                 if (showFloor && floor != null)
                 {
                     // Scale to 1unit per grid square then enlarge to fit the model size
-                    world = Matrix.CreateScale(floorModelScale * floorScale);
+                    world = Matrix.Identity * Matrix.CreateScale(floorModelScale * floorScale);
                     DrawFloor(world, view, projection);
                 }
             }
@@ -1057,26 +1057,28 @@ namespace Engine
         {
             // Draw the model.
             DrawStatic(ref aWorld, ref aView, ref aProjection, aModel, 
-                ref specularColour, specularPower, ref diffuseColour, ref emissiveColour);
+                ref specularColour, specularPower, ref diffuseColour, ref emissiveColour, true);
         }
 
         private void DrawFloor(Matrix aWorld, Matrix aView, Matrix aProjection)
         {
             // Draw the model.
             DrawStatic(ref aWorld, ref aView, ref aProjection, floor,
-                ref specColourFloor, specPowerFloor, ref diffColourFloor, ref emisColourFloor);
+                ref specColourFloor, specPowerFloor, ref diffColourFloor, ref emisColourFloor, false);
         }
 
-        // The floor uses different colours to the loaded model
+        /// <summary>
+        /// The floor uses different colours to the loaded model and does not have any bone transforms of its own.
+        /// </summary>
         private void DrawStatic(ref Matrix aWorld, ref Matrix aView, ref Matrix aProjection, Model aModel, 
-            ref Vector3 specColour, float specPower, ref Vector3 diffColour, ref Vector3 emisColour)
+            ref Vector3 specColour, float specPower, ref Vector3 diffColour, ref Vector3 emisColour, bool useBoneTransforms)
         {
             // Draw the model.
             foreach (ModelMesh mesh in aModel.Meshes)
             {
                 foreach (BasicEffect effect in mesh.Effects)
                 {
-                    if (boneTransforms != null)
+                    if (useBoneTransforms && boneTransforms != null)
                     {
                         effect.World = boneTransforms[mesh.ParentBone.Index] * aWorld;
                     }
