@@ -607,7 +607,7 @@ namespace Engine
             // PoseHeading
             // 
             this.PoseHeading.Name = "PoseHeading";
-            this.PoseHeading.Size = new System.Drawing.Size(141, 23);
+            this.PoseHeading.Size = new System.Drawing.Size(141, 20);
             this.PoseHeading.Text = "|      &Animation or Pose:";
             this.PoseHeading.Visible = false;
             // 
