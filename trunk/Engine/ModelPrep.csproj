@@ -196,10 +196,13 @@
     <Compile Include="TakeExtractor\ParseFBX.cs" />
     <Compile Include="TakeExtractor\ParseTakes.cs" />
     <Compile Include="TakeExtractor\WantedBones.cs" />
+    <Compile Include="Utilities\BoundingOrientedBox.cs" />
     <Compile Include="Utilities\ContentBuilder.cs" />
     <Compile Include="Utilities\ErrorLogger.cs" />
+    <Compile Include="Utilities\RaySegment.cs" />
     <Compile Include="Utilities\Shapes.cs" />
     <Compile Include="Utilities\Triangle.cs" />
+    <Compile Include="Utilities\TriangleFace.cs" />
     <Compile Include="Utilities\VertexHelper.cs" />
     <EmbeddedResource Include="Diabolical\AttachedBoundsForm.resx">
       <DependentUpon>AttachedBoundsForm.cs</DependentUpon>

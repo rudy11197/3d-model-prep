@@ -138,6 +138,12 @@ using System.Windows.Forms;
 // TODO:
 //-----------------------------------------------------------------------------
 
+// - Form Oriented boxes from triangles
+//      Get the normals of 3 triangles as the axes.
+//      Use the extents of the other triangles to get the sizes.
+//      Or use the edges as the axes because then we know which extents relate
+//      to which axis.
+
 // - Undo the last delete bounds
 
 // - Preset view
