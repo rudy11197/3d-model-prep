@@ -26,12 +26,6 @@ namespace AssetData
         // The position of the sphere in object space
         [ContentSerializer]
         public Vector3 CentreInObjectSpace = Vector3.Zero;
-        // The height of the highest triangle point in world space
-        // This can only be calculated after the model has been loaded
-        // put in its final position and all the triangles exposed
-        // in to world space.
-        [ContentSerializer]
-        public float Highest = 0.0f;
         // List of the indices to triangles, other StructureSpheres or any object list
         [ContentSerializer]
         public List<int> IDs; 
@@ -55,12 +49,6 @@ namespace AssetData
             : this(centre, radius)
         {
             IDs = indices;
-        }
-
-        public StructureSphere(Vector3 centre, float radius, List<int> indices, float height)
-            : this(centre, radius, indices)
-        {
-            Highest = height;
         }
 
         // Use this whenever the model moves
