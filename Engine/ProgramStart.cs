@@ -138,23 +138,30 @@ using System.Windows.Forms;
 // TODO:
 //-----------------------------------------------------------------------------
 
-// - Form Oriented boxes from triangles
-//      Get the normals of 3 triangles as the axes.
-//      Use the extents of the other triangles to get the sizes.
-//      Or use the edges as the axes because then we know which extents relate
-//      to which axis.
+// - Show some feedback while creating the bounds
+// - Automatically optimise the bounds in the same process
+//      as creating them.
 
-// - Undo the last delete bounds
+// - New option to create just one level of bounds.
+//      Use just the smaller calculations
+// - Default the bounds to 0.9m diameter.
 
 // - Preset view
 //      Level with origin horizontal facing in all 6 3D directions.
 //      Use the keypad to select.
 
-// - Mouse movement by holding the shift and middle mouse.
+// - Mouse movement by holding the shift to move and middle mouse to rotate.
+//      Similar to Blender.
 
 //-----------------------------------------------------------------------------
 // TODO (Extras):
 //-----------------------------------------------------------------------------
+// - Form Oriented boxes from triangles
+//      Get the normals of 3 triangles as the axes.
+//      Use the extents of the other triangles to get the sizes.
+//      Or use the eaadges as the axes because then we know which extents relate
+//      to which axis.
+
 // - Extract individual takes from a model that has one very long take.
 //      Like the Mech robots have.
 //      Add a new type
