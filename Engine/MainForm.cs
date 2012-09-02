@@ -700,7 +700,6 @@ namespace Engine
             modelTypePropertiesItem.Enabled = false;
             changeModelTypeItem.Enabled = false;
             createStructureBoundsItem.Enabled = false;
-            optimiseBoundsItem.Enabled = false;
             // Bounds
             noBoundsItem.Enabled = false;
             allLargeBoundsItem.Enabled = false;
@@ -756,8 +755,6 @@ namespace Engine
                     allLargeBoundsItem.Enabled = true;
                     allSmallBoundsItem.Enabled = true;
                     smallBoundsInTheSelectedBoundItem.Enabled = true;
-
-                    optimiseBoundsItem.Enabled = true;
                 }
                 else if (diabolical.HasCharacterBounds())
                 {
@@ -808,11 +805,26 @@ namespace Engine
         public void ClearMessages()
         {
             textStatus.Clear();
+            labelStatus.Text = "";
         }
 
         public void AddMessageLine(string text)
         {
             textStatus.AppendText(text + "\n");
+            // Necessary to get the message to display before starting something else.
+            Application.DoEvents();
+        }
+
+        public void ShowStatus(string text)
+        {
+            labelStatus.Text = text;
+            // Necessary to get the message to display before starting something else.
+            Application.DoEvents();
+        }
+
+        public void ClearStatus()
+        {
+            labelStatus.Text = "";
         }
         //
         //////////////////////////////////////////////////////////////////////
@@ -1726,18 +1738,12 @@ namespace Engine
                 // To avoid confusion when the new bounds are created
                 HideAllOutlines();
                 diabolical.CreateStructureBounds(aForm.SmallerWidth, aForm.LargerMultiple);
+                diabolical.OptimiseModelBounds();
+                AddMessageLine("== Finished ==");
+                ClearStatus();
             }
             PauseGameInput(false);
             UpdateMenuItemVisibility();
-        }
-
-        private void optimiseBoundsItem_Click(object sender, EventArgs e)
-        {
-            if (diabolical != null)
-            {
-                HideAllOutlines();
-                diabolical.OptimiseModelBounds();
-            }
         }
 
         private void createOrEditCharacterBoundsToolStripMenuItem_Click(object sender, EventArgs e)

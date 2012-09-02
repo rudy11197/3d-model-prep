@@ -605,8 +605,7 @@ namespace Engine
             }
             form.AddMessageLine("Calculating model bounds...");
             ChangedSomething();
-            StructureBounds.CreateModelFittedBounds(modelAsset, smallerBoundWidth, largerBoundMultiple);
-            form.AddMessageLine("== Finished ==");
+            StructureBounds.CreateModelFittedBounds(modelAsset, smallerBoundWidth, largerBoundMultiple, form);
         }
 
         private int lastLargerBound = -1;
@@ -817,24 +816,25 @@ namespace Engine
             modelAsset.LargerBounds.RemoveAt(lastLargerBound);
         }
 
-        // Call this after the smaller bounds have been edited just before saving the model.
-        // Optimisation Includes:
-        // - Make sure the larger bounds fully contain all the smaller spheres
-        //      Any smaller bound overlapping can cause undesirable bouncing collisions.
-        // - Removes any empty larger bounds
-        // - Remove any smaller bounds which are not included in any of the larger bounds
+        /// <summary>
+        /// Call this after the smaller bounds have been edited just before saving the model.
+        /// Optimisation Includes:
+        /// - Make sure the larger bounds fully contain all the smaller spheres.
+        ///      Any smaller bound overlapping can cause undesirable bouncing collisions.
+        /// - Removes any empty larger bounds.
+        /// - Remove any smaller bounds which are not included in any of the larger bounds.
+        /// </summary>
         public void OptimiseModelBounds()
         {
             if (modelAsset != null && modelAsset.LargerBounds.Count > 0 && modelAsset.SmallerBounds.Count > 0)
             {
                 form.AddMessageLine("Optimising bounds...");
                 form.HideAllOutlines();
-                StructureBounds.OptimiseModelBounds(modelAsset);
+                StructureBounds.OptimiseModelBounds(modelAsset, form);
                 RemoveOrphanedBounds();
                 // Set haveOptimised to true after everything because optimisation 
                 // resets this during the processes.
                 haveOptimised = true;
-                form.AddMessageLine("== Finished ==");
             }
         }
 

@@ -138,13 +138,9 @@ using System.Windows.Forms;
 // TODO:
 //-----------------------------------------------------------------------------
 
-// - Show some feedback while creating the bounds
-// - Automatically optimise the bounds in the same process
-//      as creating them.
-
-// - New option to create just one level of bounds.
-//      Use just the smaller calculations
-// - Default the bounds to 0.9m diameter.
+// done - Show some feedback while creating the bounds
+// done - Automatically optimise the bounds in the same process as creating them.
+// done - Default the bounds to 0.9m diameter.
 
 // - Preset view
 //      Level with origin horizontal facing in all 6 3D directions.
