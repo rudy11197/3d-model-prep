@@ -136,13 +136,17 @@ namespace Engine
         public const int mouseZeroX = 15;
         public const int mouseZeroY = 15;
 
-        // Structure bounding spheres
-        // These sizes are applicable to the scale used in Diabolical
-        // If the models are too large the bounds will throw an exception!
-        // The width of the smallest bounding box
-        // The final result is converted to a sphere which will have a diameter equal 
-        // to the corner to corner size of this box.
-        public const float boundSmallerWidth = 0.7f;
+        /// <summary>
+        /// Structure bounding spheres.
+        /// These sizes are applicable to the scale used in Diabolical.
+        /// If the models are too large the bounds will throw an exception!
+        /// The width of the smallest bounding box.
+        /// The final result is converted to a sphere which will have a diameter equal 
+        /// to the corner to corner size of this box.
+        /// 0.7 gives a fairly tight fit but produces lots of spheres.
+        /// 0.9 gives less sphers but they overlap flat faces more.
+        /// </summary>
+        public const float boundSmallerWidth = 0.9f;
         // The number of MiniBoxWidths which make up the next larger sphere diameter.
         // If their width multiple is too large there will be too many ray intersections
         // for the xbox to test quickly.

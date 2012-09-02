@@ -64,32 +64,39 @@ namespace Engine
         // There is a separate function that should be run after the smaller spheres 
         // have been edited that better fits the larger spheres with no overlap.
 
-        public static void CreateModelFittedBounds(DiabolicalModel aModel, float smallerBoundWidth, float largerBoundMultiple)
+        public static void CreateModelFittedBounds(DiabolicalModel aModel, float smallerBoundWidth, float largerBoundMultiple, MainForm form)
         {
+            form.ShowStatus("Exposing Triangles...");
             // The model and spheres need to be in object space not world space
             aModel.ExposeVertices();
+            form.ShowStatus("Overall Bounds...");
             BoundingBox outsideBox = aModel.CalculateBoundBox(0.01f, false);
             // Get a lot of small boxes to fill the model bounds
             float boxWidth = BestFitSmallWidth(LongestEdgeXorZ(outsideBox), smallerBoundWidth, largerBoundMultiple);
+            form.ShowStatus("Bounding grid...");
             List<BoundingBox> boxes = FillWithBoxes(outsideBox, boxWidth);
-            aModel.SmallerBounds = CreateSpheresFilledWithTriangles(boxes, aModel);
+            aModel.SmallerBounds = CreateSpheresFilledWithTriangles(boxes, aModel, form);
             // Work out the larger cubes based on the multiple of smaller ones we want to fit
             boxWidth *= largerBoundMultiple;
             boxes = FillWithBoxes(outsideBox, boxWidth);
             aModel.LargerBounds = FillWithSmallerBounds(boxes, aModel);
         }
 
-        // Call this after the smaller bounds have been edited just before saving the model.
-        // Optimisation Includes:
-        // - Make sure the larger bounds fully contain all the smaller spheres
-        //      Any smaller bound overlapping can cause undesirable bouncing collisions.
-        // - Removes any empty larger bounds
-        public static void OptimiseModelBounds(DiabolicalModel aModel)
+        /// <summary>
+        /// This is run in conjunction with other optimisations.
+        /// Call this after the smaller bounds have been edited just before saving the model.
+        /// Optimisation Includes:
+        /// - Make sure the larger bounds fully contain all the smaller spheres
+        ///      Any smaller bound overlapping can cause undesirable bouncing collisions.
+        /// - Removes any empty larger bounds
+        /// </summary>
+        public static void OptimiseModelBounds(DiabolicalModel aModel, MainForm form)
         {
             if (aModel.LargerBounds.Count < 1)
             {
                 return;
             }
+            form.ShowStatus("Optimise Larger Bounds...");
             // Work backwards just in case any bounds are removed
             for (int b = aModel.LargerBounds.Count - 1; b >= 0; b--)
             {
@@ -184,17 +191,18 @@ namespace Engine
         }
 
         // Create the smallest bounding spheres
-        private static List<StructureSphere> CreateSpheresFilledWithTriangles(List<BoundingBox> boxes, DiabolicalModel aModel)
+        private static List<StructureSphere> CreateSpheresFilledWithTriangles(List<BoundingBox> boxes, DiabolicalModel aModel, MainForm form)
         {
             List<StructureSphere> spheres = new List<StructureSphere>(boxes.Count);
-            // Convert to spheres
+            form.ShowStatus("Convert To Spheres...");
             for (int b = 0; b < boxes.Count; b++)
             {
                 BoundingSphere ball = BoundingSphere.CreateFromBoundingBox(boxes[b]);
                 spheres.Add(new StructureSphere(ball.Center, ball.Radius));
             }
-            FillWithTriangles(spheres, aModel);
-            // Remove empty spheres
+            form.ShowStatus("Fill With Triangles...");
+            FillWithTriangles(spheres, aModel, form);
+            form.ShowStatus("Remove Empty Spheres...");
             // Easier to add those that have something in them rather than remove from a list
             List<StructureSphere> results = new List<StructureSphere>();
             for (int r = 0; r < spheres.Count; r++)
@@ -205,13 +213,16 @@ namespace Engine
                     results.Add(spheres[r]);
                 }
             }
-            OptimiseFittedSphere(results, aModel);
+            OptimiseFittedSphere(results, aModel, form);
             return results;
         }
 
-        // Optimise the size of the spheres
-        private static void OptimiseFittedSphere(List<StructureSphere> spheres, DiabolicalModel aModel)
+        /// <summary>
+        /// Optimise the size of the spheres.
+        /// </summary>
+        private static void OptimiseFittedSphere(List<StructureSphere> spheres, DiabolicalModel aModel, MainForm form)
         {
+            form.ShowStatus("Optimise Sphere Sizes...");
             Triangle tri = new Triangle();
             List<Vector3> points = new List<Vector3>();
             for (int s = 0; s < spheres.Count; s++)
@@ -229,33 +240,41 @@ namespace Engine
             }
         }
 
-        // Used for filling and refilling spheres
-        private static void FillWithTriangles(List<StructureSphere> spheres, DiabolicalModel aModel)
+        /// <summary>
+        /// Used for filling and refilling spheres.
+        /// The triangle ID is added to the list within each smaller sphere.
+        /// </summary>
+        private static void FillWithTriangles(List<StructureSphere> spheres, DiabolicalModel aModel, MainForm form)
         {
-            // Loop through the triangles
+            int status = 0;
             Triangle tri = new Triangle();
             bool result = false;
             BoundingSphere bound;
             int count = aModel.CountTriangles();
             for (int t = 0; t < count; t++)
             {
+                status++;
+                if (status > 33)
+                {
+                    status = 0;
+                    form.ShowStatus("Fill with triangle: " + t.ToString());
+                }
                 aModel.GetTriangle(ref t, ref tri);
-                // Loop through the spheres and then mini spheres
                 for (int s = 0; s < spheres.Count; s++)
                 {
-                    // Test which mini spheres each triangle fits in
                     bound = spheres[s].Sphere;
                     tri.Intersects(ref bound, out result);
                     if (result)
                     {
-                        // Store the reference to the triangle with the sphere
                         spheres[s].IDs.Add(t);
                     }
                 }
             }
         }
 
-        // Bounding boxes to fill the model bounds
+        /// <summary>
+        /// Bounding boxes to fill the model bounds.
+        /// </summary>
         private static List<BoundingBox> FillWithBoxes(BoundingBox box, float side)
         {
             List<BoundingBox> cubes = new List<BoundingBox>();

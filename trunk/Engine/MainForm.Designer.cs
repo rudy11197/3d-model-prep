@@ -74,7 +74,6 @@ namespace Engine
             this.modelTypePropertiesItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.createStructureBoundsItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.optimiseBoundsItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.editCharacterBoundsMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -99,8 +98,9 @@ namespace Engine
             this.labelSmall = new System.Windows.Forms.Label();
             this.buttonLarge = new System.Windows.Forms.Button();
             this.buttonSmall = new System.Windows.Forms.Button();
-            this.modelViewerControl = new Engine.ModelViewerControl();
             this.statusOrbit = new System.Windows.Forms.Label();
+            this.labelStatus = new System.Windows.Forms.Label();
+            this.modelViewerControl = new Engine.ModelViewerControl();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericLarge)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericSmall)).BeginInit();
@@ -446,7 +446,6 @@ namespace Engine
             this.modelTypePropertiesItem,
             this.toolStripSeparator9,
             this.createStructureBoundsItem,
-            this.optimiseBoundsItem,
             this.toolStripSeparator11,
             this.editCharacterBoundsMenu});
             this.diabolicalToolStripMenuItem.Name = "diabolicalToolStripMenuItem";
@@ -485,13 +484,6 @@ namespace Engine
             this.createStructureBoundsItem.Size = new System.Drawing.Size(237, 22);
             this.createStructureBoundsItem.Text = "Create Structure &Bounds";
             this.createStructureBoundsItem.Click += new System.EventHandler(this.createStructureBoundsItem_Click);
-            // 
-            // optimiseBoundsItem
-            // 
-            this.optimiseBoundsItem.Name = "optimiseBoundsItem";
-            this.optimiseBoundsItem.Size = new System.Drawing.Size(237, 22);
-            this.optimiseBoundsItem.Text = "&Optimise Bounds (Essential)";
-            this.optimiseBoundsItem.Click += new System.EventHandler(this.optimiseBoundsItem_Click);
             // 
             // toolStripSeparator11
             // 
@@ -607,7 +599,7 @@ namespace Engine
             // PoseHeading
             // 
             this.PoseHeading.Name = "PoseHeading";
-            this.PoseHeading.Size = new System.Drawing.Size(141, 20);
+            this.PoseHeading.Size = new System.Drawing.Size(141, 23);
             this.PoseHeading.Text = "|      &Animation or Pose:";
             this.PoseHeading.Visible = false;
             // 
@@ -635,12 +627,13 @@ namespace Engine
             // 
             // textStatus
             // 
-            this.textStatus.Location = new System.Drawing.Point(12, 681);
+            this.textStatus.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.textStatus.Location = new System.Drawing.Point(12, 684);
             this.textStatus.Multiline = true;
             this.textStatus.Name = "textStatus";
             this.textStatus.ReadOnly = true;
             this.textStatus.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textStatus.Size = new System.Drawing.Size(755, 100);
+            this.textStatus.Size = new System.Drawing.Size(727, 100);
             this.textStatus.TabIndex = 3;
             this.textStatus.TabStop = false;
             // 
@@ -648,7 +641,7 @@ namespace Engine
             // 
             this.numericLarge.CausesValidation = false;
             this.numericLarge.InterceptArrowKeys = false;
-            this.numericLarge.Location = new System.Drawing.Point(830, 682);
+            this.numericLarge.Location = new System.Drawing.Point(793, 682);
             this.numericLarge.Name = "numericLarge";
             this.numericLarge.Size = new System.Drawing.Size(90, 20);
             this.numericLarge.TabIndex = 40;
@@ -657,7 +650,7 @@ namespace Engine
             // 
             this.numericSmall.CausesValidation = false;
             this.numericSmall.InterceptArrowKeys = false;
-            this.numericSmall.Location = new System.Drawing.Point(830, 708);
+            this.numericSmall.Location = new System.Drawing.Point(793, 708);
             this.numericSmall.Name = "numericSmall";
             this.numericSmall.Size = new System.Drawing.Size(90, 20);
             this.numericSmall.TabIndex = 42;
@@ -665,7 +658,8 @@ namespace Engine
             // labelLarge
             // 
             this.labelLarge.AutoSize = true;
-            this.labelLarge.Location = new System.Drawing.Point(787, 684);
+            this.labelLarge.BackColor = System.Drawing.SystemColors.Control;
+            this.labelLarge.Location = new System.Drawing.Point(750, 684);
             this.labelLarge.Name = "labelLarge";
             this.labelLarge.Size = new System.Drawing.Size(37, 13);
             this.labelLarge.TabIndex = 6;
@@ -674,7 +668,8 @@ namespace Engine
             // labelSmall
             // 
             this.labelSmall.AutoSize = true;
-            this.labelSmall.Location = new System.Drawing.Point(789, 710);
+            this.labelSmall.BackColor = System.Drawing.SystemColors.Control;
+            this.labelSmall.Location = new System.Drawing.Point(752, 710);
             this.labelSmall.Name = "labelSmall";
             this.labelSmall.Size = new System.Drawing.Size(35, 13);
             this.labelSmall.TabIndex = 7;
@@ -682,7 +677,7 @@ namespace Engine
             // 
             // buttonLarge
             // 
-            this.buttonLarge.Location = new System.Drawing.Point(926, 680);
+            this.buttonLarge.Location = new System.Drawing.Point(889, 680);
             this.buttonLarge.Name = "buttonLarge";
             this.buttonLarge.Size = new System.Drawing.Size(51, 23);
             this.buttonLarge.TabIndex = 41;
@@ -692,13 +687,31 @@ namespace Engine
             // 
             // buttonSmall
             // 
-            this.buttonSmall.Location = new System.Drawing.Point(926, 706);
+            this.buttonSmall.Location = new System.Drawing.Point(889, 706);
             this.buttonSmall.Name = "buttonSmall";
             this.buttonSmall.Size = new System.Drawing.Size(51, 23);
             this.buttonSmall.TabIndex = 43;
             this.buttonSmall.Text = "Go";
             this.buttonSmall.UseVisualStyleBackColor = true;
             this.buttonSmall.Click += new System.EventHandler(this.buttonSmall_Click);
+            // 
+            // statusOrbit
+            // 
+            this.statusOrbit.AutoSize = true;
+            this.statusOrbit.BackColor = System.Drawing.SystemColors.Control;
+            this.statusOrbit.Location = new System.Drawing.Point(755, 768);
+            this.statusOrbit.Name = "statusOrbit";
+            this.statusOrbit.Size = new System.Drawing.Size(59, 13);
+            this.statusOrbit.TabIndex = 45;
+            this.statusOrbit.Text = "Orbit Mode";
+            // 
+            // labelStatus
+            // 
+            this.labelStatus.BackColor = System.Drawing.SystemColors.Control;
+            this.labelStatus.Location = new System.Drawing.Point(755, 736);
+            this.labelStatus.Name = "labelStatus";
+            this.labelStatus.Size = new System.Drawing.Size(241, 23);
+            this.labelStatus.TabIndex = 46;
             // 
             // modelViewerControl
             // 
@@ -726,21 +739,13 @@ namespace Engine
             this.modelViewerControl.Text = "modelViewerControl";
             this.modelViewerControl.ViewUp = 1;
             // 
-            // statusOrbit
-            // 
-            this.statusOrbit.AutoSize = true;
-            this.statusOrbit.Location = new System.Drawing.Point(792, 758);
-            this.statusOrbit.Name = "statusOrbit";
-            this.statusOrbit.Size = new System.Drawing.Size(59, 13);
-            this.statusOrbit.TabIndex = 45;
-            this.statusOrbit.Text = "Orbit Mode";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(1008, 793);
+            this.Controls.Add(this.labelStatus);
             this.Controls.Add(this.statusOrbit);
             this.Controls.Add(this.buttonSmall);
             this.Controls.Add(this.buttonLarge);
@@ -821,7 +826,6 @@ namespace Engine
         private System.Windows.Forms.NumericUpDown numericSmall;
         private System.Windows.Forms.Label labelLarge;
         private System.Windows.Forms.Label labelSmall;
-        private System.Windows.Forms.ToolStripMenuItem optimiseBoundsItem;
         private System.Windows.Forms.Button buttonLarge;
         private System.Windows.Forms.Button buttonSmall;
         private System.Windows.Forms.ToolStripMenuItem showAxesMenuItem;
@@ -842,6 +846,7 @@ namespace Engine
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
         private System.Windows.Forms.ToolStripMenuItem featuresToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem weaponSizesMenuItem;
+        private System.Windows.Forms.Label labelStatus;
 
     }
 }
