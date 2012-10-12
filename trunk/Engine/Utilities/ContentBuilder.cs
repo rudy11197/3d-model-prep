@@ -1,11 +1,59 @@
 #region File Description
 //-----------------------------------------------------------------------------
-// Author: JCBDigger
-// URL: http://Games.DiscoverThat.co.uk
+// Author: JCBDigger    @MistyManor
+// URL: http://www.MistyManor.co.uk
 // Modified from the samples provided by
 // Microsoft XNA Community Game Platform
 //-----------------------------------------------------------------------------
 #endregion
+
+/////////////////////////////////////////////////////////////////////////////
+//
+#region Processor Parameters
+//
+// == How to add parameters to the ModelProcessor in ContentBuilder:
+//
+// Pass parameters to the processor
+// http://xboxforums.create.msdn.com/forums/p/64081/392300.aspx#392300
+/*
+   if (processor == "ModelProcessor")   
+   {   
+        projectItem.SetMetadata("ProcessorParameters_TextureFormat", "Color");   
+   }  
+*/
+// The names of the Processor Parameters can be found in the *.contentproj file
+// The file has to have been built and the setting changed from the default.
+// Default settings do not show up in the file.
+// Use a text editor to view the *.contentproj file
+//
+/* EXAMPLE
+  <ItemGroup>
+    <Compile Include="Characters\Dude.fbx">
+      <Name>Dude</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimatedModelProcessor</Processor>
+      <ProcessorParameters_DegreesX>90</ProcessorParameters_DegreesX>
+      <ProcessorParameters_DegreesY>0</ProcessorParameters_DegreesY>
+      <ProcessorParameters_DegreesZ>180</ProcessorParameters_DegreesZ>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Characters\Dude.fbx">
+      <Name>Dude</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <ProcessorParameters_RotationX>90</ProcessorParameters_RotationX>
+      <ProcessorParameters_RotationZ>180</ProcessorParameters_RotationZ>
+      <ProcessorParameters_RotationY>90</ProcessorParameters_RotationY>
+      <ProcessorParameters_Scale>2</ProcessorParameters_Scale>
+    </Compile>
+  </ItemGroup>
+ * */
+//
+#endregion
+//
+/////////////////////////////////////////////////////////////////////////////
+
 
 #region Using Statements
 using System;
@@ -30,8 +78,9 @@ namespace Engine
     /// </summary>
     class ContentBuilder : IDisposable
     {
+        /////////////////////////////////////////////////////////////////////
+        //
         #region Fields
-
 
         // What importers or processors should we load?
         const string xnaVersion = ", Version=4.0.0.0, PublicKeyToken=842cf8be1de50553";
@@ -155,9 +204,116 @@ namespace Engine
 
 
         #endregion
+        //
+        /////////////////////////////////////////////////////////////////////
 
+
+        /////////////////////////////////////////////////////////////////////
+        //
+        #region Temp Directories
+
+        /// <summary>
+        /// Creates a temporary directory in which to build content.
+        /// </summary>
+        void CreateTempDirectory()
+        {
+            // Start with a standard base name:
+            //
+            //  %temp%\WinFormsContentLoading.ContentBuilder
+
+            baseDirectory = Path.Combine(Path.GetTempPath(), GetType().FullName);
+
+            // Include our process ID, in case there is more than
+            // one copy of the program running at the same time:
+            //
+            //  %temp%\WinFormsContentLoading.ContentBuilder\<ProcessId>
+
+            int processId = Process.GetCurrentProcess().Id;
+
+            processDirectory = Path.Combine(baseDirectory, processId.ToString());
+
+            // Include a salt value, in case the program
+            // creates more than one ContentBuilder instance:
+            //
+            //  %temp%\WinFormsContentLoading.ContentBuilder\<ProcessId>\<Salt>
+
+            directorySalt++;
+
+            buildDirectory = Path.Combine(processDirectory, directorySalt.ToString());
+
+            // Create our temporary directory.
+            Directory.CreateDirectory(buildDirectory);
+
+            PurgeStaleTempDirectories();
+        }
+
+
+        /// <summary>
+        /// Deletes our temporary directory when we are finished with it.
+        /// </summary>
+        void DeleteTempDirectory()
+        {
+            Directory.Delete(buildDirectory, true);
+
+            // If there are no other instances of ContentBuilder still using their
+            // own temp directories, we can delete the process directory as well.
+            if (Directory.GetDirectories(processDirectory).Length == 0)
+            {
+                Directory.Delete(processDirectory);
+
+                // If there are no other copies of the program still using their
+                // own temp directories, we can delete the base directory as well.
+                if (Directory.GetDirectories(baseDirectory).Length == 0)
+                {
+                    Directory.Delete(baseDirectory);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Ideally, we want to delete our temp directory when we are finished using
+        /// it. The DeleteTempDirectory method (called by whichever happens first out
+        /// of Dispose or our finalizer) does exactly that. Trouble is, sometimes
+        /// these cleanup methods may never execute. For instance if the program
+        /// crashes, or is halted using the debugger, we never get a chance to do
+        /// our deleting. The next time we start up, this method checks for any temp
+        /// directories that were left over by previous runs which failed to shut
+        /// down cleanly. This makes sure these orphaned directories will not just
+        /// be left lying around forever.
+        /// </summary>
+        void PurgeStaleTempDirectories()
+        {
+            // Check all subdirectories of our base location.
+            foreach (string directory in Directory.GetDirectories(baseDirectory))
+            {
+                // The subdirectory name is the ID of the process which created it.
+                int processId;
+
+                if (int.TryParse(Path.GetFileName(directory), out processId))
+                {
+                    try
+                    {
+                        // Is the creator process still running?
+                        Process.GetProcessById(processId);
+                    }
+                    catch (ArgumentException)
+                    {
+                        // If the process is gone, we can delete its temp directory.
+                        Directory.Delete(directory, true);
+                    }
+                }
+            }
+        }
+
+
+        #endregion
+        //
+        /////////////////////////////////////////////////////////////////////
+
+
+        /////////////////////////////////////////////////////////////////////
+        //
         #region MSBuild
-
 
         /// <summary>
         /// Creates a temporary MSBuild content project in memory.
@@ -212,46 +368,6 @@ namespace Engine
             Add(filename, name, importer, processor, "", "", "", "", "", "", "", "");
         }
 
-        /*
-        Re: How do I add parameters to the ModelProcessor in ContentBuilder? Reply Quote  
-        // Pass parameters to the processor
-        // http://forums.create.msdn.com/forums/p/64081/392300.aspx#392300
-
-        if (processor == "ModelProcessor")   
-        {   
-             projectItem.SetMetadata("ProcessorParameters_TextureFormat", "Color");   
-        }  
-         */
-
-        // The names of the Processor Parameters can be found in the *.contentproj file
-        // The file has to have been built and the setting changed from the default.
-        // Default settings do not show up in the file.
-        // Use a text editor to view the *.contentproj file
-
-        /* EXAMPLE
-          <ItemGroup>
-            <Compile Include="Characters\Dude.fbx">
-              <Name>Dude</Name>
-              <Importer>FbxImporter</Importer>
-              <Processor>AnimatedModelProcessor</Processor>
-              <ProcessorParameters_DegreesX>90</ProcessorParameters_DegreesX>
-              <ProcessorParameters_DegreesY>0</ProcessorParameters_DegreesY>
-              <ProcessorParameters_DegreesZ>180</ProcessorParameters_DegreesZ>
-            </Compile>
-          </ItemGroup>
-          <ItemGroup>
-            <Compile Include="Characters\Dude.fbx">
-              <Name>Dude</Name>
-              <Importer>FbxImporter</Importer>
-              <Processor>ModelProcessor</Processor>
-              <ProcessorParameters_RotationX>90</ProcessorParameters_RotationX>
-              <ProcessorParameters_RotationZ>180</ProcessorParameters_RotationZ>
-              <ProcessorParameters_RotationY>90</ProcessorParameters_RotationY>
-              <ProcessorParameters_Scale>2</ProcessorParameters_Scale>
-            </Compile>
-          </ItemGroup>
-         * */
-
         /// <summary>
         /// Add a new content file and set some processor parameters
         /// Syntax: ProcessorParameters_ParamName
@@ -284,57 +400,6 @@ namespace Engine
                 item.SetMetadataValue(param4, val4);
 
             projectItems.Add(item);
-        }
-
-        /// <summary>
-        /// Add a model using the AnimatedModelProcessor with rotation
-        /// </summary>
-        public void AddAnimated(string filename, string name,
-            string rotateDegX, string rotateDegY, string rotateDegZ)
-        {
-            Add(filename, name, null, "AnimatedModelProcessor",
-                //"ProcessorParameters_RotationX", rotateDegX,
-                //"ProcessorParameters_RotationY", rotateDegY,
-                //"ProcessorParameters_RotationZ", rotateDegZ);
-                "ProcessorParameters_DegreesX", rotateDegX,
-                "ProcessorParameters_DegreesY", rotateDegY,
-                "ProcessorParameters_DegreesZ", rotateDegZ,
-                null, null);
-        }
-
-        /// <summary>
-        /// Add a model using the AnimatedModelProcessor with rotation
-        /// </summary>
-        public void AddWithMergedAnimations(string filename, string name,
-            string rotateDegX, string rotateDegY, string rotateDegZ, List<string> AnimationFiles)
-        {
-            string mergeFile = "";
-            if (AnimationFiles != null && AnimationFiles.Count > 0)
-            {
-                mergeFile = AnimationFiles[0];
-                for (int i = 1; i < AnimationFiles.Count; i++)
-                {
-                    mergeFile += ";" + AnimationFiles[i];
-                }
-            }
-            Add(filename, name, null, "MergeAnimationsProcessor",
-                "ProcessorParameters_MergeAnimations", mergeFile,
-                "ProcessorParameters_DegreesX", rotateDegX,
-                "ProcessorParameters_DegreesY", rotateDegY,
-                "ProcessorParameters_DegreesZ", rotateDegZ);
-        }
-
-        /// <summary>
-        /// Add a model using the ModelProcessor with rotation
-        /// </summary>
-        public void AddModel(string filename, string name,
-            string rotateDegX, string rotateDegY, string rotateDegZ)
-        {
-            Add(filename, name, null, "ModelProcessor",
-                "ProcessorParameters_RotationX", rotateDegX,
-                "ProcessorParameters_RotationY", rotateDegY,
-                "ProcessorParameters_RotationZ", rotateDegZ,
-                null, null);
         }
 
         /// <summary>
@@ -410,105 +475,68 @@ namespace Engine
         }
 
         #endregion
+        //
+        /////////////////////////////////////////////////////////////////////
 
-        #region Temp Directories
 
-
+        /////////////////////////////////////////////////////////////////////
+        //
+        #region Model Loading Helpers
+        //
         /// <summary>
-        /// Creates a temporary directory in which to build content.
+        /// Add a model using the AnimatedModelProcessor with rotation
         /// </summary>
-        void CreateTempDirectory()
+        public void AddAnimated(string filename, string name,
+            string rotateDegX, string rotateDegY, string rotateDegZ)
         {
-            // Start with a standard base name:
-            //
-            //  %temp%\WinFormsContentLoading.ContentBuilder
-
-            baseDirectory = Path.Combine(Path.GetTempPath(), GetType().FullName);
-
-            // Include our process ID, in case there is more than
-            // one copy of the program running at the same time:
-            //
-            //  %temp%\WinFormsContentLoading.ContentBuilder\<ProcessId>
-
-            int processId = Process.GetCurrentProcess().Id;
-
-            processDirectory = Path.Combine(baseDirectory, processId.ToString());
-
-            // Include a salt value, in case the program
-            // creates more than one ContentBuilder instance:
-            //
-            //  %temp%\WinFormsContentLoading.ContentBuilder\<ProcessId>\<Salt>
-
-            directorySalt++;
-
-            buildDirectory = Path.Combine(processDirectory, directorySalt.ToString());
-
-            // Create our temporary directory.
-            Directory.CreateDirectory(buildDirectory);
-
-            PurgeStaleTempDirectories();
+            Add(filename, name, null, "AnimatedModelProcessor",
+                //"ProcessorParameters_RotationX", rotateDegX,
+                //"ProcessorParameters_RotationY", rotateDegY,
+                //"ProcessorParameters_RotationZ", rotateDegZ);
+                "ProcessorParameters_DegreesX", rotateDegX,
+                "ProcessorParameters_DegreesY", rotateDegY,
+                "ProcessorParameters_DegreesZ", rotateDegZ,
+                null, null);
         }
 
-
         /// <summary>
-        /// Deletes our temporary directory when we are finished with it.
+        /// Add a model using the AnimatedModelProcessor with rotation
         /// </summary>
-        void DeleteTempDirectory()
+        public void AddWithMergedAnimations(string filename, string name,
+            string rotateDegX, string rotateDegY, string rotateDegZ, List<string> AnimationFiles)
         {
-            Directory.Delete(buildDirectory, true);
-
-            // If there are no other instances of ContentBuilder still using their
-            // own temp directories, we can delete the process directory as well.
-            if (Directory.GetDirectories(processDirectory).Length == 0)
+            string mergeFile = "";
+            if (AnimationFiles != null && AnimationFiles.Count > 0)
             {
-                Directory.Delete(processDirectory);
-
-                // If there are no other copies of the program still using their
-                // own temp directories, we can delete the base directory as well.
-                if (Directory.GetDirectories(baseDirectory).Length == 0)
+                mergeFile = AnimationFiles[0];
+                for (int i = 1; i < AnimationFiles.Count; i++)
                 {
-                    Directory.Delete(baseDirectory);
+                    mergeFile += ";" + AnimationFiles[i];
                 }
             }
+            Add(filename, name, null, "MergeAnimationsProcessor",
+                "ProcessorParameters_MergeAnimations", mergeFile,
+                "ProcessorParameters_DegreesX", rotateDegX,
+                "ProcessorParameters_DegreesY", rotateDegY,
+                "ProcessorParameters_DegreesZ", rotateDegZ);
         }
-
 
         /// <summary>
-        /// Ideally, we want to delete our temp directory when we are finished using
-        /// it. The DeleteTempDirectory method (called by whichever happens first out
-        /// of Dispose or our finalizer) does exactly that. Trouble is, sometimes
-        /// these cleanup methods may never execute. For instance if the program
-        /// crashes, or is halted using the debugger, we never get a chance to do
-        /// our deleting. The next time we start up, this method checks for any temp
-        /// directories that were left over by previous runs which failed to shut
-        /// down cleanly. This makes sure these orphaned directories will not just
-        /// be left lying around forever.
+        /// Add a model using the ModelProcessor with rotation
         /// </summary>
-        void PurgeStaleTempDirectories()
+        public void AddModel(string filename, string name,
+            string rotateDegX, string rotateDegY, string rotateDegZ)
         {
-            // Check all subdirectories of our base location.
-            foreach (string directory in Directory.GetDirectories(baseDirectory))
-            {
-                // The subdirectory name is the ID of the process which created it.
-                int processId;
-
-                if (int.TryParse(Path.GetFileName(directory), out processId))
-                {
-                    try
-                    {
-                        // Is the creator process still running?
-                        Process.GetProcessById(processId);
-                    }
-                    catch (ArgumentException)
-                    {
-                        // If the process is gone, we can delete its temp directory.
-                        Directory.Delete(directory, true);
-                    }
-                }
-            }
+            Add(filename, name, null, "ModelProcessor",
+                "ProcessorParameters_RotationX", rotateDegX,
+                "ProcessorParameters_RotationY", rotateDegY,
+                "ProcessorParameters_RotationZ", rotateDegZ,
+                null, null);
         }
 
-        
         #endregion
+        //
+        /////////////////////////////////////////////////////////////////////
+
     }
 }
