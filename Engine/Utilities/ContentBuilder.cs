@@ -56,6 +56,16 @@
 
 
 #region Using Statements
+// To use MSBuild the Target Framework in the properties of the project must 
+// be '.NET Framework 4'.
+// If the project is targetted to '.NET Framework 4 Client Profile' then set
+// it to the above.  The 'Client Profile' is a cut down version intended for 
+// quicker installation and is obsolete from .NET 4.5 onwards.
+// Add the following references:
+//      Microsoft.Build
+//          C:\Program Files\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\Microsoft.Build.dll
+//      Microsoft.Build.Framework
+//          C:\Program Files\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\Microsoft.Build.Framework.dll
 using System;
 using System.IO;
 using System.Diagnostics;

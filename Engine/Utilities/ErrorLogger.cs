@@ -1,13 +1,14 @@
 #region File Description
 //-----------------------------------------------------------------------------
-// Author: JCBDigger
-// URL: http://Games.DiscoverThat.co.uk
+// Author: JCBDigger    @MistyManor
+// URL: http://www.MistyManor.co.uk
 // Modified from the samples provided by
 // Microsoft XNA Community Game Platform
 //-----------------------------------------------------------------------------
 #endregion
 
 #region Using Statements
+// See the ContentBuilder for the required references.
 using System.Collections.Generic;
 using Microsoft.Build.Framework;
 #endregion
@@ -15,6 +16,7 @@ using Microsoft.Build.Framework;
 namespace Engine
 {
     /// <summary>
+    /// For use with the ContentBuilder.
     /// Custom implementation of the MSBuild ILogger interface records
     /// content build errors so we can later display them to the user.
     /// </summary>
@@ -91,8 +93,10 @@ namespace Engine
 
         List<string> warnings = new List<string>();
 
-        #region ILogger Members
 
+        /////////////////////////////////////////////////////////////////////
+        //
+        #region ILogger Members
         
         /// <summary>
         /// Implement the ILogger.Parameters property.
@@ -119,5 +123,8 @@ namespace Engine
 
 
         #endregion
+        //
+        /////////////////////////////////////////////////////////////////////
+
     }
 }
