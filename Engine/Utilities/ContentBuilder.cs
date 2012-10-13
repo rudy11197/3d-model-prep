@@ -95,6 +95,10 @@ namespace Engine
         // What importers or processors should we load?
         const string xnaVersion = ", Version=4.0.0.0, PublicKeyToken=842cf8be1de50553";
 
+        /// <summary>
+        /// Distributed importers and processors available to this class.
+        /// Others distributed importers and processors can be added here.
+        /// </summary>
         static string[] pipelineAssemblies =
         {
             "Microsoft.Xna.Framework.Content.Pipeline.FBXImporter" + xnaVersion,
@@ -102,8 +106,14 @@ namespace Engine
             "Microsoft.Xna.Framework.Content.Pipeline.TextureImporter" + xnaVersion,
             "Microsoft.Xna.Framework.Content.Pipeline.EffectImporter" + xnaVersion,
 
+            // Add other importers and processors from installed DLLs here.
+
             // If you want to use custom importers or processors from
-            // a Content Pipeline Extension Library, add them here.
+            // a Content Pipeline Extension Library they can be added here but
+            // It is usually easier to add the entire DLL in to the 
+            // CustomAssemblyPaths list instead.
+
+            // This is the harder way but...
             //
             // If your extension DLL is installed in the GAC, you should refer to it by assembly
             // name, eg. "MyPipelineExtension, Version=1.0.0.0, PublicKeyToken=1234567812345678".
@@ -121,6 +131,12 @@ namespace Engine
 
         };
 
+        /// <summary>
+        /// This is a list of DLL's containing pipeline extensions.
+        /// Each string must contain the full path to the pipeline extension project DLL.
+        /// The constructor includes some handy path calculations to make it easier to
+        /// add the custom DLL's that are built with the current solution project.
+        /// </summary>
         public List<string> CustomAssemblyPaths = new List<string>();  
 
 
@@ -159,8 +175,12 @@ namespace Engine
         /// </summary>
         public ContentBuilder()
         {
+            // == Path calculations to help add custom pipeline projects.
+            //
             // Calculate the path relative to the current build to get the library project location
-            // Pipeline projects are only built as debug
+            // Pipeline projects are only built as debug.
+            // Make sure the pipeline project in the folder specified is the one being built by the 
+            // solution.
             string binaryFolder = "bin/x86/Debug";
             //string binaryFolder = "bin/x86/Release";
 
@@ -170,8 +190,11 @@ namespace Engine
             string relativeBasePath = Path.Combine(assemblyLocation, relativeFolders);
             string defaultBaseFolder = Path.GetFullPath(relativeBasePath);
 
-            string library = Path.Combine(defaultBaseFolder, "AssetPipeline", binaryFolder, "AssetPipeline.dll");
-            CustomAssemblyPaths.Add(library);
+            // Add any pipeline extensions here just by specifying the project folder namd and
+            // the resulting DLL file name.
+            CustomAssemblyPaths.Add(Path.Combine(defaultBaseFolder, "AssetPipeline", binaryFolder, "AssetPipeline.dll"));
+            // The above will result in something similar to the following but allows for the project to
+            // be moved and built from a different path.
             //CustomAssemblyPaths.Add("D:/storage/TakeExtractor/take-extractor/AssetPipeline/bin/x86/Debug/AssetPipeline.dll");  
 
             CreateTempDirectory();
