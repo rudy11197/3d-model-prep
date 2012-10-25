@@ -138,6 +138,9 @@ using System.Windows.Forms;
 // TODO:
 //-----------------------------------------------------------------------------
 
+// - Save the structures without any bounds
+
+// Do not do this yet I have another plan
 // - For large models disable the unnecessary parts of the bounds optimisation
 // - Split large models in to smaller areas
 // - Create one large grid
