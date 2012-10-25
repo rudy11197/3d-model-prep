@@ -138,6 +138,20 @@ using System.Windows.Forms;
 // TODO:
 //-----------------------------------------------------------------------------
 
+// - For large models disable the unnecessary parts of the bounds optimisation
+// - Split large models in to smaller areas
+// - Create one large grid
+// - Expose the triangles with an array of the start and end
+//      triangles indices of each mesh.
+// - Process each mesh separately
+// - Work out the extent of the bounds grid that the mesh covers
+// - Only test that area of the grid of bounds
+// - Show more feedback
+//      Triangles every 10
+//      Mesh number being processed
+//      That it is finalising the bound grid
+
+
 // done - Show some feedback while creating the bounds
 // done - Automatically optimise the bounds in the same process as creating them.
 // done - Default the bounds to 0.9m diameter.
