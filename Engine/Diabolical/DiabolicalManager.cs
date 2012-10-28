@@ -495,7 +495,7 @@ namespace Engine
 
         public bool HasBoundsToOptimise
         {
-            get { return IsStructure; }
+            get { return (IsStructure && form.IsSaveStructureBounds()) ; }
         }
 
         // Set when any change is made
