@@ -22,6 +22,9 @@ namespace Engine
     /// </summary>
     public class DiabolicalManager
     {
+        /// <summary>
+        /// The parent form.
+        /// </summary>
         private MainForm form;
         private Shapes debugShapes;
         private string lastLoadedSettingsFile = "";
@@ -993,13 +996,15 @@ namespace Engine
             return result;
         }
 
-        // Save file format (.model)
+        /// <summary>
+        /// Save file format (.model)
+        /// </summary>
         private void SaveModelSettingsFile(string fileName)
         {
             switch (modelAsset.ModelType)
             {
                 case GlobalSettings.modelTypeStructure:
-                    form.SaveTextFile(fileName, GetStructureSaveData());
+                    form.SaveTextFile(fileName, GetStructureSaveData(form.IsSaveStructureBounds()));
                     haveChanged = false;
                     break;
                 case GlobalSettings.modelTypeGearHead:
@@ -1073,12 +1078,19 @@ namespace Engine
             return data;
         }
 
-        private List<string> GetStructureSaveData()
+        /// <summary>
+        /// Bounds are no longer used on structures within Diabolical.
+        /// </summary>
+        private List<string> GetStructureSaveData(bool withBounds)
         {
             List<string> data = new List<string>();
             // == Common parameters
             data.AddRange(GetCommonSaveData());
             // == Type specific options
+            if (!withBounds)
+            {
+                return data;
+            }
             string output = "";
             // - Larger bounds
             foreach (StructureSphere ssBound in modelAsset.largerBounds)

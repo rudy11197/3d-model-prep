@@ -1,12 +1,13 @@
 #region File Description
-// Author: JCBDigger
-// URL: http://Games.DiscoverThat.co.uk
+// Author: JCBDigger    @MistyManor
 // URL: http://www.MistyManor.co.uk
-//-----------------------------------------------------------------------------
-// Based on the WinFormsContentLoading sample by Microsoft
+// URL: http://Games.DiscoverThat.co.uk
 //-----------------------------------------------------------------------------
 // Extract takes from 3D model files and save them in to separate files.
-// Prepare the model file for use in my game including editing the bounding shapes
+// Prepare the model file for use in my game including editing the bounding shapes.
+// Rotate models as they load and save the rotation in the model file for use
+// by the content pipeline in Diabolical: The Shooter.
+//  http://blog.diabolicalgame.co.uk/
 //-----------------------------------------------------------------------------
 // Originally designed because the Autodesk FBX importer included with XNA 4.0 
 // only supports one animation (take) per file.
@@ -138,44 +139,25 @@ using System.Windows.Forms;
 // TODO:
 //-----------------------------------------------------------------------------
 
-// - Save the structures without any bounds
+// done - Save the structures without any bounds
 
-// Do not do this yet I have another plan
-// - For large models disable the unnecessary parts of the bounds optimisation
-// - Split large models in to smaller areas
-// - Create one large grid
-// - Expose the triangles with an array of the start and end
-//      triangles indices of each mesh.
-// - Process each mesh separately
-// - Work out the extent of the bounds grid that the mesh covers
-// - Only test that area of the grid of bounds
-// - Show more feedback
-//      Triangles every 10
-//      Mesh number being processed
-//      That it is finalising the bound grid
-
-
-// done - Show some feedback while creating the bounds
-// done - Automatically optimise the bounds in the same process as creating them.
-// done - Default the bounds to 0.9m diameter.
-
+// Better Movement Controls
 // - Preset view
 //      Level with origin horizontal facing in all 6 3D directions.
 //      Use the keypad to select.
-
 // - Mouse movement by holding the shift to move and middle mouse to rotate.
 //      Similar to Blender.
 
 //-----------------------------------------------------------------------------
 // TODO (Extras):
 //-----------------------------------------------------------------------------
-// - Form Oriented boxes from triangles
-//      Get the normals of 3 triangles as the axes.
-//      Use the extents of the other triangles to get the sizes.
-//      Or use the eaadges as the axes because then we know which extents relate
+// Form Oriented boxes from triangles
+// - Get the normals of 3 triangles as the axes.
+// - Use the extents of the other triangles to get the sizes.
+//      Or use the edges as the axes because then we know which extents relate
 //      to which axis.
 
-// - Extract individual takes from a model that has one very long take.
+// Extract individual takes from a model that has one very long take.
 //      Like the Mech robots have.
 //      Add a new type
 //      Type = List
@@ -184,8 +166,8 @@ using System.Windows.Forms;
 // e.g.
 //  List|1250|2300|Walk
 
-// - Add a UI for adding animations to the merge animations processor
-//     Merge animations:
+// Add a UI for adding animations to the merge animations processor
+// - Merge animations:
 //      http://blogs.msdn.com/b/shawnhar/archive/2010/06/18/merging-animation-files.aspx
 
 // - Merging animations is not used so has not been tested

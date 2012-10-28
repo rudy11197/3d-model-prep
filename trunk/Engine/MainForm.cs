@@ -77,7 +77,8 @@ namespace Engine
 
         
         /////////////////////////////////////////////////////////////////////
-        // == Changes ==
+        //
+        #region Changes
         //
         public void Orbit(bool change, float turnSpeed, bool centreAttached)
         {
@@ -193,24 +194,13 @@ namespace Engine
             }
         }
         //
+        #endregion
+        //
         /////////////////////////////////////////////////////////////////////
 
-        /// <summary>
-        /// See also DefaultFileFolder
-        /// </summary>
-        public static string GetSavePath()
-        {
-            string result = Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-                GlobalSettings.pathSaveGameFolder, GlobalSettings.pathSaveDataFolder);
-            if (!Directory.Exists(result))
-            {
-                Directory.CreateDirectory(result);
-            }
-            return result;
-        }
-
         //////////////////////////////////////////////////////////////////////
-        // == Setup ==
+        //
+        #region Setup
         //
         protected override void OnLoad(EventArgs e)
         {
@@ -259,10 +249,13 @@ namespace Engine
             modelViewerControl.Focus();
         }
         //
+        #endregion
+        //
         //////////////////////////////////////////////////////////////////////
 
         //////////////////////////////////////////////////////////////////////
-        // == File ==
+        //
+        #region File Menu
         //
         private void OpenRigidModelMenu_Click(object sender, EventArgs e)
         {
@@ -518,11 +511,13 @@ namespace Engine
         {
             Close();
         }
+        #endregion
         //
         //////////////////////////////////////////////////////////////////////
 
         //////////////////////////////////////////////////////////////////////
-        // == View and Help ==
+        //
+        #region View and Help
         //
         private void yUp_Click(object sender, EventArgs e)
         {
@@ -618,10 +613,13 @@ namespace Engine
             PauseGameInput(false);
         }
         //
+        #endregion
+        //
         //////////////////////////////////////////////////////////////////////
 
         //////////////////////////////////////////////////////////////////////
-        // == Menu Visibility ==
+        //
+        #region Menu Visibility
         //
         public void UpdateMenuItemVisibility()
         {
@@ -797,10 +795,13 @@ namespace Engine
             }
         }
         //
+        #endregion
+        //
         //////////////////////////////////////////////////////////////////////
 
         //////////////////////////////////////////////////////////////////////
-        // == Status Messages ==
+        //
+        #region Status Messages
         //
         public void ClearMessages()
         {
@@ -827,10 +828,13 @@ namespace Engine
             labelStatus.Text = "";
         }
         //
+        #endregion
+        //
         //////////////////////////////////////////////////////////////////////
 
         //////////////////////////////////////////////////////////////////////
-        // == Load and Save ==
+        //
+        #region Load and Save
         //
         public Model CurrentModel
         {
@@ -1419,10 +1423,13 @@ namespace Engine
             return results;
         }
         //
+        #endregion
+        //
         //////////////////////////////////////////////////////////////////////
 
         //////////////////////////////////////////////////////////////////////
-        // == Rotations At Load Time ==
+        //
+        #region Rotation At Load Time
         //
         public void SetRotation(Vector3 rotateDegrees)
         {
@@ -1485,10 +1492,13 @@ namespace Engine
             modelViewerControl.InitialiseCameraPosition();
         }
         //
+        #endregion
+        //
         //////////////////////////////////////////////////////////////////////
 
         //////////////////////////////////////////////////////////////////////
-        // == Tools Menu ==
+        //
+        #region Tools Menu
         //
         private void mergeToClipsMenuItem_Click(object sender, EventArgs e)
         {
@@ -1568,8 +1578,14 @@ namespace Engine
             return false;
         }
         //
+        #endregion
+        //
         //////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////
+        //
+        #region Main Menu
+        //
         private void ClipNamesComboBox_Changed(object sender, EventArgs e)
         {
             string nextClipName = ClipNamesComboBox.Text;
@@ -1644,9 +1660,14 @@ namespace Engine
                     GlobalSettings.pathContentFolder);
         }
          * */
+        //
+        #endregion
+        //
+        //////////////////////////////////////////////////////////////////////
 
         //////////////////////////////////////////////////////////////////////
-        // == Diabolical Menu Actions ==
+        //
+        #region Diabolical Menu Actions
         //
         private void loadDiabolicalmodelMenuItem_Click(object sender, EventArgs e)
         {
@@ -1758,11 +1779,19 @@ namespace Engine
             PauseGameInput(false);
         }
         //
+        #endregion
+        //
         //////////////////////////////////////////////////////////////////////
 
         //////////////////////////////////////////////////////////////////////
-        // == Bounds ==
         //
+        #region Bounds
+        //
+        public bool IsSaveStructureBounds()
+        {
+            return saveStructureBoundsMenu.Checked;
+        }
+
         private void noBoundsItem_Click(object sender, EventArgs e)
         {
             HideAllOutlines();
@@ -1882,12 +1911,27 @@ namespace Engine
             }
         }
         //
-        //////////////////////////////////////////////////////////////////////
-
-
-        //////////////////////////////////////////////////////////////////////
-        // == File Utilities ==
+        #endregion
         //
+        //////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        //
+        #region File Utilities
+        //
+        /// <summary>
+        /// See also DefaultFileFolder
+        /// </summary>
+        public static string GetSavePath()
+        {
+            string result = Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                GlobalSettings.pathSaveGameFolder, GlobalSettings.pathSaveDataFolder);
+            if (!Directory.Exists(result))
+            {
+                Directory.CreateDirectory(result);
+            }
+            return result;
+        }
         /// <summary>
         /// Creates a relative path from one file
         /// or folder to another.
@@ -1990,10 +2034,13 @@ namespace Engine
             return newPath;
         }
         //
+        #endregion
+        //
         //////////////////////////////////////////////////////////////////////
 
         //////////////////////////////////////////////////////////////////////
-        // == Colours and Lighting==
+        //
+        #region Lighting and Colours
         //
         public void SetMaterialColours(float specularPower, Vector3 specularColour, Vector3 diffuseColour, Vector3 emissiveColour)
         {
@@ -2020,6 +2067,8 @@ namespace Engine
             modelViewerControl.ReverseLighting = !modelViewerControl.ReverseLighting;
             reverseLightingToolStripMenuItem.Checked = modelViewerControl.ReverseLighting;
         }
+        //
+        #endregion
         //
         //////////////////////////////////////////////////////////////////////
     }
