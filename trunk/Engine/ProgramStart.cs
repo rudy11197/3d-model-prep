@@ -139,8 +139,6 @@ using System.Windows.Forms;
 // TODO:
 //-----------------------------------------------------------------------------
 
-// done - Save the structures without any bounds
-
 // Better Movement Controls
 // - Preset view
 //      Level with origin horizontal facing in all 6 3D directions.
