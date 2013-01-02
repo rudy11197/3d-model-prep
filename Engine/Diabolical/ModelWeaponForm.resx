@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="labelSights.Text" xml:space="preserve">
+    <value>Zoom multipliers should normally be in the range between 1.00 and 5.00.
+A zoom multiplier of 1.00 is usually used for Iron Sights.  These do not have any zoom but the weapon is steadied.
+
+Crosshairs are pre-defined types.  Enter an integer to correspond with the type to use at each zoom level.
+0 = Hip shot - default type when the weapon is not being aimed
+1 = Human Iron Sight
+2 = Human Scope
+3 = Alien Iron Sight
+4 = Alien Scope
+5 = Artillery</value>
+  </data>
   <data name="label27.Text" xml:space="preserve">
     <value>The alignment is a matrix used to accurately position the weapon in the hand of the character facing in the correct direction.
 

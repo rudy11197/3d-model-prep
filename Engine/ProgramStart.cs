@@ -139,12 +139,13 @@ using System.Windows.Forms;
 // TODO:
 //-----------------------------------------------------------------------------
 
-// Better Movement Controls
+// Better Movement Controls 
+// - Mouse movement by holding the shift to move and middle mouse to rotate.
+//      Similar to Blender.
+//      See the game editor for improved mouse control.
 // - Preset view
 //      Level with origin horizontal facing in all 6 3D directions.
 //      Use the keypad to select.
-// - Mouse movement by holding the shift to move and middle mouse to rotate.
-//      Similar to Blender.
 
 //-----------------------------------------------------------------------------
 // TODO (Extras):
